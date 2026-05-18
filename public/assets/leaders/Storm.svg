@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#4a3a7a"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    <filter id="lightning">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#aa88ff" stroke-width="2" opacity="0.6"/>
+  <!-- Storm clouds background -->
+  <ellipse cx="60" cy="50" rx="30" ry="18" fill="#3a2a6a" opacity="0.7"/>
+  <ellipse cx="100" cy="42" rx="35" ry="20" fill="#4a3a7a" opacity="0.7"/>
+  <ellipse cx="140" cy="50" rx="30" ry="18" fill="#3a2a6a" opacity="0.7"/>
+  <!-- Lightning bolts -->
+  <polyline points="85,60 92,80 78,82 90,110" fill="none" stroke="#ffeeaa" stroke-width="2.5" filter="url(#lightning)" opacity="0.9"/>
+  <polyline points="115,58 108,78 122,80 110,108" fill="none" stroke="#ffeeaa" stroke-width="2.5" filter="url(#lightning)" opacity="0.9"/>
+  <!-- Body -->
+  <ellipse cx="100" cy="118" rx="26" ry="32" fill="#2a1a4a" stroke="#8866cc" stroke-width="1.5"/>
+  <!-- Cape -->
+  <path d="M74,100 Q50,130 55,160 Q100,145 145,160 Q150,130 126,100" fill="#1a0a3a" stroke="#6644aa" stroke-width="1" opacity="0.8"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="76" rx="22" ry="24" fill="#6a4a8a" stroke="#aa88ff" stroke-width="1.5"/>
+  <!-- White hair -->
+  <path d="M78,68 Q90,45 100,50 Q110,45 122,68" fill="#f0f0f0" stroke="#ffffff" stroke-width="0.5" opacity="0.95"/>
+  <!-- Eyes glowing white -->
+  <ellipse cx="92" cy="75" rx="5" ry="4" fill="white" filter="url(#lightning)"/>
+  <ellipse cx="108" cy="75" rx="5" ry="4" fill="white" filter="url(#lightning)"/>
+  <!-- Name -->
+  <text x="100" y="168" text-anchor="middle" font-family="monospace" font-size="14" fill="#aa88ff" font-weight="bold" letter-spacing="2">STORM</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#2a4a6a"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#4488bb" stroke-width="2" opacity="0.6"/>
+  <!-- Mechanical tentacles -->
+  <path d="M100,110 Q60,105 30,130" fill="none" stroke="#888888" stroke-width="6" stroke-linecap="round"/>
+  <path d="M100,110 Q140,105 170,130" fill="none" stroke="#888888" stroke-width="6" stroke-linecap="round"/>
+  <path d="M100,110 Q55,125 40,160" fill="none" stroke="#888888" stroke-width="6" stroke-linecap="round"/>
+  <path d="M100,110 Q145,125 160,160" fill="none" stroke="#888888" stroke-width="6" stroke-linecap="round"/>
+  <!-- Tentacle claws -->
+  <circle cx="30" cy="130" r="5" fill="#666" stroke="#aaa" stroke-width="1"/>
+  <circle cx="170" cy="130" r="5" fill="#666" stroke="#aaa" stroke-width="1"/>
+  <circle cx="40" cy="160" r="5" fill="#666" stroke="#aaa" stroke-width="1"/>
+  <circle cx="160" cy="160" r="5" fill="#666" stroke="#aaa" stroke-width="1"/>
+  <!-- Body/chest harness -->
+  <ellipse cx="100" cy="105" rx="28" ry="22" fill="#334466" stroke="#4488bb" stroke-width="2"/>
+  <circle cx="100" cy="105" r="10" fill="#2266aa" stroke="#44aaff" stroke-width="1.5" filter="url(#glow)"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="70" rx="24" ry="26" fill="#3a5a7a" stroke="#4488bb" stroke-width="1.5"/>
+  <!-- Goggles -->
+  <ellipse cx="90" cy="68" rx="10" ry="8" fill="#1a1a1a" stroke="#44aaff" stroke-width="1.5"/>
+  <ellipse cx="110" cy="68" rx="10" ry="8" fill="#1a1a1a" stroke="#44aaff" stroke-width="1.5"/>
+  <circle cx="90" cy="68" r="4" fill="#2244aa" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="110" cy="68" r="4" fill="#2244aa" opacity="0.8" filter="url(#glow)"/>
+  <!-- Name -->
+  <text x="100" y="185" text-anchor="middle" font-family="monospace" font-size="11" fill="#4488bb" font-weight="bold" letter-spacing="1">DR. OCTOPUS</text>
+</svg>

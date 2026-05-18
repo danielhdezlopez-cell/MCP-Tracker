@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1a3a6a"/>
+      <stop offset="100%" stop-color="#050a15"/>
+    </radialGradient>
+    <filter id="lightning">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#4488cc" stroke-width="2" opacity="0.6"/>
+  <!-- Lightning background -->
+  <polyline points="40,20 55,50 42,52 60,90" fill="none" stroke="#88ccff" stroke-width="1.5" opacity="0.5" filter="url(#lightning)"/>
+  <polyline points="155,25 142,55 158,57 140,95" fill="none" stroke="#88ccff" stroke-width="1.5" opacity="0.5" filter="url(#lightning)"/>
+  <!-- Mjolnir (hammer) -->
+  <rect x="118" y="95" width="38" height="28" rx="3" fill="#666688" stroke="#8899bb" stroke-width="1.5"/>
+  <rect x="131" y="88" width="12" height="40" rx="2" fill="#888899" stroke="#aabbcc" stroke-width="1"/>
+  <!-- Cape/Cloak -->
+  <path d="M72,95 Q40,120 45,158 Q100,140 155,158 Q160,120 128,95" fill="#cc2222" stroke="#aa1111" stroke-width="1" opacity="0.85"/>
+  <!-- Body armor -->
+  <ellipse cx="100" cy="115" rx="30" ry="32" fill="#1a2a4a" stroke="#4466aa" stroke-width="2"/>
+  <!-- Chest disc -->
+  <circle cx="95" cy="110" r="8" fill="#2244aa" stroke="#4488ff" stroke-width="1.5"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="72" rx="22" ry="25" fill="#c8a878" stroke="#ddc090" stroke-width="1"/>
+  <!-- Winged helmet -->
+  <ellipse cx="100" cy="58" rx="24" ry="15" fill="#888899" stroke="#aabbcc" stroke-width="1.5"/>
+  <path d="M76,56 Q65,45 70,60" fill="#aabbcc" stroke="#ccddee" stroke-width="1"/>
+  <path d="M124,56 Q135,45 130,60" fill="#aabbcc" stroke="#ccddee" stroke-width="1"/>
+  <!-- Blonde hair/beard -->
+  <path d="M82,68 Q100,80 118,68" fill="#d4aa44" stroke="#c8a040" stroke-width="0.5"/>
+  <!-- Eyes -->
+  <ellipse cx="92" cy="68" rx="5" ry="4" fill="#2244cc"/>
+  <ellipse cx="108" cy="68" rx="5" ry="4" fill="#2244cc"/>
+  <!-- Name -->
+  <text x="100" y="175" text-anchor="middle" font-family="monospace" font-size="15" fill="#4488cc" font-weight="bold" letter-spacing="3">THOR</text>
+</svg>
