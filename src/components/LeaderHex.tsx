@@ -1,4 +1,5 @@
 import { useMcpStore } from '../store/useMcpStore';
+import { assetUrl } from '../utils/assetUrl';
 import './LeaderHex.css';
 
 interface LeaderHexProps {
@@ -22,7 +23,7 @@ export function LeaderHex({ side }: LeaderHexProps) {
         <div className="leader-hex__inner">
           {leader?.image ? (
             <img
-              src={leader.image}
+              src={assetUrl(leader.image)}
               alt={leader.name}
               className="leader-hex__img"
               draggable={false}

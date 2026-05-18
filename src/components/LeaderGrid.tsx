@@ -1,4 +1,5 @@
 import { type Leader } from '../data/leadersData';
+import { assetUrl } from '../utils/assetUrl';
 import './LeaderGrid.css';
 
 interface LeaderGridProps {
@@ -24,7 +25,7 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
           >
             <div className="leader-card__img-wrap">
               {leader.image ? (
-                <img src={leader.image} alt={leader.name} className="leader-card__img" draggable={false} />
+                <img src={assetUrl(leader.image)} alt={leader.name} className="leader-card__img" draggable={false} />
               ) : (
                 <div className="leader-card__placeholder">
                   <span>{leader.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span>
