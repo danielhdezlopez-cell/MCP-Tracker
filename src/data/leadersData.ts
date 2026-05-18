@@ -60,7 +60,7 @@ export const LEADERS: Leader[] = [
   { id: 'spectrum', name: 'Spectrum', affiliations: ['Mighty Avengers'], image: img('Spectrum.png') },
   { id: 'spider-man', name: 'Spider-Man', affiliations: ['Web Spider'], image: img('SpiderMan.png') },
   { id: 'starlord', name: 'Starlord', affiliations: ['Galaxy Guardians'], image: img('Starlord.png') },
-  { id: 'storm', name: 'Storm', affiliations: ['Uncanny X-Men'], image: img('Storm.svg') },
+  { id: 'storm', name: 'Storm', affiliations: ['Uncanny X-Men'], image: img('Storm.png') },
   { id: 'supreme-doctor-strange', name: 'Supreme Doctor Strange', affiliations: ['Convocation'], image: img('SupremeDoctorStrange.png') },
   { id: 'thanos', name: 'Thanos', affiliations: ['Black Order'], image: img('Thanos.png') },
   { id: 'thor', name: 'Thor', affiliations: ['Asgard'], image: img('Thor.png') },
