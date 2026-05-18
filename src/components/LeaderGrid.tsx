@@ -1,4 +1,5 @@
 import { type Leader } from '../data/leadersData';
+import { HexPortrait } from './HexPortrait';
 import './LeaderGrid.css';
 
 interface LeaderGridProps {
@@ -15,6 +16,9 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
       {leaders.map(leader => {
         const isLeft = leader.id === selectedLeftId;
         const isRight = leader.id === selectedRightId;
+        const variant = isLeft ? 'left' : isRight ? 'right' : 'neutral';
+        const selected = isLeft || isRight;
+
         return (
           <button
             key={leader.id}
@@ -22,14 +26,14 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
             onClick={() => onSelect(leader)}
             aria-label={`Select ${leader.name}`}
           >
-            <div className="leader-card__img-wrap">
-              {leader.image ? (
-                <img src={leader.image} alt={leader.name} className="leader-card__img" draggable={false} />
-              ) : (
-                <div className="leader-card__placeholder">
-                  <span>{leader.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span>
-                </div>
-              )}
+            <div className="leader-card__hex-wrap">
+              <HexPortrait
+                image={leader.image}
+                name={leader.name}
+                variant={variant}
+                cssSize="72px"
+                selected={selected}
+              />
               {(isLeft || isRight) && (
                 <div className={`leader-card__badge leader-card__badge--${isLeft ? 'left' : 'right'}`}>
                   {isLeft ? 'P1' : 'P2'}

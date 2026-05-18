@@ -1,4 +1,5 @@
 import { useMcpStore } from '../store/useMcpStore';
+import { HexPortrait } from './HexPortrait';
 import './LeaderHex.css';
 
 interface LeaderHexProps {
@@ -17,29 +18,13 @@ export function LeaderHex({ side }: LeaderHexProps) {
 
   return (
     <div className={`leader-hex leader-hex--${side}`} onClick={handleClick}>
-      <div className="leader-hex__outer">
-        <div className="leader-hex__inner">
-          {leader?.image ? (
-            <img
-              src={leader.image}
-              alt={leader.name}
-              className="leader-hex__img"
-              draggable={false}
-            />
-          ) : leader ? (
-            <div className="leader-hex__placeholder">
-              <span className="leader-hex__initials">
-                {leader.name.split(' ').map(w => w[0]).join('').slice(0, 2)}
-              </span>
-            </div>
-          ) : (
-            <div className="leader-hex__empty">
-              <span className="leader-hex__plus">+</span>
-              <span className="leader-hex__hint">SELECT</span>
-            </div>
-          )}
-        </div>
-      </div>
+      <HexPortrait
+        image={leader?.image ?? null}
+        name={leader?.name ?? ''}
+        variant={side}
+        cssSize="clamp(80px, 12vw, 130px)"
+        empty={!leader}
+      />
       {leader && (
         <div className={`leader-hex__name text-accent-${side}`}>{leader.name}</div>
       )}
