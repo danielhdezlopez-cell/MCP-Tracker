@@ -1,0 +1,82 @@
+:root {
+  --color-bg: #070b14;
+  --color-panel: #0d1526;
+  --color-panel-alt: #111c35;
+  --color-border: #1e3a6e;
+  --color-accent-left: #00c3ff;
+  --color-accent-right: #ff6a00;
+  --color-glow-left: rgba(0, 195, 255, 0.35);
+  --color-glow-right: rgba(255, 106, 0, 0.35);
+  --color-text: #e0f0ff;
+  --color-text-muted: #6a8cbc;
+  --color-warn: #ffb800;
+  --color-critical: #ff2a2a;
+  --color-success: #00ff7f;
+  --color-round-active: #00c3ff;
+  --color-round-inactive: #1e3a6e;
+  --font-main: 'Rajdhani', 'Orbitron', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 6px;
+  --border-hex: 4px;
+  --transition: 0.15s ease;
+}
+
+[data-theme='neon-blue'] {
+  --color-bg: #070b14;
+  --color-panel: #0d1526;
+  --color-panel-alt: #111c35;
+  --color-border: #1e3a6e;
+  --color-accent-left: #00c3ff;
+  --color-accent-right: #ff6a00;
+  --color-glow-left: rgba(0, 195, 255, 0.35);
+  --color-glow-right: rgba(255, 106, 0, 0.35);
+  --color-text: #e0f0ff;
+  --color-text-muted: #6a8cbc;
+  --color-round-active: #00c3ff;
+  --color-round-inactive: #1e3a6e;
+}
+
+[data-theme='comic'] {
+  --color-bg: #1a0a00;
+  --color-panel: #2a1200;
+  --color-panel-alt: #3a1800;
+  --color-border: #cc4400;
+  --color-accent-left: #ffcc00;
+  --color-accent-right: #ff3300;
+  --color-glow-left: rgba(255, 204, 0, 0.4);
+  --color-glow-right: rgba(255, 51, 0, 0.4);
+  --color-text: #fff5e0;
+  --color-text-muted: #cc8844;
+  --color-round-active: #ffcc00;
+  --color-round-inactive: #3a1800;
+}
+
+[data-theme='hydra-green'] {
+  --color-bg: #030d03;
+  --color-panel: #061206;
+  --color-panel-alt: #0a1a0a;
+  --color-border: #1a4a1a;
+  --color-accent-left: #00ff44;
+  --color-accent-right: #88ff00;
+  --color-glow-left: rgba(0, 255, 68, 0.35);
+  --color-glow-right: rgba(136, 255, 0, 0.35);
+  --color-text: #ccffcc;
+  --color-text-muted: #448844;
+  --color-round-active: #00ff44;
+  --color-round-inactive: #1a4a1a;
+}
+
+[data-theme='wakanda'] {
+  --color-bg: #0e0518;
+  --color-panel: #18082a;
+  --color-panel-alt: #220c38;
+  --color-border: #5a1a8a;
+  --color-accent-left: #cc44ff;
+  --color-accent-right: #ffd700;
+  --color-glow-left: rgba(204, 68, 255, 0.4);
+  --color-glow-right: rgba(255, 215, 0, 0.4);
+  --color-text: #f0d0ff;
+  --color-text-muted: #8844aa;
+  --color-round-active: #cc44ff;
+  --color-round-inactive: #3a0a5a;
+}
