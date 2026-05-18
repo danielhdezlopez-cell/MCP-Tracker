@@ -44,8 +44,19 @@ export function SettingsPage() {
   };
 
   return (
-    <div className="settings-page scroll-area">
-      <div className="settings-page__inner">
+    <div className="settings-page">
+      <div className="page-title-bar">
+        <div className="page-title-bar__deco page-title-bar__deco--left">
+          <div className="page-title-bar__deco-line" />
+          <div className="page-title-bar__deco-dot" />
+        </div>
+        <span className="page-title-bar__text">Settings</span>
+        <div className="page-title-bar__deco page-title-bar__deco--right">
+          <div className="page-title-bar__deco-dot" />
+          <div className="page-title-bar__deco-line" />
+        </div>
+      </div>
+      <div className="settings-page__inner scroll-area">
         <div className="settings-section">
           <div className="settings-section__title">⏱ TIMER OPTIONS</div>
           <div className="settings-row">

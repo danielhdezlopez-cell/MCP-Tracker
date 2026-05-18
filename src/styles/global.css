@@ -24,6 +24,22 @@ body {
   touch-action: manipulation;
 }
 
+/* Scan-line overlay on the whole app */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
 button {
   font-family: var(--font-main);
   cursor: pointer;
@@ -37,6 +53,11 @@ button:active {
   transform: scale(0.96);
 }
 
+input {
+  font-family: var(--font-main);
+}
+
+/* ── Panels ── */
 .panel {
   background: var(--color-panel);
   border: 1px solid var(--color-border);
@@ -49,20 +70,23 @@ button:active {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+  background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 40%);
   pointer-events: none;
+  z-index: 0;
 }
 
+/* ── Glow classes ── */
 .glow-left {
-  box-shadow: 0 0 12px var(--color-glow-left), inset 0 1px 0 rgba(0,195,255,0.15);
+  box-shadow: 0 0 16px var(--color-glow-left), inset 0 0 20px rgba(0,195,255,0.04);
   border-color: var(--color-accent-left);
 }
 
 .glow-right {
-  box-shadow: 0 0 12px var(--color-glow-right), inset 0 1px 0 rgba(255,106,0,0.15);
+  box-shadow: 0 0 16px var(--color-glow-right), inset 0 0 20px rgba(255,106,0,0.04);
   border-color: var(--color-accent-right);
 }
 
+/* ── HUD Buttons ── */
 .btn-hud {
   display: flex;
   align-items: center;
@@ -71,10 +95,10 @@ button:active {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   color: var(--color-text);
-  font-family: var(--font-main);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  transition: all var(--transition);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: all 0.15s ease;
   padding: 0.5rem 1rem;
   min-height: 44px;
   cursor: pointer;
@@ -93,7 +117,7 @@ button:active {
 .btn-hud:hover {
   background: var(--color-panel);
   border-color: var(--color-accent-left);
-  box-shadow: 0 0 8px var(--color-glow-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
 }
 
 .btn-hud:active {
@@ -103,28 +127,40 @@ button:active {
 .btn-accent-left {
   border-color: var(--color-accent-left);
   color: var(--color-accent-left);
-  box-shadow: 0 0 6px var(--color-glow-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+.btn-accent-left:hover {
+  background: rgba(0, 195, 255, 0.1);
+  box-shadow: 0 0 14px var(--color-glow-left);
 }
 
 .btn-accent-right {
   border-color: var(--color-accent-right);
   color: var(--color-accent-right);
-  box-shadow: 0 0 6px var(--color-glow-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
 }
 
-.text-accent-left { color: var(--color-accent-left); }
+.btn-accent-right:hover {
+  background: rgba(255, 106, 0, 0.1);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* ── Text utilities ── */
+.text-accent-left  { color: var(--color-accent-left); }
 .text-accent-right { color: var(--color-accent-right); }
-.text-muted { color: var(--color-text-muted); }
+.text-muted        { color: var(--color-text-muted); }
 
 .label-hud {
   font-family: var(--font-display);
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
 
-/* Scrollable areas */
+/* ── Scrollable areas ── */
 .scroll-area {
   overflow-y: auto;
   overflow-x: hidden;
@@ -132,18 +168,14 @@ button:active {
   scrollbar-color: var(--color-border) transparent;
 }
 
-.scroll-area::-webkit-scrollbar {
-  width: 4px;
-}
-.scroll-area::-webkit-scrollbar-track {
-  background: transparent;
-}
+.scroll-area::-webkit-scrollbar { width: 4px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; }
 .scroll-area::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 2px;
 }
 
-/* Diagonal corner cuts */
+/* ── Clip paths for sci-fi corners ── */
 .clip-panel {
   clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
@@ -151,3 +183,70 @@ button:active {
 .clip-panel-sm {
   clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
 }
+
+/* ── Page title header ── */
+.page-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  height: 48px;
+  background: var(--color-panel);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.page-title-bar::before,
+.page-title-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.page-title-bar::before {
+  background: linear-gradient(to right, transparent, var(--color-accent-left) 30%, var(--color-accent-right) 70%, transparent);
+  opacity: 0.6;
+}
+
+.page-title-bar__text {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: var(--color-text);
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.page-title-bar__deco {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-title-bar__deco--left { left: 16px; }
+.page-title-bar__deco--right { right: 16px; }
+
+.page-title-bar__deco-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.page-title-bar__deco--left .page-title-bar__deco-dot { background: var(--color-accent-left); box-shadow: 0 0 6px var(--color-accent-left); }
+.page-title-bar__deco--right .page-title-bar__deco-dot { background: var(--color-accent-right); box-shadow: 0 0 6px var(--color-accent-right); }
+
+.page-title-bar__deco-line {
+  width: 30px;
+  height: 1px;
+}
+
+.page-title-bar__deco--left .page-title-bar__deco-line { background: linear-gradient(to right, var(--color-accent-left), transparent); }
+.page-title-bar__deco--right .page-title-bar__deco-line { background: linear-gradient(to left, var(--color-accent-right), transparent); }

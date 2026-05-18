@@ -57,11 +57,11 @@ export const LEADERS: Leader[] = [
   { id: 'spectrum', name: 'Spectrum', affiliations: ['Mighty Avengers'], image: '/assets/leaders/Spectrum.png' },
   { id: 'spider-man', name: 'Spider-Man', affiliations: ['Web Spider'], image: '/assets/leaders/SpiderMan.png' },
   { id: 'starlord', name: 'Starlord', affiliations: ['Galaxy Guardians'], image: '/assets/leaders/Starlord.png' },
-  { id: 'storm', name: 'Storm', affiliations: ['Uncanny X-Men'], image: '/assets/leaders/Storm.svg' },
-  { id: 'supreme-doctor-strange', name: 'Supreme Doctor Strange', affiliations: ['Convocation'], image: '/assets/leaders/SupremeDoctorStrange.png' },
-  { id: 'thanos', name: 'Thanos', affiliations: ['Black Order'], image: '/assets/leaders/Thanos.svg' },
-  { id: 'thor', name: 'Thor', affiliations: ['Asgard'], image: '/assets/leaders/Thor.svg' },
-  { id: 'weapon-x', name: 'Weapon X', affiliations: ['Weapon X'], image: '/assets/leaders/WeaponX.svg' },
+  { id: 'storm', name: 'Storm', affiliations: ['Uncanny X-Men'], image: '/assets/leaders/Storm.png' },
+  { id: 'supreme-doctor-strange', name: 'Supreme Doctor Strange', affiliations: ['Convocation'], image: '/assets/leaders/StrangeSupreme.png' },
+  { id: 'thanos', name: 'Thanos', affiliations: ['Black Order'], image: '/assets/leaders/Thanos.png' },
+  { id: 'thor', name: 'Thor', affiliations: ['Asgard'], image: '/assets/leaders/Thor.png' },
+  { id: 'weapon-x', name: 'Weapon X', affiliations: ['Weapon X'], image: '/assets/leaders/WeaponXWolverine.png' },
 ];
 
 export const AFFILIATIONS = [

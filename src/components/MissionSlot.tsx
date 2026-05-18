@@ -17,13 +17,13 @@ export function MissionSlot({ type }: MissionSlotProps) {
   };
 
   return (
-    <div className={`mission-slot panel clip-panel-sm mission-slot--${accent}`} onClick={handleClick}>
-      <div className={`mission-slot__type label-hud text-accent-${accent}`}>{type}</div>
+    <div className={`mission-slot mission-slot--${accent}`} onClick={handleClick} role="button" tabIndex={0} onKeyDown={e => e.key === 'Enter' && handleClick()}>
+      <div className={`mission-slot__type text-accent-${accent}`}>{type}</div>
       {mission ? (
         <>
           <div className="mission-slot__name">{mission.name}</div>
           <div className="mission-slot__threat">
-            <span className="label-hud">THREAT</span>
+            <span className="mission-slot__threat-label">THREAT</span>
             <span className={`mission-slot__threat-val text-accent-${accent}`}>{mission.threat}</span>
           </div>
         </>

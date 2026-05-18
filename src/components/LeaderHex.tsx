@@ -16,8 +16,9 @@ export function LeaderHex({ side }: LeaderHexProps) {
   };
 
   return (
-    <div className={`leader-hex leader-hex--${side}`} onClick={handleClick}>
+    <div className={`leader-hex leader-hex--${side}`} onClick={handleClick} role="button" tabIndex={0} onKeyDown={e => e.key === 'Enter' && handleClick()}>
       <div className="leader-hex__outer">
+        <div className="leader-hex__ring" />
         <div className="leader-hex__inner">
           {leader?.image ? (
             <img

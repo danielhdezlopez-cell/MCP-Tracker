@@ -37,13 +37,21 @@ export function LeadersPage() {
 
   return (
     <div className="leaders-page">
-      {/* Header */}
-      <div className="leaders-page__header">
-        <div className="leaders-page__title">
-          <span className="label-hud">SELECT LEADER</span>
+      {/* Title bar */}
+      <div className="page-title-bar">
+        <div className="page-title-bar__deco page-title-bar__deco--left">
+          <div className="page-title-bar__deco-line" />
+          <div className="page-title-bar__deco-dot" />
         </div>
+        <span className="page-title-bar__text">Leaders</span>
+        <div className="page-title-bar__deco page-title-bar__deco--right">
+          <div className="page-title-bar__deco-dot" />
+          <div className="page-title-bar__deco-line" />
+        </div>
+      </div>
 
-        {/* Assign toggle */}
+      {/* Controls bar */}
+      <div className="leaders-page__header">
         <div className="leaders-page__assign-toggle">
           <button
             className={`btn-hud leaders-page__assign-btn ${assignSide === 'left' ? 'active-left' : ''}`}
@@ -63,7 +71,6 @@ export function LeadersPage() {
           </button>
         </div>
 
-        {/* Search */}
         <div className="leaders-page__search-wrap">
           <input
             className="leaders-page__search"
@@ -85,12 +92,10 @@ export function LeadersPage() {
       </div>
 
       <div className="leaders-page__body">
-        {/* Affiliations sidebar */}
         <div className="leaders-page__sidebar panel scroll-area">
           <AffiliationFilter selected={filterAffil} onSelect={setFilterAffil} />
         </div>
 
-        {/* Leader grid */}
         <div className="leaders-page__grid-wrap scroll-area">
           <LeaderGrid
             leaders={filtered}

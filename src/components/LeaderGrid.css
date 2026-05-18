@@ -1,63 +1,77 @@
 .leader-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
   gap: 8px;
-  padding: 8px;
+  padding: 10px;
 }
 
 .leader-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: 8px 6px;
+  padding: 10px 6px 8px;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.15s ease;
   position: relative;
   text-align: center;
+  overflow: hidden;
+}
+
+.leader-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 40%);
+  pointer-events: none;
 }
 
 .leader-card:hover {
   border-color: var(--color-accent-left);
   background: var(--color-panel-alt);
-  box-shadow: 0 0 8px var(--color-glow-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
   transform: translateY(-2px);
 }
 
 .leader-card.selected-left {
   border-color: var(--color-accent-left);
-  background: var(--color-panel-alt);
-  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(0, 195, 255, 0.06);
+  box-shadow: 0 0 14px var(--color-glow-left), inset 0 0 10px rgba(0, 195, 255, 0.04);
 }
 
 .leader-card.selected-right {
   border-color: var(--color-accent-right);
-  background: var(--color-panel-alt);
-  box-shadow: 0 0 10px var(--color-glow-right);
+  background: rgba(255, 106, 0, 0.06);
+  box-shadow: 0 0 14px var(--color-glow-right), inset 0 0 10px rgba(255, 106, 0, 0.04);
 }
 
 .leader-card__img-wrap {
-  width: 72px;
-  height: 72px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--color-border);
   position: relative;
   background: var(--color-panel-alt);
   flex-shrink: 0;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.leader-card:hover .leader-card__img-wrap {
+  border-color: var(--color-accent-left);
 }
 
 .leader-card.selected-left .leader-card__img-wrap {
   border-color: var(--color-accent-left);
-  box-shadow: 0 0 8px var(--color-glow-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
 }
 
 .leader-card.selected-right .leader-card__img-wrap {
   border-color: var(--color-accent-right);
-  box-shadow: 0 0 8px var(--color-glow-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
 }
 
 .leader-card__img {
@@ -65,6 +79,11 @@
   height: 100%;
   object-fit: cover;
   object-position: top center;
+  transition: transform 0.3s ease;
+}
+
+.leader-card:hover .leader-card__img {
+  transform: scale(1.08);
 }
 
 .leader-card__placeholder {
@@ -74,7 +93,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 900;
   color: var(--color-text-muted);
   background: linear-gradient(135deg, var(--color-panel-alt), var(--color-panel));
@@ -82,33 +101,43 @@
 
 .leader-card__badge {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 2px;
+  right: 2px;
   font-family: var(--font-display);
   font-size: 0.5rem;
   font-weight: 900;
-  padding: 2px 4px;
+  padding: 2px 5px;
   border-radius: 3px;
+  letter-spacing: 0.05em;
 }
 
 .leader-card__badge--left {
   background: var(--color-accent-left);
   color: var(--color-bg);
+  box-shadow: 0 0 6px var(--color-glow-left);
 }
 
 .leader-card__badge--right {
   background: var(--color-accent-right);
   color: var(--color-bg);
+  box-shadow: 0 0 6px var(--color-glow-right);
 }
 
 .leader-card__name {
   font-family: var(--font-display);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--color-text);
   line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+.leader-card.selected-left .leader-card__name { color: var(--color-accent-left); }
+.leader-card.selected-right .leader-card__name { color: var(--color-accent-right); }
 
 .leader-card__affils {
   display: flex;
@@ -118,12 +147,13 @@
 }
 
 .leader-card__affil {
-  font-size: 0.45rem;
+  font-size: 0.42rem;
   color: var(--color-text-muted);
   background: var(--color-panel-alt);
   border: 1px solid var(--color-border);
   border-radius: 3px;
   padding: 1px 4px;
   font-family: var(--font-display);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }

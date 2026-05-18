@@ -20,13 +20,13 @@ export function Layout() {
 
   return (
     <div className="layout">
-      <SideNav />
       <main className="layout__content">
         {currentPage === 'main' && <MainPage />}
         {currentPage === 'leaders' && <LeadersPage />}
         {currentPage === 'missions' && <MissionsPage />}
         {currentPage === 'settings' && <SettingsPage />}
       </main>
+      <SideNav />
     </div>
   );
 }

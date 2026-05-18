@@ -27,22 +27,23 @@ export function MainPage() {
     >
       {selectedBackground && <div className="main-page__bg-overlay" />}
 
-      {/* TOP ROW: Timer + Reset */}
+      {/* Split background tint */}
+      <div className="main-page__bg-left" />
+      <div className="main-page__bg-right" />
+
+      {/* TOP ROW: Label + Timer + Reset */}
       <div className="main-page__top">
-        <div className="main-page__top-left">
-          <div className="label-hud main-page__game-label">
-            MARVEL CRISIS PROTOCOL
-          </div>
+        <div className="main-page__game-label label-hud">
+          MARVEL CRISIS PROTOCOL
         </div>
         <TimerPanel />
-        <div className="main-page__top-right">
-          <button
-            className="btn-hud main-page__reset-btn"
-            onClick={() => setShowConfirm(true)}
-          >
-            ↺ RESET
-          </button>
-        </div>
+        <button
+          className="btn-hud main-page__reset-btn"
+          onClick={() => setShowConfirm(true)}
+          aria-label="Reset game"
+        >
+          ↺ RESET
+        </button>
       </div>
 
       {/* MAIN ROW: Score + Leaders + Score */}
@@ -50,9 +51,14 @@ export function MainPage() {
         <ScorePanel side="left" />
 
         <div className="main-page__center">
-          <LeaderHex side="left" />
+          <div className="main-page__hexes">
+            <LeaderHex side="left" />
+            <div className="main-page__vs">
+              <span className="main-page__vs-text">VS</span>
+            </div>
+            <LeaderHex side="right" />
+          </div>
           <RoundTracker />
-          <LeaderHex side="right" />
         </div>
 
         <ScorePanel side="right" />
