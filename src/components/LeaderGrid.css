@@ -1,3 +1,4 @@
+/* ── LeaderGrid card ── */
 .leader-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
@@ -13,7 +14,7 @@
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: 10px 6px 8px;
+  padding: 8px 6px;
   cursor: pointer;
   transition: all 0.15s ease;
   position: relative;
@@ -32,58 +33,59 @@
 .leader-card:hover {
   border-color: var(--color-accent-left);
   background: var(--color-panel-alt);
-  box-shadow: 0 0 12px var(--color-glow-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
   transform: translateY(-2px);
 }
 
 .leader-card.selected-left {
   border-color: var(--color-accent-left);
-  background: rgba(0, 195, 255, 0.06);
-  box-shadow: 0 0 14px var(--color-glow-left), inset 0 0 10px rgba(0, 195, 255, 0.04);
+  background: rgba(0, 195, 255, 0.05);
+  box-shadow: 0 0 14px var(--color-glow-left);
 }
 
 .leader-card.selected-right {
   border-color: var(--color-accent-right);
-  background: rgba(255, 106, 0, 0.06);
-  box-shadow: 0 0 14px var(--color-glow-right), inset 0 0 10px rgba(255, 106, 0, 0.04);
+  background: rgba(255, 106, 0, 0.05);
+  box-shadow: 0 0 14px var(--color-glow-right);
 }
 
+/* ── Portrait container — no circular mask, no clip-path ── */
 .leader-card__img-wrap {
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--color-border);
+  width: 86px;
+  height: 86px;
   position: relative;
-  background: var(--color-panel-alt);
   flex-shrink: 0;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(30, 20, 50, 0.6), rgba(5, 8, 18, 0.95));
+  border-radius: 6px;
+  transition: filter 0.2s ease;
+}
+
+/* Subtle glow behind the portrait */
+.leader-card__img-wrap {
+  filter: drop-shadow(0 0 4px rgba(120, 80, 200, 0.2));
 }
 
 .leader-card:hover .leader-card__img-wrap {
-  border-color: var(--color-accent-left);
+  filter: drop-shadow(0 0 8px var(--color-glow-left));
 }
 
 .leader-card.selected-left .leader-card__img-wrap {
-  border-color: var(--color-accent-left);
-  box-shadow: 0 0 10px var(--color-glow-left);
+  filter: drop-shadow(0 0 10px rgba(0, 195, 255, 0.55));
 }
 
 .leader-card.selected-right .leader-card__img-wrap {
-  border-color: var(--color-accent-right);
-  box-shadow: 0 0 10px var(--color-glow-right);
+  filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.55));
 }
 
+/* ── Image — show full original portrait, no crop ── */
 .leader-card__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform 0.3s ease;
-}
-
-.leader-card:hover .leader-card__img {
-  transform: scale(1.08);
+  object-fit: contain;
+  object-position: center;
 }
 
 .leader-card__placeholder {
@@ -96,12 +98,12 @@
   font-size: 1.5rem;
   font-weight: 900;
   color: var(--color-text-muted);
-  background: linear-gradient(135deg, var(--color-panel-alt), var(--color-panel));
 }
 
+/* ── P1 / P2 badge ── */
 .leader-card__badge {
   position: absolute;
-  bottom: 2px;
+  top: 2px;
   right: 2px;
   font-family: var(--font-display);
   font-size: 0.5rem;
@@ -109,6 +111,7 @@
   padding: 2px 5px;
   border-radius: 3px;
   letter-spacing: 0.05em;
+  z-index: 2;
 }
 
 .leader-card__badge--left {
@@ -123,6 +126,7 @@
   box-shadow: 0 0 6px var(--color-glow-right);
 }
 
+/* ── Text ── */
 .leader-card__name {
   font-family: var(--font-display);
   font-size: 0.6rem;

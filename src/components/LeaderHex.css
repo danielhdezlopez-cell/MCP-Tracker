@@ -1,3 +1,4 @@
+/* ── LeaderHex — MAIN screen portrait slot ── */
 .leader-hex {
   display: flex;
   flex-direction: column;
@@ -12,92 +13,79 @@
   transform: scale(0.95);
 }
 
+/* ── Outer wrapper — just a square/rect container, no hex clip ── */
 .leader-hex__outer {
   position: relative;
-  width: clamp(90px, 13vw, 145px);
-  height: clamp(90px, 13vw, 145px);
+  width: clamp(100px, 14vw, 155px);
+  height: clamp(100px, 14vw, 155px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Outer glowing border ring */
-.leader-hex__outer::before {
+/* Glow halo behind the portrait — soft, does not frame or clip the image */
+.leader-hex--left .leader-hex__outer::before {
   content: '';
   position: absolute;
-  inset: -4px;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  transition: all 0.3s ease;
+  inset: -6px;
+  border-radius: 8px;
+  background: radial-gradient(ellipse, rgba(0, 195, 255, 0.25) 0%, transparent 70%);
+  pointer-events: none;
   z-index: 0;
-}
-
-.leader-hex--left .leader-hex__outer::before {
-  background: linear-gradient(135deg, var(--color-accent-left), rgba(0, 195, 255, 0.3));
-  filter: blur(3px);
-  opacity: 0.6;
+  transition: opacity 0.3s ease;
 }
 
 .leader-hex--right .leader-hex__outer::before {
-  background: linear-gradient(135deg, var(--color-accent-right), rgba(255, 106, 0, 0.3));
-  filter: blur(3px);
-  opacity: 0.6;
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 8px;
+  background: radial-gradient(ellipse, rgba(255, 106, 0, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s ease;
 }
 
 .leader-hex:hover .leader-hex__outer::before {
-  opacity: 0.9;
-  filter: blur(4px);
+  opacity: 1.4;
 }
 
-/* Border ring */
-.leader-hex__ring {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  z-index: 1;
-}
+/* Dummy ring element — hidden, kept for JSX compatibility */
+.leader-hex__ring { display: none; }
 
-.leader-hex--left .leader-hex__ring {
-  background: var(--color-accent-left);
-}
-
-.leader-hex--right .leader-hex__ring {
-  background: var(--color-accent-right);
-}
-
-/* Inner hex */
+/* ── Inner image container — no clip-path, no border-radius crop ── */
 .leader-hex__inner {
-  width: calc(100% - 8px);
-  height: calc(100% - 8px);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-panel);
-  position: absolute;
-  z-index: 2;
+  background: radial-gradient(circle, rgba(30, 20, 60, 0.55), rgba(5, 8, 18, 0.92));
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.leader-hex--left .leader-hex__inner {
-  background: linear-gradient(160deg, rgba(0, 195, 255, 0.08), var(--color-panel));
-}
-
-.leader-hex--right .leader-hex__inner {
-  background: linear-gradient(200deg, rgba(255, 106, 0, 0.08), var(--color-panel));
-}
-
+/* ── Image — full portrait, no crop ── */
 .leader-hex__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform 0.3s ease;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 
-.leader-hex:hover .leader-hex__img {
-  transform: scale(1.05);
+/* Subtle drop-shadow glow on the image itself */
+.leader-hex--left .leader-hex__inner {
+  filter: drop-shadow(0 0 8px rgba(0, 195, 255, 0.4));
 }
 
+.leader-hex--right .leader-hex__inner {
+  filter: drop-shadow(0 0 8px rgba(255, 106, 0, 0.4));
+}
+
+/* ── Placeholder / empty states ── */
 .leader-hex__placeholder,
 .leader-hex__empty {
   display: flex;
@@ -136,6 +124,7 @@
   opacity: 0.7;
 }
 
+/* ── Leader name below portrait ── */
 .leader-hex__name {
   font-family: var(--font-display);
   font-size: clamp(0.52rem, 1.2vw, 0.72rem);
@@ -143,6 +132,6 @@
   letter-spacing: 0.1em;
   text-align: center;
   text-transform: uppercase;
-  max-width: 130px;
+  max-width: 140px;
   line-height: 1.2;
 }
