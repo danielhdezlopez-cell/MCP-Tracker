@@ -11,7 +11,7 @@ const img = (file: string) => `${base}assets/leaders/${file}`;
 export const LEADERS: Leader[] = [
   { id: 'adam-warlock', name: 'Adam Warlock', affiliations: ['Galaxy Guardians'], image: img('AdamWarlock.png') },
   { id: 'apocalypse', name: 'Apocalypse', affiliations: ['Apocalypse'], image: img('Apocalypse.png') },
-  { id: 'baron-strucker', name: 'Strucker', affiliations: ['Hydra'], image: img('BaronStrucker_.png') },
+  { id: 'baron-strucker', name: 'Baron Strucker', affiliations: ['Hydra'], image: img('BaronStrucker_.png') },
   { id: 'baron-zemo', name: 'Baron Zemo', affiliations: ['Cabal', 'Hydra'], image: img('BaronZemo.png') },
   { id: 'bastion', name: 'Bastion', affiliations: ['Sentinels'], image: img('Bastion.png') },
   { id: 'black-bolt', name: 'Black Bolt', affiliations: ['Inhumans'], image: img('BlackBolt.png') },
