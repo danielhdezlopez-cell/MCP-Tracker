@@ -23,8 +23,6 @@ export function SettingsPage() {
   const {
     timerDuration, setTimerDuration,
     brightness, setBrightness,
-    wifiEnabled, setWifiEnabled,
-    ledStripEnabled, setLedStripEnabled,
     theme, setTheme,
     selectedBackground, setSelectedBackground,
     interactiveBg, setInteractiveBg,
@@ -99,26 +97,6 @@ export function SettingsPage() {
               />
               <span className="settings-item__val">{brightness}%</span>
             </div>
-          </div>
-          <div className="settings-item">
-            <label className="settings-item__label">WI-FI</label>
-            <button
-              className={`settings-toggle ${wifiEnabled ? 'on' : 'off'}`}
-              onClick={() => setWifiEnabled(!wifiEnabled)}
-              aria-label={`Wi-Fi ${wifiEnabled ? 'on' : 'off'}`}
-            >
-              <span className="settings-toggle__knob" />
-            </button>
-          </div>
-          <div className="settings-item">
-            <label className="settings-item__label">LED STRIP</label>
-            <button
-              className={`settings-toggle ${ledStripEnabled ? 'on' : 'off'}`}
-              onClick={() => setLedStripEnabled(!ledStripEnabled)}
-              aria-label={`LED Strip ${ledStripEnabled ? 'on' : 'off'}`}
-            >
-              <span className="settings-toggle__knob" />
-            </button>
           </div>
         </div>
 

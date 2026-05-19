@@ -31,8 +31,6 @@ interface McpState {
   // Settings
   theme: Theme;
   brightness: number;
-  wifiEnabled: boolean;
-  ledStripEnabled: boolean;
   selectedBackground: string;
   interactiveBg: InteractiveBg;
 
@@ -55,8 +53,6 @@ interface McpState {
 
   setTheme: (theme: Theme) => void;
   setBrightness: (brightness: number) => void;
-  setWifiEnabled: (enabled: boolean) => void;
-  setLedStripEnabled: (enabled: boolean) => void;
   setSelectedBackground: (bg: string) => void;
   setInteractiveBg: (bg: InteractiveBg) => void;
 
@@ -84,8 +80,6 @@ export const useMcpStore = create<McpState>()(
 
       theme: 'neon-blue',
       brightness: 80,
-      wifiEnabled: false,
-      ledStripEnabled: false,
       selectedBackground: '',
       interactiveBg: 'tech-hex',
 
@@ -111,8 +105,6 @@ export const useMcpStore = create<McpState>()(
 
       setTheme: (theme) => set({ theme }),
       setBrightness: (brightness) => set({ brightness }),
-      setWifiEnabled: (enabled) => set({ wifiEnabled: enabled }),
-      setLedStripEnabled: (enabled) => set({ ledStripEnabled: enabled }),
       setSelectedBackground: (bg) => set({ selectedBackground: bg }),
       setInteractiveBg: (bg) => set({ interactiveBg: bg }),
 
