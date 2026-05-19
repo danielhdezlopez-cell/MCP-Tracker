@@ -30,7 +30,7 @@ export function MissionList({ missions, type }: MissionListProps) {
             <div className="mission-item__meta">
               <span className={`mission-item__type mission-item__type--${accent}`}>{mission.type}</span>
               <span className="mission-item__threat-label">THREAT</span>
-              <span className={`mission-item__threat text-accent-${accent}`}>{mission.threat}</span>
+              <span className="mission-item__threat">{mission.threat}</span>
             </div>
           </div>
         </button>
