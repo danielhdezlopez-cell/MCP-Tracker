@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Bowlby+One&family=Bungee&family=Inter:wght@500;600;700;800&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
 @import './themes.css';
 
 /* ── Font-size scale tokens (audit P1-06) ────────────────────────────
@@ -218,4 +218,200 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
   .leaders-page__header { min-height: 38px; padding: 6px 10px; }
   .leaders-page__sidebar { width: 140px; min-width: 130px; }
   .affil-btn { min-height: 26px; font-size: var(--fs-11); padding: 4px 8px; }
+}
+
+/* ── Mobile portrait & narrow viewports (≤640px wide) ──────────────────
+   Reflow: side-nav becomes a bottom tab-bar, scores stack into rows,
+   leaders sidebar becomes a horizontal chip row, missions columns stack. */
+@media (max-width: 640px) {
+  html, body, #root { overflow: hidden; }
+
+  /* Layout: nav at bottom */
+  .layout {
+    flex-direction: column;
+  }
+  .layout__content {
+    order: 1;
+    min-height: 0;
+  }
+
+  .side-nav {
+    order: 2;
+    width: 100%;
+    min-width: 0;
+    height: 60px;
+    min-height: 60px;
+    flex-direction: row;
+    border-right: none;
+    border-top: 1px solid var(--color-border);
+    padding: 4px 6px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .side-nav::after {
+    top: auto;
+    right: auto;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    top: 0;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      var(--color-accent-left) 30%,
+      var(--color-accent-left) 70%,
+      transparent);
+  }
+  .side-nav__logo,
+  .side-nav__version { display: none; }
+  .side-nav__items {
+    flex-direction: row;
+    flex: 1;
+    padding: 0;
+    gap: 6px;
+  }
+  .side-nav__item {
+    flex: 1;
+    min-height: 48px;
+    gap: 2px;
+    padding: 4px;
+  }
+  .side-nav__icon { font-size: var(--fs-16); }
+
+  /* MainPage — stack everything vertically */
+  .main-page { padding: 8px; gap: 8px; overflow-y: auto; }
+  .main-page__top {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .main-page__top-left { flex: 0 0 100%; order: 3; display: none; }
+  .main-page__top-right { flex: 0 0 auto; }
+  .timer-panel {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 6px 10px;
+  }
+  .timer-panel__display { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+
+  .main-page__middle {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  /* Score panels — horizontal row on mobile */
+  .score-panel {
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    gap: 12px;
+    align-self: stretch;
+    min-height: 64px;
+  }
+  .score-panel__label { flex-shrink: 0; align-self: center; }
+  .score-panel__value-wrap {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 70px;
+  }
+  .score-panel__value {
+    font-size: clamp(1.8rem, 8vw, 2.6rem);
+  }
+  .score-panel__value-wrap::before,
+  .score-panel__value-wrap::after { display: none; }
+  .score-panel__ticks { display: none; }
+  .score-panel__bar { display: none; }
+  .score-panel__controls {
+    width: auto;
+    flex: 0 0 auto;
+    gap: 6px;
+  }
+  .score-panel__btn { min-width: 48px; min-height: 44px; }
+
+  /* Centre row — leaders + round tracker wrap as needed */
+  .main-page__center {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 4px;
+  }
+
+  /* Mission slots stack vertically */
+  .main-page__bottom {
+    flex-direction: column;
+    height: auto;
+    gap: 6px;
+  }
+  .mission-slot { min-height: 72px; }
+
+  /* LeadersPage — sidebar moves above grid as horizontal scroll */
+  .leaders-page__header {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+  .leaders-page__title { display: none; }
+  .leaders-page__assign-btn {
+    max-width: 130px;
+    padding: 6px 8px;
+    font-size: var(--fs-11);
+  }
+  .leaders-page__search-wrap {
+    flex: 1 1 100px;
+    min-width: 100px;
+    max-width: 200px;
+  }
+  .leaders-page__body {
+    flex-direction: column;
+  }
+  .leaders-page__sidebar {
+    width: 100%;
+    min-width: 0;
+    max-height: 64px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    overflow-y: auto;
+  }
+  .affiliation-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 6px 8px;
+  }
+
+  /* MissionsPage — columns stack */
+  .missions-page__body {
+    flex-direction: column;
+    gap: 1px;
+  }
+  .missions-page__column { min-height: 200px; }
+  .missions-page__col-header { padding: 8px 12px; }
+  .missions-page__col-title { font-size: var(--fs-13); }
+  .missions-page__summary {
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
+
+  /* SettingsPage — one column themes */
+  .settings-themes { grid-template-columns: 1fr; }
+  .settings-row { flex-wrap: wrap; gap: 6px; }
+  .settings-preset-btn { flex: 1 1 90px; min-width: 0; }
+  .settings-item { flex-wrap: wrap; }
+  .settings-slider {
+    flex: 1 1 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  /* Modal */
+  .main-page__modal { padding: 18px; gap: 12px; }
+  .main-page__modal-actions { flex-direction: column; }
+  .main-page__modal-actions .btn-hud { width: 100%; }
+}
+
+/* ── Touch devices: no hover sticky states ─────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .leader-card:hover { transform: none; }
 }

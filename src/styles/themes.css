@@ -162,3 +162,514 @@
   border-left: 3px solid var(--color-accent-right);
   border-right: none;
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   COMIC INK — paper + halftone + ink borders + offset shadows + Bangers.
+   A complete re-skin of the HUD using only CSS overrides; the structure
+   of every component remains unchanged. Inspired by classic comic books:
+   newsprint cream, ink black, hero blue, villain red, bolt yellow.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='comic-ink'] {
+  --color-bg: #F5EDD8;
+  --color-panel: #FBF8F0;
+  --color-panel-alt: #FFF4D8;
+  --color-border: #0D0D0D;
+  --color-accent-left: #1D52C7;
+  --color-accent-right: #D5252C;
+  --color-glow-left: transparent;
+  --color-glow-right: transparent;
+  --color-text: #0D0D0D;
+  --color-text-muted: #5a4f3a;
+  --color-warn: #FFD23F;
+  --color-critical: #D5252C;
+  --color-success: #1D52C7;
+  --color-round-active: #FFD23F;
+  --color-round-inactive: #cbbf99;
+  --color-mission-secure: #1D52C7;
+  --color-glow-secure: transparent;
+  --color-mission-extract: #D5252C;
+  --color-glow-extract: transparent;
+  --font-main: 'Inter', 'Rajdhani', system-ui, sans-serif;
+  --font-display: 'Bangers', 'Bowlby One', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+/* Body — cream paper with halftone dots */
+[data-theme='comic-ink'] body { font-size: 15px; }
+[data-theme='comic-ink'] .layout {
+  background-image:
+    radial-gradient(rgba(13,13,13,0.16) 1.1px, transparent 1.4px) 0 0 / 8px 8px,
+    radial-gradient(rgba(213,37,44,0.05) 1.6px, transparent 2px) 4px 4px / 16px 16px;
+}
+
+/* Panels — ink borders + offset shadow, no shine */
+[data-theme='comic-ink'] .panel { border-width: 3px; box-shadow: 4px 4px 0 var(--color-border); }
+[data-theme='comic-ink'] .panel::before { display: none; }
+[data-theme='comic-ink'] .glow-left,
+[data-theme='comic-ink'] .glow-right { box-shadow: 4px 4px 0 var(--color-border); }
+
+/* Buttons — comic press feel */
+[data-theme='comic-ink'] .btn-hud {
+  border-width: 2.5px;
+  box-shadow: 3px 3px 0 var(--color-border);
+  background: var(--color-panel);
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  border-radius: 2px;
+}
+[data-theme='comic-ink'] .btn-hud::after { display: none; }
+[data-theme='comic-ink'] .btn-hud:hover {
+  background: #FFE066;
+  border-color: var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-border);
+  transform: translate(-1px, -1px);
+}
+[data-theme='comic-ink'] .btn-hud:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--color-border);
+}
+[data-theme='comic-ink'] .btn-accent-left,
+[data-theme='comic-ink'] .btn-accent-right { box-shadow: 3px 3px 0 var(--color-border); }
+[data-theme='comic-ink'] .label-hud { font-family: var(--font-display); letter-spacing: 0.06em; color: var(--color-text-muted); }
+
+/* Side nav — black strip with bolt-yellow perforation */
+[data-theme='comic-ink'] .side-nav {
+  background: var(--color-border);
+  border-right: 4px solid var(--color-border);
+}
+[data-theme='comic-ink'] .side-nav::after {
+  background: repeating-linear-gradient(to bottom, var(--color-warn) 0 8px, transparent 8px 14px);
+  opacity: 1; width: 4px; right: -4px;
+}
+[data-theme='comic-ink'] .side-nav__logo {
+  border-bottom: 2px dashed var(--color-bg);
+}
+[data-theme='comic-ink'] .side-nav__logo-text {
+  background: var(--color-accent-right);
+  color: var(--color-bg);
+  padding: 3px 6px 2px;
+  border: 2px solid var(--color-bg);
+  text-shadow: none;
+  transform: rotate(-2deg);
+  display: inline-block;
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+}
+[data-theme='comic-ink'] .side-nav__logo-sub { color: var(--color-warn); margin-top: 4px; }
+[data-theme='comic-ink'] .side-nav__item {
+  background: var(--color-bg);
+  color: var(--color-border);
+  border: 2px solid var(--color-bg);
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  border-radius: 2px;
+}
+[data-theme='comic-ink'] .side-nav__item:hover { background: #FFE066; }
+[data-theme='comic-ink'] .side-nav__item.active {
+  background: var(--color-warn);
+  color: var(--color-border);
+  border-color: var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-accent-right);
+  transform: rotate(-1.5deg);
+}
+[data-theme='comic-ink'] .side-nav__version { color: var(--color-warn); letter-spacing: 0.1em; }
+
+/* Score panel — chunky inked number with offset villain-red shadow */
+[data-theme='comic-ink'] .score-panel { border-width: 3px; box-shadow: 4px 4px 0 var(--color-border); }
+[data-theme='comic-ink'] .score-panel::before,
+[data-theme='comic-ink'] .score-panel::after,
+[data-theme='comic-ink'] .score-panel__value-wrap::before,
+[data-theme='comic-ink'] .score-panel__value-wrap::after,
+[data-theme='comic-ink'] .score-panel__ticks { display: none; }
+[data-theme='comic-ink'] .score-panel__label {
+  background: var(--color-accent-left);
+  color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  padding: 3px 10px;
+  box-shadow: 2px 2px 0 var(--color-border);
+  transform: rotate(-2deg);
+  align-self: center;
+  width: auto;
+  display: inline-block;
+}
+[data-theme='comic-ink'] .glow-right.score-panel .score-panel__label {
+  background: var(--color-accent-right);
+  transform: rotate(2deg);
+}
+[data-theme='comic-ink'] .score-panel__value {
+  color: var(--color-panel);
+  -webkit-text-stroke: 2px var(--color-border);
+  text-shadow: 3px 3px 0 var(--color-border);
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+[data-theme='comic-ink'] .score-panel__value::after { display: none; }
+[data-theme='comic-ink'] .score-panel__bar {
+  border: 2px solid var(--color-border);
+  background: var(--color-bg);
+  height: 8px;
+  border-radius: 4px;
+}
+[data-theme='comic-ink'] .score-panel__bar::after { display: none; }
+[data-theme='comic-ink'] .score-panel__bar-fill--left { background: var(--color-accent-left); box-shadow: none; }
+[data-theme='comic-ink'] .score-panel__bar-fill--right { background: var(--color-accent-right); box-shadow: none; }
+[data-theme='comic-ink'] .score-panel__btn {
+  font-family: var(--font-display);
+  background: var(--color-panel);
+  color: var(--color-border);
+  border: 2.5px solid var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .score-panel__btn:hover { background: var(--color-warn); }
+
+/* Timer panel — black bar, bolt-yellow text, villain shadow */
+[data-theme='comic-ink'] .timer-panel {
+  background: var(--color-border);
+  border: 3px solid var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-accent-right);
+  animation: none !important;
+}
+[data-theme='comic-ink'] .timer-panel::before { display: none; }
+[data-theme='comic-ink'] .timer-panel__deco::before,
+[data-theme='comic-ink'] .timer-panel__deco::after { display: none; }
+[data-theme='comic-ink'] .timer-panel__display {
+  color: var(--color-warn);
+  font-family: var(--font-display);
+  text-shadow: 2px 2px 0 var(--color-accent-right);
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 0.5px var(--color-border);
+}
+[data-theme='comic-ink'] .timer-panel__display-wrap::after { display: none; }
+[data-theme='comic-ink'] .timer-panel__btn {
+  background: var(--color-warn);
+  color: var(--color-border);
+  border-color: var(--color-border);
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+[data-theme='comic-ink'] .timer-panel__btn--pause { background: var(--color-accent-right); color: var(--color-panel); }
+[data-theme='comic-ink'] .timer-panel__btn--reset { background: var(--color-bg); color: var(--color-border); }
+[data-theme='comic-ink'] .timer-panel--critical {
+  animation: none !important;
+  box-shadow: 4px 4px 0 var(--color-accent-right), 0 0 0 4px var(--color-accent-right) !important;
+}
+[data-theme='comic-ink'] .timer-panel__display.critical {
+  color: var(--color-accent-right);
+  text-shadow: 2px 2px 0 var(--color-warn);
+}
+
+/* Round tracker — rotated card with yellow current pip */
+[data-theme='comic-ink'] .round-tracker {
+  background: var(--color-panel);
+  border: 3px solid var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+  transform: rotate(-1deg);
+  border-radius: 2px;
+  padding: 8px 14px;
+}
+[data-theme='comic-ink'] .round-tracker::before,
+[data-theme='comic-ink'] .round-tracker::after { display: none; }
+[data-theme='comic-ink'] .round-tracker__pips::before {
+  background: var(--color-border);
+  opacity: 1;
+  height: 2px;
+}
+[data-theme='comic-ink'] .round-tracker__pip {
+  border-color: var(--color-border);
+  border-width: 2.5px;
+  background: var(--color-panel);
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .round-tracker__pip.active {
+  background: var(--color-border);
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+[data-theme='comic-ink'] .round-tracker__pip.active .round-tracker__pip-num {
+  color: var(--color-warn);
+  text-shadow: none;
+}
+[data-theme='comic-ink'] .round-tracker__pip.current {
+  background: var(--color-warn);
+  border-color: var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-accent-right);
+  transform: scale(1.15) rotate(-6deg);
+}
+[data-theme='comic-ink'] .round-tracker__pip.current::after,
+[data-theme='comic-ink'] .round-tracker__pip.current::before { display: none; }
+[data-theme='comic-ink'] .round-tracker__pip.current .round-tracker__pip-num {
+  color: var(--color-border);
+  text-shadow: none;
+}
+[data-theme='comic-ink'] .round-tracker__pip-num { font-family: var(--font-display); }
+[data-theme='comic-ink'] .round-tracker__current { color: var(--color-accent-right); text-shadow: none; font-family: var(--font-display); }
+
+/* Mission slot (MainPage bottom) — polaroid feel */
+[data-theme='comic-ink'] .mission-slot {
+  background: var(--color-panel);
+  border: 3px solid var(--color-border) !important;
+  box-shadow: 4px 4px 0 var(--color-mission-secure);
+  transform: rotate(-0.6deg);
+  border-left: 3px solid var(--color-border) !important;
+  border-right: 3px solid var(--color-border) !important;
+}
+[data-theme='comic-ink'] .mission-slot--right {
+  transform: rotate(0.6deg);
+  box-shadow: 4px 4px 0 var(--color-mission-extract);
+}
+[data-theme='comic-ink'] .mission-slot::before,
+[data-theme='comic-ink'] .mission-slot::after,
+[data-theme='comic-ink'] .mission-slot__stripe { display: none; }
+[data-theme='comic-ink'] .mission-slot__type {
+  background: var(--color-mission-secure);
+  color: var(--color-bg) !important;
+  padding: 3px 8px;
+  border: 2px solid var(--color-border);
+  align-self: flex-start;
+  display: inline-block;
+  font-family: var(--font-display);
+  transform: rotate(-3deg);
+}
+[data-theme='comic-ink'] .mission-slot--right .mission-slot__type {
+  background: var(--color-mission-extract);
+  transform: rotate(3deg);
+}
+[data-theme='comic-ink'] .mission-slot__name { font-family: var(--font-display); color: var(--color-border); }
+[data-theme='comic-ink'] .mission-slot__threat-val {
+  color: var(--color-border) !important;
+  text-shadow: none !important;
+  font-family: var(--font-display);
+}
+
+/* Mission list (MissionsPage) */
+[data-theme='comic-ink'] .mission-item {
+  background: var(--color-panel);
+  border: 2.5px solid var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .mission-item--left,
+[data-theme='comic-ink'] .mission-item--right { border-left-width: 2.5px; }
+[data-theme='comic-ink'] .mission-item:hover {
+  background: #FFE066;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .mission-item--left.selected {
+  background: var(--color-mission-secure);
+  color: var(--color-bg);
+  box-shadow: 4px 4px 0 var(--color-warn);
+}
+[data-theme='comic-ink'] .mission-item--right.selected {
+  background: var(--color-mission-extract);
+  color: var(--color-bg);
+  box-shadow: 4px 4px 0 var(--color-warn);
+}
+[data-theme='comic-ink'] .mission-item--left.selected .mission-item__threat,
+[data-theme='comic-ink'] .mission-item--right.selected .mission-item__threat,
+[data-theme='comic-ink'] .mission-item--left.selected .mission-item__check,
+[data-theme='comic-ink'] .mission-item--right.selected .mission-item__check { color: var(--color-bg); }
+[data-theme='comic-ink'] .mission-item__name,
+[data-theme='comic-ink'] .mission-item__threat { font-family: var(--font-display); }
+[data-theme='comic-ink'] .mission-item__type {
+  font-family: var(--font-display);
+  transform: rotate(-2deg);
+  border-width: 2px;
+}
+
+/* Mission card viewer modal */
+[data-theme='comic-ink'] .mcv-overlay { background: rgba(13,13,13,0.65); backdrop-filter: blur(2px); }
+[data-theme='comic-ink'] .mcv-container {
+  background: var(--color-panel);
+  border: 4px solid var(--color-border);
+  box-shadow: 8px 8px 0 var(--color-accent-right);
+}
+[data-theme='comic-ink'] .mcv-container::before,
+[data-theme='comic-ink'] .mcv-container::after { display: none; }
+[data-theme='comic-ink'] .mcv-header,
+[data-theme='comic-ink'] .mcv-footer { background: var(--color-bg); border-color: var(--color-border); border-width: 3px; }
+[data-theme='comic-ink'] .mcv-title { color: var(--color-border); font-family: var(--font-display); }
+[data-theme='comic-ink'] .mcv-type { font-family: var(--font-display); border-width: 2px; }
+[data-theme='comic-ink'] .mcv-threat-val { font-family: var(--font-display); }
+
+/* Affiliations sidebar */
+[data-theme='comic-ink'] .leaders-page__sidebar { background: var(--color-border); border-right: 3px solid var(--color-border); }
+[data-theme='comic-ink'] .affiliation-filter { padding: 8px 6px; }
+[data-theme='comic-ink'] .affil-btn {
+  background: var(--color-bg);
+  color: var(--color-border);
+  border: 2px solid var(--color-bg);
+  box-shadow: none;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+[data-theme='comic-ink'] .affil-btn:hover { background: #FFE066; color: var(--color-border); border-color: var(--color-bg); }
+[data-theme='comic-ink'] .affil-btn.active {
+  background: var(--color-warn);
+  color: var(--color-border);
+  border-color: var(--color-border);
+  transform: rotate(-1deg);
+  box-shadow: 2px 2px 0 var(--color-accent-right);
+}
+
+/* Leader grid */
+[data-theme='comic-ink'] .leader-card {
+  background: var(--color-panel);
+  border: 2.5px solid var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .leader-card:hover {
+  background: #FFE066;
+  border-color: var(--color-border);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .leader-card.selected-left {
+  background: var(--color-accent-left);
+  color: var(--color-bg);
+  box-shadow: 4px 4px 0 var(--color-warn);
+  transform: rotate(-1.5deg);
+}
+[data-theme='comic-ink'] .leader-card.selected-right {
+  background: var(--color-accent-right);
+  color: var(--color-bg);
+  box-shadow: 4px 4px 0 var(--color-warn);
+  transform: rotate(1.5deg);
+}
+[data-theme='comic-ink'] .leader-card.selected-left .leader-card__name,
+[data-theme='comic-ink'] .leader-card.selected-right .leader-card__name,
+[data-theme='comic-ink'] .leader-card.selected-left .leader-card__affil,
+[data-theme='comic-ink'] .leader-card.selected-right .leader-card__affil { color: var(--color-bg); }
+[data-theme='comic-ink'] .leader-card__name { font-family: var(--font-display); }
+[data-theme='comic-ink'] .leader-card__badge {
+  border: 2px solid var(--color-border);
+  font-family: var(--font-display);
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+
+/* Leader hex (Main page) — name plate */
+[data-theme='comic-ink'] .leader-hex__name {
+  background: var(--color-panel);
+  border: 2px solid var(--color-border);
+  padding: 3px 8px;
+  box-shadow: 2px 2px 0 var(--color-border);
+  font-family: var(--font-display);
+  color: var(--color-border);
+}
+
+/* Headers (Leaders / Missions) */
+[data-theme='comic-ink'] .leaders-page__header,
+[data-theme='comic-ink'] .missions-page__header {
+  background: var(--color-panel);
+  border-bottom: 3px solid var(--color-border);
+}
+[data-theme='comic-ink'] .leaders-page__search {
+  background: var(--color-panel-alt);
+  border: 2.5px solid var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-border);
+  color: var(--color-border);
+  font-family: var(--font-main);
+  font-weight: 600;
+  border-radius: 2px;
+}
+[data-theme='comic-ink'] .leaders-page__search:focus { box-shadow: 3px 3px 0 var(--color-accent-right); }
+[data-theme='comic-ink'] .leaders-page__assign-btn.active-left {
+  background: var(--color-accent-left);
+  color: var(--color-bg);
+  border-color: var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+  transform: rotate(-2deg);
+}
+[data-theme='comic-ink'] .leaders-page__assign-btn.active-right {
+  background: var(--color-accent-right);
+  color: var(--color-bg);
+  border-color: var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+  transform: rotate(2deg);
+}
+[data-theme='comic-ink'] .missions-page__selected--left {
+  background: var(--color-mission-secure);
+  color: var(--color-bg);
+  border-color: var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-border);
+  font-family: var(--font-display);
+  transform: rotate(-2deg);
+}
+[data-theme='comic-ink'] .missions-page__selected--right {
+  background: var(--color-mission-extract);
+  color: var(--color-bg);
+  border-color: var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-border);
+  font-family: var(--font-display);
+  transform: rotate(2deg);
+}
+[data-theme='comic-ink'] .missions-page__body { background: var(--color-border); }
+[data-theme='comic-ink'] .missions-page__col-title { font-family: var(--font-display); text-shadow: none; }
+
+/* Settings */
+[data-theme='comic-ink'] .settings-section {
+  background: var(--color-panel);
+  border: 3px solid var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .settings-section__title {
+  background: var(--color-border);
+  color: var(--color-bg);
+  border-bottom: 3px solid var(--color-border);
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+}
+[data-theme='comic-ink'] .settings-preset-btn.active,
+[data-theme='comic-ink'] .settings-theme-btn.active,
+[data-theme='comic-ink'] .settings-ibg-btn.active {
+  background: var(--color-warn);
+  border-color: var(--color-border);
+  color: var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-accent-right);
+  transform: rotate(-1deg);
+}
+[data-theme='comic-ink'] .settings-toggle {
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+[data-theme='comic-ink'] .settings-toggle.on { background: var(--color-warn); border-color: var(--color-border); }
+[data-theme='comic-ink'] .settings-toggle__knob { background: var(--color-border); box-shadow: none; }
+[data-theme='comic-ink'] .settings-toggle.on .settings-toggle__knob { background: var(--color-accent-right); box-shadow: none; }
+[data-theme='comic-ink'] .settings-slider { background: var(--color-bg); border: 2px solid var(--color-border); height: 6px; border-radius: 3px; }
+[data-theme='comic-ink'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-right);
+  border: 2px solid var(--color-border);
+  box-shadow: 1px 1px 0 var(--color-border);
+  width: 18px; height: 18px;
+}
+[data-theme='comic-ink'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-right);
+  border: 2px solid var(--color-border);
+  width: 18px; height: 18px;
+}
+[data-theme='comic-ink'] .settings-custom-val { font-family: var(--font-display); color: var(--color-accent-right); }
+[data-theme='comic-ink'] .settings-item__val { color: var(--color-accent-right); font-family: var(--font-display); }
+
+/* Reset modal */
+[data-theme='comic-ink'] .main-page__modal-overlay { background: rgba(13,13,13,0.55); }
+[data-theme='comic-ink'] .main-page__modal {
+  background: var(--color-panel);
+  border: 4px solid var(--color-border);
+  box-shadow: 8px 8px 0 var(--color-accent-right);
+}
+[data-theme='comic-ink'] .main-page__modal-title {
+  color: var(--color-accent-right);
+  font-family: var(--font-display);
+  -webkit-text-stroke: 1.5px var(--color-border);
+}
+[data-theme='comic-ink'] .main-page__modal-body { color: var(--color-border); }
+
+/* Kill ambient HUD animations that don't fit comic */
+[data-theme='comic-ink'] .timer-panel__display-wrap::after,
+[data-theme='comic-ink'] .score-panel__bar::after { animation: none !important; display: none; }
+[data-theme='comic-ink'] .round-tracker__pip.current::after { animation: none !important; display: none; }
+
+/* Mission slot empty hint */
+[data-theme='comic-ink'] .mission-slot__empty { opacity: 0.85; }
+[data-theme='comic-ink'] .mission-slot__plus { color: var(--color-border); font-family: var(--font-display); }

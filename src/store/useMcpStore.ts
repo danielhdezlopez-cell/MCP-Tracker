@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic' | 'hydra-green' | 'wakanda' | 'cartoon-blue-orange';
+export type Theme = 'neon-blue' | 'comic' | 'hydra-green' | 'wakanda' | 'cartoon-blue-orange' | 'comic-ink';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';

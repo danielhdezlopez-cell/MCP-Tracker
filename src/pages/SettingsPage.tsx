@@ -17,6 +17,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hydra-green', label: 'Dark Hydra Green', desc: 'Dark ops terminal' },
   { value: 'wakanda', label: 'Wakanda Purple / Gold', desc: 'Vibranium royalty' },
   { value: 'cartoon-blue-orange', label: 'Cartoon Blue & Orange', desc: 'Superhero arcade HUD' },
+  { value: 'comic-ink', label: 'Comic Ink', desc: 'Paper, halftone & ink panels' },
 ];
 
 export function SettingsPage() {

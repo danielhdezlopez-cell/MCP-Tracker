@@ -241,6 +241,13 @@
 [data-theme-preview='cartoon-blue-orange'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #1a90ff, #ff7700);
 }
+[data-theme-preview='comic-ink'] .settings-theme-btn__swatch {
+  background:
+    radial-gradient(rgba(13,13,13,0.5) 1px, transparent 1.4px) 0 0 / 6px 6px,
+    linear-gradient(135deg, #1D52C7 0 33%, #F5EDD8 33% 66%, #D5252C 66%);
+  border: 2px solid #0D0D0D;
+  box-shadow: 2px 2px 0 #0D0D0D;
+}
 
 .settings-theme-btn__label {
   font-family: var(--font-display);
