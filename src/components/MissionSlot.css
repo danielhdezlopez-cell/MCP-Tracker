@@ -8,27 +8,108 @@
   transition: all var(--transition);
   min-height: 0;
   flex: 1;
+  position: relative;
+  overflow: hidden;
 }
 
 .mission-slot:hover {
   background: var(--color-panel-alt);
 }
 
+/* ── SECURE — blue ───────────────────────────────────────────────── */
 .mission-slot--left {
-  border-color: var(--color-accent-left);
-  box-shadow: 0 0 8px var(--color-glow-left);
+  border-color: var(--color-mission-secure);
+  box-shadow: 0 0 10px var(--color-glow-secure), inset 0 0 18px rgba(26,143,255,0.04);
+  border-left: 3px solid var(--color-mission-secure);
 }
 
+.mission-slot--left:hover {
+  box-shadow: 0 0 16px var(--color-glow-secure), inset 0 0 24px rgba(26,143,255,0.07);
+}
+
+/* ── EXTRACT — red ───────────────────────────────────────────────── */
 .mission-slot--right {
-  border-color: var(--color-accent-right);
-  box-shadow: 0 0 8px var(--color-glow-right);
+  border-color: var(--color-mission-extract);
+  box-shadow: 0 0 10px var(--color-glow-extract), inset 0 0 18px rgba(255,47,47,0.04);
+  border-right: 3px solid var(--color-mission-extract);
 }
 
+.mission-slot--right:hover {
+  box-shadow: 0 0 16px var(--color-glow-extract), inset 0 0 24px rgba(255,47,47,0.07);
+}
+
+/* ── HUD corner brackets — top-left & bottom-right ─────────────── */
+.mission-slot::before,
+.mission-slot::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity var(--transition);
+}
+
+.mission-slot--left::before {
+  top: 5px; left: 5px;
+  border-top: 1px solid var(--color-mission-secure);
+  border-left: 1px solid var(--color-mission-secure);
+  opacity: 0.7;
+}
+
+.mission-slot--left::after {
+  bottom: 5px; right: 5px;
+  border-bottom: 1px solid var(--color-mission-secure);
+  border-right: 1px solid var(--color-mission-secure);
+  opacity: 0.7;
+}
+
+.mission-slot--right::before {
+  top: 5px; left: 5px;
+  border-top: 1px solid var(--color-mission-extract);
+  border-left: 1px solid var(--color-mission-extract);
+  opacity: 0.7;
+}
+
+.mission-slot--right::after {
+  bottom: 5px; right: 5px;
+  border-bottom: 1px solid var(--color-mission-extract);
+  border-right: 1px solid var(--color-mission-extract);
+  opacity: 0.7;
+}
+
+/* ── Top gradient accent stripe ────────────────────────────────── */
+.mission-slot--left .mission-slot__stripe,
+.mission-slot--right .mission-slot__stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  pointer-events: none;
+}
+
+.mission-slot--left .mission-slot__stripe {
+  background: linear-gradient(to right, var(--color-mission-secure), transparent);
+}
+
+.mission-slot--right .mission-slot__stripe {
+  background: linear-gradient(to left, var(--color-mission-extract), transparent);
+}
+
+/* ── Type label ──────────────────────────────────────────────────── */
 .mission-slot__type {
   font-size: 0.55rem;
   letter-spacing: 0.2em;
 }
 
+.mission-slot--left .mission-slot__type {
+  color: var(--color-mission-secure);
+}
+
+.mission-slot--right .mission-slot__type {
+  color: var(--color-mission-extract);
+}
+
+/* ── Mission name ───────────────────────────────────────────────── */
 .mission-slot__name {
   font-family: var(--font-display);
   font-size: clamp(0.6rem, 1.2vw, 0.85rem);
@@ -38,6 +119,7 @@
   letter-spacing: 0.03em;
 }
 
+/* ── Threat row ─────────────────────────────────────────────────── */
 .mission-slot__threat {
   display: flex;
   align-items: center;
@@ -51,13 +133,24 @@
   font-weight: 900;
 }
 
+.mission-slot--left .mission-slot__threat-val {
+  color: var(--color-mission-secure);
+  text-shadow: 0 0 8px var(--color-glow-secure);
+}
+
+.mission-slot--right .mission-slot__threat-val {
+  color: var(--color-mission-extract);
+  text-shadow: 0 0 8px var(--color-glow-extract);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────── */
 .mission-slot__empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  opacity: 0.5;
+  opacity: 0.45;
   padding: 8px 0;
 }
 

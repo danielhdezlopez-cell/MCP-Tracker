@@ -6,7 +6,6 @@ export function RoundTracker() {
 
   return (
     <div className="round-tracker panel clip-panel-sm">
-      <div className="label-hud round-tracker__label">ROUND</div>
       <div className="round-tracker__pips">
         {Array.from({ length: 6 }, (_, i) => (
           <button
