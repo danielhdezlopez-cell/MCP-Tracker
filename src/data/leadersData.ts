@@ -10,7 +10,7 @@ const img = (file: string) => `${base}assets/leaders/${file}`;
 
 export const LEADERS: Leader[] = [
   { id: 'adam-warlock', name: 'Adam Warlock', affiliations: ['Galaxy Guardians'], image: img('AdamWarlock.png') },
-  { id: 'spider-man', name: 'Amazing Spider-Man', affiliations: ['Web Spider'], image: img('SpiderMan.png') },
+  { id: 'spider-man', name: 'Amazing Spider-Man', affiliations: ['Web Warriors'], image: img('SpiderMan.png') },
   { id: 'apocalypse', name: 'Apocalypse', affiliations: ['Apocalypse'], image: img('Apocalypse.png') },
   { id: 'baron-strucker', name: 'Baron Strucker', affiliations: ['Hydra'], image: img('BaronStrucker_.png') },
   { id: 'baron-zemo', name: 'Baron Helmut Zemo', affiliations: ['Hydra'], image: img('BaronZemo.png') },
@@ -48,7 +48,7 @@ export const LEADERS: Leader[] = [
   { id: 'maximus', name: 'Maximus the Mad', affiliations: ['Inhumans'], image: img('Maximus.png') },
   { id: 'medusa', name: 'Medusa', affiliations: ['Inhumans'], image: img('Medusa.png') },
   { id: 'mephisto', name: 'Mephisto', affiliations: ['Mephisto'], image: img('Mephisto.png') },
-  { id: 'miles-morales', name: 'Miles Morales', affiliations: ['Web Spider'], image: img('MilesMorales.png') },
+  { id: 'miles-morales', name: 'Miles Morales', affiliations: ['Web Warriors'], image: img('MilesMorales.png') },
   { id: 'modok', name: 'M.O.D.O.K.', affiliations: ['Criminal Syndicate'], image: img('Modok.png') },
   { id: 'mystique', name: 'Mystique', affiliations: ['Brotherhood'], image: img('Mystique.png') },
   { id: 'namor', name: 'Namor', affiliations: ['SHIELD'], image: img('Namor.png') },
@@ -81,5 +81,5 @@ export const AFFILIATIONS = [
   'Hellfire Club', 'Hydra', 'Inhumans', 'Intelligencia', 'Mephisto',
   'Midnight Sons', 'Mighty Avengers', 'New Mutants', "Onslaught's Grip",
   'Sentinels', 'SHIELD', 'Spider Foes', 'Thunderbolts', 'Uncanny X-Men',
-  'Wakanda', 'Weapon X', 'Web Spider', 'Winter Guard', 'X-Force',
+  'Wakanda', 'Weapon X', 'Web Warriors', 'Winter Guard', 'X-Force',
 ];
