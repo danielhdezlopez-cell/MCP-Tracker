@@ -1,7 +1,6 @@
 /* ── HexPortrait ──────────────────────────────────────────────────── */
 .hex-portrait {
   --hex-size: 72px;
-  --hex-gap: 3px;     /* ring thickness */
   --hex-clip: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   position: relative;
   width: var(--hex-size);
@@ -9,57 +8,49 @@
   flex-shrink: 0;
 }
 
-/* outer ring – provides the neon border colour */
+/* Ring hidden — leader images carry their own hex frame artwork */
 .hex-portrait__ring {
-  position: absolute;
-  inset: 0;
-  clip-path: var(--hex-clip);
-  background: var(--color-border);
-  transition: background var(--transition), filter var(--transition);
+  display: none;
 }
 
-.hex-portrait--left  .hex-portrait__ring { background: var(--color-accent-left); }
-.hex-portrait--right .hex-portrait__ring { background: var(--color-accent-right); }
-
-/* glow on selected / hover */
-.hex-portrait--left.hex-portrait--selected  .hex-portrait__ring,
-.hex-portrait--left:hover  .hex-portrait__ring {
-  filter: drop-shadow(0 0 6px var(--color-glow-left));
-}
-.hex-portrait--right.hex-portrait--selected .hex-portrait__ring,
-.hex-portrait--right:hover .hex-portrait__ring {
-  filter: drop-shadow(0 0 6px var(--color-glow-right));
-}
-.hex-portrait--neutral.hex-portrait--selected .hex-portrait__ring,
-.hex-portrait--neutral:hover .hex-portrait__ring {
-  background: var(--color-accent-left);
-  filter: drop-shadow(0 0 5px var(--color-glow-left));
-}
-
-/* inner area – image container clipped to hex */
+/* Inner area: no clip-path, just centre the image */
 .hex-portrait__inner {
   position: absolute;
-  inset: var(--hex-gap);
-  clip-path: var(--hex-clip);
-  /* dark radial background so contain-gaps look intentional */
-  background: radial-gradient(ellipse at 50% 40%, #111827 0%, #070b14 100%);
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
-/* image: contain so nothing is cropped */
+/* Image: contain so the full built-in hex frame is visible */
 .hex-portrait__img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
   display: block;
+  transition: filter var(--transition);
 }
 
-/* initials placeholder when image is null */
+/* Glow via drop-shadow — follows the image's own transparent shape */
+.hex-portrait--left.hex-portrait--selected  .hex-portrait__img,
+.hex-portrait--left:hover  .hex-portrait__img {
+  filter: drop-shadow(0 0 6px var(--color-glow-left));
+}
+.hex-portrait--right.hex-portrait--selected .hex-portrait__img,
+.hex-portrait--right:hover .hex-portrait__img {
+  filter: drop-shadow(0 0 6px var(--color-glow-right));
+}
+.hex-portrait--neutral.hex-portrait--selected .hex-portrait__img,
+.hex-portrait--neutral:hover .hex-portrait__img {
+  filter: drop-shadow(0 0 5px var(--color-glow-left));
+}
+
+/* Placeholder (no image) — hex clip applied here instead */
 .hex-portrait__placeholder {
+  clip-path: var(--hex-clip);
+  background: radial-gradient(ellipse at 50% 40%, #111827 0%, #070b14 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,8 +63,10 @@
   letter-spacing: 0.05em;
 }
 
-/* empty slot (+  SELECT) */
+/* Empty slot (+ SELECT) — hex clip applied here too */
 .hex-portrait__empty {
+  clip-path: var(--hex-clip);
+  background: radial-gradient(ellipse at 50% 40%, #111827 0%, #070b14 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
