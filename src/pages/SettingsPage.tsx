@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { useMcpStore, type Theme } from '../store/useMcpStore';
+import { useMcpStore, type Theme, type InteractiveBg } from '../store/useMcpStore';
 import './SettingsPage.css';
 
 const BACKGROUNDS = [
   { id: '', label: 'None (Dark)' },
+];
+
+const INTERACTIVE_BG_OPTIONS: { value: InteractiveBg; label: string; desc: string }[] = [
+  { value: 'off',          label: 'Off',              desc: 'No animation' },
+  { value: 'hero-hud',     label: 'Subtle Hero HUD',  desc: 'Floating hexagons + energy dots' },
+  { value: 'comic-energy', label: 'Comic Energy Field',desc: 'Speed lines + pulsing orbs' },
+  { value: 'cosmic',       label: 'Cosmic Parallax',  desc: 'Star field + nebula wisps' },
+  { value: 'tech-hex',     label: 'Tech Hex Grid',    desc: 'Hex grid with scan line' },
 ];
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
@@ -21,6 +29,7 @@ export function SettingsPage() {
     ledStripEnabled, setLedStripEnabled,
     theme, setTheme,
     selectedBackground, setSelectedBackground,
+    interactiveBg, setInteractiveBg,
   } = useMcpStore();
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
@@ -129,6 +138,23 @@ export function SettingsPage() {
                 <span className="settings-theme-btn__label">{t.label}</span>
                 <span className="settings-theme-btn__desc">{t.desc}</span>
                 {theme === t.value && <span className="settings-theme-btn__check">✓</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="settings-section">
+          <div className="settings-section__title">✨ INTERACTIVE BACKGROUND</div>
+          <div className="settings-ibg-list">
+            {INTERACTIVE_BG_OPTIONS.map(opt => (
+              <button
+                key={opt.value}
+                className={`settings-ibg-btn ${interactiveBg === opt.value ? 'active' : ''}`}
+                onClick={() => setInteractiveBg(opt.value)}
+              >
+                <span className="settings-ibg-btn__label">{opt.label}</span>
+                <span className="settings-ibg-btn__desc">{opt.desc}</span>
+                {interactiveBg === opt.value && <span className="settings-ibg-btn__check">✓</span>}
               </button>
             ))}
           </div>

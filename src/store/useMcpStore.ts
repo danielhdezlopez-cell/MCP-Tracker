@@ -6,6 +6,7 @@ import { type Mission } from '../data/missionsData';
 export type Theme = 'neon-blue' | 'comic' | 'hydra-green' | 'wakanda';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
+export type InteractiveBg = 'off' | 'hero-hud' | 'comic-energy' | 'cosmic' | 'tech-hex';
 
 interface McpState {
   // Navigation
@@ -33,6 +34,7 @@ interface McpState {
   wifiEnabled: boolean;
   ledStripEnabled: boolean;
   selectedBackground: string;
+  interactiveBg: InteractiveBg;
 
   // Actions
   setCurrentPage: (page: AppPage) => void;
@@ -56,6 +58,7 @@ interface McpState {
   setWifiEnabled: (enabled: boolean) => void;
   setLedStripEnabled: (enabled: boolean) => void;
   setSelectedBackground: (bg: string) => void;
+  setInteractiveBg: (bg: InteractiveBg) => void;
 
   resetGame: () => void;
 }
@@ -84,6 +87,7 @@ export const useMcpStore = create<McpState>()(
       wifiEnabled: false,
       ledStripEnabled: false,
       selectedBackground: '',
+      interactiveBg: 'off',
 
       setCurrentPage: (page) => set({ currentPage: page }),
       setPendingLeaderAssign: (side) => set({ pendingLeaderAssign: side }),
@@ -110,6 +114,7 @@ export const useMcpStore = create<McpState>()(
       setWifiEnabled: (enabled) => set({ wifiEnabled: enabled }),
       setLedStripEnabled: (enabled) => set({ ledStripEnabled: enabled }),
       setSelectedBackground: (bg) => set({ selectedBackground: bg }),
+      setInteractiveBg: (bg) => set({ interactiveBg: bg }),
 
       resetGame: () => {
         const { timerDuration } = get();

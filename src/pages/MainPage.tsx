@@ -5,10 +5,11 @@ import { LeaderHex } from '../components/LeaderHex';
 import { RoundTracker } from '../components/RoundTracker';
 import { MissionSlot } from '../components/MissionSlot';
 import { TimerPanel } from '../components/TimerPanel';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 import './MainPage.css';
 
 export function MainPage() {
-  const { selectedBackground, resetGame } = useMcpStore();
+  const { selectedBackground, resetGame, interactiveBg } = useMcpStore();
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleReset = () => {
@@ -26,6 +27,7 @@ export function MainPage() {
       } : undefined}
     >
       {selectedBackground && <div className="main-page__bg-overlay" />}
+      <AnimatedBackground mode={interactiveBg} />
 
       {/* TOP ROW: Timer + Reset */}
       <div className="main-page__top">
