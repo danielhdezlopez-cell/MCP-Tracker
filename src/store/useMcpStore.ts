@@ -103,10 +103,21 @@ export const useMcpStore = create<McpState>()(
       setTimerRemaining: (remaining) => set({ timerRemaining: Math.max(0, remaining) }),
       setTimerRunning: (running) => set({ timerRunning: running }),
 
-      setTheme: (theme) => set({ theme }),
+      setTheme: (theme) => {
+        // Tech Hex Grid is exclusive to neon-blue — silently turn it off otherwise
+        if (theme !== 'neon-blue' && get().interactiveBg !== 'off') {
+          set({ theme, interactiveBg: 'off' });
+        } else {
+          set({ theme });
+        }
+      },
       setBrightness: (brightness) => set({ brightness }),
       setSelectedBackground: (bg) => set({ selectedBackground: bg }),
-      setInteractiveBg: (bg) => set({ interactiveBg: bg }),
+      setInteractiveBg: (bg) => {
+        // Ignore any attempt to enable tech-hex outside neon-blue
+        if (bg !== 'off' && get().theme !== 'neon-blue') return;
+        set({ interactiveBg: bg });
+      },
 
       resetGame: () => {
         const { timerDuration } = get();
@@ -132,6 +143,10 @@ export const useMcpStore = create<McpState>()(
         // Migrate removed themes → neon-blue (default)
         if (state && !(['neon-blue', 'comic-ink'] as string[]).includes(state.theme)) {
           state.theme = 'neon-blue';
+        }
+        // Tech Hex Grid only valid under neon-blue
+        if (state && state.theme !== 'neon-blue' && state.interactiveBg !== 'off') {
+          state.interactiveBg = 'off';
         }
       },
     }

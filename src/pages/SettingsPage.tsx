@@ -119,17 +119,24 @@ export function SettingsPage() {
         <div className="settings-section">
           <div className="settings-section__title">✨ INTERACTIVE BACKGROUND</div>
           <div className="settings-ibg-list">
-            {INTERACTIVE_BG_OPTIONS.map(opt => (
-              <button
-                key={opt.value}
-                className={`settings-ibg-btn ${interactiveBg === opt.value ? 'active' : ''}`}
-                onClick={() => setInteractiveBg(opt.value)}
-              >
-                <span className="settings-ibg-btn__label">{opt.label}</span>
-                <span className="settings-ibg-btn__desc">{opt.desc}</span>
-                {interactiveBg === opt.value && <span className="settings-ibg-btn__check">✓</span>}
-              </button>
-            ))}
+            {INTERACTIVE_BG_OPTIONS
+              .filter(opt => opt.value === 'off' || theme === 'neon-blue')
+              .map(opt => (
+                <button
+                  key={opt.value}
+                  className={`settings-ibg-btn ${interactiveBg === opt.value ? 'active' : ''}`}
+                  onClick={() => setInteractiveBg(opt.value)}
+                >
+                  <span className="settings-ibg-btn__label">{opt.label}</span>
+                  <span className="settings-ibg-btn__desc">{opt.desc}</span>
+                  {interactiveBg === opt.value && <span className="settings-ibg-btn__check">✓</span>}
+                </button>
+              ))}
+            {theme !== 'neon-blue' && (
+              <div className="settings-ibg-note">
+                Tech Hex Grid is only available with the Neon Blue / Orange theme.
+              </div>
+            )}
           </div>
         </div>
 

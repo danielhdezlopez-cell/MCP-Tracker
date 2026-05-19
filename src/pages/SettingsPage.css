@@ -314,6 +314,19 @@
   flex-shrink: 0;
 }
 
+.settings-ibg-note {
+  font-family: var(--font-main);
+  font-size: var(--fs-11);
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: 8px 12px;
+  background: var(--color-panel-alt);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--border-radius);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
 /* Backgrounds */
 .settings-backgrounds {
   display: flex;
