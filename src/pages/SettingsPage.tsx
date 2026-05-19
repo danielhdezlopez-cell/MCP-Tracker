@@ -12,6 +12,7 @@ const INTERACTIVE_BG_OPTIONS: { value: InteractiveBg; label: string; desc: strin
   { value: 'comic-energy', label: 'Comic Energy Field',desc: 'Speed lines + pulsing orbs' },
   { value: 'cosmic',       label: 'Cosmic Parallax',  desc: 'Star field + nebula wisps' },
   { value: 'tech-hex',     label: 'Tech Hex Grid',    desc: 'Hex grid with scan line' },
+  { value: 'cartoon',      label: 'Cartoon Energy',   desc: 'Blue & orange comic burst field' },
 ];
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
@@ -19,6 +20,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'comic', label: 'Comic Superhero', desc: 'Warm yellow-red comics' },
   { value: 'hydra-green', label: 'Dark Hydra Green', desc: 'Dark ops terminal' },
   { value: 'wakanda', label: 'Wakanda Purple / Gold', desc: 'Vibranium royalty' },
+  { value: 'cartoon-blue-orange', label: 'Cartoon Blue & Orange', desc: 'Superhero arcade HUD' },
 ];
 
 export function SettingsPage() {

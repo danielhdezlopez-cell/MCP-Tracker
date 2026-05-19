@@ -80,3 +80,79 @@
   --color-round-active: #cc44ff;
   --color-round-inactive: #3a0a5a;
 }
+
+[data-theme='cartoon-blue-orange'] {
+  --color-bg: #060c1e;
+  --color-panel: #0b1530;
+  --color-panel-alt: #101e42;
+  --color-border: #1860c8;
+  --color-accent-left: #1a90ff;
+  --color-accent-right: #ff7700;
+  --color-glow-left: rgba(26, 144, 255, 0.55);
+  --color-glow-right: rgba(255, 119, 0, 0.55);
+  --color-text: #f0f8ff;
+  --color-text-muted: #4878b0;
+  --color-warn: #ffcc00;
+  --color-critical: #ff3333;
+  --color-round-active: #1a90ff;
+  --color-round-inactive: #0c2050;
+}
+
+/* Cartoon theme — thicker outlines & bolder panel feel */
+[data-theme='cartoon-blue-orange'] .panel {
+  border-width: 2px;
+}
+
+[data-theme='cartoon-blue-orange'] .glow-left {
+  box-shadow: 0 0 16px var(--color-glow-left), 0 0 4px var(--color-glow-left), inset 0 1px 0 rgba(26,144,255,0.2);
+  border-color: var(--color-accent-left);
+}
+
+[data-theme='cartoon-blue-orange'] .glow-right {
+  box-shadow: 0 0 16px var(--color-glow-right), 0 0 4px var(--color-glow-right), inset 0 1px 0 rgba(255,119,0,0.2);
+  border-color: var(--color-accent-right);
+}
+
+/* Punchier score number */
+[data-theme='cartoon-blue-orange'] .score-panel__value {
+  text-shadow: 0 2px 0 rgba(0,0,0,0.6), 0 0 20px var(--color-accent-left);
+}
+
+[data-theme='cartoon-blue-orange'] .glow-right .score-panel__value {
+  text-shadow: 0 2px 0 rgba(0,0,0,0.6), 0 0 20px var(--color-accent-right);
+}
+
+/* Stronger timer display */
+[data-theme='cartoon-blue-orange'] .timer-panel__display {
+  text-shadow: 0 2px 0 rgba(0,0,0,0.5), 0 0 20px var(--color-accent-left), 0 0 40px rgba(26,144,255,0.3);
+  letter-spacing: 0.14em;
+}
+
+/* Comic-style label font boost */
+[data-theme='cartoon-blue-orange'] .label-hud {
+  letter-spacing: 0.18em;
+}
+
+/* Bolder pip active state */
+[data-theme='cartoon-blue-orange'] .round-tracker__pip.current {
+  box-shadow: 0 0 16px var(--color-glow-left), 0 0 4px var(--color-glow-left), inset 0 0 10px rgba(26,144,255,0.15);
+}
+
+/* Cartoon btn feel */
+[data-theme='cartoon-blue-orange'] .btn-hud {
+  border-width: 2px;
+}
+
+[data-theme='cartoon-blue-orange'] .btn-hud:hover {
+  box-shadow: 0 0 10px var(--color-glow-left), 0 3px 0 rgba(0,0,0,0.4);
+  transform: translateY(-1px);
+}
+
+/* Mission slot — stronger side accent */
+[data-theme='cartoon-blue-orange'] .mission-slot--left {
+  border-left: 3px solid var(--color-accent-left);
+}
+
+[data-theme='cartoon-blue-orange'] .mission-slot--right {
+  border-right: 3px solid var(--color-accent-right);
+}

@@ -233,6 +233,9 @@
 [data-theme-preview='wakanda'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #cc44ff, #ffd700);
 }
+[data-theme-preview='cartoon-blue-orange'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #1a90ff, #ff7700);
+}
 
 .settings-theme-btn__label {
   font-family: var(--font-display);

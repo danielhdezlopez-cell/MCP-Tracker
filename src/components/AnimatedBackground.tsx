@@ -413,6 +413,169 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
   tick();
 }
 
+// ─── cartoon: blue/orange comic burst field ───────────────────────────────────
+function runCartoon(canvas: HTMLCanvasElement, signal: AbortSignal) {
+  const ctx = canvas.getContext('2d')!;
+  const W = () => canvas.width;
+  const H = () => canvas.height;
+
+  // Speed lines emanating from a central vanishing point
+  interface Ray { angle: number; length: number; width: number; speed: number; progress: number; side: 'blue' | 'orange'; }
+  // Floating particles
+  interface Particle { x: number; y: number; vx: number; vy: number; r: number; life: number; maxLife: number; side: 'blue' | 'orange'; }
+  // Comic burst shapes (star-like)
+  interface Burst { x: number; y: number; r: number; points: number; phase: number; speed: number; opacity: number; side: 'blue' | 'orange'; }
+  // Halftone-like dots grid (very faint)
+  interface Dot { x: number; y: number; r: number; phase: number; }
+
+  const rays: Ray[] = Array.from({ length: 32 }, (_, i) => ({
+    angle: (Math.PI * 2 / 32) * i,
+    length: 0.3 + Math.random() * 0.5,
+    width: 0.5 + Math.random() * 1.5,
+    speed: 0.004 + Math.random() * 0.006,
+    progress: Math.random(),
+    side: i < 16 ? 'blue' : 'orange',
+  }));
+
+  const particles: Particle[] = [];
+  const spawnParticle = () => {
+    const side: 'blue' | 'orange' = Math.random() < 0.5 ? 'blue' : 'orange';
+    const x = side === 'blue' ? Math.random() * window.innerWidth * 0.55
+                              : window.innerWidth * 0.45 + Math.random() * window.innerWidth * 0.55;
+    particles.push({
+      x, y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      r: 1.5 + Math.random() * 3,
+      life: 0, maxLife: 120 + Math.random() * 180,
+      side,
+    });
+  };
+  for (let i = 0; i < 60; i++) spawnParticle();
+
+  const bursts: Burst[] = Array.from({ length: 8 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: 20 + Math.random() * 50,
+    points: 6 + Math.floor(Math.random() * 6),
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.005 + Math.random() * 0.008,
+    opacity: 0.04 + Math.random() * 0.07,
+    side: Math.random() < 0.5 ? 'blue' : 'orange',
+  }));
+
+  const dots: Dot[] = Array.from({ length: 80 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: 1.5 + Math.random() * 2.5,
+    phase: Math.random() * Math.PI * 2,
+  }));
+
+  const drawBurst = (x: number, y: number, r: number, points: number, opacity: number, color: string) => {
+    ctx.beginPath();
+    for (let i = 0; i < points * 2; i++) {
+      const angle = (Math.PI / points) * i - Math.PI / 2;
+      const radius = i % 2 === 0 ? r : r * 0.45;
+      i === 0 ? ctx.moveTo(x + radius * Math.cos(angle), y + radius * Math.sin(angle))
+               : ctx.lineTo(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+    }
+    ctx.closePath();
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = opacity;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  };
+
+  let t = 0;
+  const tick = () => {
+    if (signal.aborted) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.clearRect(0, 0, W(), H());
+    t += 0.016;
+
+    // Side atmosphere glows
+    const blueGrad = ctx.createRadialGradient(0, H() / 2, 0, 0, H() / 2, W() * 0.5);
+    blueGrad.addColorStop(0, `rgba(26, 100, 255, ${0.06 + 0.02 * Math.sin(t * 0.5)})`);
+    blueGrad.addColorStop(1, 'transparent');
+    ctx.fillStyle = blueGrad;
+    ctx.fillRect(0, 0, W(), H());
+
+    const orangeGrad = ctx.createRadialGradient(W(), H() / 2, 0, W(), H() / 2, W() * 0.5);
+    orangeGrad.addColorStop(0, `rgba(255, 100, 0, ${0.06 + 0.02 * Math.sin(t * 0.5 + Math.PI)})`);
+    orangeGrad.addColorStop(1, 'transparent');
+    ctx.fillStyle = orangeGrad;
+    ctx.fillRect(0, 0, W(), H());
+
+    // Speed rays from center vanishing point
+    const cx = W() / 2, cy = H() / 2;
+    rays.forEach(r2 => {
+      r2.progress = (r2.progress + r2.speed) % 1;
+      const maxLen = Math.sqrt(W() * W() + H() * H()) * 0.6;
+      const startDist = r2.progress * maxLen * 0.8;
+      const endDist = Math.min(startDist + maxLen * r2.length * 0.3, maxLen);
+      const fade = r2.progress < 0.2 ? r2.progress / 0.2 : r2.progress > 0.7 ? (1 - r2.progress) / 0.3 : 1;
+      const color = r2.side === 'blue' ? `rgba(26, 144, 255, ${0.07 * fade})` : `rgba(255, 119, 0, ${0.07 * fade})`;
+      const grad = ctx.createLinearGradient(
+        cx + startDist * Math.cos(r2.angle), cy + startDist * Math.sin(r2.angle),
+        cx + endDist * Math.cos(r2.angle), cy + endDist * Math.sin(r2.angle),
+      );
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(0.5, color);
+      grad.addColorStop(1, 'transparent');
+      ctx.beginPath();
+      ctx.moveTo(cx + startDist * Math.cos(r2.angle), cy + startDist * Math.sin(r2.angle));
+      ctx.lineTo(cx + endDist * Math.cos(r2.angle), cy + endDist * Math.sin(r2.angle));
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = r2.width;
+      ctx.stroke();
+    });
+
+    // Comic burst shapes
+    bursts.forEach(b => {
+      b.phase += b.speed;
+      const pulse = 1 + 0.12 * Math.sin(b.phase);
+      const color = b.side === 'blue' ? '#1a90ff' : '#ff7700';
+      drawBurst(b.x, b.y, b.r * pulse, b.points, b.opacity, color);
+    });
+
+    // Floating particles with glow
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life++;
+      const t2 = p.life / p.maxLife;
+      const fade = t2 < 0.15 ? t2 / 0.15 : t2 > 0.75 ? (1 - t2) / 0.25 : 1;
+      const color = p.side === 'blue' ? [26, 144, 255] : [255, 119, 0];
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.5);
+      grad.addColorStop(0, `rgba(${color[0]},${color[1]},${color[2]},${0.7 * fade})`);
+      grad.addColorStop(0.5, `rgba(${color[0]},${color[1]},${color[2]},${0.25 * fade})`);
+      grad.addColorStop(1, 'transparent');
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      if (p.life >= p.maxLife) { particles.splice(i, 1); spawnParticle(); }
+    });
+
+    // Subtle halftone dot grid
+    dots.forEach(d => {
+      const flicker = 0.3 + 0.3 * Math.sin(t * 1.5 + d.phase);
+      const isBlue = d.x < W() / 2;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = isBlue
+        ? `rgba(26, 144, 255, ${flicker * 0.12})`
+        : `rgba(255, 119, 0, ${flicker * 0.12})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(tick);
+  };
+  tick();
+}
+
 export function AnimatedBackground({ mode }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -425,6 +588,7 @@ export function AnimatedBackground({ mode }: Props) {
     else if (mode === 'comic-energy') runComicEnergy(canvas, controller.signal);
     else if (mode === 'cosmic') runCosmic(canvas, controller.signal);
     else if (mode === 'tech-hex') runTechHex(canvas, controller.signal);
+    else if (mode === 'cartoon') runCartoon(canvas, controller.signal);
 
     return () => controller.abort();
   }, [mode]);
