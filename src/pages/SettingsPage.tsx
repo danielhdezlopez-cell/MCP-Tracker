@@ -13,10 +13,6 @@ const INTERACTIVE_BG_OPTIONS: { value: InteractiveBg; label: string; desc: strin
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'neon-blue', label: 'Neon Blue / Orange', desc: 'Default HUD sci-fi' },
-  { value: 'comic', label: 'Comic Superhero', desc: 'Warm yellow-red comics' },
-  { value: 'hydra-green', label: 'Dark Hydra Green', desc: 'Dark ops terminal' },
-  { value: 'wakanda', label: 'Wakanda Purple / Gold', desc: 'Vibranium royalty' },
-  { value: 'cartoon-blue-orange', label: 'Cartoon Blue & Orange', desc: 'Superhero arcade HUD' },
   { value: 'comic-ink', label: 'Comic Ink', desc: 'Paper, halftone & ink panels' },
 ];
 

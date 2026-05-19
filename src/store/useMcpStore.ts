@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic' | 'hydra-green' | 'wakanda' | 'cartoon-blue-orange' | 'comic-ink';
+export type Theme = 'neon-blue' | 'comic-ink';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -128,6 +128,10 @@ export const useMcpStore = create<McpState>()(
       onRehydrateStorage: () => (state) => {
         if (state && !(['off', 'tech-hex'] as string[]).includes(state.interactiveBg)) {
           state.interactiveBg = 'tech-hex';
+        }
+        // Migrate removed themes → neon-blue (default)
+        if (state && !(['neon-blue', 'comic-ink'] as string[]).includes(state.theme)) {
+          state.theme = 'neon-blue';
         }
       },
     }

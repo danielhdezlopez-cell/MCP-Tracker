@@ -229,18 +229,6 @@
 [data-theme-preview='neon-blue'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #00c3ff, #ff6a00);
 }
-[data-theme-preview='comic'] .settings-theme-btn__swatch {
-  background: linear-gradient(135deg, #ffcc00, #ff3300);
-}
-[data-theme-preview='hydra-green'] .settings-theme-btn__swatch {
-  background: linear-gradient(135deg, #00ff44, #88ff00);
-}
-[data-theme-preview='wakanda'] .settings-theme-btn__swatch {
-  background: linear-gradient(135deg, #cc44ff, #ffd700);
-}
-[data-theme-preview='cartoon-blue-orange'] .settings-theme-btn__swatch {
-  background: linear-gradient(135deg, #1a90ff, #ff7700);
-}
 [data-theme-preview='comic-ink'] .settings-theme-btn__swatch {
   background:
     radial-gradient(rgba(13,13,13,0.5) 1px, transparent 1.4px) 0 0 / 6px 6px,
