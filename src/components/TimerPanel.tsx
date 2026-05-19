@@ -26,19 +26,16 @@ export function TimerPanel() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [timerRunning, timerRemaining]);
 
-  const isWarn = timerRemaining < 15 * 60 && timerRemaining >= 5 * 60;
-  const isCritical = timerRemaining < 5 * 60;
+  const stateClass = timerRemaining <= 15 * 60 ? 'critical' : '';
 
   const handleReset = () => {
     setTimerRunning(false);
     setTimerRemaining(timerDuration);
   };
 
-  const stateClass = isCritical ? 'critical' : isWarn ? 'warn' : '';
-
   return (
     <div className={`timer-panel panel clip-panel-sm timer-panel--${stateClass}`}>
-<div className={`timer-panel__display ${stateClass}`}>
+      <div className={`timer-panel__display ${stateClass}`}>
         {formatTime(timerRemaining)}
       </div>
       <div className="timer-panel__controls">
