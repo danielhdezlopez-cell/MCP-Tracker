@@ -1,7 +1,7 @@
 .mcv-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.86);
+  background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -13,14 +13,12 @@
 .mcv-container {
   display: flex;
   flex-direction: column;
-  /* width follows image; cap at 480px */
-  width: min(480px, calc(100vw - 24px));
-  /* height follows content, capped so it doesn't overflow viewport */
+  width: min(460px, calc(100vw - 24px));
   max-height: calc(100vh - 24px);
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), 0 0 18px var(--color-glow-left);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), 0 0 16px var(--color-glow-left);
   overflow: hidden;
   position: relative;
 }
@@ -30,42 +28,42 @@
 .mcv-container::after {
   content: '';
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   pointer-events: none;
   z-index: 3;
 }
 
 .mcv-container::before {
-  top: 5px; left: 5px;
+  top: 4px; left: 4px;
   border-top: 1px solid var(--color-accent-left);
   border-left: 1px solid var(--color-accent-left);
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .mcv-container::after {
-  bottom: 5px; right: 5px;
+  bottom: 4px; right: 4px;
   border-bottom: 1px solid var(--color-accent-left);
   border-right: 1px solid var(--color-accent-left);
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
-/* ── Header ──────────────────────────────────────────────────────── */
+/* ── Header — compact ────────────────────────────────────────────── */
 .mcv-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 5px 10px;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-panel-alt);
   flex-shrink: 0;
 }
 
 .mcv-title {
-  font-size: 0.58rem;
-  color: var(--color-text);
-  letter-spacing: 0.1em;
+  font-size: 0.52rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
   font-family: var(--font-display);
   flex: 1;
   min-width: 0;
@@ -76,9 +74,10 @@
 
 .mcv-close {
   flex-shrink: 0;
-  min-height: 28px;
-  padding: 3px 10px;
-  font-size: 0.7rem;
+  min-height: 22px;
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  line-height: 1;
   border-color: var(--color-critical);
   color: var(--color-critical);
 }
@@ -89,24 +88,31 @@
 
 /* ── Body — image area ───────────────────────────────────────────── */
 .mcv-body {
-  /* Shrink header≈36px + footer≈36px + overlay padding 24px */
-  max-height: calc(100vh - 96px);
-  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   background: #000;
+  /* no overflow: hidden here — let max-height on image constrain it */
+  overflow: hidden;
 }
 
 .mcv-img {
   display: block;
-  /* Fill container width, never exceed it */
-  width: 100%;
+  /*
+   * Both constraints active simultaneously.
+   * Browser picks the one that binds first and scales proportionally.
+   * — max-width: never exceed container width
+   * — max-height: never exceed viewport minus header (~32px) + footer (~30px)
+   *               + overlay padding (24px) + breathing room → ~100px total
+   */
+  max-width: 100%;
+  max-height: calc(100vh - 100px);
+  width: auto;
   height: auto;
-  /* Hard cap: card must not overflow the viewport */
-  max-height: calc(100vh - 96px);
   object-fit: contain;
-  object-position: top center;
+  object-position: center;
 }
 
 .mcv-no-image {
@@ -117,21 +123,21 @@
   padding: 40px 20px;
 }
 
-/* ── Footer ──────────────────────────────────────────────────────── */
+/* ── Footer — compact ────────────────────────────────────────────── */
 .mcv-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-top: 1px solid var(--color-border);
   background: var(--color-panel-alt);
   flex-shrink: 0;
 }
 
 .mcv-type {
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  padding: 2px 7px;
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  padding: 2px 6px;
   border-radius: 3px;
   font-family: var(--font-display);
   font-weight: 700;
@@ -150,17 +156,17 @@
 }
 
 .mcv-threat {
-  font-size: 0.5rem;
+  font-size: 0.48rem;
   letter-spacing: 0.1em;
   color: var(--color-text-muted);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   font-family: var(--font-display);
 }
 
 .mcv-threat-val {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 900;
 }
