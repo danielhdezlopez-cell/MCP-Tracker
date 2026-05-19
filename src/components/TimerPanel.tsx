@@ -38,8 +38,7 @@ export function TimerPanel() {
 
   return (
     <div className={`timer-panel panel clip-panel-sm timer-panel--${stateClass}`}>
-      <div className="label-hud timer-panel__label">GAME TIMER</div>
-      <div className={`timer-panel__display ${stateClass}`}>
+<div className={`timer-panel__display ${stateClass}`}>
         {formatTime(timerRemaining)}
       </div>
       <div className="timer-panel__controls">

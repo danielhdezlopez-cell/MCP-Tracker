@@ -29,11 +29,7 @@ export function MainPage() {
 
       {/* TOP ROW: Timer + Reset */}
       <div className="main-page__top">
-        <div className="main-page__top-left">
-          <div className="label-hud main-page__game-label">
-            MARVEL CRISIS PROTOCOL
-          </div>
-        </div>
+        <div className="main-page__top-left" />
         <TimerPanel />
         <div className="main-page__top-right">
           <button
