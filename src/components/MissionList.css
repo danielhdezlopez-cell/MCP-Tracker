@@ -123,3 +123,43 @@
 
 .mission-item--left  .mission-item__threat { color: var(--color-mission-secure); }
 .mission-item--right .mission-item__threat { color: var(--color-mission-extract); }
+
+/* ── View card button ────────────────────────────────────────────── */
+.mission-item__view-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-panel-alt);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--color-text-muted);
+  margin-left: 4px;
+}
+
+.mission-item__view-btn--left {
+  border-color: rgba(26, 143, 255, 0.3);
+}
+
+.mission-item__view-btn--right {
+  border-color: rgba(255, 47, 47, 0.3);
+}
+
+.mission-item__view-btn--left:hover {
+  border-color: var(--color-mission-secure);
+  box-shadow: 0 0 8px var(--color-glow-secure);
+  background: rgba(26, 143, 255, 0.1);
+  transform: scale(1.08);
+}
+
+.mission-item__view-btn--right:hover {
+  border-color: var(--color-mission-extract);
+  box-shadow: 0 0 8px var(--color-glow-extract);
+  background: rgba(255, 47, 47, 0.1);
+  transform: scale(1.08);
+}
