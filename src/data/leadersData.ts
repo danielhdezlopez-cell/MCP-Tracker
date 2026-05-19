@@ -31,7 +31,7 @@ export const LEADERS: Leader[] = [
   { id: 'emma-frost', name: 'White Queen', affiliations: ['Hellfire Club'], image: img('white-queen.png') },
   { id: 'green-goblin', name: 'Green Goblin', affiliations: ['Spider Foes'], image: img('GreenGoblin.png') },
   { id: 'hulkbuster', name: 'Hulkbuster', affiliations: ['Avengers'], image: img('Hulkbuster.png') },
-  { id: 'iron-man', name: 'Iron-Man', affiliations: ['Avengers'], image: img('IronMan.png') },
+  { id: 'iron-man', name: 'Iron-Man', affiliations: ['SHIELD'], image: img('IronMan.png') },
   { id: 'jane-foster', name: 'Jane Foster', affiliations: ['Asgard'], image: img('JaneFoster.png') },
   { id: 'kang', name: 'Kang', affiliations: ['Cabal'], image: img('Kang.png') },
   { id: 'killmonger', name: 'Killmonger', affiliations: ['Wakanda'], image: img('Killmonger.webp') },
