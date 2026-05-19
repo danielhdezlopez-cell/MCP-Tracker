@@ -13,7 +13,7 @@ export const LEADERS: Leader[] = [
   { id: 'spider-man', name: 'Amazing Spider-Man', affiliations: ['Web Spider'], image: img('SpiderMan.png') },
   { id: 'apocalypse', name: 'Apocalypse', affiliations: ['Apocalypse'], image: img('Apocalypse.png') },
   { id: 'baron-strucker', name: 'Baron Strucker', affiliations: ['Hydra'], image: img('BaronStrucker_.png') },
-  { id: 'baron-zemo', name: 'Baron Helmut Zemo', affiliations: ['Cabal', 'Hydra'], image: img('BaronZemo.png') },
+  { id: 'baron-zemo', name: 'Baron Helmut Zemo', affiliations: ['Hydra'], image: img('BaronZemo.png') },
   { id: 'bastion', name: 'Bastion', affiliations: ['Sentinels'], image: img('Bastion.png') },
   { id: 'black-bolt', name: 'Black Bolt', affiliations: ['Inhumans'], image: img('BlackBolt.png') },
   { id: 'black-panther', name: 'Black Panther', affiliations: ['Wakanda'], image: img('BlackPanther.png') },
