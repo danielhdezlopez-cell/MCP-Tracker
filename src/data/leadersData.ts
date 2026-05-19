@@ -57,7 +57,7 @@ export const LEADERS: Leader[] = [
   { id: 'onslaught', name: 'Onslaught', affiliations: ["Onslaught's Grip"], image: img('Onslaught.png') },
   { id: 'professor-xavier', name: 'Professor X', affiliations: ['Uncanny X-Men'], image: img('ProfessorX.png') },
   { id: 'red-hulk', name: 'Red Hulk', affiliations: ['Thunderbolts'], image: img('RedHulk.png') },
-  { id: 'red-skull', name: 'Red Skull', affiliations: ['Cabal', 'Hydra'], image: img('RedSkull.png') },
+  { id: 'red-skull', name: 'Red Skull', affiliations: ['Cabal'], image: img('RedSkull.png') },
   { id: 'sam-wilson', name: 'Sam Wilson', affiliations: ['Avengers'], image: img('SamWilson.png') },
   { id: 'sentinel', name: 'Sentinel', affiliations: ['Sentinels'], image: img('Sentinel.png') },
   { id: 'shadowlands-daredevil', name: 'Shadowlands Daredevil', affiliations: ['Criminal Syndicate'], image: img('ShadowlandsDaredevil.png') },
