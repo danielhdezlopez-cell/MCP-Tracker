@@ -35,5 +35,8 @@ export const MISSIONS: Mission[] = [
   { id: 'wedding-party', name: 'Wedding Party Targeted In Terrible Attack!', threat: 20, type: 'Secure' },
 ];
 
-export const EXTRACT_MISSIONS = MISSIONS.filter(m => m.type === 'Extract');
-export const SECURE_MISSIONS = MISSIONS.filter(m => m.type === 'Secure');
+const sortMissions = (a: Mission, b: Mission) =>
+  a.threat !== b.threat ? a.threat - b.threat : a.name.localeCompare(b.name);
+
+export const EXTRACT_MISSIONS = MISSIONS.filter(m => m.type === 'Extract').sort(sortMissions);
+export const SECURE_MISSIONS  = MISSIONS.filter(m => m.type === 'Secure').sort(sortMissions);
