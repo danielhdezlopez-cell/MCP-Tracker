@@ -1,0 +1,203 @@
+.mission-slot {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 14px;
+  gap: 4px;
+  cursor: pointer;
+  transition: all var(--transition);
+  min-height: 0;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-slot:hover {
+  background: var(--color-panel-alt);
+}
+
+/* ── SECURE — blue ───────────────────────────────────────────────── */
+.mission-slot--left {
+  border-color: var(--color-mission-secure);
+  box-shadow: 0 0 10px var(--color-glow-secure), inset 0 0 18px rgba(26,143,255,0.04);
+  border-left: 3px solid var(--color-mission-secure);
+}
+
+.mission-slot--left:hover {
+  box-shadow: 0 0 16px var(--color-glow-secure), inset 0 0 24px rgba(26,143,255,0.07);
+}
+
+/* ── EXTRACT — red ───────────────────────────────────────────────── */
+.mission-slot--right {
+  border-color: var(--color-mission-extract);
+  box-shadow: 0 0 10px var(--color-glow-extract), inset 0 0 18px rgba(255,47,47,0.04);
+  border-left: 3px solid var(--color-mission-extract);
+}
+
+.mission-slot--right:hover {
+  box-shadow: 0 0 16px var(--color-glow-extract), inset 0 0 24px rgba(255,47,47,0.07);
+}
+
+/* ── HUD corner brackets — top-left & bottom-right ─────────────── */
+.mission-slot::before,
+.mission-slot::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity var(--transition);
+}
+
+.mission-slot--left::before {
+  top: 5px; left: 5px;
+  border-top: 1px solid var(--color-mission-secure);
+  border-left: 1px solid var(--color-mission-secure);
+  opacity: 0.7;
+}
+
+.mission-slot--left::after {
+  bottom: 5px; right: 5px;
+  border-bottom: 1px solid var(--color-mission-secure);
+  border-right: 1px solid var(--color-mission-secure);
+  opacity: 0.7;
+}
+
+.mission-slot--right::before {
+  top: 5px; left: 5px;
+  border-top: 1px solid var(--color-mission-extract);
+  border-left: 1px solid var(--color-mission-extract);
+  opacity: 0.7;
+}
+
+.mission-slot--right::after {
+  bottom: 5px; right: 5px;
+  border-bottom: 1px solid var(--color-mission-extract);
+  border-right: 1px solid var(--color-mission-extract);
+  opacity: 0.7;
+}
+
+/* ── Top gradient accent stripe ────────────────────────────────── */
+.mission-slot--left .mission-slot__stripe,
+.mission-slot--right .mission-slot__stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  pointer-events: none;
+}
+
+.mission-slot--left .mission-slot__stripe {
+  background: linear-gradient(to right, var(--color-mission-secure), transparent);
+}
+
+.mission-slot--right .mission-slot__stripe {
+  background: linear-gradient(to left, var(--color-mission-extract), transparent);
+}
+
+/* ── Type label ──────────────────────────────────────────────────── */
+.mission-slot__type {
+  font-size: var(--fs-10);
+  letter-spacing: 0.18em;
+}
+
+.mission-slot--left .mission-slot__type {
+  color: var(--color-mission-secure);
+}
+
+.mission-slot--right .mission-slot__type {
+  color: var(--color-mission-extract);
+}
+
+/* ── Mission name ───────────────────────────────────────────────── */
+.mission-slot__name {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-12), 1.3vw, var(--fs-14));
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+  letter-spacing: 0.03em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Threat row ─────────────────────────────────────────────────── */
+.mission-slot__threat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.mission-slot__threat-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-16);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.mission-slot--left .mission-slot__threat-val {
+  color: var(--color-mission-secure);
+  text-shadow: 0 0 8px var(--color-glow-secure);
+}
+
+.mission-slot--right .mission-slot__threat-val {
+  color: var(--color-mission-extract);
+  text-shadow: 0 0 8px var(--color-glow-extract);
+}
+
+/* ── View card button ────────────────────────────────────────────── */
+.mission-slot__view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  margin-left: auto;
+  padding: 0;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.mission-slot__view-btn--left:hover {
+  opacity: 1;
+  color: var(--color-mission-secure);
+  border-color: rgba(26, 143, 255, 0.4);
+  background: rgba(26, 143, 255, 0.08);
+}
+
+.mission-slot__view-btn--right:hover {
+  opacity: 1;
+  color: var(--color-mission-extract);
+  border-color: rgba(255, 47, 47, 0.4);
+  background: rgba(255, 47, 47, 0.08);
+}
+
+.mission-slot__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0.65;
+  padding: 8px 0;
+  transition: opacity var(--transition);
+}
+
+.mission-slot:hover .mission-slot__empty {
+  opacity: 0.9;
+}
+
+.mission-slot__plus {
+  font-size: var(--fs-20);
+  line-height: 1;
+  color: var(--color-text-muted);
+}

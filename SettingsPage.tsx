@@ -1,0 +1,145 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 6px;
+  padding: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-page__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 11, 20, 0.75);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* TOP ROW */
+.main-page__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.main-page__top-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.main-page__game-label {
+  font-size: var(--fs-11);
+  letter-spacing: 0.16em;
+  color: var(--color-text-muted);
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.main-page__top-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-page__reset-btn {
+  font-size: var(--fs-12);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-color: var(--color-critical);
+  color: var(--color-critical);
+  min-height: 34px;
+}
+
+.main-page__reset-btn:hover {
+  box-shadow: 0 0 8px rgba(255, 42, 42, 0.4);
+  border-color: var(--color-critical);
+}
+
+/* MIDDLE ROW */
+.main-page__middle {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+}
+
+.main-page__center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 24px);
+  flex: 1;
+  min-width: 0;
+  padding: 8px 4px;
+}
+
+/* BOTTOM ROW */
+.main-page__bottom {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  height: clamp(80px, 15vh, 110px);
+}
+
+/* Modal */
+.main-page__modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.main-page__modal {
+  max-width: 360px;
+  width: 90%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-color: var(--color-critical);
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.3);
+}
+
+.main-page__modal-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--color-critical);
+  text-align: center;
+}
+
+.main-page__modal-body {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.main-page__modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.main-page__modal-actions .btn-hud {
+  padding: 10px 20px;
+  font-size: var(--fs-12);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}

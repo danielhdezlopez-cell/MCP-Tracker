@@ -1,0 +1,170 @@
+.round-tracker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 10px;
+  gap: 6px;
+  position: relative;
+}
+
+/* Outer bracket decoration */
+.round-tracker::before,
+.round-tracker::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.round-tracker::before {
+  top: 6px;
+  left: 6px;
+  border-top: 1px solid var(--color-accent-left);
+  border-left: 1px solid var(--color-accent-left);
+}
+
+.round-tracker::after {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 1px solid var(--color-accent-left);
+  border-right: 1px solid var(--color-accent-left);
+}
+
+.round-tracker__label {
+  align-self: center;
+}
+
+/* Pips row with connecting line */
+.round-tracker__pips {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  position: relative;
+}
+
+/* Background connector line — anchored to first/last pip centers */
+.round-tracker__pips::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(clamp(28px, 4vw, 44px) / 2);
+  right: calc(clamp(28px, 4vw, 44px) / 2);
+  transform: translateY(-50%);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-round-inactive),
+    var(--color-round-inactive),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.round-tracker__pip {
+  width: clamp(28px, 4vw, 44px);
+  height: clamp(28px, 4vw, 44px);
+  border-radius: 50%;
+  border: 2px solid var(--color-round-inactive);
+  background: var(--color-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.round-tracker__pip.active {
+  border-color: var(--color-round-active);
+  background: rgba(0, 195, 255, 0.1);
+  box-shadow: 0 0 6px rgba(0,195,255,0.25);
+}
+
+.round-tracker__pip.current {
+  border-color: var(--color-round-active);
+  background: rgba(0, 195, 255, 0.18);
+  box-shadow: 0 0 12px var(--color-glow-left), inset 0 0 8px rgba(0,195,255,0.12);
+}
+
+/* Outer pulse ring */
+.round-tracker__pip.current::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--color-round-active);
+  opacity: 0.45;
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* Inner glow dot for current */
+.round-tracker__pip.current::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,195,255,0.25), transparent);
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.1; transform: scale(1.15); }
+}
+
+.round-tracker__pip-num {
+  font-family: var(--font-display);
+  font-size: clamp(0.6rem, 1.5vw, 0.85rem);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.round-tracker__pip.active .round-tracker__pip-num,
+.round-tracker__pip.current .round-tracker__pip-num {
+  color: var(--color-round-active);
+  text-shadow: 0 0 8px var(--color-round-active);
+}
+
+.round-tracker__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.round-tracker__ctrl {
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  min-height: 32px;
+  border-radius: var(--border-radius);
+}
+
+.round-tracker__ctrl:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.round-tracker__current {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-round-active);
+  min-width: 40px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(0,195,255,0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .round-tracker__pip.current::after { animation: none; }
+}

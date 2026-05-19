@@ -1,0 +1,96 @@
+.leader-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  padding: 8px;
+}
+
+.leader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 8px 6px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  text-align: center;
+}
+
+.leader-card:hover {
+  border-color: var(--color-accent-left);
+  background: var(--color-panel-alt);
+  box-shadow: 0 0 8px var(--color-glow-left);
+  transform: translateY(-2px);
+}
+
+.leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  background: var(--color-panel-alt);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+.leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  background: var(--color-panel-alt);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* hex portrait wrapper + badge positioning */
+.leader-card__hex-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.leader-card__badge {
+  position: absolute;
+  bottom: 6px;
+  right: -2px;
+  font-family: var(--font-display);
+  font-size: var(--fs-10);
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 3px;
+  z-index: 2;
+  letter-spacing: 0.04em;
+}
+
+.leader-card__badge--left {
+  background: var(--color-accent-left);
+  color: var(--color-bg);
+}
+
+.leader-card__badge--right {
+  background: var(--color-accent-right);
+  color: var(--color-bg);
+}
+
+.leader-card__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-11);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.leader-card__affils {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+}
+
+.leader-card__affil {
+  font-size: var(--fs-9);
+  color: var(--color-text-muted);
+  background: var(--color-panel-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
