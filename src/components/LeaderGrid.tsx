@@ -31,7 +31,7 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
                 image={leader.image}
                 name={leader.name}
                 variant={variant}
-                cssSize="72px"
+                cssSize="100px"
                 selected={selected}
               />
               {(isLeft || isRight) && (
