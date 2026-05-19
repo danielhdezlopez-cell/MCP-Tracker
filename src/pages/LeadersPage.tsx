@@ -50,7 +50,7 @@ export function LeadersPage() {
             onClick={() => setAssignSide('left')}
           >
             <span className="assign-indicator assign-indicator--left">◆</span>
-            P1 LEFT
+            P1
             {leaderLeft && <span className="assign-current"> — {leaderLeft.name}</span>}
           </button>
           <button
@@ -58,7 +58,7 @@ export function LeadersPage() {
             onClick={() => setAssignSide('right')}
           >
             <span className="assign-indicator assign-indicator--right">◆</span>
-            P2 RIGHT
+            P2
             {leaderRight && <span className="assign-current"> — {leaderRight.name}</span>}
           </button>
         </div>
