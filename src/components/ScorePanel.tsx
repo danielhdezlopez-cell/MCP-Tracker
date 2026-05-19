@@ -20,7 +20,15 @@ export function ScorePanel({ side }: ScorePanelProps) {
   return (
     <div className={`score-panel panel clip-panel glow-${side}`}>
       <div className="score-panel__label label-hud">{label}</div>
-      <div className="score-panel__value">{score}</div>
+      <div className="score-panel__value-wrap">
+        <div className="score-panel__ticks score-panel__ticks--left">
+          {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
+        </div>
+        <div className="score-panel__value">{score}</div>
+        <div className="score-panel__ticks score-panel__ticks--right">
+          {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
+        </div>
+      </div>
       <div className="score-panel__bar">
         <div
           className={`score-panel__bar-fill score-panel__bar-fill--${side}`}

@@ -35,8 +35,11 @@ export function TimerPanel() {
 
   return (
     <div className={`timer-panel panel clip-panel-sm timer-panel--${stateClass}`}>
-      <div className={`timer-panel__display ${stateClass}`}>
-        {formatTime(timerRemaining)}
+      <div className="timer-panel__deco" />
+      <div className="timer-panel__display-wrap">
+        <div className={`timer-panel__display ${stateClass}`}>
+          {formatTime(timerRemaining)}
+        </div>
       </div>
       <div className="timer-panel__controls">
         <button
