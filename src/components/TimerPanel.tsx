@@ -26,7 +26,19 @@ export function TimerPanel() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [timerRunning, timerRemaining]);
 
-  const stateClass = timerRemaining <= 15 * 60 ? 'critical' : '';
+  const isCritical = timerRemaining <= 15 * 60;
+  const stateClass = isCritical ? 'critical' : '';
+
+  // Sync body flag so other components (score-bar shimmer, scan-line) can
+  // pause their animations while the timer is in critical state (audit P2-02).
+  useEffect(() => {
+    if (isCritical && timerRunning) {
+      document.body.dataset.timerState = 'critical';
+    } else {
+      delete document.body.dataset.timerState;
+    }
+    return () => { delete document.body.dataset.timerState; };
+  }, [isCritical, timerRunning]);
 
   const handleReset = () => {
     setTimerRunning(false);
@@ -34,7 +46,7 @@ export function TimerPanel() {
   };
 
   return (
-    <div className={`timer-panel panel clip-panel-sm timer-panel--${stateClass}`}>
+    <div className={`timer-panel panel clip-panel-sm${isCritical ? ' timer-panel--critical' : ''}`}>
       <div className="timer-panel__deco" />
       <div className="timer-panel__display-wrap">
         <div className={`timer-panel__display ${stateClass}`}>

@@ -36,10 +36,10 @@
 }
 
 .main-page__game-label {
-  font-size: 0.5rem;
-  letter-spacing: 0.2em;
+  font-size: var(--fs-11);
+  letter-spacing: 0.16em;
   color: var(--color-text-muted);
-  opacity: 0.7;
+  opacity: 0.85;
   white-space: nowrap;
 }
 
@@ -50,13 +50,13 @@
 }
 
 .main-page__reset-btn {
-  font-size: 0.65rem;
+  font-size: var(--fs-12);
   font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-color: var(--color-critical);
   color: var(--color-critical);
-  min-height: 36px;
+  min-height: 34px;
 }
 
 .main-page__reset-btn:hover {
@@ -117,7 +117,7 @@
 
 .main-page__modal-title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: var(--fs-20);
   font-weight: 900;
   letter-spacing: 0.1em;
   color: var(--color-critical);
@@ -125,7 +125,7 @@
 }
 
 .main-page__modal-body {
-  font-size: 0.8rem;
+  font-size: var(--fs-13);
   color: var(--color-text-muted);
   text-align: center;
   line-height: 1.5;
@@ -139,7 +139,7 @@
 
 .main-page__modal-actions .btn-hud {
   padding: 10px 20px;
-  font-size: 0.7rem;
+  font-size: var(--fs-12);
   font-weight: 700;
   letter-spacing: 0.08em;
 }

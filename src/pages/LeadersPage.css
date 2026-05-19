@@ -10,15 +10,21 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 6px 10px;
+  min-height: 44px;
   background: var(--color-panel);
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+
+.leaders-page__header::-webkit-scrollbar { display: none; }
 
 .leaders-page__title {
   flex-shrink: 0;
+  font-size: var(--fs-13);
 }
 
 .leaders-page__assign-toggle {
@@ -27,15 +33,16 @@
 }
 
 .leaders-page__assign-btn {
-  font-size: 0.65rem;
+  font-size: var(--fs-11);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 6px 12px;
-  min-height: 36px;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  min-height: 34px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
+  max-width: 180px;
+  flex-shrink: 0;
 }
 
 .leaders-page__assign-btn.active-left {
@@ -56,13 +63,13 @@
 .assign-current {
   font-weight: 400;
   opacity: 0.8;
-  font-size: 0.6rem;
+  font-size: var(--fs-10);
 }
 
 .leaders-page__search-wrap {
-  flex: 1;
-  min-width: 120px;
-  max-width: 260px;
+  flex: 1 1 120px;
+  min-width: 100px;
+  max-width: 240px;
 }
 
 .leaders-page__search {
@@ -72,11 +79,11 @@
   border-radius: var(--border-radius);
   color: var(--color-text);
   font-family: var(--font-main);
-  font-size: 0.75rem;
+  font-size: var(--fs-13);
   padding: 6px 10px;
   outline: none;
   transition: border-color var(--transition);
-  min-height: 36px;
+  min-height: 34px;
 }
 
 .leaders-page__search:focus {
@@ -89,12 +96,13 @@
 }
 
 .leaders-page__back-btn {
-  font-size: 0.65rem;
+  font-size: var(--fs-11);
   font-weight: 700;
-  padding: 6px 12px;
+  letter-spacing: 0.06em;
+  padding: 6px 10px;
   border-color: var(--color-accent-left);
   color: var(--color-accent-left);
-  min-height: 36px;
+  min-height: 34px;
   flex-shrink: 0;
 }
 
@@ -124,5 +132,5 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  font-size: 0.8rem;
+  font-size: var(--fs-13);
 }

@@ -1,6 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
 @import './themes.css';
 
+/* ── Font-size scale tokens (audit P1-06) ────────────────────────────
+   Use these instead of arbitrary rem fractions. Min for interactive
+   text in 800×480 landscape: --fs-11. */
+:root {
+  --fs-9:  9px;
+  --fs-10: 10px;
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-20: 20px;
+  --fs-28: 28px;
+  --fs-40: 40px;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -118,8 +134,8 @@ button:active {
 
 .label-hud {
   font-family: var(--font-display);
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
+  font-size: var(--fs-11);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
@@ -150,4 +166,56 @@ button:active {
 
 .clip-panel-sm {
   clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+}
+
+/* ── A11Y · focus-visible (audit P2-03) ──────────────────────────── */
+.btn-hud:focus-visible,
+.side-nav__item:focus-visible,
+.affil-btn:focus-visible,
+.leader-card:focus-visible,
+.mission-item:focus-visible,
+.mission-slot:focus-visible,
+.leaders-page__search:focus-visible,
+.settings-toggle:focus-visible,
+.settings-theme-btn:focus-visible,
+.settings-ibg-btn:focus-visible,
+.settings-bg-btn:focus-visible {
+  outline: 2px solid var(--color-accent-left);
+  outline-offset: 2px;
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* ── Pause shimmer/scan-line when timer enters critical (audit P2-02) ── */
+body[data-timer-state="critical"] .score-panel__bar::after,
+body[data-timer-state="critical"] .timer-panel__display-wrap::after {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+/* ── Landscape ≤540px — 800×480 dashboards / handhelds (audit P0-05) ── */
+@media (max-height: 540px) and (orientation: landscape) {
+  .side-nav { width: 56px; min-width: 56px; }
+
+  .main-page { padding: 6px; gap: 4px; }
+  .main-page__top { gap: 6px; }
+  .main-page__bottom { height: clamp(78px, 18vh, 96px); gap: 6px; }
+  .main-page__center { gap: clamp(10px, 2.5vw, 20px); padding: 4px 2px; }
+  .main-page__reset-btn { min-height: 30px; padding: 4px 10px; }
+
+  .score-panel { flex: 0 0 clamp(96px, 16vw, 140px); padding: 8px 8px 6px; }
+  .score-panel__value { font-size: clamp(2.4rem, 6.5vw, 4rem); }
+  .score-panel__btn { min-height: 38px; font-size: 1.2rem; }
+
+  .timer-panel { padding: 6px 10px; gap: 4px; }
+  .timer-panel__display { font-size: clamp(1.4rem, 3.4vw, 2.2rem); letter-spacing: 0.08em; }
+  .timer-panel__btn { min-height: 30px; font-size: var(--fs-11); }
+
+  .round-tracker { padding: 4px 8px; gap: 4px; }
+  .round-tracker__pip { width: clamp(22px, 3vw, 32px); height: clamp(22px, 3vw, 32px); }
+  .round-tracker__pip-num { font-size: var(--fs-11); }
+  .round-tracker__ctrl { min-height: 28px; padding: 4px 10px; font-size: var(--fs-11); }
+
+  .leaders-page__header { min-height: 38px; padding: 6px 10px; }
+  .leaders-page__sidebar { width: 140px; min-width: 130px; }
+  .affil-btn { min-height: 26px; font-size: var(--fs-11); padding: 4px 8px; }
 }

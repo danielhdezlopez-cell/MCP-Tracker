@@ -153,11 +153,12 @@
   transform: translateY(-1px);
 }
 
-/* Mission slot — stronger side accent */
+/* Mission slot — stronger side accent (unified border-left for rhythm) */
 [data-theme='cartoon-blue-orange'] .mission-slot--left {
   border-left: 3px solid var(--color-accent-left);
 }
 
 [data-theme='cartoon-blue-orange'] .mission-slot--right {
-  border-right: 3px solid var(--color-accent-right);
+  border-left: 3px solid var(--color-accent-right);
+  border-right: none;
 }

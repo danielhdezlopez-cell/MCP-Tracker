@@ -44,14 +44,14 @@
   position: relative;
 }
 
-/* Background connector line */
+/* Background connector line — anchored to first/last pip centers */
 .round-tracker__pips::before {
   content: '';
   position: absolute;
   top: 50%;
-  left: calc(50% - 3px);
-  transform: translate(-50%, -50%);
-  width: calc(100% - 24px);
+  left: calc(clamp(28px, 4vw, 44px) / 2);
+  right: calc(clamp(28px, 4vw, 44px) / 2);
+  transform: translateY(-50%);
   height: 1px;
   background: linear-gradient(
     to right,
