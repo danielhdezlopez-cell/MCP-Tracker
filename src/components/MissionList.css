@@ -130,36 +130,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--border-radius);
   border: 1px solid var(--color-border);
-  background: var(--color-panel-alt);
-  font-size: 1rem;
+  background: transparent;
   cursor: pointer;
   transition: all var(--transition);
   color: var(--color-text-muted);
   margin-left: 4px;
+  opacity: 0.6;
+  padding: 0;
 }
 
-.mission-item__view-btn--left {
-  border-color: rgba(26, 143, 255, 0.3);
-}
-
-.mission-item__view-btn--right {
-  border-color: rgba(255, 47, 47, 0.3);
-}
+.mission-item__view-btn--left  { border-color: rgba(26, 143, 255, 0.25); }
+.mission-item__view-btn--right { border-color: rgba(255, 47, 47, 0.25); }
 
 .mission-item__view-btn--left:hover {
+  opacity: 1;
   border-color: var(--color-mission-secure);
-  box-shadow: 0 0 8px var(--color-glow-secure);
-  background: rgba(26, 143, 255, 0.1);
-  transform: scale(1.08);
+  box-shadow: 0 0 6px var(--color-glow-secure);
+  color: var(--color-mission-secure);
+  background: rgba(26, 143, 255, 0.08);
 }
 
 .mission-item__view-btn--right:hover {
+  opacity: 1;
   border-color: var(--color-mission-extract);
-  box-shadow: 0 0 8px var(--color-glow-extract);
-  background: rgba(255, 47, 47, 0.1);
-  transform: scale(1.08);
+  box-shadow: 0 0 6px var(--color-glow-extract);
+  color: var(--color-mission-extract);
+  background: rgba(255, 47, 47, 0.08);
 }

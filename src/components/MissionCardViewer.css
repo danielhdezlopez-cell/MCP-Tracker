@@ -1,30 +1,31 @@
 .mcv-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(0, 0, 0, 0.86);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 200;
-  padding: 16px;
+  padding: 12px;
 }
 
 .mcv-container {
   display: flex;
   flex-direction: column;
-  max-height: 92vh;
-  max-width: 500px;
-  width: 100%;
+  /* width follows image; cap at 480px */
+  width: min(480px, calc(100vw - 24px));
+  /* height follows content, capped so it doesn't overflow viewport */
+  max-height: calc(100vh - 24px);
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--color-glow-left);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), 0 0 18px var(--color-glow-left);
   overflow: hidden;
   position: relative;
 }
 
-/* Corner HUD marks */
+/* Corner HUD brackets */
 .mcv-container::before,
 .mcv-container::after {
   content: '';
@@ -32,38 +33,40 @@
   width: 14px;
   height: 14px;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 .mcv-container::before {
   top: 5px; left: 5px;
   border-top: 1px solid var(--color-accent-left);
   border-left: 1px solid var(--color-accent-left);
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .mcv-container::after {
   bottom: 5px; right: 5px;
   border-bottom: 1px solid var(--color-accent-left);
   border-right: 1px solid var(--color-accent-left);
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
+/* ── Header ──────────────────────────────────────────────────────── */
 .mcv-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-panel-alt);
   flex-shrink: 0;
 }
 
 .mcv-title {
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   color: var(--color-text);
   letter-spacing: 0.1em;
+  font-family: var(--font-display);
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -73,9 +76,9 @@
 
 .mcv-close {
   flex-shrink: 0;
-  min-height: 32px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
+  min-height: 28px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
   border-color: var(--color-critical);
   color: var(--color-critical);
 }
@@ -84,22 +87,26 @@
   box-shadow: 0 0 8px rgba(255, 42, 42, 0.4);
 }
 
+/* ── Body — image area ───────────────────────────────────────────── */
 .mcv-body {
-  flex: 1;
-  min-height: 0;
+  /* Shrink header≈36px + footer≈36px + overlay padding 24px */
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 12px;
-  overflow: hidden;
+  background: #000;
 }
 
 .mcv-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 4px;
   display: block;
+  /* Fill container width, never exceed it */
+  width: 100%;
+  height: auto;
+  /* Hard cap: card must not overflow the viewport */
+  max-height: calc(100vh - 96px);
+  object-fit: contain;
+  object-position: top center;
 }
 
 .mcv-no-image {
@@ -107,24 +114,27 @@
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-align: center;
-  padding: 40px 0;
+  padding: 40px 20px;
 }
 
+/* ── Footer ──────────────────────────────────────────────────────── */
 .mcv-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-top: 1px solid var(--color-border);
   background: var(--color-panel-alt);
   flex-shrink: 0;
 }
 
 .mcv-type {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   letter-spacing: 0.18em;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 3px;
+  font-family: var(--font-display);
+  font-weight: 700;
 }
 
 .mcv-type--secure {
@@ -140,16 +150,17 @@
 }
 
 .mcv-threat {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   letter-spacing: 0.1em;
   color: var(--color-text-muted);
   display: flex;
   align-items: center;
   gap: 6px;
+  font-family: var(--font-display);
 }
 
 .mcv-threat-val {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 900;
 }
