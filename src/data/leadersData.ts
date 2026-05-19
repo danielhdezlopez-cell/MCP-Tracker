@@ -10,6 +10,7 @@ const img = (file: string) => `${base}assets/leaders/${file}`;
 
 export const LEADERS: Leader[] = [
   { id: 'adam-warlock', name: 'Adam Warlock', affiliations: ['Galaxy Guardians'], image: img('AdamWarlock.png') },
+  { id: 'spider-man', name: 'Amazing Spider-Man', affiliations: ['Web Spider'], image: img('SpiderMan.png') },
   { id: 'apocalypse', name: 'Apocalypse', affiliations: ['Apocalypse'], image: img('Apocalypse.png') },
   { id: 'baron-strucker', name: 'Baron Strucker', affiliations: ['Hydra'], image: img('BaronStrucker_.png') },
   { id: 'baron-zemo', name: 'Baron Helmut Zemo', affiliations: ['Cabal', 'Hydra'], image: img('BaronZemo.png') },
@@ -63,7 +64,6 @@ export const LEADERS: Leader[] = [
   { id: 'she-hulk', name: 'She-Hulk', affiliations: ['A-Force'], image: img('SheHulk.png') },
   { id: 'sin', name: 'Sin', affiliations: ['Cabal'], image: img('Sin.png') },
   { id: 'spectrum', name: 'Spectrum', affiliations: ['Mighty Avengers'], image: img('Spectrum.png') },
-  { id: 'spider-man', name: 'Amazing Spider-Man', affiliations: ['Web Spider'], image: img('SpiderMan.png') },
   { id: 'starlord', name: 'Starlord', affiliations: ['Galaxy Guardians'], image: img('Starlord.png') },
   { id: 'storm', name: 'Storm', affiliations: ['Uncanny X-Men'], image: img('Storm.png') },
   { id: 'supreme-doctor-strange', name: 'Supreme Doctor Strange', affiliations: ['Convocation'], image: img('SupremeDoctorStrange.png') },
