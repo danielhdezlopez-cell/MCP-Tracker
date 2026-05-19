@@ -6,7 +6,7 @@ import { type Mission } from '../data/missionsData';
 export type Theme = 'neon-blue' | 'comic' | 'hydra-green' | 'wakanda' | 'cartoon-blue-orange';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
-export type InteractiveBg = 'off' | 'hero-hud' | 'comic-energy' | 'cosmic' | 'tech-hex' | 'cartoon';
+export type InteractiveBg = 'off' | 'tech-hex';
 
 interface McpState {
   // Navigation
@@ -87,7 +87,7 @@ export const useMcpStore = create<McpState>()(
       wifiEnabled: false,
       ledStripEnabled: false,
       selectedBackground: '',
-      interactiveBg: 'off',
+      interactiveBg: 'tech-hex',
 
       setCurrentPage: (page) => set({ currentPage: page }),
       setPendingLeaderAssign: (side) => set({ pendingLeaderAssign: side }),
@@ -133,6 +133,11 @@ export const useMcpStore = create<McpState>()(
     }),
     {
       name: 'mcp-tracker-store',
+      onRehydrateStorage: () => (state) => {
+        if (state && !(['off', 'tech-hex'] as string[]).includes(state.interactiveBg)) {
+          state.interactiveBg = 'tech-hex';
+        }
+      },
     }
   )
 );
