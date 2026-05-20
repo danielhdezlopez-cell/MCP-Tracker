@@ -62,7 +62,7 @@ export function AffiliationBackdrop() {
     `affiliation-backdrop__half ${flashing ? 'is-flashing' : ''} ${critical ? 'is-critical' : ''}`;
 
   return (
-    <div className="affiliation-backdrop" aria-hidden="true">
+    <div className="affiliation-backdrop" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
       <div className={`${halfClasses(flashLeft)} affiliation-backdrop__half--left`}>
         {fxLeft && (
           <Half fx={fxLeft} affiliation={leaderLeft!.affiliations[0]} side="left" />
