@@ -92,6 +92,54 @@
   opacity: 0.8;
 }
 
+/* ── Affiliation sigil — centered behind portrait ─────────────────── */
+.leader-hex__sigil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 210%;
+  aspect-ratio: 1 / 1;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 12px var(--fx-color, #00c3ff));
+  animation: lh-sigil-drift 24s ease-in-out infinite;
+}
+
+.leader-hex__sigil svg {
+  width: 100%;
+  height: 100%;
+  animation: lh-sigil-spin 70s linear infinite;
+}
+
+@keyframes lh-sigil-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes lh-sigil-drift {
+  0%, 100% { opacity: 0.22; }
+  50%       { opacity: 0.34; }
+}
+
+.leader-hex__sigil.is-flashing {
+  animation:
+    lh-sigil-flash 1.4s ease-out 1,
+    lh-sigil-spin 70s linear infinite;
+}
+
+@keyframes lh-sigil-flash {
+  0%   { opacity: 0.22; transform: translate(-50%, -50%) scale(1); }
+  20%  { opacity: 0.65; transform: translate(-50%, -50%) scale(1.06); }
+  100% { opacity: 0.22; transform: translate(-50%, -50%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leader-hex__sigil svg { animation: none; }
+  .leader-hex__sigil { animation: none; opacity: 0.22; }
+}
+
 .leader-hex__name {
   font-family: var(--font-display);
   font-size: var(--fs-11);
