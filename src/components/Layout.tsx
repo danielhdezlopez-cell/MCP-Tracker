@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
 import { SideNav } from './SideNav';
+import { AnimatedThemeBackground } from './AnimatedThemeBackground';
 import { MainPage } from '../pages/MainPage';
 import { LeadersPage } from '../pages/LeadersPage';
 import { MissionsPage } from '../pages/MissionsPage';
@@ -20,6 +21,7 @@ export function Layout() {
 
   return (
     <div className="layout">
+      <AnimatedThemeBackground theme={theme} />
       <SideNav />
       <main className="layout__content">
         <div key={currentPage} className="layout__page-anim">

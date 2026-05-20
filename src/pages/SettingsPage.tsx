@@ -14,7 +14,8 @@ const INTERACTIVE_BG_OPTIONS: { value: InteractiveBg; label: string; desc: strin
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'neon-blue', label: 'Neon Blue / Orange', desc: 'Default HUD sci-fi' },
-  { value: 'comic-ink', label: 'Comic Ink', desc: 'Paper, halftone & ink panels' },
+  { value: 'comic-ink', label: 'Comic Ink',          desc: 'Paper, halftone & ink panels' },
+  { value: 'hydra',     label: 'Hydra',              desc: 'Dark tactical — animated video BG' },
 ];
 
 const VIDEO_BG_OPTIONS: { value: VideoBg; label: string; desc: string }[] = [

@@ -42,6 +42,311 @@
 }
 
 /* ════════════════════════════════════════════════════════════════════
+   HYDRA — dark villain-tech tactical UI with animated video backdrop.
+   Black / gunmetal base, toxic green accents, muted yellow highlights.
+   Panels are semi-transparent to let the video bleed through.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='hydra'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 12, 8, 0.82);
+  --color-panel-alt: rgba(8, 18, 10, 0.88);
+  --color-border: rgba(83, 255, 80, 0.45);
+  --color-accent-left: #39ff4f;
+  --color-accent-right: #d6ff3f;
+  --color-glow-left: rgba(57, 255, 79, 0.45);
+  --color-glow-right: rgba(214, 255, 63, 0.35);
+  --color-text: #eaffea;
+  --color-text-muted: #8fae8f;
+  --color-warn: #f6c945;
+  --color-critical: #ff4444;
+  --color-success: #39ff4f;
+  --color-round-active: #39ff4f;
+  --color-round-inactive: rgba(57, 255, 79, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: fully transparent so the fixed video shows through */
+[data-theme='hydra'] body { background: transparent; }
+[data-theme='hydra'] .layout {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* Panels — translucent dark with toxic green border glow */
+[data-theme='hydra'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(57, 255, 79, 0.4);
+  box-shadow: 0 0 12px rgba(57, 255, 79, 0.12), inset 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
+[data-theme='hydra'] .panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 79, 0.15), transparent, rgba(214, 255, 63, 0.08));
+}
+[data-theme='hydra'] .glow-left {
+  border-color: rgba(57, 255, 79, 0.45);
+  box-shadow: -2px 0 14px rgba(57, 255, 79, 0.3), 0 0 10px rgba(57, 255, 79, 0.12);
+}
+[data-theme='hydra'] .glow-right {
+  border-color: rgba(214, 255, 63, 0.45);
+  box-shadow: 2px 0 14px rgba(214, 255, 63, 0.3), 0 0 10px rgba(214, 255, 63, 0.12);
+}
+
+/* Buttons */
+[data-theme='hydra'] .btn-hud {
+  background: rgba(5, 12, 8, 0.85);
+  border-color: rgba(57, 255, 79, 0.4);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hydra'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='hydra'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='hydra'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='hydra'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='hydra'] .side-nav {
+  background: rgba(3, 8, 5, 0.92);
+  border-right-color: rgba(57, 255, 79, 0.35);
+  backdrop-filter: blur(8px);
+}
+[data-theme='hydra'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(57, 255, 79, 0.6) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='hydra'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 20px var(--color-glow-left);
+}
+[data-theme='hydra'] .side-nav__item:hover {
+  background: rgba(57, 255, 79, 0.08);
+  border-color: rgba(57, 255, 79, 0.4);
+}
+[data-theme='hydra'] .side-nav__item.active {
+  background: rgba(57, 255, 79, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='hydra'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='hydra'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #39ff4f, #5fffac);
+  box-shadow: 0 0 6px rgba(57, 255, 79, 0.7);
+}
+[data-theme='hydra'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #d6ff3f, #f6c945);
+  box-shadow: 0 0 6px rgba(214, 255, 63, 0.7);
+}
+[data-theme='hydra'] .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+}
+[data-theme='hydra'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+}
+[data-theme='hydra'] .score-panel__btn {
+  background: rgba(5, 12, 8, 0.9);
+  border-color: rgba(57, 255, 79, 0.35);
+}
+[data-theme='hydra'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='hydra'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 79, 0.4);
+}
+[data-theme='hydra'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 79, 0.2), transparent, rgba(214, 255, 63, 0.1));
+}
+[data-theme='hydra'] .timer-panel__display {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='hydra'] .timer-panel--critical {
+  border-color: rgba(57, 255, 79, 0.8) !important;
+  box-shadow: 0 0 20px rgba(57, 255, 79, 0.4), 0 0 40px rgba(57, 255, 79, 0.2) !important;
+}
+[data-theme='hydra'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 12px rgba(246, 201, 69, 0.8);
+}
+[data-theme='hydra'] .timer-panel__btn {
+  background: rgba(5, 12, 8, 0.9);
+  border-color: rgba(57, 255, 79, 0.35);
+  color: var(--color-accent-left);
+}
+[data-theme='hydra'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='hydra'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 79, 0.35);
+}
+[data-theme='hydra'] .round-tracker__pip {
+  border-color: rgba(57, 255, 79, 0.3);
+  background: rgba(5, 12, 8, 0.6);
+}
+[data-theme='hydra'] .round-tracker__pip.active {
+  border-color: rgba(57, 255, 79, 0.6);
+  background: rgba(57, 255, 79, 0.12);
+}
+[data-theme='hydra'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot (main screen) */
+[data-theme='hydra'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='hydra'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='hydra'] .mission-item {
+  background: rgba(5, 12, 8, 0.75);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hydra'] .mission-item:hover {
+  background: rgba(57, 255, 79, 0.06);
+  border-color: rgba(57, 255, 79, 0.5);
+}
+[data-theme='hydra'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.2);
+  border-color: rgba(26, 143, 255, 0.7);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.3);
+}
+[data-theme='hydra'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.2);
+  border-color: rgba(255, 47, 47, 0.7);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.3);
+}
+
+/* Leader hex (main screen) */
+[data-theme='hydra'] .leader-hex__name {
+  background: rgba(5, 12, 8, 0.85);
+  border-color: rgba(57, 255, 79, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card (leaders page) */
+[data-theme='hydra'] .leader-card {
+  background: rgba(5, 12, 8, 0.82);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hydra'] .leader-card:hover {
+  border-color: rgba(57, 255, 79, 0.55);
+  box-shadow: 0 0 10px rgba(57, 255, 79, 0.2);
+}
+[data-theme='hydra'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='hydra'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Headers */
+[data-theme='hydra'] .leaders-page__header,
+[data-theme='hydra'] .missions-page__header {
+  background: rgba(3, 8, 5, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(57, 255, 79, 0.3);
+}
+[data-theme='hydra'] .leaders-page__search {
+  background: rgba(5, 12, 8, 0.85);
+  border-color: rgba(57, 255, 79, 0.35);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hydra'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='hydra'] .missions-page__body {
+  background: rgba(3, 8, 5, 0.7);
+}
+
+/* Settings */
+[data-theme='hydra'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 79, 0.3);
+}
+[data-theme='hydra'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(8, 18, 10, 0.9);
+  border-bottom-color: rgba(57, 255, 79, 0.25);
+}
+[data-theme='hydra'] .settings-preset-btn.active,
+[data-theme='hydra'] .settings-theme-btn.active,
+[data-theme='hydra'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(57, 255, 79, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='hydra'] .settings-slider {
+  background: rgba(57, 255, 79, 0.15);
+}
+[data-theme='hydra'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='hydra'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='hydra'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.65); }
+[data-theme='hydra'] .main-page__modal {
+  background: rgba(5, 12, 8, 0.95);
+  border-color: rgba(57, 255, 79, 0.5);
+  box-shadow: 0 0 30px rgba(57, 255, 79, 0.2);
+  backdrop-filter: blur(12px);
+}
+[data-theme='hydra'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* ════════════════════════════════════════════════════════════════════
    COMIC INK — paper + halftone + ink borders + offset shadows + Bangers.
    A complete re-skin of the HUD using only CSS overrides; the structure
    of every component remains unchanged. Inspired by classic comic books:

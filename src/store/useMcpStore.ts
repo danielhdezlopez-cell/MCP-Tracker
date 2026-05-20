@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink';
+export type Theme = 'neon-blue' | 'comic-ink' | 'hydra';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -145,8 +145,8 @@ export const useMcpStore = create<McpState>()(
         if (state && !(['off', 'tech-hex'] as string[]).includes(state.interactiveBg)) {
           state.interactiveBg = 'tech-hex';
         }
-        // Migrate removed themes → neon-blue (default)
-        if (state && !(['neon-blue', 'comic-ink'] as string[]).includes(state.theme)) {
+        // Migrate removed/unknown themes → neon-blue
+        if (state && !(['neon-blue', 'comic-ink', 'hydra'] as string[]).includes(state.theme)) {
           state.theme = 'neon-blue';
         }
         // Tech Hex Grid only valid under neon-blue

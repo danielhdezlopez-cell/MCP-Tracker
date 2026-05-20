@@ -242,6 +242,25 @@
   border: 2px solid #0D0D0D;
   box-shadow: 2px 2px 0 #0D0D0D;
 }
+[data-theme-preview='hydra'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #050807 0%, #0b200e 40%, #1a3a1d 70%, #39ff4f22 100%);
+  border: 1px solid rgba(57, 255, 79, 0.5);
+  box-shadow: 0 0 8px rgba(57, 255, 79, 0.3), inset 0 0 6px rgba(57, 255, 79, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='hydra'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(57, 255, 79, 0.04) 3px,
+    rgba(57, 255, 79, 0.04) 4px
+  );
+}
 
 /* Video background sub-section */
 .settings-themes-sub-title {
