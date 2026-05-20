@@ -78,7 +78,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: clamp(4px, 1vw, 10px);
+  gap: clamp(32px, 5vw, 64px);
   flex: 1;
   min-width: 0;
   padding: 8px 4px;
