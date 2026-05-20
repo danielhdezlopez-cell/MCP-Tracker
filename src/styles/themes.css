@@ -73,11 +73,7 @@
 
 /* Body + layout: fully transparent so the fixed video shows through */
 [data-theme='hydra'] body { background: transparent; }
-[data-theme='hydra'] .layout {
-  background: transparent;
-  position: relative;
-  z-index: 1;
-}
+[data-theme='hydra'] .layout { background: transparent; }
 
 /* Panels — translucent dark with toxic green border glow */
 [data-theme='hydra'] .panel {

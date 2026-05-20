@@ -15,7 +15,7 @@ export function AnimatedThemeBackground({ theme }: Props) {
     <div className={`anim-theme-bg anim-theme-bg--hydra${videoError ? ' anim-theme-bg--fallback' : ''}`}>
       {!videoError && (
         <video
-          src="/assets/backgrounds/BG_HYDRA.mp4"
+          src={`${import.meta.env.BASE_URL}assets/backgrounds/BG_HYDRA.mp4`}
           autoPlay
           loop
           muted
