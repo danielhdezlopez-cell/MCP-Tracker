@@ -29,18 +29,19 @@ export function MainPage() {
       {selectedBackground && <div className="main-page__bg-overlay" />}
       <AnimatedBackground mode={interactiveBg} />
 
-      {/* TOP ROW: Timer + Reset */}
+      {/* TOP ROW: Timer + Round Tracker + Reset */}
       <div className="main-page__top">
-        <div className="main-page__top-left" />
-        <TimerPanel />
-        <div className="main-page__top-right">
-          <button
-            className="btn-hud main-page__reset-btn"
-            onClick={() => setShowConfirm(true)}
-          >
-            ↺ RESET
-          </button>
+        <div className="main-page__top-controls">
+          <TimerPanel />
+          <RoundTracker />
         </div>
+        <button
+          className="btn-hud main-page__reset-btn"
+          onClick={() => setShowConfirm(true)}
+          title="Reset Game"
+        >
+          ↺
+        </button>
       </div>
 
       {/* MAIN ROW: Score + Leaders + Score */}
@@ -49,7 +50,6 @@ export function MainPage() {
 
         <div className="main-page__center">
           <LeaderHex side="left" />
-          <RoundTracker />
           <LeaderHex side="right" />
         </div>
 
