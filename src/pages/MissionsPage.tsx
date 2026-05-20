@@ -41,7 +41,6 @@ export function MissionsPage() {
         <div className="missions-page__column">
           <div className="missions-page__col-header panel missions-page__col-header--secure">
             <span className="missions-page__col-title missions-page__col-title--secure">SECURE</span>
-            <span className="missions-page__col-count label-hud">{SECURE_MISSIONS.length} CARDS</span>
             {selectedSecure && (
               <span className="missions-page__col-active label-hud missions-page__col-active--secure">
                 ✓ SELECTED
@@ -57,7 +56,6 @@ export function MissionsPage() {
         <div className="missions-page__column">
           <div className="missions-page__col-header panel missions-page__col-header--extract">
             <span className="missions-page__col-title missions-page__col-title--extract">EXTRACT</span>
-            <span className="missions-page__col-count label-hud">{EXTRACT_MISSIONS.length} CARDS</span>
             {selectedExtract && (
               <span className="missions-page__col-active label-hud missions-page__col-active--extract">
                 ✓ SELECTED

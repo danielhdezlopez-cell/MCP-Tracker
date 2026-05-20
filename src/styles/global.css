@@ -220,6 +220,8 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
   .leaders-page__header { min-height: 38px; padding: 6px 10px; }
   .leaders-page__sidebar { width: 140px; min-width: 130px; }
   .affil-btn { min-height: 26px; font-size: var(--fs-11); padding: 4px 8px; }
+
+  .missions-page__body { gap: 8px; padding: 4px 8px; }
 }
 
 /* ── Mobile portrait & narrow viewports (≤640px wide) ──────────────────
@@ -393,9 +395,14 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
   /* MissionsPage — columns stack */
   .missions-page__body {
     flex-direction: column;
-    gap: 1px;
+    gap: 8px;
+    padding: 6px 8px;
   }
-  .missions-page__column { min-height: 200px; }
+  .missions-page__column {
+    flex: 1;
+    max-width: none;
+    min-height: 200px;
+  }
   .missions-page__col-header { padding: 8px 12px; }
   .missions-page__col-title { font-size: var(--fs-13); }
   .missions-page__summary {
