@@ -21,7 +21,7 @@
   z-index: 1;
 }
 
-/* TOP ROW */
+/* TOP ROW — timer centered, reset right */
 .main-page__top {
   display: flex;
   align-items: center;
@@ -29,12 +29,14 @@
   flex-shrink: 0;
 }
 
-.main-page__top-controls {
+.main-page__top-spacer {
+  flex: 1;
+}
+
+.main-page__top-right {
   flex: 1;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
+  justify-content: flex-end;
 }
 
 .main-page__reset-btn {
@@ -75,12 +77,19 @@
   padding: 4px;
 }
 
+/* ROUND TRACKER ROW */
+.main-page__round {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 /* BOTTOM ROW */
 .main-page__bottom {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
-  height: clamp(90px, 20vh, 130px);
+  height: clamp(80px, 16vh, 110px);
 }
 
 /* Modal */

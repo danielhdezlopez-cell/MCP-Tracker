@@ -32,11 +32,6 @@ export function RoundTracker() {
         disabled={round >= 6}
         aria-label="Next round"
       >▶</button>
-
-      <div className="round-tracker__badge">
-        <span className="round-tracker__badge-label">RND</span>
-        <span className="round-tracker__badge-num">{round}</span>
-      </div>
     </div>
   );
 }
