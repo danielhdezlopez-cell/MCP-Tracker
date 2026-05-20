@@ -12,6 +12,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'spider-man', label: 'Spider-Man',    desc: 'Urban hero comic-tech dark city HUD'    },
 ];
 
+
 export function SettingsPage() {
   const {
     timerDuration, setTimerDuration,
@@ -110,6 +111,7 @@ export function SettingsPage() {
               </button>
             ))}
           </div>
+
         </div>
       </div>
     </div>

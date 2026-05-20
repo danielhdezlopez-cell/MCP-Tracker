@@ -74,6 +74,19 @@ export const LEADERS: Leader[] = [
   { id: 'weapon-x', name: 'Weapon X', affiliations: ['Weapon X'], image: img('WeaponXWolverine.png') },
 ];
 
+// Display labels for renamed affiliations.
+// Internal keys in LEADERS.affiliations stay unchanged so filtering
+// and localStorage persistence continue to work.
+export const AFFILIATION_DISPLAY_LABELS: Record<string, string> = {
+  'Apocalypse': 'Servants of the Apocalypse',
+  'Mephisto':   'Legion of the Lost',
+  'Dracula':    'Thralls of Dracula',
+};
+
+export function getAffilDisplay(key: string): string {
+  return AFFILIATION_DISPLAY_LABELS[key] ?? key;
+}
+
 export const AFFILIATIONS = [
   'A-Force', 'Apocalypse', 'Asgard', 'Avengers', 'Black Order',
   'Brotherhood', 'Cabal', 'Convocation', 'Criminal Syndicate',

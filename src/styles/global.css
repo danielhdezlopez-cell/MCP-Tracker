@@ -384,6 +384,7 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
     overflow-y: auto;
   }
   .affiliation-filter {
+    flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: auto;
     padding: 6px 8px;
