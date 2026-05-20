@@ -1,36 +1,179 @@
-import { useMcpStore, type AppPage } from '../store/useMcpStore';
-import './SideNav.css';
+.timer-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 8px;
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), inset 0 0 20px rgba(0,195,255,0.03);
+  transition: all 0.5s ease;
+  position: relative;
+}
 
-const NAV_ITEMS: { page: AppPage; label: string; icon: string }[] = [
-  { page: 'main', label: 'MAIN', icon: '⬡' },
-  { page: 'leaders', label: 'LEADERS', icon: '◈' },
-  { page: 'missions', label: 'MISSIONS', icon: '◎' },
-  { page: 'settings', label: 'CONFIG', icon: '⚙' },
-];
+/* Outer corner bracket marks */
+.timer-panel::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid transparent;
+  border-top-color: rgba(0,195,255,0.25);
+  border-bottom-color: rgba(0,195,255,0.25);
+  border-radius: 4px;
+  pointer-events: none;
+  transition: border-color 0.5s ease;
+}
 
-export function SideNav() {
-  const { currentPage, setCurrentPage } = useMcpStore();
+/* Side tick marks via box decoration */
+.timer-panel__deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
 
-  return (
-    <nav className="side-nav">
-      <div className="side-nav__logo">
-        <span className="side-nav__logo-text">MCP</span>
-        <span className="side-nav__logo-sub">TRACKER</span>
-      </div>
-      <div className="side-nav__items">
-        {NAV_ITEMS.map(({ page, label, icon }) => (
-          <button
-            key={page}
-            className={`side-nav__item ${currentPage === page ? 'active' : ''}`}
-            onClick={() => setCurrentPage(page)}
-            aria-label={label}
-          >
-            <span className="side-nav__icon">{icon}</span>
-            <span className="side-nav__label">{label}</span>
-          </button>
-        ))}
-      </div>
-      <div className="side-nav__version">v1.0</div>
-    </nav>
+.timer-panel__deco::before,
+.timer-panel__deco::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  top: 25%;
+  bottom: 25%;
+  opacity: 0.3;
+}
+
+.timer-panel__deco::before {
+  left: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-accent-left) 0px,
+    var(--color-accent-left) 3px,
+    transparent 3px,
+    transparent 8px
   );
+}
+
+.timer-panel__deco::after {
+  right: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-accent-left) 0px,
+    var(--color-accent-left) 3px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+.timer-panel--critical {
+  border-color: var(--color-critical) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.6), inset 0 0 20px rgba(255,42,42,0.05) !important;
+  animation: critical-pulse 1s ease-in-out infinite;
+}
+
+.timer-panel--critical::before {
+  border-top-color: rgba(255,42,42,0.35) !important;
+  border-bottom-color: rgba(255,42,42,0.35) !important;
+}
+
+.timer-panel--critical .timer-panel__deco::before,
+.timer-panel--critical .timer-panel__deco::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-critical) 0px,
+    var(--color-critical) 3px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+@keyframes critical-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 42, 42, 0.6); }
+  50% { box-shadow: 0 0 32px rgba(255, 42, 42, 0.9), inset 0 0 12px rgba(255,42,42,0.08); }
+}
+
+/* Display area with scanline */
+.timer-panel__display-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-panel__display-wrap::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  top: 50%;
+  background: linear-gradient(90deg, transparent, rgba(0,195,255,0.12), transparent);
+  pointer-events: none;
+  animation: scan-line 4s ease-in-out infinite;
+}
+
+@keyframes scan-line {
+  0%   { top: 0%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.timer-panel--critical .timer-panel__display-wrap::after {
+  background: linear-gradient(90deg, transparent, rgba(255,42,42,0.2), transparent);
+}
+
+.timer-panel__display {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--color-accent-left);
+  text-shadow: 0 0 14px var(--color-accent-left), 0 0 28px rgba(0,195,255,0.2);
+  line-height: 1;
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.timer-panel__display.critical {
+  color: var(--color-critical);
+  text-shadow: 0 0 16px var(--color-critical), 0 0 32px rgba(255,42,42,0.3);
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.timer-panel__controls {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.timer-panel__btn {
+  flex: 1;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  min-height: 36px;
+  padding: 6px 8px;
+}
+
+.timer-panel__btn--play {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+}
+
+.timer-panel__btn--pause {
+  border-color: var(--color-warn);
+  color: var(--color-warn);
+}
+
+.timer-panel__btn--reset {
+  border-color: var(--color-text-muted);
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer-panel__display-wrap::after,
+  .timer-panel--critical { animation: none !important; }
+  .timer-panel__display.critical { animation: none !important; opacity: 1; }
 }

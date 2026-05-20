@@ -1,1 +1,205 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="77" height="47" fill="none" aria-labelledby="vite-logo-title" viewBox="0 0 77 47"><title id="vite-logo-title">Vite</title><path fill="#9135ff" d="M40.151 45.71c-.663.844-2.02.374-2.02-.699V34.708a2.26 2.26 0 0 0-2.262-2.262H24.493c-.92 0-1.457-1.04-.92-1.788l7.479-10.471c1.07-1.498 0-3.578-1.842-3.578H15.443c-.92 0-1.456-1.04-.92-1.788l9.696-13.576c.213-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.472c-1.07 1.497 0 3.578 1.842 3.578h11.376c.944 0 1.474 1.087.89 1.83L40.153 45.712z"></path><mask id="a" width="48" height="47" x="14" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#000" d="M40.047 45.71c-.663.843-2.02.374-2.02-.699V34.708a2.26 2.26 0 0 0-2.262-2.262H24.389c-.92 0-1.457-1.04-.92-1.788l7.479-10.472c1.07-1.497 0-3.578-1.842-3.578H15.34c-.92 0-1.456-1.04-.92-1.788l9.696-13.575c.213-.297.556-.474.92-.474H53.93c.92 0 1.456 1.04.92 1.788L47.37 13.03c-1.07 1.498 0 3.578 1.842 3.578h11.376c.944 0 1.474 1.088.89 1.831L40.049 45.712z"></path></mask><g mask="url(#a)"><g filter="url(#b)"><ellipse cx="5.508" cy="14.704" fill="#eee6ff" rx="5.508" ry="14.704" transform="rotate(269.814 20.96 11.29)scale(-1 1)"></ellipse></g><g filter="url(#c)"><ellipse cx="10.399" cy="29.851" fill="#eee6ff" rx="10.399" ry="29.851" transform="rotate(89.814 -16.902 -8.275)scale(1 -1)"></ellipse></g><g filter="url(#d)"><ellipse cx="5.508" cy="30.487" fill="#8900ff" rx="5.508" ry="30.487" transform="rotate(89.814 -19.197 -7.127)scale(1 -1)"></ellipse></g><g filter="url(#e)"><ellipse cx="5.508" cy="30.599" fill="#8900ff" rx="5.508" ry="30.599" transform="rotate(89.814 -25.928 4.177)scale(1 -1)"></ellipse></g><g filter="url(#f)"><ellipse cx="5.508" cy="30.599" fill="#8900ff" rx="5.508" ry="30.599" transform="rotate(89.814 -25.738 5.52)scale(1 -1)"></ellipse></g><g filter="url(#g)"><ellipse cx="14.072" cy="22.078" fill="#eee6ff" rx="14.072" ry="22.078" transform="rotate(93.35 31.245 55.578)scale(-1 1)"></ellipse></g><g filter="url(#h)"><ellipse cx="3.47" cy="21.501" fill="#8900ff" rx="3.47" ry="21.501" transform="rotate(89.009 35.419 55.202)scale(-1 1)"></ellipse></g><g filter="url(#i)"><ellipse cx="3.47" cy="21.501" fill="#8900ff" rx="3.47" ry="21.501" transform="rotate(89.009 35.419 55.202)scale(-1 1)"></ellipse></g><g filter="url(#j)"><ellipse cx="14.592" cy="9.743" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(39.51 14.592 9.743)"></ellipse></g><g filter="url(#k)"><ellipse cx="61.728" cy="-5.321" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 61.728 -5.32)"></ellipse></g><g filter="url(#l)"><ellipse cx="55.618" cy="7.104" fill="#00c2ff" rx="5.971" ry="9.665" transform="rotate(37.892 55.618 7.104)"></ellipse></g><g filter="url(#m)"><ellipse cx="12.326" cy="39.103" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 12.326 39.103)"></ellipse></g><g filter="url(#n)"><ellipse cx="12.326" cy="39.103" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 12.326 39.103)"></ellipse></g><g filter="url(#o)"><ellipse cx="49.857" cy="30.678" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 49.857 30.678)"></ellipse></g><g filter="url(#p)"><ellipse cx="52.623" cy="33.171" fill="#00c2ff" rx="5.971" ry="15.297" transform="rotate(37.892 52.623 33.17)"></ellipse></g></g><path d="M6.919 0c-9.198 13.166-9.252 33.575 0 46.789h6.215c-9.25-13.214-9.196-33.623 0-46.789zm62.424 0h-6.215c9.198 13.166 9.252 33.575 0 46.789h6.215c9.25-13.214 9.196-33.623 0-46.789" class="parenthesis"></path><defs><filter id="b" width="60.045" height="41.654" x="-5.564" y="16.92" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"></feGaussianBlur></filter><filter id="c" width="90.34" height="51.437" x="-40.407" y="-6.762" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"></feGaussianBlur></filter><filter id="d" width="79.355" height="29.4" x="-35.435" y="2.801" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="e" width="79.579" height="29.4" x="-30.84" y="20.8" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="f" width="79.579" height="29.4" x="-29.307" y="21.949" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="g" width="74.749" height="58.852" x="29.961" y="-17.13" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"></feGaussianBlur></filter><filter id="h" width="61.377" height="25.362" x="37.754" y="3.055" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="i" width="61.377" height="25.362" x="37.754" y="3.055" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="j" width="56.045" height="63.649" x="-13.43" y="-22.082" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="k" width="54.814" height="64.646" x="34.321" y="-37.644" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="l" width="33.541" height="35.313" x="38.847" y="-10.552" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="m" width="54.814" height="64.646" x="-15.081" y="6.78" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="n" width="54.814" height="64.646" x="-15.081" y="6.78" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="o" width="54.814" height="64.646" x="22.45" y="-1.645" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter><filter id="p" width="39.409" height="43.623" x="32.919" y="11.36" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"></feGaussianBlur></filter></defs></svg>
+/* ════════════════════════════════════════════════════════════════════
+   Affiliation Backdrop — option A (sigil halo) + option C (color beam
+   + corner stamp), combined. Sits BETWEEN the AnimatedBackground
+   (Tech Hex Grid) and the MAIN page content, with mix-blend-mode
+   screen so it composes with the grid instead of fighting it.
+
+   Active only under [data-theme='neon-blue'] — the component checks
+   this in the store and returns null otherwise.
+   ════════════════════════════════════════════════════════════════════ */
+
+.affiliation-backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  animation: aff-backdrop-fade-in 0.5s ease 0.1s forwards;
+}
+
+@keyframes aff-backdrop-fade-in {
+  to { opacity: 1; }
+}
+
+.affiliation-backdrop__half {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  transition: filter 0.4s ease;
+}
+
+/* ── A · Sigil halo (rotating emblem behind portraits) ───────────── */
+.affiliation-backdrop__sigil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  aspect-ratio: 1 / 1;
+  max-width: 280px;
+  max-height: 280px;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 14px var(--fx-color, #00c3ff));
+  animation: aff-sigil-drift 26s ease-in-out infinite;
+}
+
+.affiliation-backdrop__sigil svg {
+  width: 100%;
+  height: 100%;
+  animation: aff-sigil-spin 80s linear infinite;
+}
+
+@keyframes aff-sigil-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes aff-sigil-drift {
+  0%, 100% { opacity: 0.18; }
+  50%      { opacity: 0.28; }
+}
+
+/* ── C · Color beam (diagonal wash from player corner) ──────────── */
+.affiliation-backdrop__beam {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+.affiliation-backdrop__half--left .affiliation-backdrop__beam {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--fx-color) 22%, transparent) 0%,
+      color-mix(in srgb, var(--fx-color)  6%, transparent) 28%,
+      transparent 55%),
+    radial-gradient(60% 70% at 0% 50%,
+      color-mix(in srgb, var(--fx-color) 18%, transparent) 0%,
+      transparent 70%);
+}
+
+.affiliation-backdrop__half--right .affiliation-backdrop__beam {
+  background:
+    linear-gradient(225deg,
+      color-mix(in srgb, var(--fx-color) 22%, transparent) 0%,
+      color-mix(in srgb, var(--fx-color)  6%, transparent) 28%,
+      transparent 55%),
+    radial-gradient(60% 70% at 100% 50%,
+      color-mix(in srgb, var(--fx-color) 18%, transparent) 0%,
+      transparent 70%);
+}
+
+/* ── C · Corner stamp (faction badge) ──────────────────────────── */
+.affiliation-backdrop__stamp {
+  position: absolute;
+  top: 6%;
+  font-family: var(--font-display);
+  background: rgba(7, 11, 20, 0.6);
+  padding: 4px 8px 3px;
+  border: 1px dashed currentColor;
+  border-radius: 2px;
+  line-height: 1.25;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-width: 60%;
+  pointer-events: none;
+}
+
+.affiliation-backdrop__stamp--left {
+  left: 6%;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.affiliation-backdrop__stamp--right {
+  right: 6%;
+  text-align: right;
+  align-items: flex-end;
+}
+
+.affiliation-backdrop__stamp-label {
+  font-size: var(--fs-9);
+  letter-spacing: 0.22em;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+.affiliation-backdrop__stamp-val {
+  font-size: var(--fs-11);
+  letter-spacing: 0.12em;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ── Score change flash ────────────────────────────────────────── */
+.affiliation-backdrop__half.is-flashing .affiliation-backdrop__sigil {
+  animation: aff-sigil-flash 1.4s ease-out 1, aff-sigil-spin 80s linear infinite;
+}
+
+@keyframes aff-sigil-flash {
+  0%   { opacity: 0.18; transform: translate(-50%, -50%) scale(1); }
+  20%  { opacity: 0.6;  transform: translate(-50%, -50%) scale(1.05); }
+  100% { opacity: 0.18; transform: translate(-50%, -50%) scale(1); }
+}
+
+.affiliation-backdrop__half.is-flashing .affiliation-backdrop__beam {
+  opacity: 0.95;
+}
+
+/* ── Timer critical state — beam stays brighter, both halves ──── */
+.affiliation-backdrop__half.is-critical .affiliation-backdrop__beam {
+  opacity: 0.85;
+  filter: brightness(1.25);
+}
+
+/* ── 800×480 landscape — shrink sigil and stamp ────────────────── */
+@media (max-height: 540px) and (orientation: landscape) {
+  .affiliation-backdrop__sigil {
+    width: 64%;
+    max-width: 220px;
+    max-height: 220px;
+  }
+  .affiliation-backdrop__stamp { top: 5%; padding: 3px 7px 2px; }
+  .affiliation-backdrop__stamp-val { font-size: var(--fs-10); }
+}
+
+/* ── Mobile portrait — hide stamps (no room) but keep sigil ──── */
+@media (max-width: 640px) {
+  .affiliation-backdrop { flex-direction: column; }
+  .affiliation-backdrop__sigil {
+    width: 54%;
+    max-width: 180px;
+    max-height: 180px;
+    opacity: 0.14;
+  }
+  .affiliation-backdrop__stamp { display: none; }
+}
+
+/* ── Respect reduced-motion preference ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .affiliation-backdrop__sigil svg { animation: none; }
+  .affiliation-backdrop__sigil { animation: none; opacity: 0.2; }
+  .affiliation-backdrop__half.is-flashing .affiliation-backdrop__sigil { animation: none; }
+}
+
+/* ── Fallback: browsers without color-mix() get static rgba beam ─ */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .affiliation-backdrop__beam { opacity: 0.35; }
+  .affiliation-backdrop__half--left .affiliation-backdrop__beam {
+    background: linear-gradient(135deg, var(--fx-color), transparent 55%);
+  }
+  .affiliation-backdrop__half--right .affiliation-backdrop__beam {
+    background: linear-gradient(225deg, var(--fx-color), transparent 55%);
+  }
+}

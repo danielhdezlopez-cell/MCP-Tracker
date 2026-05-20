@@ -1,179 +1,72 @@
-.timer-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 16px;
-  gap: 8px;
-  border-color: var(--color-accent-left);
-  box-shadow: 0 0 12px var(--color-glow-left), inset 0 0 20px rgba(0,195,255,0.03);
-  transition: all 0.5s ease;
-  position: relative;
+import { useEffect, useRef } from 'react';
+import { useMcpStore } from '../store/useMcpStore';
+import './TimerPanel.css';
+
+function formatTime(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
-/* Outer corner bracket marks */
-.timer-panel::before {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border: 1px solid transparent;
-  border-top-color: rgba(0,195,255,0.25);
-  border-bottom-color: rgba(0,195,255,0.25);
-  border-radius: 4px;
-  pointer-events: none;
-  transition: border-color 0.5s ease;
-}
+export function TimerPanel() {
+  const { timerRemaining, timerRunning, timerDuration, setTimerRemaining, setTimerRunning } = useMcpStore();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-/* Side tick marks via box decoration */
-.timer-panel__deco {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
+  useEffect(() => {
+    if (timerRunning && timerRemaining > 0) {
+      intervalRef.current = setInterval(() => {
+        setTimerRemaining(useMcpStore.getState().timerRemaining - 1);
+      }, 1000);
+    } else {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timerRemaining <= 0 && timerRunning) {
+        setTimerRunning(false);
+      }
+    }
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, [timerRunning, timerRemaining]);
 
-.timer-panel__deco::before,
-.timer-panel__deco::after {
-  content: '';
-  position: absolute;
-  width: 3px;
-  top: 25%;
-  bottom: 25%;
-  opacity: 0.3;
-}
+  const isCritical = timerRemaining <= 15 * 60;
+  const stateClass = isCritical ? 'critical' : '';
 
-.timer-panel__deco::before {
-  left: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--color-accent-left) 0px,
-    var(--color-accent-left) 3px,
-    transparent 3px,
-    transparent 8px
+  // Sync body flag so other components (score-bar shimmer, scan-line) can
+  // pause their animations while the timer is in critical state (audit P2-02).
+  useEffect(() => {
+    if (isCritical && timerRunning) {
+      document.body.dataset.timerState = 'critical';
+    } else {
+      delete document.body.dataset.timerState;
+    }
+    return () => { delete document.body.dataset.timerState; };
+  }, [isCritical, timerRunning]);
+
+  const handleReset = () => {
+    setTimerRunning(false);
+    setTimerRemaining(timerDuration);
+  };
+
+  return (
+    <div className={`timer-panel panel clip-panel-sm${isCritical ? ' timer-panel--critical' : ''}`}>
+      <div className="timer-panel__deco" />
+      <div className="timer-panel__display-wrap">
+        <div className={`timer-panel__display ${stateClass}`}>
+          {formatTime(timerRemaining)}
+        </div>
+      </div>
+      <div className="timer-panel__controls">
+        <button
+          className={`btn-hud timer-panel__btn ${timerRunning ? 'timer-panel__btn--pause' : 'timer-panel__btn--play'}`}
+          onClick={() => setTimerRunning(!timerRunning)}
+        >
+          {timerRunning ? '⏸ PAUSE' : '▶ START'}
+        </button>
+        <button
+          className="btn-hud timer-panel__btn timer-panel__btn--reset"
+          onClick={handleReset}
+        >
+          ↺ RESET
+        </button>
+      </div>
+    </div>
   );
-}
-
-.timer-panel__deco::after {
-  right: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--color-accent-left) 0px,
-    var(--color-accent-left) 3px,
-    transparent 3px,
-    transparent 8px
-  );
-}
-
-.timer-panel--critical {
-  border-color: var(--color-critical) !important;
-  box-shadow: 0 0 20px rgba(255, 42, 42, 0.6), inset 0 0 20px rgba(255,42,42,0.05) !important;
-  animation: critical-pulse 1s ease-in-out infinite;
-}
-
-.timer-panel--critical::before {
-  border-top-color: rgba(255,42,42,0.35) !important;
-  border-bottom-color: rgba(255,42,42,0.35) !important;
-}
-
-.timer-panel--critical .timer-panel__deco::before,
-.timer-panel--critical .timer-panel__deco::after {
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--color-critical) 0px,
-    var(--color-critical) 3px,
-    transparent 3px,
-    transparent 8px
-  );
-}
-
-@keyframes critical-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(255, 42, 42, 0.6); }
-  50% { box-shadow: 0 0 32px rgba(255, 42, 42, 0.9), inset 0 0 12px rgba(255,42,42,0.08); }
-}
-
-/* Display area with scanline */
-.timer-panel__display-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timer-panel__display-wrap::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  top: 50%;
-  background: linear-gradient(90deg, transparent, rgba(0,195,255,0.12), transparent);
-  pointer-events: none;
-  animation: scan-line 4s ease-in-out infinite;
-}
-
-@keyframes scan-line {
-  0%   { top: 0%; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-.timer-panel--critical .timer-panel__display-wrap::after {
-  background: linear-gradient(90deg, transparent, rgba(255,42,42,0.2), transparent);
-}
-
-.timer-panel__display {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  color: var(--color-accent-left);
-  text-shadow: 0 0 14px var(--color-accent-left), 0 0 28px rgba(0,195,255,0.2);
-  line-height: 1;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-}
-
-.timer-panel__display.critical {
-  color: var(--color-critical);
-  text-shadow: 0 0 16px var(--color-critical), 0 0 32px rgba(255,42,42,0.3);
-  animation: blink 0.8s step-end infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.55; }
-}
-
-.timer-panel__controls {
-  display: flex;
-  gap: 6px;
-  width: 100%;
-}
-
-.timer-panel__btn {
-  flex: 1;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  min-height: 36px;
-  padding: 6px 8px;
-}
-
-.timer-panel__btn--play {
-  border-color: var(--color-accent-left);
-  color: var(--color-accent-left);
-}
-
-.timer-panel__btn--pause {
-  border-color: var(--color-warn);
-  color: var(--color-warn);
-}
-
-.timer-panel__btn--reset {
-  border-color: var(--color-text-muted);
-  color: var(--color-text-muted);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .timer-panel__display-wrap::after,
-  .timer-panel--critical { animation: none !important; }
-  .timer-panel__display.critical { animation: none !important; opacity: 1; }
 }
