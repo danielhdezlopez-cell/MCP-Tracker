@@ -1,16 +1,7 @@
 import { useState } from 'react';
-import { useMcpStore, type Theme, type InteractiveBg } from '../store/useMcpStore';
+import { useMcpStore, type Theme } from '../store/useMcpStore';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
-
-const BACKGROUNDS = [
-  { id: '', label: 'None (Dark)' },
-];
-
-const INTERACTIVE_BG_OPTIONS: { value: InteractiveBg; label: string; desc: string }[] = [
-  { value: 'off',      label: 'Off',           desc: 'No animation' },
-  { value: 'tech-hex', label: 'Tech Hex Grid', desc: 'Hex grid with scan line' },
-];
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'neon-blue', label: 'Neon Blue / Orange', desc: 'Default HUD sci-fi' },
@@ -23,8 +14,7 @@ export function SettingsPage() {
     timerDuration, setTimerDuration,
     brightness, setBrightness,
     theme, setTheme,
-    selectedBackground, setSelectedBackground,
-    interactiveBg, setInteractiveBg,
+    interactiveBg,
   } = useMcpStore();
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
@@ -114,52 +104,6 @@ export function SettingsPage() {
                 <span className="settings-theme-btn__label">{t.label}</span>
                 <span className="settings-theme-btn__desc">{t.desc}</span>
                 {theme === t.value && <span className="settings-theme-btn__check">✓</span>}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="settings-section">
-          <div className="settings-section__title">✨ INTERACTIVE BACKGROUND</div>
-          <div className="settings-ibg-list">
-            {INTERACTIVE_BG_OPTIONS
-              .filter(opt => opt.value === 'off' || theme === 'neon-blue')
-              .map(opt => (
-                <button
-                  key={opt.value}
-                  className={`settings-ibg-btn ${interactiveBg === opt.value ? 'active' : ''}`}
-                  onClick={() => setInteractiveBg(opt.value)}
-                >
-                  <span className="settings-ibg-btn__label">{opt.label}</span>
-                  <span className="settings-ibg-btn__desc">{opt.desc}</span>
-                  {interactiveBg === opt.value && <span className="settings-ibg-btn__check">✓</span>}
-                </button>
-              ))}
-            {theme !== 'neon-blue' && (
-              <div className="settings-ibg-note">
-                Tech Hex Grid is only available with the Neon Blue / Orange theme.
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="settings-section">
-          <div className="settings-section__title">🖼 MAIN BACKGROUND</div>
-          <div className="settings-backgrounds">
-            {BACKGROUNDS.map(bg => (
-              <button
-                key={bg.id}
-                className={`settings-bg-btn ${selectedBackground === bg.id ? 'active' : ''}`}
-                onClick={() => setSelectedBackground(bg.id)}
-              >
-                <div className="settings-bg-btn__preview">
-                  {bg.id ? (
-                    <img src={bg.id} alt={bg.label} />
-                  ) : (
-                    <div className="settings-bg-btn__none">—</div>
-                  )}
-                </div>
-                <span className="settings-bg-btn__label">{bg.label}</span>
               </button>
             ))}
           </div>

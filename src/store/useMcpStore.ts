@@ -104,12 +104,8 @@ export const useMcpStore = create<McpState>()(
       setTimerRunning: (running) => set({ timerRunning: running }),
 
       setTheme: (theme) => {
-        // Tech Hex Grid is exclusive to neon-blue — silently turn it off otherwise
-        if (theme !== 'neon-blue' && get().interactiveBg !== 'off') {
-          set({ theme, interactiveBg: 'off' });
-        } else {
-          set({ theme });
-        }
+        // Tech Hex Grid auto-enables with neon-blue, auto-disables otherwise
+        set({ theme, interactiveBg: theme === 'neon-blue' ? 'tech-hex' : 'off' });
       },
       setBrightness: (brightness) => set({ brightness }),
       setSelectedBackground: (bg) => set({ selectedBackground: bg }),
