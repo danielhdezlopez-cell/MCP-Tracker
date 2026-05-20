@@ -58,13 +58,13 @@ export function TimerPanel() {
           className={`btn-hud timer-panel__btn ${timerRunning ? 'timer-panel__btn--pause' : 'timer-panel__btn--play'}`}
           onClick={() => setTimerRunning(!timerRunning)}
         >
-          {timerRunning ? '⏸ PAUSE' : '▶ START'}
+          {timerRunning ? '‖' : '▶'}
         </button>
         <button
           className="btn-hud timer-panel__btn timer-panel__btn--reset"
           onClick={handleReset}
         >
-          ↺ RESET
+          ↺
         </button>
       </div>
     </div>

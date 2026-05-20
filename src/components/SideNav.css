@@ -107,13 +107,7 @@
 }
 
 .side-nav__icon {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.side-nav__label {
-  font-size: var(--fs-10);
-  letter-spacing: 0.04em;
+  font-size: 22px;
   line-height: 1;
 }
 

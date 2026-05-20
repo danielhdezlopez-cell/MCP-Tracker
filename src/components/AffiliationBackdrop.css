@@ -1,0 +1,83 @@
+/* ════════════════════════════════════════════════════════════════════
+   Affiliation Backdrop — option A (sigil halo) + option C (color beam
+   + corner stamp), combined. Sits BETWEEN the AnimatedBackground
+   (Tech Hex Grid) and the MAIN page content, with mix-blend-mode
+   screen so it composes with the grid instead of fighting it.
+
+   Active only under [data-theme='neon-blue'] — the component checks
+   this in the store and returns null otherwise.
+   ════════════════════════════════════════════════════════════════════ */
+
+.affiliation-backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  animation: aff-backdrop-fade-in 0.5s ease 0.1s forwards;
+}
+
+@keyframes aff-backdrop-fade-in {
+  to { opacity: 1; }
+}
+
+.affiliation-backdrop__half {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  transition: filter 0.4s ease;
+}
+
+/* ── C · Color beam (diagonal wash from player corner) ──────────── */
+.affiliation-backdrop__beam {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+.affiliation-backdrop__half--left .affiliation-backdrop__beam {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--fx-color) 22%, transparent) 0%,
+      color-mix(in srgb, var(--fx-color)  6%, transparent) 28%,
+      transparent 55%),
+    radial-gradient(60% 70% at 0% 50%,
+      color-mix(in srgb, var(--fx-color) 18%, transparent) 0%,
+      transparent 70%);
+}
+
+.affiliation-backdrop__half--right .affiliation-backdrop__beam {
+  background:
+    linear-gradient(225deg,
+      color-mix(in srgb, var(--fx-color) 22%, transparent) 0%,
+      color-mix(in srgb, var(--fx-color)  6%, transparent) 28%,
+      transparent 55%),
+    radial-gradient(60% 70% at 100% 50%,
+      color-mix(in srgb, var(--fx-color) 18%, transparent) 0%,
+      transparent 70%);
+}
+
+/* ── Timer critical state — beam stays brighter, both halves ──── */
+.affiliation-backdrop__half.is-critical .affiliation-backdrop__beam {
+  opacity: 0.85;
+  filter: brightness(1.25);
+}
+
+/* ── Mobile portrait ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .affiliation-backdrop { flex-direction: column; }
+}
+
+/* ── Fallback: browsers without color-mix() get static rgba beam ─ */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .affiliation-backdrop__beam { opacity: 0.35; }
+  .affiliation-backdrop__half--left .affiliation-backdrop__beam {
+    background: linear-gradient(135deg, var(--fx-color), transparent 55%);
+  }
+  .affiliation-backdrop__half--right .affiliation-backdrop__beam {
+    background: linear-gradient(225deg, var(--fx-color), transparent 55%);
+  }
+}

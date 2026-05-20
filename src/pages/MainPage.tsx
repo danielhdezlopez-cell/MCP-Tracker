@@ -6,6 +6,7 @@ import { RoundTracker } from '../components/RoundTracker';
 import { MissionSlot } from '../components/MissionSlot';
 import { TimerPanel } from '../components/TimerPanel';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
 import './MainPage.css';
 
 export function MainPage() {
@@ -28,6 +29,7 @@ export function MainPage() {
     >
       {selectedBackground && <div className="main-page__bg-overlay" />}
       <AnimatedBackground mode={interactiveBg} />
+      <AffiliationBackdrop />
 
       {/* TOP ROW: Timer + Round Tracker + Reset */}
       <div className="main-page__top">
