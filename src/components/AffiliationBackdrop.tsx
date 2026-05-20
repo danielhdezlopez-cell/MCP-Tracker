@@ -77,7 +77,7 @@ export function AffiliationBackdrop() {
   );
 }
 
-function Half({ fx, affiliation, side }: { fx: AffiliationFx; affiliation: string; side: 'left' | 'right' }) {
+function Half({ fx, side }: { fx: AffiliationFx; affiliation?: string; side: 'left' | 'right' }) {
   const style = { '--fx-color': fx.color } as CSSProperties;
   return (
     <>
