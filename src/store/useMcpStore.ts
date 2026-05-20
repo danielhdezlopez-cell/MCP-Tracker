@@ -81,10 +81,10 @@ export const useMcpStore = create<McpState>()(
       timerRemaining: 90 * 60,
       timerRunning: false,
 
-      theme: 'neon-blue',
+      theme: 'shield',
       brightness: 80,
       selectedBackground: '',
-      interactiveBg: 'tech-hex',
+      interactiveBg: 'off',
       videoBg: 'none',
 
       setCurrentPage: (page) => set({ currentPage: page }),
@@ -141,12 +141,12 @@ export const useMcpStore = create<McpState>()(
         if (state && !(['off', 'tech-hex'] as string[]).includes(state.interactiveBg)) {
           state.interactiveBg = 'tech-hex';
         }
-        // Migrate removed/unknown themes → neon-blue
-        if (state && !(['neon-blue', 'comic-ink', 'hydra', 'shield', 'asgard', 'spider-man'] as string[]).includes(state.theme)) {
-          state.theme = 'neon-blue';
+        // Migrate removed/unknown themes → shield
+        if (state && !(['hydra', 'shield', 'asgard', 'spider-man'] as string[]).includes(state.theme)) {
+          state.theme = 'shield';
         }
-        // Tech Hex Grid only valid under neon-blue
-        if (state && state.theme !== 'neon-blue' && state.interactiveBg !== 'off') {
+        // Tech Hex Grid disabled (no neon-blue theme in active set)
+        if (state && state.interactiveBg !== 'off') {
           state.interactiveBg = 'off';
         }
         if (state && !(['none', 'hydra'] as string[]).includes(state.videoBg)) {

@@ -4,12 +4,10 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
-  { value: 'neon-blue', label: 'Neon Blue / Orange', desc: 'Default HUD sci-fi' },
-  { value: 'comic-ink', label: 'Comic Ink',          desc: 'Paper, halftone & ink panels' },
-  { value: 'hydra',     label: 'Hydra',              desc: 'Dark tactical — animated video BG' },
-  { value: 'shield',    label: 'S.H.I.E.L.D.',       desc: 'Elite tactical command interface' },
-  { value: 'asgard',      label: 'Asgard',        desc: 'Mythic celestial command interface'     },
-  { value: 'spider-man', label: 'Spider-Man',    desc: 'Urban hero comic-tech dark city HUD'    },
+  { value: 'asgard',     label: 'Asgard',      desc: 'Mythic celestial command interface'   },
+  { value: 'hydra',      label: 'Hydra',        desc: 'Dark tactical — animated video BG'   },
+  { value: 'shield',     label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'   },
+  { value: 'spider-man', label: 'Spider-Man',   desc: 'Urban hero comic-tech dark city HUD' },
 ];
 
 
