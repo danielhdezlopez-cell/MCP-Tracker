@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { type Theme } from '../store/useMcpStore';
 import './AnimatedThemeBackground.css';
 
@@ -6,16 +6,25 @@ interface Props {
   theme: Theme;
 }
 
+const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string }>> = {
+  hydra:  { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_HYDRA.mp4`,  modifier: 'anim-theme-bg--hydra'  },
+  shield: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SHIELD.mp4`, modifier: 'anim-theme-bg--shield' },
+};
+
 export function AnimatedThemeBackground({ theme }: Props) {
   const [videoError, setVideoError] = useState(false);
+  const config = VIDEO_THEMES[theme];
 
-  if (theme !== 'hydra') return null;
+  // Reset error state when theme switches so the new theme's video retries
+  useEffect(() => { setVideoError(false); }, [theme]);
+
+  if (!config) return null;
 
   return (
-    <div className={`anim-theme-bg anim-theme-bg--hydra${videoError ? ' anim-theme-bg--fallback' : ''}`}>
+    <div className={`anim-theme-bg ${config.modifier}${videoError ? ' anim-theme-bg--fallback' : ''}`}>
       {!videoError && (
         <video
-          src={`${import.meta.env.BASE_URL}assets/backgrounds/BG_HYDRA.mp4`}
+          src={config.src}
           autoPlay
           loop
           muted

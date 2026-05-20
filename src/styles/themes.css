@@ -342,6 +342,335 @@
   text-shadow: 0 0 10px var(--color-glow-left);
 }
 
+/* Video overlay gradients — each video-theme defines its own radial glows */
+[data-theme='hydra'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 30%, rgba(57, 255, 79, 0.18), transparent 35%),
+    radial-gradient(circle at 85% 70%, rgba(246, 201, 69, 0.12), transparent 35%),
+    rgba(0, 0, 0, 0.45);
+}
+[data-theme='shield'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 25%, rgba(77, 184, 255, 0.18), transparent 35%),
+    radial-gradient(circle at 85% 70%, rgba(53, 242, 255, 0.12), transparent 35%),
+    rgba(0, 0, 0, 0.42);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   S.H.I.E.L.D. — elite tactical defense agency command interface.
+   Dark navy / black / gunmetal base, electric blue & cyan accents,
+   semi-transparent panels, radar / scanline / tactical HUD feeling.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='shield'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 12, 24, 0.82);
+  --color-panel-alt: rgba(12, 24, 38, 0.88);
+  --color-border: rgba(77, 184, 255, 0.48);
+  --color-accent-left: #4db8ff;
+  --color-accent-right: #35f2ff;
+  --color-glow-left: rgba(77, 184, 255, 0.42);
+  --color-glow-right: rgba(53, 242, 255, 0.35);
+  --color-text: #e8f7ff;
+  --color-text-muted: #8faec4;
+  --color-warn: #f5c84b;
+  --color-critical: #ff4444;
+  --color-success: #35f2ff;
+  --color-round-active: #4db8ff;
+  --color-round-inactive: rgba(77, 184, 255, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: transparent so the fixed video shows through */
+[data-theme='shield'] body { background: transparent; }
+[data-theme='shield'] .layout { background: transparent; }
+
+/* Subtle tactical scanline texture on the layout */
+[data-theme='shield'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(77, 184, 255, 0.02) 3px,
+    rgba(77, 184, 255, 0.02) 4px
+  );
+}
+
+/* Panels — translucent dark navy with electric blue border glow */
+[data-theme='shield'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(77, 184, 255, 0.42);
+  box-shadow: 0 0 12px rgba(77, 184, 255, 0.1), inset 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
+[data-theme='shield'] .panel::before {
+  background: linear-gradient(90deg, rgba(77, 184, 255, 0.12), transparent, rgba(53, 242, 255, 0.06));
+}
+[data-theme='shield'] .glow-left {
+  border-color: rgba(77, 184, 255, 0.48);
+  box-shadow: -2px 0 14px rgba(77, 184, 255, 0.28), 0 0 10px rgba(77, 184, 255, 0.1);
+}
+[data-theme='shield'] .glow-right {
+  border-color: rgba(53, 242, 255, 0.48);
+  box-shadow: 2px 0 14px rgba(53, 242, 255, 0.28), 0 0 10px rgba(53, 242, 255, 0.1);
+}
+
+/* Buttons */
+[data-theme='shield'] .btn-hud {
+  background: rgba(5, 12, 24, 0.88);
+  border-color: rgba(77, 184, 255, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='shield'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='shield'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='shield'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='shield'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='shield'] .side-nav {
+  background: rgba(3, 7, 18, 0.94);
+  border-right-color: rgba(77, 184, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+[data-theme='shield'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(77, 184, 255, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='shield'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 20px var(--color-glow-left);
+}
+[data-theme='shield'] .side-nav__item:hover {
+  background: rgba(77, 184, 255, 0.08);
+  border-color: rgba(77, 184, 255, 0.4);
+}
+[data-theme='shield'] .side-nav__item.active {
+  background: rgba(77, 184, 255, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='shield'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='shield'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #4db8ff, #35f2ff);
+  box-shadow: 0 0 6px rgba(77, 184, 255, 0.7);
+}
+[data-theme='shield'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #35f2ff, #d7ecff);
+  box-shadow: 0 0 6px rgba(53, 242, 255, 0.7);
+}
+[data-theme='shield'] .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+}
+[data-theme='shield'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+}
+[data-theme='shield'] .score-panel__btn {
+  background: rgba(5, 12, 24, 0.9);
+  border-color: rgba(77, 184, 255, 0.32);
+}
+[data-theme='shield'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='shield'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(77, 184, 255, 0.42);
+}
+[data-theme='shield'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(77, 184, 255, 0.15), transparent, rgba(53, 242, 255, 0.08));
+}
+[data-theme='shield'] .timer-panel__display {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='shield'] .timer-panel--critical {
+  border-color: rgba(77, 184, 255, 0.8) !important;
+  box-shadow: 0 0 20px rgba(77, 184, 255, 0.4), 0 0 40px rgba(77, 184, 255, 0.2) !important;
+}
+[data-theme='shield'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 12px rgba(245, 200, 75, 0.8);
+}
+[data-theme='shield'] .timer-panel__btn {
+  background: rgba(5, 12, 24, 0.9);
+  border-color: rgba(77, 184, 255, 0.32);
+  color: var(--color-accent-left);
+}
+[data-theme='shield'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='shield'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(77, 184, 255, 0.32);
+}
+[data-theme='shield'] .round-tracker__pip {
+  border-color: rgba(77, 184, 255, 0.28);
+  background: rgba(5, 12, 24, 0.6);
+}
+[data-theme='shield'] .round-tracker__pip.active {
+  border-color: rgba(77, 184, 255, 0.55);
+  background: rgba(77, 184, 255, 0.1);
+}
+[data-theme='shield'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot (main screen) */
+[data-theme='shield'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='shield'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='shield'] .mission-item {
+  background: rgba(5, 12, 24, 0.78);
+  backdrop-filter: blur(4px);
+}
+[data-theme='shield'] .mission-item:hover {
+  background: rgba(77, 184, 255, 0.06);
+  border-color: rgba(77, 184, 255, 0.5);
+}
+[data-theme='shield'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.2);
+  border-color: rgba(26, 143, 255, 0.7);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.3);
+}
+[data-theme='shield'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.2);
+  border-color: rgba(255, 47, 47, 0.7);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.3);
+}
+
+/* Leader hex (main screen) */
+[data-theme='shield'] .leader-hex__name {
+  background: rgba(5, 12, 24, 0.88);
+  border-color: rgba(77, 184, 255, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card (leaders page) */
+[data-theme='shield'] .leader-card {
+  background: rgba(5, 12, 24, 0.82);
+  backdrop-filter: blur(4px);
+}
+[data-theme='shield'] .leader-card:hover {
+  border-color: rgba(77, 184, 255, 0.55);
+  box-shadow: 0 0 10px rgba(77, 184, 255, 0.18);
+}
+[data-theme='shield'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='shield'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Headers */
+[data-theme='shield'] .leaders-page__header,
+[data-theme='shield'] .missions-page__header {
+  background: rgba(3, 7, 18, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(77, 184, 255, 0.28);
+}
+[data-theme='shield'] .leaders-page__search {
+  background: rgba(5, 12, 24, 0.88);
+  border-color: rgba(77, 184, 255, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='shield'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='shield'] .missions-page__body {
+  background: rgba(3, 7, 18, 0.72);
+}
+
+/* Settings */
+[data-theme='shield'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(77, 184, 255, 0.28);
+}
+[data-theme='shield'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(12, 24, 38, 0.92);
+  border-bottom-color: rgba(77, 184, 255, 0.22);
+}
+[data-theme='shield'] .settings-preset-btn.active,
+[data-theme='shield'] .settings-theme-btn.active,
+[data-theme='shield'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(77, 184, 255, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='shield'] .settings-slider { background: rgba(77, 184, 255, 0.14); }
+[data-theme='shield'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='shield'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='shield'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.62); }
+[data-theme='shield'] .main-page__modal {
+  background: rgba(5, 12, 24, 0.96);
+  border-color: rgba(77, 184, 255, 0.5);
+  box-shadow: 0 0 30px rgba(77, 184, 255, 0.18);
+  backdrop-filter: blur(12px);
+}
+[data-theme='shield'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
 /* ════════════════════════════════════════════════════════════════════
    COMIC INK — paper + halftone + ink borders + offset shadows + Bangers.
    A complete re-skin of the HUD using only CSS overrides; the structure

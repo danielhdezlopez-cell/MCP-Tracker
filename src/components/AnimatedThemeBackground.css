@@ -12,15 +12,16 @@
   object-fit: cover;
 }
 
-.anim-theme-bg--fallback {
+/* Fallback gradients — one per video theme */
+.anim-theme-bg--hydra.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #050807 0%, #0b1e0e 40%, #0a1a0b 70%, #050807 100%);
 }
+.anim-theme-bg--shield.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #030712 0%, #0a1a2e 40%, #071428 70%, #030712 100%);
+}
 
+/* Overlay positioning — colours defined per-theme in themes.css */
 .anim-theme-bg__overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 15% 30%, rgba(57, 255, 79, 0.18), transparent 35%),
-    radial-gradient(circle at 85% 70%, rgba(246, 201, 69, 0.12), transparent 35%),
-    rgba(0, 0, 0, 0.45);
 }
