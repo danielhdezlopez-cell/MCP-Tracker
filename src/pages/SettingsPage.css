@@ -299,6 +299,22 @@
     rgba(255, 214, 107, 0.04) 4px
   );
 }
+[data-theme-preview='spider-man'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #05070d 0%, #0f1020 40%, #1a0a12 70%, #ff2d4122 100%);
+  border: 1px solid rgba(255, 45, 65, 0.52);
+  box-shadow: 0 0 8px rgba(255, 45, 65, 0.3), inset 0 0 6px rgba(47, 155, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='spider-man'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(30deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
 
 .settings-theme-btn__label {
   font-family: var(--font-display);

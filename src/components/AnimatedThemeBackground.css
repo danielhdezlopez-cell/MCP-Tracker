@@ -22,6 +22,9 @@
 .anim-theme-bg--asgard.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #050712 0%, #0d1030 40%, #0a0e28 70%, #050712 100%);
 }
+.anim-theme-bg--spider-man.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #05070d 0%, #0a0e1e 40%, #0f0a14 70%, #05070d 100%);
+}
 
 /* Overlay positioning — colours defined per-theme in themes.css */
 .anim-theme-bg__overlay {
