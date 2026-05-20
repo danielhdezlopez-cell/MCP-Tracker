@@ -1,4 +1,4 @@
-import { type Leader } from '../data/leadersData';
+import { type Leader, getAffilDisplay } from '../data/leadersData';
 import { HexPortrait } from './HexPortrait';
 import './LeaderGrid.css';
 
@@ -43,7 +43,7 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
             <div className="leader-card__name">{leader.name}</div>
             <div className="leader-card__affils">
               {leader.affiliations.slice(0, 2).map(a => (
-                <span key={a} className="leader-card__affil">{a}</span>
+                <span key={a} className="leader-card__affil">{getAffilDisplay(a)}</span>
               ))}
             </div>
           </button>

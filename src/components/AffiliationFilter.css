@@ -1,8 +1,8 @@
 .affiliation-filter {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 8px;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px 6px;
 }
 
 .affil-btn {
@@ -18,11 +18,23 @@
   color: var(--color-text-muted);
   cursor: pointer;
   transition: all var(--transition);
-  white-space: normal;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
   line-height: 1.15;
   min-height: 28px;
+}
+
+.affil-btn--long {
+  font-size: 9.5px;
+  letter-spacing: -0.01em;
+}
+
+.affil-btn--xlong {
+  font-size: 8px;
+  letter-spacing: -0.03em;
+  padding-inline: 3px;
 }
 
 .affil-btn:hover {
