@@ -8,6 +8,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hydra',      label: 'Hydra',        desc: 'Dark tactical — animated video BG'      },
   { value: 'shield',     label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'      },
   { value: 'spider-man', label: 'Spider-Man',   desc: 'Urban hero comic-tech dark city HUD'    },
+  { value: 'thanos',     label: 'Thanos',       desc: 'Cosmic conqueror dark command interface' },
   { value: 'ultron',     label: 'Ultron',       desc: 'Hostile machine empire command system'  },
 ];
 
