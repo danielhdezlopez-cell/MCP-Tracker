@@ -60,72 +60,15 @@
       transparent 70%);
 }
 
-/* ── C · Corner stamp (faction badge) ──────────────────────────── */
-.affiliation-backdrop__stamp {
-  position: absolute;
-  top: 6%;
-  font-family: var(--font-display);
-  background: rgba(7, 11, 20, 0.6);
-  padding: 4px 8px 3px;
-  border: 1px dashed currentColor;
-  border-radius: 2px;
-  line-height: 1.25;
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  max-width: 60%;
-  pointer-events: none;
-}
-
-.affiliation-backdrop__stamp--left {
-  left: 6%;
-  text-align: left;
-  align-items: flex-start;
-}
-
-.affiliation-backdrop__stamp--right {
-  right: 6%;
-  text-align: right;
-  align-items: flex-end;
-}
-
-.affiliation-backdrop__stamp-label {
-  font-size: var(--fs-9);
-  letter-spacing: 0.22em;
-  opacity: 0.7;
-  line-height: 1;
-}
-
-.affiliation-backdrop__stamp-val {
-  font-size: var(--fs-11);
-  letter-spacing: 0.12em;
-  color: #fff;
-  font-weight: 700;
-  line-height: 1.1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
-
 /* ── Timer critical state — beam stays brighter, both halves ──── */
 .affiliation-backdrop__half.is-critical .affiliation-backdrop__beam {
   opacity: 0.85;
   filter: brightness(1.25);
 }
 
-/* ── 800×480 landscape ─────────────────────────────────────────── */
-@media (max-height: 540px) and (orientation: landscape) {
-  .affiliation-backdrop__stamp { top: 5%; padding: 3px 7px 2px; }
-  .affiliation-backdrop__stamp-val { font-size: var(--fs-10); }
-}
-
-/* ── Mobile portrait — hide stamps ────────────────────────────── */
+/* ── Mobile portrait ───────────────────────────────────────────── */
 @media (max-width: 640px) {
   .affiliation-backdrop { flex-direction: column; }
-  .affiliation-backdrop__stamp { display: none; }
 }
 
 /* ── Fallback: browsers without color-mix() get static rgba beam ─ */

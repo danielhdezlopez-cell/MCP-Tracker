@@ -78,10 +78,17 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 2vw, 24px);
+  gap: clamp(4px, 1vw, 10px);
   flex: 1;
   min-width: 0;
   padding: 8px 4px;
+}
+
+/* ROUND TRACKER ROW */
+.main-page__round {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* BOTTOM ROW */

@@ -51,11 +51,15 @@ export function MainPage() {
 
         <div className="main-page__center">
           <LeaderHex side="left" />
-          <RoundTracker />
           <LeaderHex side="right" />
         </div>
 
         <ScorePanel side="right" />
+      </div>
+
+      {/* ROUND TRACKER — above missions */}
+      <div className="main-page__round">
+        <RoundTracker />
       </div>
 
       {/* BOTTOM ROW: Mission Slots */}

@@ -19,24 +19,16 @@ export function AffiliationBackdrop() {
   return (
     <div className="affiliation-backdrop" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
       <div className={`${halfCls(critical)} affiliation-backdrop__half--left`}>
-        {fxLeft && <BeamAndStamp fx={fxLeft} side="left" />}
+        {fxLeft && <Beam fx={fxLeft} />}
       </div>
       <div className={`${halfCls(critical)} affiliation-backdrop__half--right`}>
-        {fxRight && <BeamAndStamp fx={fxRight} side="right" />}
+        {fxRight && <Beam fx={fxRight} />}
       </div>
     </div>
   );
 }
 
-function BeamAndStamp({ fx, side }: { fx: AffiliationFx; side: 'left' | 'right' }) {
+function Beam({ fx }: { fx: AffiliationFx }) {
   const style = { '--fx-color': fx.color } as CSSProperties;
-  return (
-    <>
-      <div className="affiliation-backdrop__beam" style={style} />
-      <div className={`affiliation-backdrop__stamp affiliation-backdrop__stamp--${side}`} style={{ color: fx.color, borderColor: fx.color }}>
-        <span className="affiliation-backdrop__stamp-label">AFFIL · {side === 'left' ? 'P1' : 'P2'}</span>
-        <span className="affiliation-backdrop__stamp-val">{fx.name}</span>
-      </div>
-    </>
-  );
+  return <div className="affiliation-backdrop__beam" style={style} />;
 }
