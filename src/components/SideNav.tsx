@@ -3,8 +3,8 @@ import './SideNav.css';
 
 const NAV_ITEMS: { page: AppPage; label: string; icon: string }[] = [
   { page: 'main', label: 'MAIN', icon: '⬡' },
-  { page: 'leaders', label: 'LEADERS', icon: '🛡' },
-  { page: 'missions', label: 'MISSIONS', icon: '⚡' },
+  { page: 'leaders', label: 'LEADERS', icon: '◈' },
+  { page: 'missions', label: 'MISSIONS', icon: '⊕' },
   { page: 'settings', label: 'CONFIG', icon: '⚙' },
 ];
 
