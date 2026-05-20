@@ -93,6 +93,7 @@
   flex: 1;
   min-height: 0;
   align-items: stretch;
+  overflow: hidden;
 }
 
 /* Side area: wraps banner + score panel so the score panel sits
@@ -104,6 +105,7 @@
   gap: 4px;
   flex-shrink: 0;
   align-self: stretch;
+  min-width: 0;
 }
 
 /* Affiliation banner strip */
@@ -216,4 +218,33 @@
   font-size: var(--fs-12);
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+/* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ────
+   Score panels hit their 200px cap at 22vw × ~910px and crowd the right edge
+   on iPads. This breakpoint tightens sizes so everything fits with room to
+   spare and sub-pixel rounding can't cause right-side clipping.           */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .main-page {
+    padding: 4px 6px;
+    gap: 3px;
+  }
+
+  .main-page__middle {
+    gap: 4px;
+  }
+
+  .main-page__side-area {
+    gap: 3px;
+  }
+
+  .main-page__banner {
+    width: clamp(14px, 1.6vw, 20px);
+  }
+
+  .main-page__bottom {
+    height: clamp(78px, 14vh, 105px);
+    padding-inline: clamp(4px, 2vw, 32px);
+    gap: 4px;
+  }
 }

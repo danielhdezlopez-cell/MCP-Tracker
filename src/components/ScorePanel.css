@@ -221,3 +221,17 @@
   .score-panel__bar::after { animation: none; }
   .score-panel__delta { animation: none; opacity: 0; }
 }
+
+/* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ──── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .score-panel {
+    flex: 0 0 clamp(130px, 15vw, 175px);
+    padding: 6px 8px;
+  }
+  .score-panel__value {
+    font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+  }
+  .score-panel__btn {
+    min-height: 38px;
+  }
+}
