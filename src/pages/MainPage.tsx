@@ -31,18 +31,19 @@ export function MainPage() {
       <AnimatedBackground mode={interactiveBg} />
       <AffiliationBackdrop />
 
-      {/* TOP ROW: Timer + Reset */}
+      {/* TOP ROW: Timer + Round Tracker + Reset */}
       <div className="main-page__top">
-        <div className="main-page__top-left" />
-        <TimerPanel />
-        <div className="main-page__top-right">
-          <button
-            className="btn-hud main-page__reset-btn"
-            onClick={() => setShowConfirm(true)}
-          >
-            ↺ RESET
-          </button>
+        <div className="main-page__top-controls">
+          <TimerPanel />
+          <RoundTracker />
         </div>
+        <button
+          className="btn-hud main-page__reset-btn"
+          onClick={() => setShowConfirm(true)}
+          title="Reset Game"
+        >
+          ↺
+        </button>
       </div>
 
       {/* MAIN ROW: Score + Leaders + Score */}
@@ -55,11 +56,6 @@ export function MainPage() {
         </div>
 
         <ScorePanel side="right" />
-      </div>
-
-      {/* ROUND TRACKER — above missions */}
-      <div className="main-page__round">
-        <RoundTracker />
       </div>
 
       {/* BOTTOM ROW: Mission Slots */}

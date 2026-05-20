@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  gap: 6px;
-  padding: 8px;
+  gap: 4px;
+  padding: 6px;
   position: relative;
   overflow: hidden;
 }
@@ -25,49 +25,40 @@
 .main-page__top {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
-.main-page__top-left {
+.main-page__top-controls {
   flex: 1;
   display: flex;
   align-items: center;
-}
-
-.main-page__game-label {
-  font-size: var(--fs-11);
-  letter-spacing: 0.16em;
-  color: var(--color-text-muted);
-  opacity: 0.85;
-  white-space: nowrap;
-}
-
-.main-page__top-right {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
 }
 
 .main-page__reset-btn {
-  font-size: var(--fs-12);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 6px 14px;
-  border-color: var(--color-critical);
-  color: var(--color-critical);
-  min-height: 34px;
+  font-size: 1.1rem;
+  padding: 4px 8px;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  min-height: 28px;
+  flex-shrink: 0;
+  opacity: 0.55;
+  transition: all var(--transition);
 }
 
 .main-page__reset-btn:hover {
-  box-shadow: 0 0 8px rgba(255, 42, 42, 0.4);
   border-color: var(--color-critical);
+  color: var(--color-critical);
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(255, 42, 42, 0.3);
 }
 
 /* MIDDLE ROW */
 .main-page__middle {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex: 1;
   min-height: 0;
   align-items: center;
@@ -78,25 +69,18 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: clamp(32px, 5vw, 64px);
+  gap: clamp(20px, 4vw, 56px);
   flex: 1;
   min-width: 0;
-  padding: 8px 4px;
-}
-
-/* ROUND TRACKER ROW */
-.main-page__round {
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
+  padding: 4px;
 }
 
 /* BOTTOM ROW */
 .main-page__bottom {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
-  height: clamp(80px, 15vh, 110px);
+  height: clamp(90px, 20vh, 130px);
 }
 
 /* Modal */
