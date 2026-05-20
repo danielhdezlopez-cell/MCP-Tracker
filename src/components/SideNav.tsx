@@ -1,11 +1,14 @@
 import { useMcpStore, type AppPage } from '../store/useMcpStore';
+import { NavIconMain, NavIconLeaders, NavIconMissions, NavIconSettings } from './icons';
 import './SideNav.css';
 
-const NAV_ITEMS: { page: AppPage; label: string; icon: string }[] = [
-  { page: 'main', label: 'MAIN', icon: '⬡' },
-  { page: 'leaders', label: 'LEADERS', icon: '◈' },
-  { page: 'missions', label: 'MISSIONS', icon: '⊕' },
-  { page: 'settings', label: 'CONFIG', icon: '⚙' },
+type NavItem = { page: AppPage; label: string; Icon: React.FC<React.SVGProps<SVGSVGElement>> };
+
+const NAV_ITEMS: NavItem[] = [
+  { page: 'main',     label: 'MAIN',    Icon: NavIconMain     },
+  { page: 'leaders',  label: 'LEADERS', Icon: NavIconLeaders  },
+  { page: 'missions', label: 'MISSIONS', Icon: NavIconMissions },
+  { page: 'settings', label: 'CONFIG',  Icon: NavIconSettings },
 ];
 
 export function SideNav() {
@@ -18,14 +21,17 @@ export function SideNav() {
         <span className="side-nav__logo-sub">TRACKER</span>
       </div>
       <div className="side-nav__items">
-        {NAV_ITEMS.map(({ page, label, icon }) => (
+        {NAV_ITEMS.map(({ page, label, Icon }) => (
           <button
             key={page}
             className={`side-nav__item ${currentPage === page ? 'active' : ''}`}
             onClick={() => setCurrentPage(page)}
             aria-label={label}
           >
-            <span className="side-nav__icon">{icon}</span>
+            <span className="side-nav__icon">
+              <Icon className="side-nav__svg" />
+            </span>
+            <span className="side-nav__label">{label}</span>
           </button>
         ))}
       </div>
