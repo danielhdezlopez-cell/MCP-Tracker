@@ -3,6 +3,7 @@ import { useMcpStore, type AssignSide } from '../store/useMcpStore';
 import { LEADERS, type Leader } from '../data/leadersData';
 import { LeaderGrid } from '../components/LeaderGrid';
 import { AffiliationFilter } from '../components/AffiliationFilter';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 import './LeadersPage.css';
 
 export function LeadersPage() {
@@ -10,7 +11,7 @@ export function LeadersPage() {
     leaderLeft, leaderRight,
     setLeaderLeft, setLeaderRight,
     pendingLeaderAssign, setPendingLeaderAssign,
-    setCurrentPage,
+    setCurrentPage, interactiveBg,
   } = useMcpStore();
 
   const [assignSide, setAssignSide] = useState<AssignSide>(pendingLeaderAssign ?? 'left');
@@ -37,6 +38,7 @@ export function LeadersPage() {
 
   return (
     <div className="leaders-page">
+      <AnimatedBackground mode={interactiveBg} />
       {/* Header */}
       <div className="leaders-page__header">
         <div className="leaders-page__title">

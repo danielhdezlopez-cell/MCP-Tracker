@@ -4,6 +4,12 @@
   height: 100%;
   gap: 0;
   overflow: hidden;
+  position: relative;
+}
+
+.leaders-page > * {
+  position: relative;
+  z-index: 1;
 }
 
 .leaders-page__header {
