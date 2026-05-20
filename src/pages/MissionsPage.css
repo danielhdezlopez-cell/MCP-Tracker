@@ -3,6 +3,12 @@
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+  position: relative;
+}
+
+.missions-page > * {
+  position: relative;
+  z-index: 1;
 }
 
 .missions-page__header {

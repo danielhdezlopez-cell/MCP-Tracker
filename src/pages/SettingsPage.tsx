@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMcpStore, type Theme, type InteractiveBg } from '../store/useMcpStore';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
 
 const BACKGROUNDS = [
@@ -47,6 +48,7 @@ export function SettingsPage() {
 
   return (
     <div className="settings-page scroll-area">
+      <AnimatedBackground mode={interactiveBg} />
       <div className="settings-page__inner">
         <div className="settings-section">
           <div className="settings-section__title">⏱ TIMER OPTIONS</div>

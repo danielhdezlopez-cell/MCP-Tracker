@@ -1,5 +1,11 @@
 .settings-page {
   height: 100%;
+  position: relative;
+}
+
+.settings-page > * {
+  position: relative;
+  z-index: 1;
 }
 
 .settings-page__inner {

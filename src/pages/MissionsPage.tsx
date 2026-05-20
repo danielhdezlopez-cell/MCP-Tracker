@@ -1,10 +1,11 @@
 import { useMcpStore } from '../store/useMcpStore';
 import { EXTRACT_MISSIONS, SECURE_MISSIONS } from '../data/missionsData';
 import { MissionList } from '../components/MissionList';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 import './MissionsPage.css';
 
 export function MissionsPage() {
-  const { pendingMissionType, setPendingMissionType, setCurrentPage, selectedSecure, selectedExtract } = useMcpStore();
+  const { pendingMissionType, setPendingMissionType, setCurrentPage, selectedSecure, selectedExtract, interactiveBg } = useMcpStore();
 
   const handleBack = () => {
     setPendingMissionType(null);
@@ -13,6 +14,7 @@ export function MissionsPage() {
 
   return (
     <div className="missions-page">
+      <AnimatedBackground mode={interactiveBg} />
       <div className="missions-page__header">
         <span className="label-hud">MISSION CARDS</span>
         {pendingMissionType && (
