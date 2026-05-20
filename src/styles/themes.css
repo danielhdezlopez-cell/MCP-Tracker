@@ -1835,3 +1835,355 @@
 /* Mission slot empty hint */
 [data-theme='comic-ink'] .mission-slot__empty { opacity: 0.85; }
 [data-theme='comic-ink'] .mission-slot__plus { color: var(--color-border); font-family: var(--font-display); }
+
+/* ════════════════════════════════════════════════════════════════════
+   ULTRON — hostile machine empire command system.
+   Near-black / graphite / gunmetal base, crimson-red & orange accents,
+   cold chrome highlights, machine-grid scanline texture.
+   Aggressive, sharp, AI-tech villain dashboard aesthetic.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='ultron'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 8, 10, 0.82);
+  --color-panel-alt: rgba(18, 18, 22, 0.86);
+  --color-border: rgba(255, 58, 48, 0.55);
+  --color-accent-left: #ff3a30;
+  --color-accent-right: #ff9f1c;
+  --color-glow-left: rgba(255, 58, 48, 0.44);
+  --color-glow-right: rgba(255, 159, 28, 0.30);
+  --color-text: #f2f5f8;
+  --color-text-muted: #9ba3ad;
+  --color-warn: #ffcc33;
+  --color-critical: #ff3a30;
+  --color-success: #cfd6df;
+  --color-round-active: #ff3a30;
+  --color-round-inactive: rgba(255, 58, 48, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so the fixed video shows through */
+[data-theme='ultron'] body { background: transparent; }
+[data-theme='ultron'] .layout { background: transparent; }
+
+/* Machine-grid + scanline texture */
+[data-theme='ultron'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 58, 48, 0.022) 3px, rgba(255, 58, 48, 0.022) 4px),
+    linear-gradient(rgba(255, 58, 48, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 58, 48, 0.04) 1px, transparent 1px);
+  background-size: 100% 4px, 48px 48px, 48px 48px;
+}
+
+/* Video overlay — red/orange edge glows, dark center */
+[data-theme='ultron'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255, 58, 48, 0.20), transparent 32%),
+    radial-gradient(circle at 90% 75%, rgba(255, 159, 28, 0.14), transparent 32%),
+    radial-gradient(circle at 50% 105%, rgba(207, 214, 223, 0.07), transparent 38%),
+    rgba(0, 0, 0, 0.46);
+}
+
+/* Panels — translucent near-black with crimson border glow */
+[data-theme='ultron'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 58, 48, 0.48);
+  box-shadow: 0 0 12px rgba(255, 58, 48, 0.10), inset 0 0 20px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+[data-theme='ultron'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 58, 48, 0.10), transparent, rgba(255, 159, 28, 0.06));
+}
+[data-theme='ultron'] .glow-left {
+  border-color: rgba(255, 58, 48, 0.55);
+  box-shadow: -2px 0 14px rgba(255, 58, 48, 0.28), 0 0 10px rgba(255, 58, 48, 0.12);
+}
+[data-theme='ultron'] .glow-right {
+  border-color: rgba(255, 159, 28, 0.55);
+  box-shadow: 2px 0 14px rgba(255, 159, 28, 0.28), 0 0 10px rgba(255, 159, 28, 0.12);
+}
+
+/* Buttons */
+[data-theme='ultron'] .btn-hud {
+  background: rgba(8, 8, 10, 0.88);
+  border-color: rgba(255, 58, 48, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='ultron'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='ultron'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='ultron'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='ultron'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='ultron'] .side-nav {
+  background: rgba(4, 4, 6, 0.96);
+  border-right-color: rgba(255, 58, 48, 0.35);
+  backdrop-filter: blur(8px);
+}
+[data-theme='ultron'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 58, 48, 0.7) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='ultron'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 20px var(--color-glow-left);
+}
+[data-theme='ultron'] .side-nav__item:hover {
+  background: rgba(255, 58, 48, 0.08);
+  border-color: rgba(255, 58, 48, 0.40);
+}
+[data-theme='ultron'] .side-nav__item.active {
+  background: rgba(255, 58, 48, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='ultron'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='ultron'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #ff3a30, #ff6b30);
+  box-shadow: 0 0 6px rgba(255, 58, 48, 0.70);
+}
+[data-theme='ultron'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #ff9f1c, #ffcc33);
+  box-shadow: 0 0 6px rgba(255, 159, 28, 0.70);
+}
+[data-theme='ultron'] .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+}
+[data-theme='ultron'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+}
+[data-theme='ultron'] .score-panel__btn {
+  background: rgba(8, 8, 10, 0.90);
+  border-color: rgba(255, 58, 48, 0.38);
+}
+[data-theme='ultron'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='ultron'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 58, 48, 0.42);
+}
+[data-theme='ultron'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 58, 48, 0.18), transparent, rgba(255, 159, 28, 0.08));
+}
+[data-theme='ultron'] .timer-panel__display {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='ultron'] .timer-panel--critical {
+  border-color: rgba(255, 58, 48, 0.9) !important;
+  box-shadow: 0 0 20px rgba(255, 58, 48, 0.45), 0 0 40px rgba(255, 58, 48, 0.22) !important;
+}
+[data-theme='ultron'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 12px rgba(255, 204, 51, 0.8);
+}
+[data-theme='ultron'] .timer-panel__btn {
+  background: rgba(8, 8, 10, 0.90);
+  border-color: rgba(255, 58, 48, 0.38);
+  color: var(--color-accent-left);
+}
+[data-theme='ultron'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='ultron'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 58, 48, 0.35);
+}
+[data-theme='ultron'] .round-tracker__pip {
+  border-color: rgba(255, 58, 48, 0.30);
+  background: rgba(8, 8, 10, 0.60);
+}
+[data-theme='ultron'] .round-tracker__pip.active {
+  border-color: rgba(255, 58, 48, 0.60);
+  background: rgba(255, 58, 48, 0.12);
+}
+[data-theme='ultron'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot (main screen) */
+[data-theme='ultron'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='ultron'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='ultron'] .mission-item {
+  background: rgba(8, 8, 10, 0.75);
+  backdrop-filter: blur(4px);
+}
+[data-theme='ultron'] .mission-item:hover {
+  background: rgba(255, 58, 48, 0.06);
+  border-color: rgba(255, 58, 48, 0.50);
+}
+[data-theme='ultron'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.20);
+  border-color: rgba(26, 143, 255, 0.70);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.30);
+}
+[data-theme='ultron'] .mission-item--right.selected {
+  background: rgba(255, 58, 48, 0.20);
+  border-color: rgba(255, 58, 48, 0.70);
+  box-shadow: 0 0 10px rgba(255, 58, 48, 0.30);
+}
+
+/* Leader hex (main screen) */
+[data-theme='ultron'] .leader-hex__name {
+  background: rgba(8, 8, 10, 0.88);
+  border-color: rgba(255, 58, 48, 0.38);
+  backdrop-filter: blur(4px);
+}
+
+/* Leaders page */
+[data-theme='ultron'] .leaders-page__header,
+[data-theme='ultron'] .leaders-page__sidebar { backdrop-filter: blur(6px); }
+[data-theme='ultron'] .leaders-page__search {
+  background: rgba(8, 8, 10, 0.90);
+  border-color: rgba(255, 58, 48, 0.38);
+  color: var(--color-text);
+}
+[data-theme='ultron'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='ultron'] .leaders-page__assign-btn.active-left {
+  background: rgba(255, 58, 48, 0.18);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='ultron'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 159, 28, 0.18);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Leader grid cards */
+[data-theme='ultron'] .leader-card {
+  background: rgba(8, 8, 10, 0.78);
+  border-color: rgba(255, 58, 48, 0.28);
+  backdrop-filter: blur(4px);
+}
+[data-theme='ultron'] .leader-card:hover { border-color: rgba(255, 58, 48, 0.55); }
+[data-theme='ultron'] .leader-card.selected-left {
+  background: rgba(255, 58, 48, 0.14);
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px rgba(255, 58, 48, 0.30);
+}
+[data-theme='ultron'] .leader-card.selected-right {
+  background: rgba(255, 159, 28, 0.14);
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 12px rgba(255, 159, 28, 0.30);
+}
+
+/* Affiliation filter */
+[data-theme='ultron'] .affil-btn {
+  background: rgba(8, 8, 10, 0.82);
+  border-color: rgba(255, 58, 48, 0.28);
+}
+[data-theme='ultron'] .affil-btn:hover { border-color: rgba(255, 58, 48, 0.55); }
+[data-theme='ultron'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(255, 58, 48, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='ultron'] .settings-section {
+  background: var(--color-panel);
+  border-color: rgba(255, 58, 48, 0.40);
+  backdrop-filter: blur(6px);
+}
+[data-theme='ultron'] .settings-section__title {
+  background: var(--color-panel-alt);
+  color: var(--color-accent-left);
+  border-bottom-color: rgba(255, 58, 48, 0.35);
+}
+[data-theme='ultron'] .settings-preset-btn.active,
+[data-theme='ultron'] .settings-theme-btn.active,
+[data-theme='ultron'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+  background: rgba(255, 58, 48, 0.08);
+}
+[data-theme='ultron'] .settings-toggle {
+  background: rgba(8, 8, 10, 0.90);
+  border-color: rgba(255, 58, 48, 0.40);
+}
+[data-theme='ultron'] .settings-toggle.on {
+  background: rgba(255, 58, 48, 0.18);
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+[data-theme='ultron'] .settings-toggle__knob { background: var(--color-text-muted); }
+[data-theme='ultron'] .settings-toggle.on .settings-toggle__knob {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-accent-left);
+}
+[data-theme='ultron'] .settings-slider { background: rgba(255, 58, 48, 0.20); }
+[data-theme='ultron'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+[data-theme='ultron'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='ultron'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.70); }
+[data-theme='ultron'] .main-page__modal {
+  background: rgba(10, 8, 8, 0.96);
+  border-color: rgba(255, 58, 48, 0.55);
+  box-shadow: 0 0 30px rgba(255, 58, 48, 0.20);
+  backdrop-filter: blur(10px);
+}
+[data-theme='ultron'] .main-page__modal-title { color: var(--color-accent-left); }
+[data-theme='ultron'] .main-page__modal-body { color: var(--color-text-muted); }

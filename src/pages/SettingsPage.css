@@ -316,6 +316,23 @@
   background-size: 14px 14px;
 }
 
+[data-theme-preview='ultron'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #060606 0%, #0e0808 40%, #1a0808 70%, #ff3a3022 100%);
+  border: 1px solid rgba(255, 58, 48, 0.55);
+  box-shadow: 0 0 8px rgba(255, 58, 48, 0.35), inset 0 0 6px rgba(255, 159, 28, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='ultron'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 58, 48, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 58, 48, 0.07) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
 /* Video background sub-section */
 .settings-themes-sub-title {
   font-family: var(--font-display);
