@@ -198,9 +198,11 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
 
   .main-page { padding: 6px; gap: 4px; }
   .main-page__top { gap: 6px; }
-  .main-page__bottom { height: clamp(78px, 18vh, 96px); gap: 6px; }
+  .main-page__bottom { height: clamp(78px, 18vh, 96px); gap: 6px; padding-inline: 0; }
   .main-page__center { gap: clamp(10px, 2.5vw, 20px); padding: 4px 2px; }
   .main-page__reset-btn { min-height: 30px; padding: 4px 10px; }
+  .main-page__fullscreen-btn { display: none; }
+  .main-page__banner { width: clamp(14px, 1.8vw, 22px); }
 
   .score-panel { flex: 0 0 clamp(96px, 16vw, 140px); padding: 8px 8px 6px; }
   .score-panel__value { font-size: clamp(2.4rem, 6.5vw, 4rem); }
@@ -294,6 +296,11 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
   }
   .timer-panel__display { font-size: clamp(1.6rem, 8vw, 2.4rem); }
 
+  /* Dissolve side-area wrappers so score panels behave as direct
+     children of the middle column (same as pre-wrapper layout) */
+  .main-page__banner { display: none; }
+  .main-page__side-area { display: contents; }
+
   .main-page__middle {
     flex-direction: column;
     gap: 8px;
@@ -343,6 +350,7 @@ body[data-timer-state="critical"] .timer-panel__display-wrap::after {
     flex-direction: column;
     height: auto;
     gap: 6px;
+    padding-inline: 0;
   }
   .mission-slot { min-height: 72px; }
 

@@ -31,7 +31,7 @@
   z-index: 1;
 }
 
-/* TOP ROW — timer centered, reset right */
+/* TOP ROW — timer centered, reset + fullscreen right */
 .main-page__top {
   display: flex;
   align-items: center;
@@ -47,6 +47,8 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
 }
 
 .main-page__reset-btn {
@@ -67,13 +69,74 @@
   box-shadow: 0 0 6px rgba(255, 42, 42, 0.3);
 }
 
-/* MIDDLE ROW */
+.main-page__fullscreen-btn {
+  padding: 4px 7px;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  min-height: 28px;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: all var(--transition);
+}
+
+.main-page__fullscreen-btn:hover {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  opacity: 1;
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* MIDDLE ROW — side areas stretch to fill height */
 .main-page__middle {
   display: flex;
   gap: 6px;
   flex: 1;
   min-height: 0;
+  align-items: stretch;
+}
+
+/* Side area: wraps banner + score panel so the score panel sits
+   away from the screen edge, visually centered within its half */
+.main-page__side-area {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 4px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+/* Affiliation banner strip */
+.main-page__banner {
+  width: clamp(18px, 2.2vw, 28px);
+  display: flex;
   align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-display);
+  font-size: var(--fs-9);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-panel);
+  opacity: 0.72;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.main-page__banner--left {
+  color: var(--color-accent-left);
+  border-color: rgba(0, 195, 255, 0.28);
+  box-shadow: 0 0 5px var(--color-glow-left);
+}
+
+.main-page__banner--right {
+  color: var(--color-accent-right);
+  border-color: rgba(255, 106, 0, 0.28);
+  box-shadow: 0 0 5px var(--color-glow-right);
 }
 
 .main-page__center {
@@ -94,12 +157,13 @@
   flex-shrink: 0;
 }
 
-/* BOTTOM ROW */
+/* BOTTOM ROW — inset from edges so mission panels don't span the full width */
 .main-page__bottom {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
   height: clamp(80px, 16vh, 110px);
+  padding-inline: clamp(4px, 3.5vw, 56px);
 }
 
 /* Modal */

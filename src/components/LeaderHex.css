@@ -98,11 +98,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 145%;
   aspect-ratio: 1 / 1;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.32;
+  opacity: 0.42;
   mix-blend-mode: screen;
   filter: drop-shadow(0 0 18px var(--fx-color, #00c3ff));
   animation: lh-sigil-drift 24s ease-in-out infinite;
