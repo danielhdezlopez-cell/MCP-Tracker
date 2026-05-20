@@ -107,7 +107,6 @@ export function SettingsPage() {
               >
                 <span className="settings-theme-btn__swatch" />
                 <span className="settings-theme-btn__label">{t.label}</span>
-                <span className="settings-theme-btn__desc">{t.desc}</span>
                 {theme === t.value && <span className="settings-theme-btn__check">✓</span>}
               </button>
             ))}
