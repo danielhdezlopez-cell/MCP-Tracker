@@ -16,7 +16,7 @@ export const MISSIONS: Mission[] = [
   // EXTRACT
   { id: 'alien-ship',            name: 'Alien Ship Crashes In Downtown!',                  threat: 17, type: 'Extract', image: card('Alien Ship Crashes In Downtown!.png') },
   { id: 'scientific-samples',    name: 'Scientific Samples Found In Discovered Universe',   threat: 17, type: 'Extract', image: card('Scientific Samples Found In Discovered Universe.png') },
-  { id: 'spider-infected',       name: 'Spider-Infected Invade Manhattan',                  threat: 17, type: 'Extract' },
+  { id: 'spider-infected',       name: 'Spider-Infected Invade Manhattan',                  threat: 17, type: 'Extract', image: card('Spider-Infected Invade Manhattan.png') },
   { id: 'royal-wedding',         name: 'Unexpected Guests Crash Royal Wedding',             threat: 17, type: 'Extract', image: card('Unexpected Guests Crash Royal Wedding.png') },
   { id: 'inhumans-weaponry',     name: 'Inhumans Deploy Advanced Weaponry',                 threat: 18, type: 'Extract', image: card('Inhumans Deploy Advanced Weaponry.png') },
   { id: 'jailbreak',             name: 'Jailbreak Leads To Mass Mutant Escape!',            threat: 20, type: 'Extract', image: card('Jailbreak Leads To Mass Mutant Escape!.webp') },
