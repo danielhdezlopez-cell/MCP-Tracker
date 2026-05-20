@@ -47,13 +47,15 @@ export function LeaderHex({ side }: LeaderHexProps) {
         <div className="leader-hex__corner leader-hex__corner--tr" />
         <div className="leader-hex__corner leader-hex__corner--bl" />
         <div className="leader-hex__corner leader-hex__corner--br" />
-        <HexPortrait
-          image={leader?.image ?? null}
-          name={leader?.name ?? ''}
-          variant={side}
-          cssSize="clamp(100px, 14vw, 160px)"
-          empty={!leader}
-        />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <HexPortrait
+            image={leader?.image ?? null}
+            name={leader?.name ?? ''}
+            variant={side}
+            cssSize="clamp(100px, 14vw, 160px)"
+            empty={!leader}
+          />
+        </div>
       </div>
       {leader && (
         <div className={`leader-hex__name text-accent-${side}`}>{leader.name}</div>
