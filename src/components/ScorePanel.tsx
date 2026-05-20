@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
 import './ScorePanel.css';
 
@@ -17,6 +18,19 @@ export function ScorePanel({ side }: ScorePanelProps) {
 
   const percentage = (score / 20) * 100;
 
+  const [delta, setDelta] = useState<{ val: number; key: number } | null>(null);
+  const prevScoreRef = useRef(score);
+
+  useEffect(() => {
+    if (score !== prevScoreRef.current) {
+      const d = score - prevScoreRef.current;
+      prevScoreRef.current = score;
+      setDelta({ val: d, key: Date.now() });
+      const t = setTimeout(() => setDelta(null), 750);
+      return () => clearTimeout(t);
+    }
+  }, [score]);
+
   return (
     <div className={`score-panel panel clip-panel glow-${side}`}>
       <div className="score-panel__label label-hud">{label}</div>
@@ -25,6 +39,11 @@ export function ScorePanel({ side }: ScorePanelProps) {
           {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
         </div>
         <div className="score-panel__value">{score}</div>
+        {delta !== null && (
+          <div key={delta.key} className={`score-panel__delta score-panel__delta--${side}`}>
+            {delta.val > 0 ? `+${delta.val}` : delta.val}
+          </div>
+        )}
         <div className="score-panel__ticks score-panel__ticks--right">
           {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
         </div>

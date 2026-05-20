@@ -194,6 +194,30 @@
   transform: none;
 }
 
+/* ── Score delta overlay (+1 / -1) ────────────────────────────── */
+.score-panel__delta {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 900;
+  pointer-events: none;
+  z-index: 3;
+  animation: delta-float 0.75s ease-out forwards;
+  white-space: nowrap;
+}
+
+.score-panel__delta--left  { color: var(--color-accent-left);  text-shadow: 0 0 12px var(--color-accent-left); }
+.score-panel__delta--right { color: var(--color-accent-right); text-shadow: 0 0 12px var(--color-accent-right); }
+
+@keyframes delta-float {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-48px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .score-panel__bar::after { animation: none; }
+  .score-panel__delta { animation: none; opacity: 0; }
 }

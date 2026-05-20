@@ -22,10 +22,12 @@ export function Layout() {
     <div className="layout">
       <SideNav />
       <main className="layout__content">
-        {currentPage === 'main' && <MainPage />}
-        {currentPage === 'leaders' && <LeadersPage />}
-        {currentPage === 'missions' && <MissionsPage />}
-        {currentPage === 'settings' && <SettingsPage />}
+        <div key={currentPage} className="layout__page-anim">
+          {currentPage === 'main' && <MainPage />}
+          {currentPage === 'leaders' && <LeadersPage />}
+          {currentPage === 'missions' && <MissionsPage />}
+          {currentPage === 'settings' && <SettingsPage />}
+        </div>
       </main>
     </div>
   );

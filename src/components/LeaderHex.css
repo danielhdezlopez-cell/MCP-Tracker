@@ -150,3 +150,48 @@
   max-width: 120px;
   line-height: 1.2;
 }
+
+/* ── Empty state: TAP · ASSIGN hint ────────────────────────────── */
+.leader-hex__assign-hint {
+  font-family: var(--font-display);
+  font-size: var(--fs-9);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0.55;
+  transition: opacity var(--transition);
+}
+
+.leader-hex--empty:hover .leader-hex__assign-hint { opacity: 0.9; }
+
+.leader-hex__assign-hint--left  { color: var(--color-accent-left); }
+.leader-hex__assign-hint--right { color: var(--color-accent-right); }
+
+/* ── Comic Ink halftone burst behind portrait ───────────────────── */
+.leader-hex__comic-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 125%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  display: none;
+}
+
+[data-theme='comic-ink'] .leader-hex__comic-burst {
+  display: block;
+  opacity: 0.22;
+  background-size: 9px 9px;
+}
+
+[data-theme='comic-ink'] .leader-hex__comic-burst--left {
+  background-image: radial-gradient(circle, var(--color-accent-left) 1.5px, transparent 1.5px);
+}
+
+[data-theme='comic-ink'] .leader-hex__comic-burst--right {
+  background-image: radial-gradient(circle, var(--color-accent-right) 1.5px, transparent 1.5px);
+}
