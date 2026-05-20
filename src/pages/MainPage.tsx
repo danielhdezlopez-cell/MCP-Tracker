@@ -46,16 +46,21 @@ export function MainPage() {
         </div>
       </div>
 
-      {/* MAIN ROW: Score + Leaders + Score */}
+      {/* MAIN ROW: each side has centered score + nearby leader */}
       <div className="main-page__middle">
-        <ScorePanel side="left" />
-
-        <div className="main-page__center">
-          <LeaderHex side="left" />
-          <LeaderHex side="right" />
+        <div className="main-page__half main-page__half--left">
+          <ScorePanel side="left" />
+          <div className="main-page__leader-anchor main-page__leader-anchor--left">
+            <LeaderHex side="left" />
+          </div>
         </div>
 
-        <ScorePanel side="right" />
+        <div className="main-page__half main-page__half--right">
+          <ScorePanel side="right" />
+          <div className="main-page__leader-anchor main-page__leader-anchor--right">
+            <LeaderHex side="right" />
+          </div>
+        </div>
       </div>
 
       {/* ROUND TRACKER — centered above missions */}

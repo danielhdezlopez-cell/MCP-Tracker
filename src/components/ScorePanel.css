@@ -8,7 +8,9 @@
   flex: 0 0 clamp(140px, 22vw, 200px);
   align-self: stretch;
   min-width: 0;
+  overflow: visible;
 }
+
 
 /* Corner bracket marks */
 .score-panel::before,
@@ -19,6 +21,26 @@
   height: 10px;
   pointer-events: none;
   z-index: 2;
+}
+
+.score-panel {
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 8px);
+}
+
+
+.score-panel .score-panel__label {
+  padding: 2px 8px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-left) 45%, transparent);
+  border-radius: 999px;
+  background: rgba(6, 10, 18, 0.72);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--color-accent-left) 30%, transparent);
+}
+
+.glow-right.score-panel .score-panel__label {
+  border-color: color-mix(in srgb, var(--color-accent-right) 45%, transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--color-accent-right) 30%, transparent);
 }
 
 .score-panel::before {

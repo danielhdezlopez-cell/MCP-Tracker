@@ -2,10 +2,10 @@ import { useMcpStore, type AppPage } from '../store/useMcpStore';
 import './SideNav.css';
 
 const NAV_ITEMS: { page: AppPage; label: string; icon: string }[] = [
-  { page: 'main', label: 'MAIN', icon: '⬡' },
-  { page: 'leaders', label: 'LEADERS', icon: '◈' },
-  { page: 'missions', label: 'MISSIONS', icon: '⊕' },
-  { page: 'settings', label: 'CONFIG', icon: '⚙' },
+  { page: 'main', label: 'MAIN', icon: '💥' },
+  { page: 'leaders', label: 'LEADERS', icon: '🦸' },
+  { page: 'missions', label: 'MISSIONS', icon: '🛡️' },
+  { page: 'settings', label: 'CONFIG', icon: '⚡' },
 ];
 
 export function SideNav() {
