@@ -316,6 +316,23 @@
   background-size: 14px 14px;
 }
 
+[data-theme-preview='miles-morales'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #050509 0%, #0a0810 40%, #120818 70%, #ff233722 100%);
+  border: 1px solid rgba(255, 35, 55, 0.54);
+  box-shadow: 0 0 8px rgba(255, 35, 55, 0.32), inset 0 0 6px rgba(34, 167, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='miles-morales'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(30deg,  rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(34, 167, 255, 0.06) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
 [data-theme-preview='thanos'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #070412 0%, #110828 40%, #180c30 70%, #9b5cff22 100%);
   border: 1px solid rgba(155, 92, 255, 0.52);

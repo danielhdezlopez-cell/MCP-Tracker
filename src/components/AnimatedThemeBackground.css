@@ -25,6 +25,9 @@
 .anim-theme-bg--spider-man.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #05070d 0%, #0a0e1e 40%, #0f0a14 70%, #05070d 100%);
 }
+.anim-theme-bg--miles-morales.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #050509 0%, #0a080f 40%, #08080e 70%, #050509 100%);
+}
 .anim-theme-bg--thanos.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #070412 0%, #0e0720 40%, #0a0618 70%, #070412 100%);
 }

@@ -2539,3 +2539,354 @@
 }
 [data-theme='thanos'] .main-page__modal-title { color: var(--color-accent-left); }
 [data-theme='thanos'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* ════════════════════════════════════════════════════════════════════
+   MILES MORALES — urban electric superhero comic-tech interface.
+   Black / graphite / deep-navy base, crimson-red & electric-blue
+   accents, violet energy highlights, abstract web-line geometry.
+   Agile, dynamic, high-energy dark city-night HUD aesthetic.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='miles-morales'] {
+  --color-bg: transparent;
+  --color-panel: rgba(7, 8, 14, 0.82);
+  --color-panel-alt: rgba(14, 18, 30, 0.86);
+  --color-border: rgba(255, 35, 55, 0.54);
+  --color-accent-left: #ff2337;
+  --color-accent-right: #22a7ff;
+  --color-glow-left: rgba(255, 35, 55, 0.44);
+  --color-glow-right: rgba(34, 167, 255, 0.38);
+  --color-text: #f5f8ff;
+  --color-text-muted: #9ba7bf;
+  --color-warn: #ffcc33;
+  --color-critical: #ff2337;
+  --color-success: #22a7ff;
+  --color-round-active: #ff2337;
+  --color-round-inactive: rgba(255, 35, 55, 0.18);
+  --color-mission-secure: #22a7ff;
+  --color-glow-secure: rgba(34, 167, 255, 0.42);
+  --color-mission-extract: #ff2337;
+  --color-glow-extract: rgba(255, 35, 55, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: transparent so the fixed video shows through */
+[data-theme='miles-morales'] body { background: transparent; }
+[data-theme='miles-morales'] .layout { background: transparent; }
+
+/* Abstract web-line geometry — diagonal angled grid */
+[data-theme='miles-morales'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(30deg,  rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(34, 167, 255, 0.040) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Video overlay — red/blue/violet edge glows, dark center */
+[data-theme='miles-morales'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 12% 22%, rgba(255, 35, 55, 0.20), transparent 33%),
+    radial-gradient(circle at 88% 72%, rgba(34, 167, 255, 0.16), transparent 33%),
+    radial-gradient(circle at 50% 105%, rgba(139, 92, 255, 0.10), transparent 38%),
+    rgba(0, 0, 0, 0.44);
+}
+
+/* Panels — translucent dark city with red border glow */
+[data-theme='miles-morales'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 35, 55, 0.48);
+  box-shadow: 0 0 12px rgba(255, 35, 55, 0.10), inset 0 0 20px rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(6px);
+}
+[data-theme='miles-morales'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 35, 55, 0.10), transparent, rgba(34, 167, 255, 0.07));
+}
+[data-theme='miles-morales'] .glow-left {
+  border-color: rgba(255, 35, 55, 0.55);
+  box-shadow: -2px 0 14px rgba(255, 35, 55, 0.28), 0 0 10px rgba(255, 35, 55, 0.12);
+}
+[data-theme='miles-morales'] .glow-right {
+  border-color: rgba(34, 167, 255, 0.55);
+  box-shadow: 2px 0 14px rgba(34, 167, 255, 0.28), 0 0 10px rgba(34, 167, 255, 0.12);
+}
+
+/* Buttons */
+[data-theme='miles-morales'] .btn-hud {
+  background: rgba(7, 8, 14, 0.88);
+  border-color: rgba(255, 35, 55, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='miles-morales'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='miles-morales'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='miles-morales'] .side-nav {
+  background: rgba(4, 4, 8, 0.96);
+  border-right-color: rgba(255, 35, 55, 0.35);
+  backdrop-filter: blur(8px);
+}
+[data-theme='miles-morales'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 35, 55, 0.70) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='miles-morales'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 20px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .side-nav__item:hover {
+  background: rgba(255, 35, 55, 0.08);
+  border-color: rgba(255, 35, 55, 0.40);
+}
+[data-theme='miles-morales'] .side-nav__item.active {
+  background: rgba(255, 35, 55, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='miles-morales'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='miles-morales'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #ff2337, #ff5566);
+  box-shadow: 0 0 6px rgba(255, 35, 55, 0.70);
+}
+[data-theme='miles-morales'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #22a7ff, #55c8ff);
+  box-shadow: 0 0 6px rgba(34, 167, 255, 0.70);
+}
+[data-theme='miles-morales'] .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+}
+[data-theme='miles-morales'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+}
+[data-theme='miles-morales'] .score-panel__btn {
+  background: rgba(7, 8, 14, 0.90);
+  border-color: rgba(255, 35, 55, 0.38);
+}
+[data-theme='miles-morales'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='miles-morales'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 35, 55, 0.42);
+}
+[data-theme='miles-morales'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 35, 55, 0.18), transparent, rgba(34, 167, 255, 0.08));
+}
+[data-theme='miles-morales'] .timer-panel__display {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .timer-panel--critical {
+  border-color: rgba(255, 35, 55, 0.9) !important;
+  box-shadow: 0 0 20px rgba(255, 35, 55, 0.45), 0 0 40px rgba(255, 35, 55, 0.22) !important;
+}
+[data-theme='miles-morales'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 12px rgba(255, 204, 51, 0.8);
+}
+[data-theme='miles-morales'] .timer-panel__btn {
+  background: rgba(7, 8, 14, 0.90);
+  border-color: rgba(255, 35, 55, 0.38);
+  color: var(--color-accent-left);
+}
+[data-theme='miles-morales'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='miles-morales'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 35, 55, 0.35);
+}
+[data-theme='miles-morales'] .round-tracker__pip {
+  border-color: rgba(255, 35, 55, 0.30);
+  background: rgba(7, 8, 14, 0.60);
+}
+[data-theme='miles-morales'] .round-tracker__pip.active {
+  border-color: rgba(255, 35, 55, 0.60);
+  background: rgba(255, 35, 55, 0.12);
+}
+[data-theme='miles-morales'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot (main screen) */
+[data-theme='miles-morales'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='miles-morales'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='miles-morales'] .mission-item {
+  background: rgba(7, 8, 14, 0.75);
+  backdrop-filter: blur(4px);
+}
+[data-theme='miles-morales'] .mission-item:hover {
+  background: rgba(255, 35, 55, 0.06);
+  border-color: rgba(255, 35, 55, 0.50);
+}
+[data-theme='miles-morales'] .mission-item--left.selected {
+  background: rgba(34, 167, 255, 0.20);
+  border-color: rgba(34, 167, 255, 0.70);
+  box-shadow: 0 0 10px rgba(34, 167, 255, 0.30);
+}
+[data-theme='miles-morales'] .mission-item--right.selected {
+  background: rgba(255, 35, 55, 0.20);
+  border-color: rgba(255, 35, 55, 0.70);
+  box-shadow: 0 0 10px rgba(255, 35, 55, 0.30);
+}
+
+/* Leader hex (main screen) */
+[data-theme='miles-morales'] .leader-hex__name {
+  background: rgba(7, 8, 14, 0.88);
+  border-color: rgba(255, 35, 55, 0.38);
+  backdrop-filter: blur(4px);
+}
+
+/* Leaders page */
+[data-theme='miles-morales'] .leaders-page__header,
+[data-theme='miles-morales'] .leaders-page__sidebar { backdrop-filter: blur(6px); }
+[data-theme='miles-morales'] .leaders-page__search {
+  background: rgba(7, 8, 14, 0.90);
+  border-color: rgba(255, 35, 55, 0.38);
+  color: var(--color-text);
+}
+[data-theme='miles-morales'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .leaders-page__assign-btn.active-left {
+  background: rgba(255, 35, 55, 0.18);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .leaders-page__assign-btn.active-right {
+  background: rgba(34, 167, 255, 0.18);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Leader grid cards */
+[data-theme='miles-morales'] .leader-card {
+  background: rgba(7, 8, 14, 0.78);
+  border-color: rgba(255, 35, 55, 0.28);
+  backdrop-filter: blur(4px);
+}
+[data-theme='miles-morales'] .leader-card:hover { border-color: rgba(255, 35, 55, 0.55); }
+[data-theme='miles-morales'] .leader-card.selected-left {
+  background: rgba(255, 35, 55, 0.14);
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px rgba(255, 35, 55, 0.30);
+}
+[data-theme='miles-morales'] .leader-card.selected-right {
+  background: rgba(34, 167, 255, 0.14);
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 12px rgba(34, 167, 255, 0.30);
+}
+
+/* Affiliation filter */
+[data-theme='miles-morales'] .affil-btn {
+  background: rgba(7, 8, 14, 0.82);
+  border-color: rgba(255, 35, 55, 0.28);
+}
+[data-theme='miles-morales'] .affil-btn:hover { border-color: rgba(255, 35, 55, 0.55); }
+[data-theme='miles-morales'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(255, 35, 55, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='miles-morales'] .settings-section {
+  background: var(--color-panel);
+  border-color: rgba(255, 35, 55, 0.40);
+  backdrop-filter: blur(6px);
+}
+[data-theme='miles-morales'] .settings-section__title {
+  background: var(--color-panel-alt);
+  color: var(--color-accent-left);
+  border-bottom-color: rgba(255, 35, 55, 0.35);
+}
+[data-theme='miles-morales'] .settings-preset-btn.active,
+[data-theme='miles-morales'] .settings-theme-btn.active,
+[data-theme='miles-morales'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+  background: rgba(255, 35, 55, 0.08);
+}
+[data-theme='miles-morales'] .settings-toggle {
+  background: rgba(7, 8, 14, 0.90);
+  border-color: rgba(255, 35, 55, 0.40);
+}
+[data-theme='miles-morales'] .settings-toggle.on {
+  background: rgba(255, 35, 55, 0.18);
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .settings-toggle__knob { background: var(--color-text-muted); }
+[data-theme='miles-morales'] .settings-toggle.on .settings-toggle__knob {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-accent-left);
+}
+[data-theme='miles-morales'] .settings-slider { background: rgba(255, 35, 55, 0.20); }
+[data-theme='miles-morales'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+[data-theme='miles-morales'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='miles-morales'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.68); }
+[data-theme='miles-morales'] .main-page__modal {
+  background: rgba(5, 5, 10, 0.96);
+  border-color: rgba(255, 35, 55, 0.55);
+  box-shadow: 0 0 30px rgba(255, 35, 55, 0.20);
+  backdrop-filter: blur(10px);
+}
+[data-theme='miles-morales'] .main-page__modal-title { color: var(--color-accent-left); }
+[data-theme='miles-morales'] .main-page__modal-body { color: var(--color-text-muted); }
