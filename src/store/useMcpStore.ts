@@ -3,11 +3,10 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink';
+export type Theme = 'neon-blue' | 'comic-ink' | 'hydra';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
-export type VideoBg = 'none' | 'hydra';
 
 interface McpState {
   // Navigation
@@ -34,7 +33,6 @@ interface McpState {
   brightness: number;
   selectedBackground: string;
   interactiveBg: InteractiveBg;
-  videoBg: VideoBg;
 
   // Actions
   setCurrentPage: (page: AppPage) => void;
@@ -57,7 +55,6 @@ interface McpState {
   setBrightness: (brightness: number) => void;
   setSelectedBackground: (bg: string) => void;
   setInteractiveBg: (bg: InteractiveBg) => void;
-  setVideoBg: (bg: VideoBg) => void;
 
   resetGame: () => void;
 }
@@ -85,7 +82,6 @@ export const useMcpStore = create<McpState>()(
       brightness: 80,
       selectedBackground: '',
       interactiveBg: 'tech-hex',
-      videoBg: 'none',
 
       setCurrentPage: (page) => set({ currentPage: page }),
       setPendingLeaderAssign: (side) => set({ pendingLeaderAssign: side }),
@@ -122,7 +118,6 @@ export const useMcpStore = create<McpState>()(
         if (bg !== 'off' && get().theme !== 'neon-blue') return;
         set({ interactiveBg: bg });
       },
-      setVideoBg: (bg) => set({ videoBg: bg }),
 
       resetGame: () => {
         const { timerDuration } = get();
@@ -145,16 +140,13 @@ export const useMcpStore = create<McpState>()(
         if (state && !(['off', 'tech-hex'] as string[]).includes(state.interactiveBg)) {
           state.interactiveBg = 'tech-hex';
         }
-        // Migrate removed themes → neon-blue (default)
-        if (state && !(['neon-blue', 'comic-ink'] as string[]).includes(state.theme)) {
+        // Migrate removed/unknown themes → neon-blue
+        if (state && !(['neon-blue', 'comic-ink', 'hydra'] as string[]).includes(state.theme)) {
           state.theme = 'neon-blue';
         }
         // Tech Hex Grid only valid under neon-blue
         if (state && state.theme !== 'neon-blue' && state.interactiveBg !== 'off') {
           state.interactiveBg = 'off';
-        }
-        if (state && !(['none', 'hydra'] as string[]).includes(state.videoBg)) {
-          state.videoBg = 'none';
         }
       },
     }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMcpStore, type Theme, type InteractiveBg, type VideoBg } from '../store/useMcpStore';
+import { useMcpStore, type Theme, type InteractiveBg } from '../store/useMcpStore';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
 
@@ -14,12 +14,8 @@ const INTERACTIVE_BG_OPTIONS: { value: InteractiveBg; label: string; desc: strin
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'neon-blue', label: 'Neon Blue / Orange', desc: 'Default HUD sci-fi' },
-  { value: 'comic-ink', label: 'Comic Ink', desc: 'Paper, halftone & ink panels' },
-];
-
-const VIDEO_BG_OPTIONS: { value: VideoBg; label: string; desc: string }[] = [
-  { value: 'none', label: 'None', desc: 'No video background' },
-  { value: 'hydra', label: 'Hydra', desc: 'Animated video backdrop' },
+  { value: 'comic-ink', label: 'Comic Ink',          desc: 'Paper, halftone & ink panels' },
+  { value: 'hydra',     label: 'Hydra',              desc: 'Dark tactical — animated video BG' },
 ];
 
 export function SettingsPage() {
@@ -29,7 +25,6 @@ export function SettingsPage() {
     theme, setTheme,
     selectedBackground, setSelectedBackground,
     interactiveBg, setInteractiveBg,
-    videoBg, setVideoBg,
   } = useMcpStore();
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
@@ -119,22 +114,6 @@ export function SettingsPage() {
                 <span className="settings-theme-btn__label">{t.label}</span>
                 <span className="settings-theme-btn__desc">{t.desc}</span>
                 {theme === t.value && <span className="settings-theme-btn__check">✓</span>}
-              </button>
-            ))}
-          </div>
-          <div className="settings-themes-sub-title">VIDEO BACKGROUND</div>
-          <div className="settings-themes settings-videobg-options">
-            {VIDEO_BG_OPTIONS.map(opt => (
-              <button
-                key={opt.value}
-                className={`settings-theme-btn ${videoBg === opt.value ? 'active' : ''}`}
-                onClick={() => setVideoBg(opt.value)}
-                data-videobg-preview={opt.value}
-              >
-                <span className="settings-theme-btn__swatch settings-videobg-swatch" />
-                <span className="settings-theme-btn__label">{opt.label}</span>
-                <span className="settings-theme-btn__desc">{opt.desc}</span>
-                {videoBg === opt.value && <span className="settings-theme-btn__check">✓</span>}
               </button>
             ))}
           </div>
