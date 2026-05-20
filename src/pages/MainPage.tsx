@@ -10,7 +10,7 @@ import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
 import './MainPage.css';
 
 export function MainPage() {
-  const { selectedBackground, resetGame, interactiveBg } = useMcpStore();
+  const { selectedBackground, resetGame, interactiveBg, videoBg } = useMcpStore();
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleReset = () => {
@@ -27,7 +27,17 @@ export function MainPage() {
         backgroundPosition: 'center',
       } : undefined}
     >
-      {selectedBackground && <div className="main-page__bg-overlay" />}
+      {videoBg === 'hydra' && (
+        <video
+          className="main-page__video-bg"
+          src="/assets/videos/hydra.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      )}
+      {(selectedBackground || videoBg !== 'none') && <div className="main-page__bg-overlay" />}
       <AnimatedBackground mode={interactiveBg} />
       <AffiliationBackdrop />
 
