@@ -19,6 +19,9 @@
 .anim-theme-bg--shield.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030712 0%, #0a1a2e 40%, #071428 70%, #030712 100%);
 }
+.anim-theme-bg--asgard.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #050712 0%, #0d1030 40%, #0a0e28 70%, #050712 100%);
+}
 
 /* Overlay positioning — colours defined per-theme in themes.css */
 .anim-theme-bg__overlay {

@@ -355,6 +355,13 @@
     radial-gradient(circle at 85% 70%, rgba(53, 242, 255, 0.12), transparent 35%),
     rgba(0, 0, 0, 0.42);
 }
+[data-theme='asgard'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 214, 107, 0.16), transparent 35%),
+    radial-gradient(circle at 85% 70%, rgba(126, 231, 255, 0.12), transparent 35%),
+    radial-gradient(circle at 50% 100%, rgba(143, 124, 255, 0.10), transparent 40%),
+    rgba(0, 0, 0, 0.40);
+}
 
 /* ════════════════════════════════════════════════════════════════════
    S.H.I.E.L.D. — elite tactical defense agency command interface.
@@ -667,6 +674,321 @@
   backdrop-filter: blur(12px);
 }
 [data-theme='shield'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ASGARD — mythic celestial command interface.
+   Deep cosmic navy / black base, gold & cyan accents, purple cosmic glows.
+   Semi-transparent panels with warm gold borders — divine & commanding.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='asgard'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 12, 28, 0.78);
+  --color-panel-alt: rgba(16, 22, 42, 0.84);
+  --color-border: rgba(255, 205, 91, 0.52);
+  --color-accent-left: #ffd66b;
+  --color-accent-right: #7ee7ff;
+  --color-glow-left: rgba(255, 214, 107, 0.42);
+  --color-glow-right: rgba(126, 231, 255, 0.35);
+  --color-text: #fff7df;
+  --color-text-muted: #b7aacd;
+  --color-warn: #f6c945;
+  --color-critical: #ff4444;
+  --color-success: #7ee7ff;
+  --color-round-active: #ffd66b;
+  --color-round-inactive: rgba(255, 214, 107, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: transparent so the fixed video shows through */
+[data-theme='asgard'] body { background: transparent; }
+[data-theme='asgard'] .layout { background: transparent; }
+
+/* Subtle cosmic star-dust scanline texture */
+[data-theme='asgard'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 214, 107, 0.015) 3px,
+    rgba(255, 214, 107, 0.015) 4px
+  );
+}
+
+/* Panels — translucent dark cosmic with gold border glow */
+[data-theme='asgard'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 205, 91, 0.45);
+  box-shadow: 0 0 12px rgba(255, 214, 107, 0.1), inset 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
+[data-theme='asgard'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 214, 107, 0.12), transparent, rgba(126, 231, 255, 0.06));
+}
+[data-theme='asgard'] .glow-left {
+  border-color: rgba(255, 214, 107, 0.50);
+  box-shadow: -2px 0 14px rgba(255, 214, 107, 0.28), 0 0 10px rgba(255, 214, 107, 0.1);
+}
+[data-theme='asgard'] .glow-right {
+  border-color: rgba(126, 231, 255, 0.48);
+  box-shadow: 2px 0 14px rgba(126, 231, 255, 0.28), 0 0 10px rgba(126, 231, 255, 0.1);
+}
+
+/* Buttons */
+[data-theme='asgard'] .btn-hud {
+  background: rgba(8, 12, 28, 0.88);
+  border-color: rgba(255, 205, 91, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='asgard'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='asgard'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='asgard'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='asgard'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='asgard'] .side-nav {
+  background: rgba(5, 8, 20, 0.94);
+  border-right-color: rgba(255, 205, 91, 0.32);
+  backdrop-filter: blur(8px);
+}
+[data-theme='asgard'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 214, 107, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='asgard'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 20px var(--color-glow-left);
+}
+[data-theme='asgard'] .side-nav__item:hover {
+  background: rgba(255, 214, 107, 0.08);
+  border-color: rgba(255, 205, 91, 0.4);
+}
+[data-theme='asgard'] .side-nav__item.active {
+  background: rgba(255, 214, 107, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='asgard'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='asgard'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #ffd66b, #ffe9a0);
+  box-shadow: 0 0 6px rgba(255, 214, 107, 0.7);
+}
+[data-theme='asgard'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #7ee7ff, #b0f0ff);
+  box-shadow: 0 0 6px rgba(126, 231, 255, 0.7);
+}
+[data-theme='asgard'] .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+}
+[data-theme='asgard'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+}
+[data-theme='asgard'] .score-panel__btn {
+  background: rgba(8, 12, 28, 0.9);
+  border-color: rgba(255, 205, 91, 0.32);
+}
+[data-theme='asgard'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='asgard'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 205, 91, 0.45);
+}
+[data-theme='asgard'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 214, 107, 0.16), transparent, rgba(126, 231, 255, 0.08));
+}
+[data-theme='asgard'] .timer-panel__display {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='asgard'] .timer-panel--critical {
+  border-color: rgba(255, 205, 91, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 214, 107, 0.4), 0 0 40px rgba(255, 214, 107, 0.2) !important;
+}
+[data-theme='asgard'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 12px rgba(246, 201, 69, 0.8);
+}
+[data-theme='asgard'] .timer-panel__btn {
+  background: rgba(8, 12, 28, 0.9);
+  border-color: rgba(255, 205, 91, 0.32);
+  color: var(--color-accent-left);
+}
+[data-theme='asgard'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='asgard'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 205, 91, 0.32);
+}
+[data-theme='asgard'] .round-tracker__pip {
+  border-color: rgba(255, 205, 91, 0.28);
+  background: rgba(8, 12, 28, 0.6);
+}
+[data-theme='asgard'] .round-tracker__pip.active {
+  border-color: rgba(255, 205, 91, 0.55);
+  background: rgba(255, 214, 107, 0.1);
+}
+[data-theme='asgard'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot (main screen) */
+[data-theme='asgard'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='asgard'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='asgard'] .mission-item {
+  background: rgba(8, 12, 28, 0.78);
+  backdrop-filter: blur(4px);
+}
+[data-theme='asgard'] .mission-item:hover {
+  background: rgba(255, 214, 107, 0.06);
+  border-color: rgba(255, 205, 91, 0.5);
+}
+[data-theme='asgard'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.2);
+  border-color: rgba(26, 143, 255, 0.7);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.3);
+}
+[data-theme='asgard'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.2);
+  border-color: rgba(255, 47, 47, 0.7);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.3);
+}
+
+/* Leader hex (main screen) */
+[data-theme='asgard'] .leader-hex__name {
+  background: rgba(8, 12, 28, 0.88);
+  border-color: rgba(255, 205, 91, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card (leaders page) */
+[data-theme='asgard'] .leader-card {
+  background: rgba(8, 12, 28, 0.82);
+  backdrop-filter: blur(4px);
+}
+[data-theme='asgard'] .leader-card:hover {
+  border-color: rgba(255, 205, 91, 0.55);
+  box-shadow: 0 0 10px rgba(255, 214, 107, 0.18);
+}
+[data-theme='asgard'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='asgard'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Headers */
+[data-theme='asgard'] .leaders-page__header,
+[data-theme='asgard'] .missions-page__header {
+  background: rgba(5, 8, 20, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 205, 91, 0.28);
+}
+[data-theme='asgard'] .leaders-page__search {
+  background: rgba(8, 12, 28, 0.88);
+  border-color: rgba(255, 205, 91, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='asgard'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='asgard'] .missions-page__body {
+  background: rgba(5, 8, 20, 0.72);
+}
+
+/* Settings */
+[data-theme='asgard'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 205, 91, 0.28);
+}
+[data-theme='asgard'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(16, 22, 42, 0.92);
+  border-bottom-color: rgba(255, 205, 91, 0.22);
+}
+[data-theme='asgard'] .settings-preset-btn.active,
+[data-theme='asgard'] .settings-theme-btn.active,
+[data-theme='asgard'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 214, 107, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='asgard'] .settings-slider { background: rgba(255, 205, 91, 0.14); }
+[data-theme='asgard'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='asgard'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='asgard'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.62); }
+[data-theme='asgard'] .main-page__modal {
+  background: rgba(8, 12, 28, 0.96);
+  border-color: rgba(255, 205, 91, 0.52);
+  box-shadow: 0 0 30px rgba(255, 214, 107, 0.18);
+  backdrop-filter: blur(12px);
+}
+[data-theme='asgard'] .main-page__modal-title {
   color: var(--color-accent-left);
   text-shadow: 0 0 10px var(--color-glow-left);
 }
