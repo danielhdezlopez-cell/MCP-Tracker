@@ -40,9 +40,12 @@ export function LeaderHex({ side }: LeaderHexProps) {
     : null;
 
   return (
-    <div className={`leader-hex leader-hex--${side}`} onClick={handleClick}>
+    <div className={`leader-hex leader-hex--${side}${!leader ? ' leader-hex--empty' : ''}`} onClick={handleClick}>
       <div className="leader-hex__portrait-wrap">
         {fx && <LeaderSigil fx={fx} flash={flash} />}
+        {theme === 'comic-ink' && leader && (
+          <div className={`leader-hex__comic-burst leader-hex__comic-burst--${side}`} />
+        )}
         <div className="leader-hex__corner leader-hex__corner--tl" />
         <div className="leader-hex__corner leader-hex__corner--tr" />
         <div className="leader-hex__corner leader-hex__corner--bl" />
@@ -57,8 +60,10 @@ export function LeaderHex({ side }: LeaderHexProps) {
           />
         </div>
       </div>
-      {leader && (
+      {leader ? (
         <div className={`leader-hex__name text-accent-${side}`}>{leader.name}</div>
+      ) : (
+        <div className={`leader-hex__assign-hint leader-hex__assign-hint--${side}`}>TAP · ASSIGN</div>
       )}
     </div>
   );

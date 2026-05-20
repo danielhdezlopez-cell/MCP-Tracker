@@ -16,6 +16,20 @@
   flex-direction: column;
 }
 
+.layout__page-anim {
+  height: 100%;
+  animation: page-fade-in 0.15s ease;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout__page-anim { animation: none; }
+}
+
 @media (max-width: 640px) {
   .layout__content {
     height: auto;

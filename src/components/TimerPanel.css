@@ -176,3 +176,95 @@
   .timer-panel--critical { animation: none !important; }
   .timer-panel__display.critical { animation: none !important; opacity: 1; }
 }
+
+/* ── Paused state ────────────────────────────────────────────────── */
+.timer-panel--paused {
+  border-style: dashed;
+  opacity: 0.78;
+}
+
+.timer-panel--paused .timer-panel__display {
+  opacity: 0.55;
+}
+
+.timer-panel__paused-label {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  color: var(--color-warn);
+  opacity: 0.8;
+  line-height: 1;
+  margin-top: -2px;
+}
+
+/* ── Time's up overlay ───────────────────────────────────────────── */
+.timer-expired-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(4px);
+  animation: timer-overlay-in 0.2s ease;
+}
+
+@keyframes timer-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.timer-expired-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 32px;
+  border-color: var(--color-critical);
+  box-shadow: 0 0 40px rgba(255, 42, 42, 0.5), inset 0 0 24px rgba(255,42,42,0.06);
+  animation: timer-box-in 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes timer-box-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.timer-expired-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--color-critical);
+  text-shadow: 0 0 24px var(--color-critical), 0 0 48px rgba(255,42,42,0.4);
+  animation: blink 0.7s step-end infinite;
+}
+
+.timer-expired-body {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+}
+
+.timer-expired-dismiss {
+  min-width: 140px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* Comic Ink overrides */
+[data-theme='comic-ink'] .timer-expired-box {
+  box-shadow: 8px 8px 0 var(--color-accent-right);
+  animation: timer-box-in 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+[data-theme='comic-ink'] .timer-expired-title {
+  text-shadow: 3px 3px 0 var(--color-accent-right);
+  animation: none;
+  -webkit-text-stroke: 1px var(--color-border);
+}
+[data-theme='comic-ink'] .timer-panel--paused {
+  opacity: 1;
+  border-style: dashed;
+}
+[data-theme='comic-ink'] .timer-panel__paused-label { color: var(--color-accent-right); }
