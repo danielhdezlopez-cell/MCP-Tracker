@@ -1,3 +1,5 @@
+/* ── ScorePanel — Opción P (L + O ring + N delta + VICTORY) ─────────── */
+
 .score-panel {
   display: flex;
   flex-direction: column;
@@ -8,9 +10,10 @@
   flex: 0 0 clamp(100px, 15vw, 160px);
   align-self: stretch;
   min-width: 0;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Corner bracket marks */
+/* ── Corner bracket marks ─────────────────────────────────────────── */
 .score-panel::before,
 .score-panel::after {
   content: '';
@@ -22,16 +25,14 @@
 }
 
 .score-panel::before {
-  top: 5px;
-  left: 5px;
+  top: 5px; left: 5px;
   border-top: 1px solid var(--color-accent-left);
   border-left: 1px solid var(--color-accent-left);
   opacity: 0.6;
 }
 
 .score-panel::after {
-  bottom: 5px;
-  right: 5px;
+  bottom: 5px; right: 5px;
   border-bottom: 1px solid var(--color-accent-left);
   border-right: 1px solid var(--color-accent-left);
   opacity: 0.6;
@@ -42,6 +43,7 @@
   border-color: var(--color-accent-right);
 }
 
+/* ── Player name label ────────────────────────────────────────────── */
 .score-panel__label {
   align-self: stretch;
   text-align: center;
@@ -54,7 +56,7 @@
   width: 100%;
 }
 
-/* Number display with HUD bracket frame */
+/* ── Value wrap (number + ring, stacked) ──────────────────────────── */
 .score-panel__value-wrap {
   flex: 1;
   display: flex;
@@ -64,66 +66,81 @@
   width: 100%;
 }
 
-.score-panel__value-wrap::before,
-.score-panel__value-wrap::after {
-  content: '';
+/* ── Segmented ring — centred behind the number ───────────────────── */
+.score-panel__ring {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 60%;
-  min-height: 28px;
-  opacity: 0.4;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(96px, 13vw, 132px);
+  aspect-ratio: 1;
   pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
 }
 
-.score-panel__value-wrap::before {
-  left: 4px;
-  border-top: 1px solid var(--color-accent-left);
-  border-bottom: 1px solid var(--color-accent-left);
-  border-left: 1px solid var(--color-accent-left);
+[data-tier="2"] .score-panel__ring { opacity: 0.65; }
+[data-tier="3"] .score-panel__ring { opacity: 0.80; }
+[data-tier="4"] .score-panel__ring { opacity: 1.0;  }
+
+.score-panel__ring-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
 }
 
-.score-panel__value-wrap::after {
-  right: 4px;
-  border-top: 1px solid var(--color-accent-left);
-  border-bottom: 1px solid var(--color-accent-left);
-  border-right: 1px solid var(--color-accent-left);
+/* Inactive segments */
+.score-panel__ring-seg {
+  fill: none;
+  stroke: rgba(94, 130, 175, 0.45);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease;
 }
 
-.glow-right .score-panel__value-wrap::before,
-.glow-right .score-panel__value-wrap::after {
-  border-color: var(--color-accent-right);
+/* Lit segments — side-coloured (tiers 0–2) */
+.glow-left .score-panel__ring-seg--lit {
+  stroke: var(--color-accent-left);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 3px var(--color-accent-left));
 }
 
+.glow-right .score-panel__ring-seg--lit {
+  stroke: var(--color-accent-right);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 3px var(--color-accent-right));
+}
+
+/* Tier 3 — warm orange (overrides glow-left/right) */
+[data-tier="3"] .score-panel__ring-seg--lit {
+  stroke: #ff8a2a;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 3px #ff8a2a);
+}
+
+/* Tier 4 — red victory (overrides glow-left/right) */
+[data-tier="4"] .score-panel__ring-seg--lit {
+  stroke: #ff2a2a;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 4px #ff2a2a);
+}
+
+/* ── Score number ─────────────────────────────────────────────────── */
 .score-panel__value {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  font-size: clamp(2.4rem, 5.4vw, 3.9rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
   position: relative;
   font-variant-numeric: tabular-nums;
-  transition: text-shadow 0.3s ease, filter 0.3s ease;
+  z-index: 2;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.glow-left .score-panel__value {
-  color: var(--color-accent-left);
-  text-shadow:
-    0 0 calc(4px + var(--score-intensity, 0) * 22px) var(--color-accent-left),
-    0 0 calc(2px + var(--score-intensity, 0) * 8px) rgba(0, 195, 255, 0.55);
-  filter: brightness(calc(0.78 + var(--score-intensity, 0) * 0.32));
-}
-
-.glow-right .score-panel__value {
-  color: var(--color-accent-right);
-  text-shadow:
-    0 0 calc(4px + var(--score-intensity, 0) * 22px) var(--color-accent-right),
-    0 0 calc(2px + var(--score-intensity, 0) * 8px) rgba(255, 106, 0, 0.55);
-  filter: brightness(calc(0.78 + var(--score-intensity, 0) * 0.32));
-}
-
-/* Scanline shimmer over the number */
+/* Scanline shimmer */
 .score-panel__value::after {
   content: '';
   position: absolute;
@@ -134,30 +151,81 @@
   border-radius: 2px;
 }
 
-/* Side energy tick marks */
-.score-panel__ticks {
+/* Tier 0 — subdued */
+.glow-left[data-tier="0"]  .score-panel__value { color: #b8cce2; text-shadow: 0 0 8px rgba(0,195,255,0.25), 0 0 16px rgba(0,195,255,0.10); }
+.glow-right[data-tier="0"] .score-panel__value { color: #f1d6bf; text-shadow: 0 0 8px rgba(255,106,0,0.25), 0 0 16px rgba(255,106,0,0.10); }
+
+/* Tier 1 — active */
+.glow-left[data-tier="1"]  .score-panel__value { color: #e6f2ff; text-shadow: 0 0 10px rgba(0,195,255,0.55), 0 0 20px rgba(0,195,255,0.20); }
+.glow-right[data-tier="1"] .score-panel__value { color: #ffe9d1; text-shadow: 0 0 10px rgba(255,106,0,0.55), 0 0 20px rgba(255,106,0,0.20); }
+
+/* Tier 2 — charged */
+.glow-left[data-tier="2"]  .score-panel__value { color: #ffffff; text-shadow: 0 0 12px var(--color-accent-left),  0 0 28px rgba(0,195,255,0.40); filter: brightness(1.05); }
+.glow-right[data-tier="2"] .score-panel__value { color: #ffffff; text-shadow: 0 0 12px var(--color-accent-right), 0 0 28px rgba(255,106,0,0.40); filter: brightness(1.05); }
+
+/* Tier 3 — critical warm orange (both sides) */
+[data-tier="3"] .score-panel__value {
+  color: #fff5e0;
+  text-shadow: 0 0 14px #ffb800, 0 0 28px #ff6a00;
+}
+
+/* Tier 4 — victory red pulse */
+[data-tier="4"] .score-panel__value {
+  color: #fffaea;
+  text-shadow: 0 0 16px #ff4444, 0 0 32px #ff0000, 0 0 48px rgba(255,0,0,0.40);
+  animation: sp-victory-value 1.4s ease-in-out infinite;
+}
+
+@keyframes sp-victory-value {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
+/* ── Delta overlay (+1 / −1) ──────────────────────────────────────── */
+.score-panel__delta {
   position: absolute;
-  top: 0; bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 900;
   pointer-events: none;
-  opacity: 0.3;
+  z-index: 3;
+  animation: delta-float 0.75s ease-out forwards;
+  white-space: nowrap;
 }
 
-.score-panel__ticks--left { left: 0; }
-.score-panel__ticks--right { right: 0; }
+.score-panel__delta--left  { color: var(--color-accent-left);  text-shadow: 0 0 12px var(--color-accent-left); }
+.score-panel__delta--right { color: var(--color-accent-right); text-shadow: 0 0 12px var(--color-accent-right); }
 
-.score-panel__tick {
-  width: 4px;
-  height: 1px;
-  background: var(--color-accent-left);
+[data-tier="3"] .score-panel__delta { color: #ffb800; text-shadow: 0 0 12px #ffb800; }
+[data-tier="4"] .score-panel__delta { color: #ff2a2a; text-shadow: 0 0 12px #ff2a2a; }
+
+@keyframes delta-float {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-48px); }
 }
 
-.glow-right .score-panel__tick {
-  background: var(--color-accent-right);
+/* ── VICTORY label ────────────────────────────────────────────────── */
+.score-panel__victory {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  letter-spacing: 0.36em;
+  color: #ff2a2a;
+  text-shadow: 0 0 8px #ff2a2a, 0 0 16px #ff2a2a;
+  line-height: 1;
+  margin: -2px 0 2px;
+  animation: sp-victory-text 1.4s ease-in-out infinite;
 }
 
+@keyframes sp-victory-text {
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1; }
+}
+
+/* ── Progress bar ─────────────────────────────────────────────────── */
 .score-panel__bar {
   width: 100%;
   height: 4px;
@@ -167,7 +235,6 @@
   position: relative;
 }
 
-/* Shimmer on the bar */
 .score-panel__bar::after {
   content: '';
   position: absolute;
@@ -185,7 +252,7 @@
 .score-panel__bar-fill {
   height: 100%;
   border-radius: 2px;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .score-panel__bar-fill--left {
@@ -198,6 +265,35 @@
   box-shadow: 0 0 8px var(--color-accent-right);
 }
 
+/* Tier 3 bar — orange */
+[data-tier="3"] .score-panel__bar-fill {
+  background: linear-gradient(to right, #ff8a2a, rgba(255,138,42,0.5));
+  box-shadow: 0 0 8px #ff8a2a;
+}
+
+/* Tier 4 bar — red */
+[data-tier="4"] .score-panel__bar-fill {
+  background: linear-gradient(to right, #ff2a2a, rgba(255,42,42,0.5));
+  box-shadow: 0 0 8px #ff2a2a;
+}
+
+/* ── Panel glow by tier ───────────────────────────────────────────── */
+[data-tier="3"].score-panel {
+  border-color: #ff8a2a;
+  box-shadow: 0 0 14px rgba(255,138,42,0.45), inset 0 0 16px rgba(255,138,42,0.06);
+}
+
+[data-tier="4"].score-panel {
+  border-color: #ff2a2a;
+  animation: sp-victory-panel 1.4s ease-in-out infinite;
+}
+
+@keyframes sp-victory-panel {
+  0%, 100% { box-shadow: 0 0 16px rgba(255,42,42,0.50), inset 0 0 12px rgba(255,42,42,0.06); }
+  50%       { box-shadow: 0 0 30px rgba(255,42,42,0.80), inset 0 0 20px rgba(255,42,42,0.12); }
+}
+
+/* ── +/− controls ─────────────────────────────────────────────────── */
 .score-panel__controls {
   display: flex;
   gap: 6px;
@@ -218,52 +314,42 @@
   transform: none;
 }
 
-/* ── Score delta overlay (+1 / -1) ────────────────────────────── */
-.score-panel__delta {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  font-weight: 900;
-  pointer-events: none;
-  z-index: 3;
-  animation: delta-float 0.75s ease-out forwards;
-  white-space: nowrap;
-}
-
-.score-panel__delta--left  { color: var(--color-accent-left);  text-shadow: 0 0 12px var(--color-accent-left); }
-.score-panel__delta--right { color: var(--color-accent-right); text-shadow: 0 0 12px var(--color-accent-right); }
-
-@keyframes delta-float {
-  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-48px); }
-}
-
+/* ── Reduced motion ───────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .score-panel__bar::after { animation: none; }
-  .score-panel__delta { animation: none; opacity: 0; }
+  .score-panel__bar::after             { animation: none; }
+  .score-panel__delta                  { animation: none; opacity: 0; }
+  [data-tier="4"].score-panel          { animation: none; }
+  [data-tier="4"] .score-panel__value  { animation: none; }
+  .score-panel__victory                { animation: none; opacity: 1; }
 }
 
-/* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ──── */
+/* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ──────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .score-panel {
     flex: 0 0 clamp(140px, 18vw, 220px);
     padding: 12px 10px;
   }
   .score-panel__value {
-    font-size: clamp(4rem, 7.5vw, 5.8rem);
+    font-size: clamp(3.4rem, 6.6vw, 5rem);
+  }
+  .score-panel__ring {
+    width: clamp(140px, 16vw, 180px);
   }
   .score-panel__btn {
     min-height: 40px;
     font-size: 1.6rem;
   }
+  .score-panel__victory {
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+  }
 }
 
-/* ── Desktop large (≥1400px) — larger number to fill taller panel ── */
+/* ── Desktop large (≥1400px) ──────────────────────────────────────── */
 @media (min-width: 1400px) {
   .score-panel__value {
-    font-size: clamp(3.6rem, 7vw, 5.5rem);
+    font-size: clamp(3.2rem, 6vw, 4.8rem);
+  }
+  .score-panel__ring {
+    width: clamp(110px, 11vw, 150px);
   }
 }
