@@ -76,10 +76,10 @@
   transform: translateY(10px);
 }
 
-/* iPad Mini 6 landscape: push timer a bit further down */
+/* iPad Mini 6 landscape: push timer further down */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .main-page__timer-wrap {
-    transform: translateY(18px);
+    transform: translateY(33px);
   }
 }
 
@@ -335,14 +335,14 @@
     align-self: center !important;
   }
 
-  /* Left score panel nudges toward center (rightward) and 25px lower */
+  /* Left score panel nudges toward center (rightward) and 45px lower */
   .main-page__side-area--left .score-panel {
-    transform: translateX(14px) translateY(25px);
+    transform: translateX(14px) translateY(45px);
   }
 
-  /* Right score panel nudges toward center (leftward) and 25px lower */
+  /* Right score panel nudges toward center (leftward) and 45px lower */
   .main-page__side-area--right .score-panel {
-    transform: translateX(-14px) translateY(25px);
+    transform: translateX(-14px) translateY(45px);
   }
 
   /* Mission panels — taller, lifted, narrower */

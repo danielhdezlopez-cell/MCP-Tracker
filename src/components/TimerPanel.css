@@ -265,3 +265,14 @@
   border-style: dashed;
 }
 [data-theme='comic-ink'] .timer-panel__paused-label { color: var(--color-accent-right); }
+
+/* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .timer-panel {
+    padding: 10px 22px;
+    gap: 5px;
+  }
+  .timer-panel__display {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+  }
+}

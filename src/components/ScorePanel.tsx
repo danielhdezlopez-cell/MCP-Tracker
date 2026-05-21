@@ -4,6 +4,7 @@ import './ScorePanel.css';
 
 const MAX_SCORE = 20;
 const VICTORY_THRESHOLD = 16;
+const RING_SEGMENTS = 16;
 
 function tierOf(score: number): 0 | 1 | 2 | 3 | 4 {
   if (score >= 16) return 4;
@@ -14,11 +15,11 @@ function tierOf(score: number): 0 | 1 | 2 | 3 | 4 {
 }
 
 interface SegmentedRingProps {
-  score: number;
+  litCount: number;
   segments: number;
 }
 
-function SegmentedRing({ score, segments }: SegmentedRingProps) {
+function SegmentedRing({ litCount, segments }: SegmentedRingProps) {
   const cx = 80, cy = 80, r = 70, gap = 3;
   const segAngle = (2 * Math.PI) / segments;
   const gapAngle = gap / r;
@@ -33,7 +34,7 @@ function SegmentedRing({ score, segments }: SegmentedRingProps) {
         const x2 = cx + r * Math.cos(endAngle);
         const y2 = cy + r * Math.sin(endAngle);
         const d = `M ${x1.toFixed(3)} ${y1.toFixed(3)} A ${r} ${r} 0 0 1 ${x2.toFixed(3)} ${y2.toFixed(3)}`;
-        const isLit = i < score;
+        const isLit = i < litCount;
         return (
           <path
             key={i}
@@ -87,7 +88,7 @@ export function ScorePanel({ side }: ScorePanelProps) {
 
       <div className="score-panel__value-wrap">
         <div className="score-panel__ring" aria-hidden="true">
-          <SegmentedRing score={score} segments={MAX_SCORE} />
+          <SegmentedRing litCount={Math.round(score / MAX_SCORE * RING_SEGMENTS)} segments={RING_SEGMENTS} />
         </div>
         <div className="score-panel__value">{score}</div>
         {delta !== null && (
