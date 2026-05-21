@@ -123,8 +123,8 @@ export function MainPage() {
           aria-label="Reset Game"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" width="20" height="20">
-            <path d="M12 5 A7 7 0 1 0 19 12"/>
-            <path d="M16 15 L19 12 L22 15"/>
+            <path d="M18.5 8.25 A7.5 7.5 0 1 1 12 4.5"/>
+            <path d="M9 2.5 L12 4.5 L9 6.5"/>
           </svg>
         </button>
 
