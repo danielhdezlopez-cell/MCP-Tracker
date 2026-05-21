@@ -46,8 +46,9 @@
   align-self: stretch;
   text-align: center;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.15;
   letter-spacing: 0;
   font-size: var(--fs-10);
   width: 100%;

@@ -240,11 +240,12 @@
   width: 100%;
 }
 
-/* ROUND TRACKER — pinned to bottom of center column */
+/* ROUND TRACKER — lifted so its center aligns with the mission panel centers */
 .main-page__round {
   display: flex;
   justify-content: center;
   flex-shrink: 0;
+  margin-bottom: clamp(18px, 3vh, 30px);
 }
 
 /* ── Reset Game confirm modal ────────────────────────────────────── */
