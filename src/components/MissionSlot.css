@@ -194,7 +194,7 @@
 }
 
 .mission-slot__plus {
-  font-size: var(--fs-28);
+  font-size: clamp(36px, 5.6vw, 60px);
   line-height: 1;
   color: var(--color-text-muted);
 }
