@@ -140,7 +140,8 @@
   display: flex;
   justify-content: center;
   flex-shrink: 0;
-  margin-top: -4px;
+  margin-top: -24px;
+  margin-bottom: 20px;
 }
 
 /* BOTTOM ROW — inset from edges so mission panels don't span the full width */
