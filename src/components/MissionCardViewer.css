@@ -106,10 +106,12 @@
 
 .mcv-img {
   display: block;
-  /* Constrained by the flex body rather than raw viewport units,
-     so the image always fits inside the modal regardless of device chrome */
   max-width: 100%;
-  max-height: 100%;
+  /* max-height: 100% is unreliable when parent height comes from flex algorithm
+     (percentage heights require an explicit height on the parent).
+     Use the same viewport-unit budget as the container instead. */
+  max-height: calc(85vh - 80px);   /* fallback: 85vh minus header + footer */
+  max-height: calc(85svh - 80px);  /* preferred: svh excludes iOS browser chrome */
   width: auto;
   height: auto;
   object-fit: contain;
