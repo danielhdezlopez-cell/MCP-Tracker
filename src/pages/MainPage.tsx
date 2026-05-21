@@ -57,7 +57,9 @@ export function MainPage() {
       {/* TOP ROW: spacer | Timer | fullscreen */}
       <div className="main-page__top">
         <div className="main-page__top-spacer" />
-        <TimerPanel />
+        <div className="main-page__timer-wrap">
+          <TimerPanel />
+        </div>
         <div className="main-page__top-right">
           <button
             className="btn-hud main-page__fullscreen-btn"

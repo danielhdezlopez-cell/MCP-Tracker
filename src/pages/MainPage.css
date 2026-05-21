@@ -144,6 +144,11 @@
   margin-bottom: 20px;
 }
 
+/* Timer wrapper — shifts timer 10px lower without affecting layout */
+.main-page__timer-wrap {
+  transform: translateY(10px);
+}
+
 /* BOTTOM ROW — inset from edges so mission panels don't span the full width */
 .main-page__bottom {
   display: flex;
@@ -151,6 +156,7 @@
   flex-shrink: 0;
   height: clamp(80px, 16vh, 110px);
   padding-inline: clamp(4px, 3.5vw, 56px);
+  transform: translateY(-10px);
 }
 
 /* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ────
