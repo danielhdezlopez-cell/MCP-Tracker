@@ -63,7 +63,7 @@ export function MainPage() {
       <AnimatedBackground mode={interactiveBg} />
       <AffiliationBackdrop />
 
-      {/* TOP ROW: spacer | Timer | fullscreen */}
+      {/* TOP ROW: logo | timer | reset + config + fullscreen */}
       <div className="main-page__top">
         <div className="main-page__top-left">
           <McpLogo />
@@ -72,6 +72,25 @@ export function MainPage() {
           <TimerPanel />
         </div>
         <div className="main-page__top-right">
+          <button
+            className="main-page__corner-btn main-page__corner-btn--reset"
+            onClick={() => setShowResetConfirm(true)}
+            title="Reset Game"
+            aria-label="Reset Game"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" width="20" height="20">
+              <path d="M18.5 8.25 A7.5 7.5 0 1 1 12 4.5"/>
+              <path d="M9 2.5 L12 4.5 L9 6.5"/>
+            </svg>
+          </button>
+          <button
+            className="main-page__corner-btn main-page__corner-btn--config"
+            onClick={() => setCurrentPage('settings')}
+            title="Config"
+            aria-label="Config"
+          >
+            <NavIconSettings width="20" height="20" />
+          </button>
           <button
             className="btn-hud main-page__fullscreen-btn"
             onClick={toggleFullscreen}
@@ -91,54 +110,38 @@ export function MainPage() {
         </div>
       </div>
 
-      {/* MAIN ROW: [banner | score-left] + leaders + [score-right | banner] */}
-      <div className="main-page__middle">
+      {/* BODY: 3-column — [banner | score+mission] | leaders+round | [score+mission | banner] */}
+      <div className="main-page__body">
+
+        {/* LEFT: banner flush against score panel + Secure mission */}
         <div className="main-page__side-area main-page__side-area--left">
           <div className="main-page__banner main-page__banner--left">BANNER</div>
-          <ScorePanel side="left" />
+          <div className="main-page__side-stack">
+            <ScorePanel side="left" />
+            <MissionSlot type="Secure" />
+          </div>
         </div>
 
+        {/* CENTER: leaders + round tracker */}
         <div className="main-page__center">
-          <LeaderHex side="left" />
-          <LeaderHex side="right" />
+          <div className="main-page__leaders">
+            <LeaderHex side="left" />
+            <LeaderHex side="right" />
+          </div>
+          <div className="main-page__round">
+            <RoundTracker />
+          </div>
         </div>
 
+        {/* RIGHT: score panel + Extract mission, banner flush on right */}
         <div className="main-page__side-area main-page__side-area--right">
-          <ScorePanel side="right" />
+          <div className="main-page__side-stack">
+            <ScorePanel side="right" />
+            <MissionSlot type="Extract" />
+          </div>
           <div className="main-page__banner main-page__banner--right">BANNER</div>
         </div>
-      </div>
 
-      {/* ROUND TRACKER — centered above missions */}
-      <div className="main-page__round">
-        <RoundTracker />
-      </div>
-
-      {/* BOTTOM ROW: [Reset] Mission Slots [Config] */}
-      <div className="main-page__bottom">
-        <button
-          className="main-page__corner-btn main-page__corner-btn--reset"
-          onClick={() => setShowResetConfirm(true)}
-          title="Reset Game"
-          aria-label="Reset Game"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" width="20" height="20">
-            <path d="M18.5 8.25 A7.5 7.5 0 1 1 12 4.5"/>
-            <path d="M9 2.5 L12 4.5 L9 6.5"/>
-          </svg>
-        </button>
-
-        <MissionSlot type="Secure" />
-        <MissionSlot type="Extract" />
-
-        <button
-          className="main-page__corner-btn main-page__corner-btn--config"
-          onClick={() => setCurrentPage('settings')}
-          title="Config"
-          aria-label="Config"
-        >
-          <NavIconSettings width="20" height="20" />
-        </button>
       </div>
 
       {showResetConfirm && createPortal(

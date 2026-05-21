@@ -31,7 +31,7 @@
   z-index: 1;
 }
 
-/* TOP ROW — timer centered, fullscreen right */
+/* TOP ROW — logo left, timer center, actions right */
 .main-page__top {
   display: flex;
   align-items: center;
@@ -71,102 +71,16 @@
   box-shadow: 0 0 6px var(--color-glow-left);
 }
 
-/* MIDDLE ROW — side areas stretch to fill height */
-.main-page__middle {
-  display: flex;
-  gap: 6px;
-  flex: 1;
-  min-height: 0;
-  align-items: stretch;
-  overflow: hidden;
-}
-
-/* Side area: wraps banner + score panel so the score panel sits
-   away from the screen edge, visually centered within its half */
-.main-page__side-area {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: 4px;
-  flex-shrink: 0;
-  align-self: stretch;
-  min-width: 0;
-  padding-block: 6px;
-}
-
-/* Affiliation banner strip */
-.main-page__banner {
-  width: clamp(18px, 2.2vw, 28px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-family: var(--font-display);
-  font-size: var(--fs-9);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  background: var(--color-panel);
-  opacity: 0.72;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.main-page__banner--left {
-  color: var(--color-accent-left);
-  border-color: rgba(0, 195, 255, 0.28);
-  box-shadow: 0 0 5px var(--color-glow-left);
-}
-
-.main-page__banner--right {
-  color: var(--color-accent-right);
-  border-color: rgba(255, 106, 0, 0.28);
-  box-shadow: 0 0 5px var(--color-glow-right);
-}
-
-.main-page__center {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(20px, 4vw, 56px);
-  flex: 1;
-  min-width: 0;
-  padding: 4px;
-}
-
-/* ROUND TRACKER ROW */
-.main-page__round {
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: -24px;
-  margin-bottom: 20px;
-}
-
 /* Timer wrapper — shifts timer 10px lower without affecting layout */
 .main-page__timer-wrap {
   transform: translateY(10px);
 }
 
-/* BOTTOM ROW — corner buttons flank both mission panels */
-.main-page__bottom {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-  height: clamp(80px, 16vh, 110px);
-  padding-inline: clamp(54px, calc(3.5vw + 50px), 106px);
-  transform: translateY(-10px);
-}
-
-/* ── Corner control buttons (Reset / Config) ─────────────────────── */
+/* ── Control buttons (Reset / Config) in top bar ─────────────────── */
 .main-page__corner-btn {
   flex-shrink: 0;
-  width: 44px;
-  align-self: stretch;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,8 +95,8 @@
 }
 
 .main-page__corner-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .main-page__corner-btn--reset {
@@ -220,6 +134,113 @@
   outline: 1px solid rgba(0, 195, 255, 0.55);
   outline-offset: 2px;
   opacity: 1;
+}
+
+/* ── BODY — 3-column flex row ────────────────────────────────────── */
+.main-page__body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  gap: 6px;
+  overflow: hidden;
+}
+
+/* Side area: banner flush against side-stack (gap: 0) */
+.main-page__side-area {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  padding-block: 6px;
+}
+
+/* Affiliation banner strip */
+.main-page__banner {
+  width: clamp(18px, 2.2vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-display);
+  font-size: var(--fs-9);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-panel);
+  opacity: 0.72;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.main-page__banner--left {
+  color: var(--color-accent-left);
+  border-color: rgba(0, 195, 255, 0.28);
+  box-shadow: 0 0 5px var(--color-glow-left);
+}
+
+.main-page__banner--right {
+  color: var(--color-accent-right);
+  border-color: rgba(255, 106, 0, 0.28);
+  box-shadow: 0 0 5px var(--color-glow-right);
+}
+
+/* Side stack: score panel above, mission slot below — same column */
+.main-page__side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: clamp(140px, 22vw, 200px);
+  min-height: 0;
+}
+
+/* Score panel fills remaining height inside the side-stack */
+.main-page__side-stack .score-panel {
+  flex: 1 1 0 !important;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Mission slot has fixed height at the bottom of the side-stack */
+.main-page__side-stack .mission-slot {
+  flex: 0 0 clamp(80px, 16vh, 110px) !important;
+  height: clamp(80px, 16vh, 110px);
+  min-height: unset;
+}
+
+/* CENTER — leaders above, round tracker below */
+.main-page__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+  padding: 4px;
+  gap: 8px;
+}
+
+.main-page__leaders {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 56px);
+  min-height: 0;
+  width: 100%;
+}
+
+/* ROUND TRACKER — pinned to bottom of center column */
+.main-page__round {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* ── Reset Game confirm modal ────────────────────────────────────── */
@@ -274,31 +295,28 @@
   letter-spacing: 0.08em;
 }
 
-/* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ────
-   Score panels hit their 200px cap at 22vw × ~910px and crowd the right edge
-   on iPads. This breakpoint tightens sizes so everything fits with room to
-   spare and sub-pixel rounding can't cause right-side clipping.           */
+/* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .main-page {
     padding: 4px 6px;
     gap: 3px;
   }
 
-  .main-page__middle {
+  .main-page__body {
     gap: 4px;
-  }
-
-  .main-page__side-area {
-    gap: 3px;
   }
 
   .main-page__banner {
     width: clamp(14px, 1.6vw, 20px);
   }
 
-  .main-page__bottom {
-    height: clamp(78px, 14vh, 105px);
-    padding-inline: clamp(54px, calc(2vw + 50px), 82px);
+  .main-page__side-stack {
+    width: clamp(130px, 15vw, 175px);
     gap: 4px;
+  }
+
+  .main-page__side-stack .mission-slot {
+    flex: 0 0 clamp(78px, 14vh, 105px) !important;
+    height: clamp(78px, 14vh, 105px);
   }
 }
