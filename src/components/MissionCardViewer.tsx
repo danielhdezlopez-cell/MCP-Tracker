@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { type Mission } from '../data/missionsData';
 import './MissionCardViewer.css';
 
@@ -14,7 +15,7 @@ export function MissionCardViewer({ mission, onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div className="mcv-overlay" onClick={onClose}>
       <div className="mcv-container" onClick={e => e.stopPropagation()}>
         <div className="mcv-header">
@@ -42,6 +43,7 @@ export function MissionCardViewer({ mission, onClose }: Props) {
           </span>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
