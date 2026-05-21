@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
-import { SideNav } from './SideNav';
+import { PageBar } from './PageBar';
 import { AnimatedThemeBackground } from './AnimatedThemeBackground';
 import { MainPage } from '../pages/MainPage';
 import { LeadersPage } from '../pages/LeadersPage';
@@ -29,7 +29,7 @@ export function Layout() {
   return (
     <div className="layout" ref={layoutRef}>
       <AnimatedThemeBackground theme={theme} />
-      <SideNav />
+      {currentPage !== 'main' && <PageBar />}
       <main className="layout__content">
         <div key={currentPage} className="layout__page-anim">
           {currentPage === 'main' && <MainPage />}

@@ -1,0 +1,77 @@
+.page-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px;
+  height: 42px;
+  background: var(--color-panel);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+/* Subtle accent glow along the bottom edge */
+.page-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-left), transparent);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.page-bar__nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.page-bar__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  transition: all var(--transition);
+  padding: 0;
+}
+
+.page-bar__btn:hover {
+  background: var(--color-panel-alt);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  opacity: 1;
+}
+
+.page-bar__btn.active {
+  background: var(--color-panel-alt);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  opacity: 1;
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+.page-bar__btn:active {
+  transform: scale(0.94);
+}
+
+.page-bar__btn:focus-visible {
+  outline: 1px solid rgba(0, 195, 255, 0.55);
+  outline-offset: 2px;
+}
+
+.page-bar__icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}

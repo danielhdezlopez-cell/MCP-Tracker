@@ -1,0 +1,27 @@
+.mcp-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.mcp-logo__main {
+  font-family: var(--font-display);
+  font-size: var(--fs-13);
+  font-weight: 900;
+  color: var(--color-accent-left);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 8px var(--color-accent-left);
+  line-height: 1;
+}
+
+.mcp-logo__sub {
+  font-family: var(--font-display);
+  font-size: var(--fs-9);
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  margin-top: 1px;
+}

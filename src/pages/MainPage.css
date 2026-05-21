@@ -39,8 +39,11 @@
   flex-shrink: 0;
 }
 
-.main-page__top-spacer {
+.main-page__top-left {
   flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
 }
 
 .main-page__top-right {
@@ -202,6 +205,58 @@
   outline: 1px solid rgba(0, 195, 255, 0.55);
   outline-offset: 2px;
   opacity: 1;
+}
+
+/* ── Reset Game confirm modal ────────────────────────────────────── */
+.side-nav__modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.side-nav__modal {
+  max-width: 360px;
+  width: 90%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-color: var(--color-critical);
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.3);
+}
+
+.side-nav__modal-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--color-critical);
+  text-align: center;
+}
+
+.side-nav__modal-body {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.side-nav__modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.side-nav__modal-actions .btn-hud {
+  padding: 10px 20px;
+  font-size: var(--fs-12);
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 /* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ────

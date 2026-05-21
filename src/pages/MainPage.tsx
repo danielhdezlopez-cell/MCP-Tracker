@@ -9,6 +9,7 @@ import { TimerPanel } from '../components/TimerPanel';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
 import { NavIconSettings } from '../components/icons';
+import { McpLogo } from '../components/McpLogo';
 import './MainPage.css';
 
 export function MainPage() {
@@ -64,7 +65,9 @@ export function MainPage() {
 
       {/* TOP ROW: spacer | Timer | fullscreen */}
       <div className="main-page__top">
-        <div className="main-page__top-spacer" />
+        <div className="main-page__top-left">
+          <McpLogo />
+        </div>
         <div className="main-page__timer-wrap">
           <TimerPanel />
         </div>
