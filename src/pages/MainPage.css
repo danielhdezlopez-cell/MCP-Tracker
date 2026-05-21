@@ -324,14 +324,14 @@
   }
 
   .main-page__side-stack {
-    width: clamp(200px, 28vw, 420px);
+    width: clamp(210px, 30vw, 440px);
     gap: 4px;
   }
 
   /* Score panels — larger and shifted slightly toward screen center */
   .main-page__side-stack .score-panel {
-    flex: 0 0 clamp(240px, 40vh, 400px) !important;
-    width: clamp(130px, 16vw, 200px) !important;
+    flex: 0 0 clamp(256px, 44vh, 440px) !important;
+    width: clamp(140px, 18vw, 220px) !important;
     align-self: center !important;
   }
 
@@ -347,8 +347,8 @@
 
   /* Mission panels — taller with lifted position */
   .main-page__side-stack .mission-slot {
-    flex: 0 0 clamp(108px, 20vh, 142px) !important;
-    height: clamp(108px, 20vh, 142px);
+    flex: 0 0 clamp(120px, 23vh, 160px) !important;
+    height: clamp(120px, 23vh, 160px);
     margin-bottom: 12px;
   }
 
