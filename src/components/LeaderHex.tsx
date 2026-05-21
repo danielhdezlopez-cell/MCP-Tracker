@@ -60,9 +60,7 @@ export function LeaderHex({ side }: LeaderHexProps) {
           />
         </div>
       </div>
-      {leader ? (
-        <div className={`leader-hex__name text-accent-${side}`}>{leader.name}</div>
-      ) : (
+      {!leader && (
         <div className={`leader-hex__assign-hint leader-hex__assign-hint--${side}`}>TAP · ASSIGN</div>
       )}
     </div>
