@@ -183,12 +183,9 @@
 
 .mission-slot__empty {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
   opacity: 0.65;
-  padding: 8px 0;
   transition: opacity var(--transition);
 }
 
@@ -197,7 +194,7 @@
 }
 
 .mission-slot__plus {
-  font-size: var(--fs-20);
+  font-size: var(--fs-28);
   line-height: 1;
   color: var(--color-text-muted);
 }

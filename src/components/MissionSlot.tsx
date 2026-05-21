@@ -52,7 +52,6 @@ export function MissionSlot({ type }: MissionSlotProps) {
         ) : (
           <div className="mission-slot__empty">
             <span className="mission-slot__plus">+</span>
-            <span className="label-hud">SELECT {type.toUpperCase()}</span>
           </div>
         )}
       </div>
