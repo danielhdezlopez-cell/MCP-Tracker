@@ -335,14 +335,14 @@
     align-self: center !important;
   }
 
-  /* Left score panel nudges toward center (rightward) */
+  /* Left score panel nudges toward center (rightward) and 40px lower */
   .main-page__side-area--left .score-panel {
-    transform: translateX(14px);
+    transform: translateX(14px) translateY(40px);
   }
 
-  /* Right score panel nudges toward center (leftward) */
+  /* Right score panel nudges toward center (leftward) and 40px lower */
   .main-page__side-area--right .score-panel {
-    transform: translateX(-14px);
+    transform: translateX(-14px) translateY(40px);
   }
 
   /* Mission panels — taller with lifted position */
@@ -350,6 +350,11 @@
     flex: 0 0 clamp(120px, 23vh, 160px) !important;
     height: clamp(120px, 23vh, 160px);
     margin-bottom: 12px;
+  }
+
+  /* Leaders spread toward their respective score panels */
+  .main-page__leaders {
+    justify-content: space-between;
   }
 
   /* Round tracker — lifted ~30 px from bottom */
