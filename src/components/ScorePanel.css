@@ -48,6 +48,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  letter-spacing: 0;
+  font-size: var(--fs-10);
   width: 100%;
 }
 
