@@ -2,6 +2,50 @@ import { useEffect, useRef, useState } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
 import './ScorePanel.css';
 
+const MAX_SCORE = 20;
+const VICTORY_THRESHOLD = 16;
+
+function tierOf(score: number): 0 | 1 | 2 | 3 | 4 {
+  if (score >= 16) return 4;
+  if (score >= 12) return 3;
+  if (score >= 8)  return 2;
+  if (score >= 4)  return 1;
+  return 0;
+}
+
+interface SegmentedRingProps {
+  score: number;
+  segments: number;
+}
+
+function SegmentedRing({ score, segments }: SegmentedRingProps) {
+  const cx = 80, cy = 80, r = 70, gap = 3;
+  const segAngle = (2 * Math.PI) / segments;
+  const gapAngle = gap / r;
+
+  return (
+    <svg className="score-panel__ring-svg" viewBox="0 0 160 160" aria-hidden="true">
+      {Array.from({ length: segments }, (_, i) => {
+        const startAngle = -Math.PI / 2 + i * segAngle + gapAngle / 2;
+        const endAngle   = -Math.PI / 2 + (i + 1) * segAngle - gapAngle / 2;
+        const x1 = cx + r * Math.cos(startAngle);
+        const y1 = cy + r * Math.sin(startAngle);
+        const x2 = cx + r * Math.cos(endAngle);
+        const y2 = cy + r * Math.sin(endAngle);
+        const d = `M ${x1.toFixed(3)} ${y1.toFixed(3)} A ${r} ${r} 0 0 1 ${x2.toFixed(3)} ${y2.toFixed(3)}`;
+        const isLit = i < score;
+        return (
+          <path
+            key={i}
+            d={d}
+            className={`score-panel__ring-seg${isLit ? ' score-panel__ring-seg--lit' : ''}`}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
 interface ScorePanelProps {
   side: 'left' | 'right';
 }
@@ -9,14 +53,16 @@ interface ScorePanelProps {
 export function ScorePanel({ side }: ScorePanelProps) {
   const { scoreLeft, scoreRight, setScoreLeft, setScoreRight } = useMcpStore();
 
-  const score = side === 'left' ? scoreLeft : scoreRight;
+  const score    = side === 'left' ? scoreLeft  : scoreRight;
   const setScore = side === 'left' ? setScoreLeft : setScoreRight;
-  const label = side === 'left' ? 'PORONGA ARENOSA' : 'PLAYER 2';
+  const label    = side === 'left' ? 'PORONGA ARENOSA' : 'PLAYER 2';
 
-  const increment = () => setScore(score + 1);
-  const decrement = () => setScore(score - 1);
+  const increment = () => setScore(Math.min(score + 1, MAX_SCORE));
+  const decrement = () => setScore(Math.max(score - 1, 0));
 
-  const percentage = (score / 20) * 100;
+  const percentage = (score / MAX_SCORE) * 100;
+  const tier       = tierOf(score);
+  const isVictory  = score >= VICTORY_THRESHOLD;
 
   const [delta, setDelta] = useState<{ val: number; key: number } | null>(null);
   const prevScoreRef = useRef(score);
@@ -32,31 +78,36 @@ export function ScorePanel({ side }: ScorePanelProps) {
   }, [score]);
 
   return (
-    <div className={`score-panel panel clip-panel glow-${side}`}>
+    <div
+      className={`score-panel panel clip-panel glow-${side}`}
+      data-tier={tier}
+      data-victory={isVictory ? '1' : '0'}
+    >
       <div className="score-panel__label label-hud">{label}</div>
+
       <div className="score-panel__value-wrap">
-        <div className="score-panel__ticks score-panel__ticks--left">
-          {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
+        <div className="score-panel__ring" aria-hidden="true">
+          <SegmentedRing score={score} segments={MAX_SCORE} />
         </div>
-        <div
-          className="score-panel__value"
-          style={{ '--score-intensity': score / 20 } as React.CSSProperties}
-        >{score}</div>
+        <div className="score-panel__value">{score}</div>
         {delta !== null && (
           <div key={delta.key} className={`score-panel__delta score-panel__delta--${side}`}>
             {delta.val > 0 ? `+${delta.val}` : delta.val}
           </div>
         )}
-        <div className="score-panel__ticks score-panel__ticks--right">
-          {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
-        </div>
       </div>
+
+      {isVictory && (
+        <div className="score-panel__victory">VICTORY</div>
+      )}
+
       <div className="score-panel__bar">
         <div
           className={`score-panel__bar-fill score-panel__bar-fill--${side}`}
           style={{ width: `${percentage}%` }}
         />
       </div>
+
       <div className="score-panel__controls">
         <button
           className={`btn-hud score-panel__btn score-panel__btn--minus btn-accent-${side}`}
@@ -69,7 +120,7 @@ export function ScorePanel({ side }: ScorePanelProps) {
         <button
           className={`btn-hud score-panel__btn score-panel__btn--plus btn-accent-${side}`}
           onClick={increment}
-          disabled={score >= 20}
+          disabled={score >= MAX_SCORE}
           aria-label="Increase score"
         >
           +
