@@ -190,6 +190,10 @@
   margin-top: -2px;
 }
 
+.timer-panel__paused-label--hidden {
+  visibility: hidden;
+}
+
 /* ── Time's up overlay ───────────────────────────────────────────── */
 .timer-expired-overlay {
   position: fixed;

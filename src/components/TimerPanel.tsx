@@ -67,7 +67,10 @@ export function TimerPanel() {
             {formatTime(timerRemaining)}
           </div>
         </div>
-        {isPaused && <div className="timer-panel__paused-label">PAUSED</div>}
+        <div
+          className={`timer-panel__paused-label${isPaused ? '' : ' timer-panel__paused-label--hidden'}`}
+          aria-hidden={!isPaused}
+        >PAUSED</div>
       </div>
 
       {expired && (
