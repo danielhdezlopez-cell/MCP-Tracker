@@ -5,6 +5,12 @@
   height: 100%;
   overflow: hidden;
   background: var(--color-bg);
+  /* PWA safe areas: push content below status bar and home indicator.
+     env() returns 0 on desktop/non-iOS so no layout impact outside PWA. */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
 }
 
 .layout__content {
