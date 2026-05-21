@@ -11,7 +11,7 @@ export function ScorePanel({ side }: ScorePanelProps) {
 
   const score = side === 'left' ? scoreLeft : scoreRight;
   const setScore = side === 'left' ? setScoreLeft : setScoreRight;
-  const label = side === 'left' ? 'PLAYER 1' : 'PLAYER 2';
+  const label = side === 'left' ? 'PORONGA ARENOSA' : 'PLAYER 2';
 
   const increment = () => setScore(score + 1);
   const decrement = () => setScore(score - 1);
