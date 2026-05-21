@@ -195,7 +195,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: clamp(140px, 22vw, 200px);
+  width: clamp(170px, 25vw, 260px);
   min-height: 0;
 }
 
@@ -311,7 +311,7 @@
   }
 
   .main-page__side-stack {
-    width: clamp(130px, 15vw, 175px);
+    width: clamp(150px, 18vw, 215px);
     gap: 4px;
   }
 
