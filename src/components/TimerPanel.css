@@ -3,11 +3,32 @@
   flex-direction: column;
   align-items: center;
   padding: 6px 14px;
-  gap: 5px;
+  gap: 4px;
   border-color: var(--color-accent-left);
   box-shadow: 0 0 12px var(--color-glow-left), inset 0 0 20px rgba(0,195,255,0.03);
   transition: all 0.5s ease;
   position: relative;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover — subtle brightening */
+.timer-panel:hover:not(.timer-panel--critical) {
+  border-color: rgba(0, 195, 255, 0.8);
+  box-shadow: 0 0 20px var(--color-glow-left), inset 0 0 24px rgba(0,195,255,0.06);
+}
+
+/* Active / tap press — micro scale for tactile feedback */
+.timer-panel:active {
+  transform: scale(0.975);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+/* Keyboard focus ring */
+.timer-panel:focus-visible {
+  outline: 1px solid rgba(0, 195, 255, 0.55);
+  outline-offset: 3px;
 }
 
 /* Outer corner bracket marks */
@@ -142,39 +163,11 @@
   50% { opacity: 0.55; }
 }
 
-.timer-panel__controls {
-  display: flex;
-  gap: 6px;
-  width: 100%;
-}
-
-.timer-panel__btn {
-  flex: 1;
-  font-size: 1rem;
-  font-weight: 700;
-  min-height: 26px;
-  padding: 2px 6px;
-}
-
-.timer-panel__btn--play {
-  border-color: var(--color-accent-left);
-  color: var(--color-accent-left);
-}
-
-.timer-panel__btn--pause {
-  border-color: var(--color-warn);
-  color: var(--color-warn);
-}
-
-.timer-panel__btn--reset {
-  border-color: var(--color-text-muted);
-  color: var(--color-text-muted);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .timer-panel__display-wrap::after,
   .timer-panel--critical { animation: none !important; }
   .timer-panel__display.critical { animation: none !important; opacity: 1; }
+  .timer-panel:active { transform: none; }
 }
 
 /* ── Paused state ────────────────────────────────────────────────── */

@@ -42,19 +42,25 @@ export function TimerPanel() {
     return () => { delete document.body.dataset.timerState; };
   }, [isCritical, timerRunning]);
 
-  const handleReset = () => {
-    setTimerRunning(false);
-    setTimerRemaining(timerDuration);
-    setExpired(false);
+  const handleToggle = () => {
+    if (timerRemaining > 0) setTimerRunning(!timerRunning);
   };
 
   return (
     <>
-      <div className={[
-        'timer-panel panel clip-panel-sm',
-        isCritical ? 'timer-panel--critical' : '',
-        isPaused ? 'timer-panel--paused' : '',
-      ].filter(Boolean).join(' ')}>
+      <div
+        className={[
+          'timer-panel panel clip-panel-sm',
+          isCritical ? 'timer-panel--critical' : '',
+          isPaused ? 'timer-panel--paused' : '',
+        ].filter(Boolean).join(' ')}
+        onClick={handleToggle}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleToggle(); } }}
+        role="button"
+        tabIndex={0}
+        aria-label={timerRunning ? 'Pause timer' : 'Start or pause timer'}
+        aria-pressed={timerRunning}
+      >
         <div className="timer-panel__deco" />
         <div className="timer-panel__display-wrap">
           <div className={`timer-panel__display ${stateClass}`}>
@@ -62,22 +68,6 @@ export function TimerPanel() {
           </div>
         </div>
         {isPaused && <div className="timer-panel__paused-label">PAUSED</div>}
-        <div className="timer-panel__controls">
-          <button
-            className={`btn-hud timer-panel__btn ${timerRunning ? 'timer-panel__btn--pause' : 'timer-panel__btn--play'}`}
-            onClick={() => setTimerRunning(!timerRunning)}
-            title={timerRunning ? 'Pause' : 'Start'}
-          >
-            {timerRunning ? '‖' : '▶'}
-          </button>
-          <button
-            className="btn-hud timer-panel__btn timer-panel__btn--reset"
-            onClick={handleReset}
-            title="Reset Timer"
-          >
-            ↺
-          </button>
-        </div>
       </div>
 
       {expired && (
