@@ -38,7 +38,10 @@ export function ScorePanel({ side }: ScorePanelProps) {
         <div className="score-panel__ticks score-panel__ticks--left">
           {Array.from({ length: 5 }, (_, i) => <div key={i} className="score-panel__tick" />)}
         </div>
-        <div className="score-panel__value">{score}</div>
+        <div
+          className="score-panel__value"
+          style={{ '--score-intensity': score / 20 } as React.CSSProperties}
+        >{score}</div>
         {delta !== null && (
           <div key={delta.key} className={`score-panel__delta score-panel__delta--${side}`}>
             {delta.val > 0 ? `+${delta.val}` : delta.val}

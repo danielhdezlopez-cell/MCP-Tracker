@@ -98,12 +98,29 @@
 
 .score-panel__value {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
   position: relative;
   font-variant-numeric: tabular-nums;
+  transition: text-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.glow-left .score-panel__value {
+  color: var(--color-accent-left);
+  text-shadow:
+    0 0 calc(4px + var(--score-intensity, 0) * 22px) var(--color-accent-left),
+    0 0 calc(2px + var(--score-intensity, 0) * 8px) rgba(0, 195, 255, 0.55);
+  filter: brightness(calc(0.78 + var(--score-intensity, 0) * 0.32));
+}
+
+.glow-right .score-panel__value {
+  color: var(--color-accent-right);
+  text-shadow:
+    0 0 calc(4px + var(--score-intensity, 0) * 22px) var(--color-accent-right),
+    0 0 calc(2px + var(--score-intensity, 0) * 8px) rgba(255, 106, 0, 0.55);
+  filter: brightness(calc(0.78 + var(--score-intensity, 0) * 0.32));
 }
 
 /* Scanline shimmer over the number */
@@ -236,7 +253,7 @@
     padding: 6px 4px;
   }
   .score-panel__value {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   }
   .score-panel__btn {
     min-height: 32px;
