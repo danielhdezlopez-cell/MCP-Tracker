@@ -195,22 +195,25 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: clamp(200px, 28vw, 380px);
+  width: clamp(200px, 30vw, 440px);
   min-height: 0;
+  align-items: center;
 }
 
-/* Score panel fills remaining height inside the side-stack */
+/* Score panel fills remaining height inside the side-stack, narrow */
 .main-page__side-stack .score-panel {
   flex: 1 1 0 !important;
   min-height: 0;
-  width: 100%;
+  width: clamp(70px, 11vw, 100px) !important;
 }
 
-/* Mission slot has fixed height at the bottom of the side-stack */
+/* Mission slot has fixed height at the bottom; stretches to full column width */
 .main-page__side-stack .mission-slot {
   flex: 0 0 clamp(80px, 16vh, 110px) !important;
   height: clamp(80px, 16vh, 110px);
   min-height: unset;
+  align-self: stretch;
+  width: 100%;
 }
 
 /* CENTER — leaders above, round tracker below */
@@ -311,8 +314,12 @@
   }
 
   .main-page__side-stack {
-    width: clamp(160px, 22vw, 290px);
+    width: clamp(170px, 24vw, 340px);
     gap: 4px;
+  }
+
+  .main-page__side-stack .score-panel {
+    width: clamp(65px, 7.5vw, 88px) !important;
   }
 
   .main-page__side-stack .mission-slot {
