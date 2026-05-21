@@ -197,3 +197,27 @@
   line-height: 1;
   color: var(--color-text-muted);
 }
+
+/* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .mission-slot {
+    padding: 10px 10px;
+    gap: 5px;
+  }
+
+  .mission-slot__type {
+    font-size: var(--fs-11);
+    letter-spacing: 0.2em;
+  }
+
+  .mission-slot__name {
+    font-size: var(--fs-13);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mission-slot__threat-val {
+    font-size: var(--fs-20);
+  }
+}

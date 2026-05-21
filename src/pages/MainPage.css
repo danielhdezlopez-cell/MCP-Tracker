@@ -76,6 +76,13 @@
   transform: translateY(10px);
 }
 
+/* iPad Mini 6 landscape: push timer a bit further down */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .main-page__timer-wrap {
+    transform: translateY(18px);
+  }
+}
+
 /* ── Control buttons (Reset / Config) in top bar ─────────────────── */
 .main-page__corner-btn {
   flex-shrink: 0;
@@ -317,19 +324,37 @@
   }
 
   .main-page__side-stack {
-    width: clamp(190px, 27vw, 400px);
+    width: clamp(200px, 28vw, 420px);
     gap: 4px;
   }
 
+  /* Score panels — larger and shifted slightly toward screen center */
   .main-page__side-stack .score-panel {
-    flex: 0 0 clamp(220px, 34vh, 360px) !important;
-    width: clamp(88px, 11vw, 140px) !important;
+    flex: 0 0 clamp(236px, 37vh, 390px) !important;
+    width: clamp(118px, 14.5vw, 185px) !important;
     align-self: center !important;
   }
 
+  /* Left score panel nudges toward center (rightward) */
+  .main-page__side-area--left .score-panel {
+    transform: translateX(14px);
+  }
+
+  /* Right score panel nudges toward center (leftward) */
+  .main-page__side-area--right .score-panel {
+    transform: translateX(-14px);
+  }
+
+  /* Mission panels — taller and lifted ~12 px from bottom */
   .main-page__side-stack .mission-slot {
-    flex: 0 0 clamp(78px, 14vh, 105px) !important;
-    height: clamp(78px, 14vh, 105px);
+    flex: 0 0 clamp(92px, 17vh, 118px) !important;
+    height: clamp(92px, 17vh, 118px);
+    margin-bottom: 12px;
+  }
+
+  /* Round tracker area — pull closer to mission panels */
+  .main-page__round {
+    margin-bottom: clamp(10px, 2vh, 18px);
   }
 }
 

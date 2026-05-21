@@ -187,3 +187,38 @@
 @media (prefers-reduced-motion: reduce) {
   .round-tracker__pip.current::after { animation: none; }
 }
+
+/* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .round-tracker-wrap {
+    gap: 6px;
+  }
+
+  .round-tracker {
+    padding: 5px 10px;
+  }
+
+  .round-tracker__pips {
+    gap: 5px;
+  }
+
+  /* Connector line updated to match smaller pip size */
+  .round-tracker__pips::before {
+    left: calc(clamp(28px, 4vw, 40px) / 2);
+    right: calc(clamp(28px, 4vw, 40px) / 2);
+  }
+
+  .round-tracker__pip {
+    width: clamp(28px, 4vw, 40px);
+    height: clamp(28px, 4vw, 40px);
+  }
+
+  .round-tracker__pip-num {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+  }
+
+  .round-tracker__ctrl {
+    width: clamp(24px, 3.2vw, 34px);
+    height: clamp(24px, 3.2vw, 34px);
+  }
+}
