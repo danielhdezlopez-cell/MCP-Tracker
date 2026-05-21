@@ -201,23 +201,31 @@
 /* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .mission-slot {
-    padding: 10px 10px;
-    gap: 5px;
+    padding: 10px 12px;
+    gap: 6px;
   }
 
   .mission-slot__type {
-    font-size: var(--fs-11);
+    font-size: var(--fs-12);
     letter-spacing: 0.2em;
   }
 
   .mission-slot__name {
-    font-size: var(--fs-13);
-    white-space: nowrap;
+    font-size: var(--fs-14);
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.25;
   }
 
   .mission-slot__threat-val {
-    font-size: var(--fs-20);
+    font-size: var(--fs-28);
+  }
+
+  .mission-slot__view-btn {
+    width: 26px;
+    height: 26px;
   }
 }

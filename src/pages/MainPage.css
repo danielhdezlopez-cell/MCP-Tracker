@@ -330,8 +330,8 @@
 
   /* Score panels — larger and shifted slightly toward screen center */
   .main-page__side-stack .score-panel {
-    flex: 0 0 clamp(236px, 37vh, 390px) !important;
-    width: clamp(118px, 14.5vw, 185px) !important;
+    flex: 0 0 clamp(240px, 40vh, 400px) !important;
+    width: clamp(130px, 16vw, 200px) !important;
     align-self: center !important;
   }
 
@@ -345,16 +345,16 @@
     transform: translateX(-14px);
   }
 
-  /* Mission panels — taller and lifted ~12 px from bottom */
+  /* Mission panels — taller with lifted position */
   .main-page__side-stack .mission-slot {
-    flex: 0 0 clamp(92px, 17vh, 118px) !important;
-    height: clamp(92px, 17vh, 118px);
+    flex: 0 0 clamp(108px, 20vh, 142px) !important;
+    height: clamp(108px, 20vh, 142px);
     margin-bottom: 12px;
   }
 
-  /* Round tracker area — pull closer to mission panels */
+  /* Round tracker — lifted ~30 px from bottom */
   .main-page__round {
-    margin-bottom: clamp(10px, 2vh, 18px);
+    margin-bottom: clamp(44px, 6.2vh, 60px);
   }
 }
 
