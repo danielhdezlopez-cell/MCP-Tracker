@@ -10,8 +10,7 @@ import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
 import './MainPage.css';
 
 export function MainPage() {
-  const { selectedBackground, resetGame, interactiveBg, videoBg } = useMcpStore();
-  const [showConfirm, setShowConfirm] = useState(false);
+  const { selectedBackground, interactiveBg, videoBg } = useMcpStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -19,11 +18,6 @@ export function MainPage() {
     document.addEventListener('fullscreenchange', onChange);
     return () => document.removeEventListener('fullscreenchange', onChange);
   }, []);
-
-  const handleReset = () => {
-    resetGame();
-    setShowConfirm(false);
-  };
 
   const toggleFullscreen = async () => {
     try {
@@ -60,18 +54,11 @@ export function MainPage() {
       <AnimatedBackground mode={interactiveBg} />
       <AffiliationBackdrop />
 
-      {/* TOP ROW: spacer | Timer | reset + fullscreen */}
+      {/* TOP ROW: spacer | Timer | fullscreen */}
       <div className="main-page__top">
         <div className="main-page__top-spacer" />
         <TimerPanel />
         <div className="main-page__top-right">
-          <button
-            className="btn-hud main-page__reset-btn"
-            onClick={() => setShowConfirm(true)}
-            title="Reset Game"
-          >
-            ↺
-          </button>
           <button
             className="btn-hud main-page__fullscreen-btn"
             onClick={toggleFullscreen}
@@ -119,26 +106,6 @@ export function MainPage() {
         <MissionSlot type="Secure" />
         <MissionSlot type="Extract" />
       </div>
-
-      {/* Reset Confirmation Modal */}
-      {showConfirm && (
-        <div className="main-page__modal-overlay">
-          <div className="main-page__modal panel clip-panel">
-            <div className="main-page__modal-title">RESET GAME?</div>
-            <div className="main-page__modal-body">
-              This will reset all scores, leaders, missions and timer.
-            </div>
-            <div className="main-page__modal-actions">
-              <button className="btn-hud btn-accent-right" onClick={handleReset}>
-                CONFIRM RESET
-              </button>
-              <button className="btn-hud" onClick={() => setShowConfirm(false)}>
-                CANCEL
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

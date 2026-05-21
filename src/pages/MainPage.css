@@ -31,7 +31,7 @@
   z-index: 1;
 }
 
-/* TOP ROW — timer centered, reset + fullscreen right */
+/* TOP ROW — timer centered, fullscreen right */
 .main-page__top {
   display: flex;
   align-items: center;
@@ -49,24 +49,6 @@
   justify-content: flex-end;
   align-items: center;
   gap: 4px;
-}
-
-.main-page__reset-btn {
-  font-size: 1.1rem;
-  padding: 4px 8px;
-  border-color: var(--color-border);
-  color: var(--color-text-muted);
-  min-height: 28px;
-  flex-shrink: 0;
-  opacity: 0.55;
-  transition: all var(--transition);
-}
-
-.main-page__reset-btn:hover {
-  border-color: var(--color-critical);
-  color: var(--color-critical);
-  opacity: 1;
-  box-shadow: 0 0 6px rgba(255, 42, 42, 0.3);
 }
 
 .main-page__fullscreen-btn {
@@ -168,58 +150,6 @@
   flex-shrink: 0;
   height: clamp(80px, 16vh, 110px);
   padding-inline: clamp(4px, 3.5vw, 56px);
-}
-
-/* Modal */
-.main-page__modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  backdrop-filter: blur(4px);
-}
-
-.main-page__modal {
-  max-width: 360px;
-  width: 90%;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border-color: var(--color-critical);
-  box-shadow: 0 0 20px rgba(255, 42, 42, 0.3);
-}
-
-.main-page__modal-title {
-  font-family: var(--font-display);
-  font-size: var(--fs-20);
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  color: var(--color-critical);
-  text-align: center;
-}
-
-.main-page__modal-body {
-  font-size: var(--fs-13);
-  color: var(--color-text-muted);
-  text-align: center;
-  line-height: 1.5;
-}
-
-.main-page__modal-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-
-.main-page__modal-actions .btn-hud {
-  padding: 10px 20px;
-  font-size: var(--fs-12);
-  font-weight: 700;
-  letter-spacing: 0.08em;
 }
 
 /* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ────
