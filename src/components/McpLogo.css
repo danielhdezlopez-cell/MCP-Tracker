@@ -25,3 +25,14 @@
   line-height: 1.2;
   margin-top: 1px;
 }
+
+/* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .mcp-logo__main {
+    font-size: var(--fs-20);
+  }
+  .mcp-logo__sub {
+    font-size: var(--fs-13);
+    margin-top: 2px;
+  }
+}
