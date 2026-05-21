@@ -330,7 +330,7 @@
     padding: 12px 10px;
   }
   .score-panel__value {
-    font-size: clamp(3.4rem, 6.6vw, 5rem);
+    font-size: clamp(4.2rem, 8vw, 6.2rem);
   }
   .score-panel__ring {
     width: clamp(140px, 16vw, 180px);
@@ -342,6 +342,16 @@
   .score-panel__victory {
     font-size: clamp(0.75rem, 1.1vw, 0.95rem);
   }
+
+  /* Enhanced glows per tier */
+  .glow-left[data-tier="0"]  .score-panel__value { text-shadow: 0 0 14px rgba(0,195,255,0.50), 0 0 30px rgba(0,195,255,0.20); }
+  .glow-right[data-tier="0"] .score-panel__value { text-shadow: 0 0 14px rgba(255,106,0,0.50),  0 0 30px rgba(255,106,0,0.20); }
+  .glow-left[data-tier="1"]  .score-panel__value { text-shadow: 0 0 18px rgba(0,195,255,0.80), 0 0 38px rgba(0,195,255,0.35); }
+  .glow-right[data-tier="1"] .score-panel__value { text-shadow: 0 0 18px rgba(255,106,0,0.80),  0 0 38px rgba(255,106,0,0.35); }
+  .glow-left[data-tier="2"]  .score-panel__value { text-shadow: 0 0 22px var(--color-accent-left),  0 0 44px rgba(0,195,255,0.60),  0 0 66px rgba(0,195,255,0.20); }
+  .glow-right[data-tier="2"] .score-panel__value { text-shadow: 0 0 22px var(--color-accent-right), 0 0 44px rgba(255,106,0,0.60),  0 0 66px rgba(255,106,0,0.20); }
+  [data-tier="3"] .score-panel__value { text-shadow: 0 0 22px #ffb800, 0 0 44px #ff6a00, 0 0 66px rgba(255,106,0,0.30); }
+  [data-tier="4"] .score-panel__value { text-shadow: 0 0 24px #ff4444, 0 0 48px #ff0000, 0 0 72px rgba(255,0,0,0.45); }
 }
 
 /* ── Desktop large (≥1400px) ──────────────────────────────────────── */
