@@ -253,9 +253,16 @@
     padding: 6px 4px;
   }
   .score-panel__value {
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
   }
   .score-panel__btn {
     min-height: 32px;
+  }
+}
+
+/* ── Desktop large (≥1400px) — larger number to fill taller panel ── */
+@media (min-width: 1400px) {
+  .score-panel__value {
+    font-size: clamp(3.6rem, 7vw, 5.5rem);
   }
 }

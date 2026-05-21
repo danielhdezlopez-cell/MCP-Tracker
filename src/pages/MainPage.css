@@ -322,7 +322,7 @@
   }
 
   .main-page__side-stack .score-panel {
-    flex: 0 0 clamp(140px, 22vh, 220px) !important;
+    flex: 0 0 clamp(220px, 34vh, 360px) !important;
     width: clamp(88px, 11vw, 140px) !important;
     align-self: center !important;
   }
@@ -330,5 +330,12 @@
   .main-page__side-stack .mission-slot {
     flex: 0 0 clamp(78px, 14vh, 105px) !important;
     height: clamp(78px, 14vh, 105px);
+  }
+}
+
+/* ── Desktop large (≥1400px) — Score Panels ~2× leader portrait height ── */
+@media (min-width: 1400px) {
+  .main-page__side-stack .score-panel {
+    flex: 0 0 clamp(300px, 44vh, 460px) !important;
   }
 }
