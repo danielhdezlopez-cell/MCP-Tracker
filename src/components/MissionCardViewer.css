@@ -7,14 +7,17 @@
   align-items: center;
   justify-content: center;
   z-index: 200;
-  padding: 12px;
+  padding: 16px;
 }
 
 .mcv-container {
   display: flex;
   flex-direction: column;
-  width: min(460px, calc(100vw - 24px));
-  max-height: calc(100vh - 24px);
+  width: min(560px, calc(100vw - 32px));
+  /* svh = small viewport height: always excludes mobile browser chrome,
+     fixing the iOS Safari 100vh overestimation that caused off-screen overflow */
+  max-height: 85vh;   /* fallback for browsers without svh */
+  max-height: 85svh;  /* preferred */
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
@@ -98,21 +101,15 @@
   align-items: center;
   justify-content: center;
   background: #000;
-  /* no overflow: hidden here — let max-height on image constrain it */
   overflow: hidden;
 }
 
 .mcv-img {
   display: block;
-  /*
-   * Both constraints active simultaneously.
-   * Browser picks the one that binds first and scales proportionally.
-   * — max-width: never exceed container width
-   * — max-height: never exceed viewport minus header (~32px) + footer (~30px)
-   *               + overlay padding (24px) + breathing room → ~100px total
-   */
+  /* Constrained by the flex body rather than raw viewport units,
+     so the image always fits inside the modal regardless of device chrome */
   max-width: 100%;
-  max-height: calc(100vh - 100px);
+  max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
