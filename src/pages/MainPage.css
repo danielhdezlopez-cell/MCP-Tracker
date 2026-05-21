@@ -155,7 +155,7 @@
   gap: 6px;
   flex-shrink: 0;
   height: clamp(80px, 16vh, 110px);
-  padding-inline: clamp(4px, 3.5vw, 56px);
+  padding-inline: clamp(54px, calc(3.5vw + 50px), 106px);
   transform: translateY(-10px);
 }
 
@@ -183,7 +183,7 @@
 
   .main-page__bottom {
     height: clamp(78px, 14vh, 105px);
-    padding-inline: clamp(4px, 2vw, 32px);
+    padding-inline: clamp(54px, calc(2vw + 50px), 82px);
     gap: 4px;
   }
 }
