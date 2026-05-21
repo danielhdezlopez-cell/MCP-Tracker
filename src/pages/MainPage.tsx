@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useMcpStore } from '../store/useMcpStore';
 import { ScorePanel } from '../components/ScorePanel';
 import { LeaderHex } from '../components/LeaderHex';
@@ -7,11 +8,13 @@ import { MissionSlot } from '../components/MissionSlot';
 import { TimerPanel } from '../components/TimerPanel';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
+import { NavIconSettings } from '../components/icons';
 import './MainPage.css';
 
 export function MainPage() {
-  const { selectedBackground, interactiveBg, videoBg } = useMcpStore();
+  const { selectedBackground, interactiveBg, videoBg, resetGame, setCurrentPage } = useMcpStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   useEffect(() => {
     const onChange = () => setIsFullscreen(!!document.fullscreenElement);
@@ -29,6 +32,11 @@ export function MainPage() {
     } catch {
       // fullscreen not supported or denied — silent fallback
     }
+  };
+
+  const handleReset = () => {
+    resetGame();
+    setShowResetConfirm(false);
   };
 
   return (
@@ -103,11 +111,52 @@ export function MainPage() {
         <RoundTracker />
       </div>
 
-      {/* BOTTOM ROW: Mission Slots */}
+      {/* BOTTOM ROW: [Reset] Mission Slots [Config] */}
       <div className="main-page__bottom">
+        <button
+          className="main-page__corner-btn main-page__corner-btn--reset"
+          onClick={() => setShowResetConfirm(true)}
+          title="Reset Game"
+          aria-label="Reset Game"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" width="20" height="20">
+            <path d="M12 5 A7 7 0 1 0 19 12"/>
+            <path d="M16 15 L19 12 L22 15"/>
+          </svg>
+        </button>
+
         <MissionSlot type="Secure" />
         <MissionSlot type="Extract" />
+
+        <button
+          className="main-page__corner-btn main-page__corner-btn--config"
+          onClick={() => setCurrentPage('settings')}
+          title="Config"
+          aria-label="Config"
+        >
+          <NavIconSettings width="20" height="20" />
+        </button>
       </div>
+
+      {showResetConfirm && createPortal(
+        <div className="side-nav__modal-overlay" onClick={() => setShowResetConfirm(false)}>
+          <div className="side-nav__modal panel clip-panel" onClick={e => e.stopPropagation()}>
+            <div className="side-nav__modal-title">RESET GAME?</div>
+            <div className="side-nav__modal-body">
+              This will reset all scores, leaders, missions and timer.
+            </div>
+            <div className="side-nav__modal-actions">
+              <button className="btn-hud btn-accent-right" onClick={handleReset}>
+                CONFIRM RESET
+              </button>
+              <button className="btn-hud" onClick={() => setShowResetConfirm(false)}>
+                CANCEL
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

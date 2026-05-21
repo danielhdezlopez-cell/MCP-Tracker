@@ -149,14 +149,59 @@
   transform: translateY(10px);
 }
 
-/* BOTTOM ROW — inset from edges so mission panels don't span the full width */
+/* BOTTOM ROW — corner buttons flank both mission panels */
 .main-page__bottom {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
   height: clamp(80px, 16vh, 110px);
-  padding-inline: clamp(54px, calc(3.5vw + 50px), 106px);
+  padding-inline: clamp(4px, 3.5vw, 56px);
   transform: translateY(-10px);
+}
+
+/* ── Corner control buttons (Reset / Config) ─────────────────────── */
+.main-page__corner-btn {
+  flex-shrink: 0;
+  width: 44px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+  transition: all var(--transition);
+  padding: 0;
+}
+
+.main-page__corner-btn--reset:hover {
+  background: rgba(255, 42, 42, 0.08);
+  border-color: rgba(255, 42, 42, 0.3);
+  color: var(--color-critical);
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(255, 42, 42, 0.2);
+}
+
+.main-page__corner-btn--config:hover {
+  background: var(--color-panel-alt);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  opacity: 1;
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+.main-page__corner-btn:active {
+  transform: scale(0.94);
+  transition: transform 0.08s ease;
+}
+
+.main-page__corner-btn:focus-visible {
+  outline: 1px solid rgba(0, 195, 255, 0.55);
+  outline-offset: 2px;
+  opacity: 1;
 }
 
 /* ── Tablet landscape: iPad mini 6 / Air / Pro landscape (1000–1400px) ────
@@ -183,7 +228,7 @@
 
   .main-page__bottom {
     height: clamp(78px, 14vh, 105px);
-    padding-inline: clamp(54px, calc(2vw + 50px), 82px);
+    padding-inline: clamp(4px, 2vw, 32px);
     gap: 4px;
   }
 }

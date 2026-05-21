@@ -160,52 +160,6 @@
   color: var(--color-accent-left);
 }
 
-/* ── Bottom section: separator + reset button ────────────────────── */
-.side-nav__bottom {
-  width: 100%;
-  padding: 6px 4px 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.side-nav__reset-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: var(--border-radius);
-  border: 1px solid transparent;
-  cursor: pointer;
-  background: transparent;
-  width: 100%;
-  min-height: 44px;
-  color: var(--color-text-muted);
-  opacity: 0.45;
-  transition: all var(--transition);
-}
-
-.side-nav__reset-btn:hover {
-  background: rgba(255, 42, 42, 0.08);
-  border-color: rgba(255, 42, 42, 0.3);
-  color: var(--color-critical);
-  opacity: 1;
-  box-shadow: 0 0 6px rgba(255, 42, 42, 0.2);
-}
-
-.side-nav__reset-btn:hover .side-nav__svg {
-  filter: drop-shadow(0 0 3px rgba(255, 42, 42, 0.5));
-  color: inherit;
-}
-
-.side-nav__reset-btn:active {
-  transform: scale(0.95);
-}
-
-.side-nav__reset-btn:focus-visible {
-  outline: 1px solid rgba(255, 42, 42, 0.5);
-  outline-offset: 2px;
-  opacity: 1;
-}
-
 /* Version badge */
 .side-nav__version {
   font-size: var(--fs-9);
