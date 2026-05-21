@@ -170,30 +170,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 1px solid var(--color-border);
+  background: var(--color-panel);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--border-radius);
   cursor: pointer;
-  color: var(--color-text-muted);
-  opacity: 0.4;
+  color: var(--color-text);
+  opacity: 0.72;
   transition: all var(--transition);
   padding: 0;
 }
 
-.main-page__corner-btn--reset:hover {
-  background: rgba(255, 42, 42, 0.08);
-  border-color: rgba(255, 42, 42, 0.3);
+.main-page__corner-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.main-page__corner-btn--reset {
+  box-shadow: 0 0 6px rgba(255, 42, 42, 0.15);
+  border-color: rgba(255, 42, 42, 0.35);
   color: var(--color-critical);
+}
+
+.main-page__corner-btn--config {
+  box-shadow: 0 0 6px var(--color-glow-left);
+  border-color: rgba(0, 195, 255, 0.35);
+  color: var(--color-accent-left);
+}
+
+.main-page__corner-btn--reset:hover {
+  background: rgba(255, 42, 42, 0.12);
+  border-color: rgba(255, 42, 42, 0.6);
   opacity: 1;
-  box-shadow: 0 0 8px rgba(255, 42, 42, 0.2);
+  box-shadow: 0 0 14px rgba(255, 42, 42, 0.35);
 }
 
 .main-page__corner-btn--config:hover {
-  background: var(--color-panel-alt);
+  background: rgba(0, 195, 255, 0.08);
   border-color: var(--color-accent-left);
-  color: var(--color-accent-left);
   opacity: 1;
-  box-shadow: 0 0 8px var(--color-glow-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
 }
 
 .main-page__corner-btn:active {
