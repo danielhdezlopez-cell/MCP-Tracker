@@ -1,9 +1,18 @@
+/* Outer wrapper — holds arrows + panel in a row */
+.round-tracker-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* Inner panel — only wraps the 6 pip circles */
 .round-tracker {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 5px 10px;
-  gap: 8px;
   position: relative;
 }
 
@@ -133,16 +142,43 @@
   text-shadow: 0 0 8px var(--color-round-active);
 }
 
+/* Arrow buttons — no box, just the icon */
 .round-tracker__ctrl {
-  padding: 4px 8px;
-  font-size: 0.75rem;
-  min-height: clamp(28px, 4.5vw, 44px);
-  border-radius: var(--border-radius);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--color-text-muted);
+  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  width: clamp(24px, 3.5vw, 36px);
+  height: clamp(24px, 3.5vw, 36px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
   flex-shrink: 0;
+  transition: color var(--transition), opacity var(--transition), transform 0.08s ease;
+  opacity: 0.6;
+  border-radius: 50%;
+}
+
+.round-tracker__ctrl:hover:not(:disabled) {
+  color: var(--color-accent-left);
+  opacity: 1;
+  text-shadow: 0 0 8px var(--color-glow-left);
+}
+
+.round-tracker__ctrl:active:not(:disabled) {
+  transform: scale(0.88);
+}
+
+.round-tracker__ctrl:focus-visible {
+  outline: 1px solid rgba(0, 195, 255, 0.55);
+  outline-offset: 2px;
 }
 
 .round-tracker__ctrl:disabled {
-  opacity: 0.3;
+  opacity: 0.2;
   cursor: not-allowed;
   transform: none;
 }
