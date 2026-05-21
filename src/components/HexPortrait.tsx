@@ -42,7 +42,6 @@ export function HexPortrait({
         {empty ? (
           <div className="hex-portrait__empty">
             <span className="hex-portrait__plus">+</span>
-            <span className="hex-portrait__hint">SELECT</span>
           </div>
         ) : image ? (
           <img src={image} alt={name} className="hex-portrait__img" draggable={false} />
