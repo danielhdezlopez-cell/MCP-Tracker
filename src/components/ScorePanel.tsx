@@ -88,9 +88,15 @@ export function ScorePanel({ side }: ScorePanelProps) {
 
       <div className="score-panel__value-wrap">
         <div className="score-panel__ring" aria-hidden="true">
-          <SegmentedRing litCount={Math.round(score / MAX_SCORE * RING_SEGMENTS)} segments={RING_SEGMENTS} />
+          <SegmentedRing litCount={Math.min(score, RING_SEGMENTS)} segments={RING_SEGMENTS} />
         </div>
-        <div className="score-panel__value">{score}</div>
+        <div
+          className="score-panel__value"
+          style={{
+            '--score-scale': `${1 + (score / MAX_SCORE) * 0.12}`,
+            '--glow-intensity': `${score / MAX_SCORE}`,
+          } as React.CSSProperties}
+        >{score}</div>
         {delta !== null && (
           <div key={delta.key} className={`score-panel__delta score-panel__delta--${side}`}>
             {delta.val > 0 ? `+${delta.val}` : delta.val}
