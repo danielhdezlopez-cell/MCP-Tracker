@@ -13,6 +13,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hulkbuster',       label: 'Hulkbuster',      desc: 'Heavy armor power interface — red & gold'        },
   { value: 'hydra',       label: 'Hydra',         desc: 'Dark tactical — animated video BG'                },
   { value: 'mephisto',    label: 'Mephisto',      desc: 'Infernal demon lord — fire red & ember amber'     },
+  { value: 'midnight-sons', label: 'Midnight Sons', desc: 'Occultist hunters — spectral cyan & blood fire'  },
   { value: 'miles-morales', label: 'Miles Morales', desc: 'Urban electric superhero comic-tech HUD'        },
   { value: 'shield',        label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'           },
   { value: 'spider-man', label: 'Spider-Man',   desc: 'Urban hero comic-tech dark city HUD'    },

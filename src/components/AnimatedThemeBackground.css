@@ -31,6 +31,9 @@
 .anim-theme-bg--mephisto.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020202 0%, #080404 40%, #200508 70%, #020202 100%);
 }
+.anim-theme-bg--midnight-sons.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #02040a 0%, #07162a 40%, #102f4f 70%, #02040a 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }

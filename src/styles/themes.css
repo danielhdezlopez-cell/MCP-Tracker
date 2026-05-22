@@ -5730,3 +5730,422 @@
   0%, 100% { box-shadow: 0 0 12px rgba(255, 90, 20, 0.65), 0 0 5px #ff5a14; }
   50%       { box-shadow: 0 0 22px rgba(255, 90, 20, 0.95), 0 0 10px #ff5a14, 0 0 4px #d71920; }
 }
+
+/* ============================================================
+   MIDNIGHT SONS — Spectral cyan & blood fire occultist HUD
+   ============================================================ */
+
+[data-theme='midnight-sons'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 8, 14, 0.88);
+  --color-panel-alt: rgba(2, 4, 10, 0.95);
+  --color-border: rgba(56, 232, 255, 0.45);
+  --color-accent-left: #38e8ff;
+  --color-accent-right: #ff6a1a;
+  --color-glow-left: rgba(56, 232, 255, 0.52);
+  --color-glow-right: rgba(255, 106, 26, 0.46);
+  --color-text: #eee2cf;
+  --color-text-muted: #b8b8b0;
+  --color-warn: #ff9d3d;
+  --color-critical: #c41224;
+  --color-success: #38e8ff;
+  --color-round-active: #38e8ff;
+  --color-round-inactive: rgba(56, 232, 255, 0.14);
+  --color-mission-secure: #38e8ff;
+  --color-glow-secure: rgba(56, 232, 255, 0.38);
+  --color-mission-extract: #ff6a1a;
+  --color-glow-extract: rgba(255, 106, 26, 0.38);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='midnight-sons'] body { background: transparent; }
+[data-theme='midnight-sons'] .layout { background: transparent; }
+
+/* Occultist circuit-rune grid overlay */
+[data-theme='midnight-sons'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent,
+      transparent 44px,
+      rgba(56, 232, 255, 0.018) 44px,
+      rgba(56, 232, 255, 0.018) 45px
+    ),
+    repeating-linear-gradient(
+      35deg,
+      transparent,
+      transparent 62px,
+      rgba(255, 106, 26, 0.012) 62px,
+      rgba(255, 106, 26, 0.012) 63px
+    );
+}
+
+/* Video overlay — midnight spectral glows */
+[data-theme='midnight-sons'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 40%, rgba(56, 232, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 80% 55%, rgba(255, 106, 26, 0.14), transparent 38%),
+    radial-gradient(circle at 50% 92%, rgba(122, 6, 18, 0.16), transparent 32%),
+    rgba(2, 4, 10, 0.62);
+}
+
+/* Panels — dark metal / smoked crystal / occultist leather */
+[data-theme='midnight-sons'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(56, 232, 255, 0.40);
+  box-shadow:
+    0 0 18px rgba(56, 232, 255, 0.18),
+    0 0 36px rgba(255, 106, 26, 0.10),
+    inset 0 0 26px rgba(56, 232, 255, 0.05),
+    inset 0 0 52px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(7px);
+}
+[data-theme='midnight-sons'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(7, 22, 42, 0.90),
+    rgba(2, 4, 10, 0.96),
+    rgba(56, 232, 255, 0.04)
+  );
+}
+[data-theme='midnight-sons'] .glow-left {
+  border-color: rgba(56, 232, 255, 0.58);
+  box-shadow: -2px 0 18px rgba(56, 232, 255, 0.36), 0 0 12px rgba(56, 232, 255, 0.14);
+}
+[data-theme='midnight-sons'] .glow-right {
+  border-color: rgba(255, 106, 26, 0.52);
+  box-shadow: 2px 0 18px rgba(255, 106, 26, 0.32), 0 0 12px rgba(255, 106, 26, 0.12);
+}
+
+/* Buttons — occultist dark-metal HUD */
+[data-theme='midnight-sons'] .btn-hud {
+  background: rgba(4, 8, 14, 0.92);
+  border-color: rgba(184, 184, 176, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='midnight-sons'] .btn-hud:hover {
+  border-color: rgba(56, 232, 255, 0.82);
+  box-shadow: 0 0 12px rgba(56, 232, 255, 0.42), 0 0 24px rgba(255, 106, 26, 0.22);
+  color: #38e8ff;
+}
+[data-theme='midnight-sons'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: #38e8ff;
+  box-shadow: 0 0 10px rgba(56, 232, 255, 0.45);
+}
+[data-theme='midnight-sons'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='midnight-sons'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — hunter team corridor */
+[data-theme='midnight-sons'] .side-nav {
+  background: rgba(2, 4, 10, 0.98);
+  border-right-color: rgba(56, 232, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+[data-theme='midnight-sons'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(56, 232, 255, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='midnight-sons'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(56, 232, 255, 0.85),
+    0 0 20px rgba(255, 106, 26, 0.40);
+}
+[data-theme='midnight-sons'] .side-nav__item:hover {
+  background: rgba(56, 232, 255, 0.07);
+  border-color: rgba(56, 232, 255, 0.35);
+}
+[data-theme='midnight-sons'] .side-nav__item.active {
+  background: rgba(56, 232, 255, 0.12);
+  border-color: #38e8ff;
+  color: #eee2cf;
+  box-shadow: 0 0 10px rgba(56, 232, 255, 0.40);
+}
+
+/* Score panels */
+[data-theme='midnight-sons'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='midnight-sons'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #07162a, #38e8ff);
+  box-shadow: 0 0 10px rgba(56, 232, 255, 0.75);
+}
+[data-theme='midnight-sons'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #7a0612, #ff6a1a);
+  box-shadow: 0 0 10px rgba(255, 106, 26, 0.70);
+}
+[data-theme='midnight-sons'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(238, 226, 207, 0.70),
+    0 0 16px rgba(56, 232, 255, 0.80),
+    0 0 32px rgba(16, 47, 79, 0.60);
+  animation: msons-pulse-left 2.8s ease-in-out infinite;
+}
+[data-theme='midnight-sons'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(238, 226, 207, 0.70),
+    0 0 16px rgba(255, 106, 26, 0.80),
+    0 0 32px rgba(122, 6, 18, 0.50);
+  animation: msons-pulse-right 2.8s ease-in-out infinite;
+}
+[data-theme='midnight-sons'] .score-panel__btn {
+  background: rgba(4, 8, 14, 0.95);
+  border-color: rgba(56, 232, 255, 0.28);
+}
+[data-theme='midnight-sons'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — occultist midnight seal */
+[data-theme='midnight-sons'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 232, 255, 0.46);
+}
+[data-theme='midnight-sons'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(56, 232, 255, 0.14), rgba(16, 47, 79, 0.10), rgba(255, 106, 26, 0.07));
+}
+[data-theme='midnight-sons'] .timer-panel__display {
+  color: #b8e8f8;
+  text-shadow:
+    0 0 8px rgba(56, 232, 255, 0.70),
+    0 0 18px rgba(16, 47, 79, 0.55),
+    0 0 6px rgba(184, 232, 248, 0.30);
+}
+[data-theme='midnight-sons'] .timer-panel--critical {
+  border-color: rgba(196, 18, 36, 0.92) !important;
+  box-shadow: 0 0 24px rgba(196, 18, 36, 0.52), 0 0 50px rgba(122, 6, 18, 0.22) !important;
+}
+[data-theme='midnight-sons'] .timer-panel__display.critical {
+  color: #ff4466;
+  text-shadow: 0 0 16px rgba(196, 18, 36, 0.95), 0 0 36px rgba(122, 6, 18, 0.60);
+}
+[data-theme='midnight-sons'] .timer-panel__btn {
+  background: rgba(4, 8, 14, 0.95);
+  border-color: rgba(56, 232, 255, 0.30);
+  color: #b8e8f8;
+}
+[data-theme='midnight-sons'] .timer-panel__btn:hover { box-shadow: 0 0 10px rgba(56, 232, 255, 0.48); }
+
+/* Round tracker — arcane hunter seals */
+[data-theme='midnight-sons'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 232, 255, 0.30);
+}
+[data-theme='midnight-sons'] .round-tracker__pip {
+  border-color: rgba(56, 232, 255, 0.20);
+  background: rgba(4, 8, 14, 0.68);
+}
+[data-theme='midnight-sons'] .round-tracker__pip.active {
+  border-color: rgba(255, 106, 26, 0.45);
+  background: rgba(56, 232, 255, 0.08);
+}
+[data-theme='midnight-sons'] .round-tracker__pip.current {
+  border-color: #38e8ff;
+  box-shadow: 0 0 14px rgba(56, 232, 255, 0.68), 0 0 5px #38e8ff;
+  animation: msons-pip-pulse 2.8s ease-in-out infinite;
+}
+
+/* Mission slots — occultist contracts */
+[data-theme='midnight-sons'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 232, 255, 0.36);
+  box-shadow:
+    inset 0 0 22px rgba(56, 232, 255, 0.05),
+    inset 0 0 46px rgba(0, 0, 0, 0.62);
+}
+[data-theme='midnight-sons'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='midnight-sons'] .mission-item { background: rgba(4, 8, 14, 0.84); backdrop-filter: blur(4px); }
+[data-theme='midnight-sons'] .mission-item:hover {
+  background: rgba(56, 232, 255, 0.07);
+  border-color: rgba(56, 232, 255, 0.48);
+}
+[data-theme='midnight-sons'] .mission-item--left.selected {
+  background: rgba(56, 232, 255, 0.14);
+  border-color: rgba(56, 232, 255, 0.65);
+  box-shadow: 0 0 10px rgba(56, 232, 255, 0.26);
+}
+[data-theme='midnight-sons'] .mission-item--right.selected {
+  background: rgba(255, 106, 26, 0.14);
+  border-color: rgba(255, 106, 26, 0.65);
+  box-shadow: 0 0 10px rgba(255, 106, 26, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='midnight-sons'] .leader-hex__name {
+  background: rgba(4, 8, 14, 0.93);
+  border-color: rgba(56, 232, 255, 0.35);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — dark silver portal frames */
+[data-theme='midnight-sons'] .leader-card {
+  background: rgba(4, 8, 14, 0.87);
+  border-color: rgba(56, 232, 255, 0.22);
+  backdrop-filter: blur(5px);
+}
+[data-theme='midnight-sons'] .leader-card:hover {
+  border-color: rgba(56, 232, 255, 0.52);
+  box-shadow: 0 0 12px rgba(56, 232, 255, 0.20);
+}
+[data-theme='midnight-sons'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 18px var(--color-glow-left);
+}
+[data-theme='midnight-sons'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 18px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='midnight-sons'] .leaders-page__header,
+[data-theme='midnight-sons'] .missions-page__header {
+  background: rgba(2, 4, 10, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(56, 232, 255, 0.30);
+}
+[data-theme='midnight-sons'] .leaders-page__search {
+  background: rgba(4, 8, 14, 0.93);
+  border-color: rgba(56, 232, 255, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='midnight-sons'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='midnight-sons'] .missions-page__body { background: rgba(2, 4, 10, 0.78); }
+
+/* Assign buttons */
+[data-theme='midnight-sons'] .leaders-page__assign-btn {
+  background: rgba(4, 8, 14, 0.93);
+  border-color: rgba(56, 232, 255, 0.28);
+  backdrop-filter: blur(5px);
+}
+[data-theme='midnight-sons'] .leaders-page__assign-btn.active-left {
+  background: rgba(56, 232, 255, 0.10);
+  border-color: var(--color-accent-left);
+  color: #38e8ff;
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='midnight-sons'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 106, 26, 0.10);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='midnight-sons'] .affil-btn {
+  background: rgba(4, 8, 14, 0.87);
+  border-color: rgba(56, 232, 255, 0.20);
+}
+[data-theme='midnight-sons'] .affil-btn:hover { border-color: rgba(56, 232, 255, 0.48); }
+[data-theme='midnight-sons'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: #38e8ff;
+  background: rgba(56, 232, 255, 0.09);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='midnight-sons'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 232, 255, 0.32);
+}
+[data-theme='midnight-sons'] .settings-section__title {
+  color: #38e8ff;
+  background: rgba(2, 4, 10, 0.95);
+  border-bottom-color: rgba(56, 232, 255, 0.24);
+}
+[data-theme='midnight-sons'] .settings-preset-btn.active,
+[data-theme='midnight-sons'] .settings-theme-btn.active,
+[data-theme='midnight-sons'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(56, 232, 255, 0.09);
+  color: #38e8ff;
+}
+[data-theme='midnight-sons'] .settings-slider { background: rgba(56, 232, 255, 0.16); }
+[data-theme='midnight-sons'] .settings-slider::-webkit-slider-thumb {
+  background: #38e8ff;
+  box-shadow: 0 0 8px rgba(56, 232, 255, 0.70);
+}
+[data-theme='midnight-sons'] .settings-slider::-moz-range-thumb {
+  background: #38e8ff;
+  box-shadow: 0 0 8px rgba(56, 232, 255, 0.70);
+}
+
+/* Reset modal */
+[data-theme='midnight-sons'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.80); }
+[data-theme='midnight-sons'] .main-page__modal {
+  background: rgba(4, 8, 14, 0.98);
+  border-color: rgba(56, 232, 255, 0.58);
+  box-shadow:
+    0 0 34px rgba(56, 232, 255, 0.26),
+    0 0 60px rgba(255, 106, 26, 0.12);
+  backdrop-filter: blur(14px);
+}
+[data-theme='midnight-sons'] .main-page__modal-title {
+  color: #38e8ff;
+  text-shadow: 0 0 12px rgba(56, 232, 255, 0.75), 0 0 28px rgba(255, 106, 26, 0.35);
+}
+[data-theme='midnight-sons'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Spectral hunter pulse keyframes */
+@keyframes msons-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(238, 226, 207, 0.70),
+      0 0 16px rgba(56, 232, 255, 0.80),
+      0 0 32px rgba(16, 47, 79, 0.55);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(238, 226, 207, 0.90),
+      0 0 26px rgba(56, 232, 255, 1.00),
+      0 0 52px rgba(16, 47, 79, 0.80),
+      0 0 5px #38e8ff;
+  }
+}
+@keyframes msons-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(238, 226, 207, 0.70),
+      0 0 16px rgba(255, 106, 26, 0.80),
+      0 0 32px rgba(122, 6, 18, 0.45);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(238, 226, 207, 0.90),
+      0 0 26px rgba(255, 106, 26, 1.00),
+      0 0 50px rgba(122, 6, 18, 0.68),
+      0 0 5px #ff6a1a;
+  }
+}
+@keyframes msons-pip-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(56, 232, 255, 0.60), 0 0 5px #38e8ff; }
+  50%       { box-shadow: 0 0 22px rgba(56, 232, 255, 0.92), 0 0 10px #38e8ff, 0 0 4px #7a0612; }
+}
