@@ -6149,3 +6149,422 @@
   0%, 100% { box-shadow: 0 0 12px rgba(56, 232, 255, 0.60), 0 0 5px #38e8ff; }
   50%       { box-shadow: 0 0 22px rgba(56, 232, 255, 0.92), 0 0 10px #38e8ff, 0 0 4px #7a0612; }
 }
+
+/* ============================================================
+   THUNDERBOLTS — Black-ops antihero tactical combat HUD
+   ============================================================ */
+
+[data-theme='thunderbolts'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 7, 9, 0.90);
+  --color-panel-alt: rgba(3, 4, 5, 0.96);
+  --color-border: rgba(215, 25, 32, 0.62);
+  --color-accent-left: #ff2a2a;
+  --color-accent-right: #ff6a1a;
+  --color-glow-left: rgba(215, 25, 32, 0.60);
+  --color-glow-right: rgba(255, 106, 26, 0.50);
+  --color-text: #e8edf2;
+  --color-text-muted: #7f8a96;
+  --color-warn: #ff9d2e;
+  --color-critical: #ff2a2a;
+  --color-success: #ff6a1a;
+  --color-round-active: #d71920;
+  --color-round-inactive: rgba(215, 25, 32, 0.16);
+  --color-mission-secure: #ff2a2a;
+  --color-glow-secure: rgba(215, 25, 32, 0.40);
+  --color-mission-extract: #ff6a1a;
+  --color-glow-extract: rgba(255, 106, 26, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='thunderbolts'] body { background: transparent; }
+[data-theme='thunderbolts'] .layout { background: transparent; }
+
+/* Hazard-stripe diagonal geometry — black-ops warning grid */
+[data-theme='thunderbolts'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 40px,
+      rgba(215, 25, 32, 0.018) 40px,
+      rgba(215, 25, 32, 0.018) 41px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(255, 106, 26, 0.012) 60px,
+      rgba(255, 106, 26, 0.012) 61px
+    );
+}
+
+/* Video overlay — military red/black command glows */
+[data-theme='thunderbolts'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 40%, rgba(215, 25, 32, 0.28), transparent 42%),
+    radial-gradient(circle at 80% 55%, rgba(255, 106, 26, 0.18), transparent 38%),
+    radial-gradient(circle at 50% 90%, rgba(107, 5, 8, 0.22), transparent 32%),
+    rgba(3, 4, 5, 0.64);
+}
+
+/* Panels — armored black metal / tactical console */
+[data-theme='thunderbolts'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(215, 25, 32, 0.56);
+  box-shadow:
+    0 0 18px rgba(215, 25, 32, 0.24),
+    0 0 36px rgba(255, 106, 26, 0.12),
+    inset 0 0 26px rgba(255, 106, 26, 0.06),
+    inset 0 0 52px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(7px);
+}
+[data-theme='thunderbolts'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(11, 13, 16, 0.92),
+    rgba(3, 4, 5, 0.97),
+    rgba(215, 25, 32, 0.05)
+  );
+}
+[data-theme='thunderbolts'] .glow-left {
+  border-color: rgba(215, 25, 32, 0.68);
+  box-shadow: -2px 0 18px rgba(215, 25, 32, 0.44), 0 0 12px rgba(215, 25, 32, 0.18);
+}
+[data-theme='thunderbolts'] .glow-right {
+  border-color: rgba(255, 106, 26, 0.58);
+  box-shadow: 2px 0 18px rgba(255, 106, 26, 0.38), 0 0 12px rgba(255, 106, 26, 0.14);
+}
+
+/* Buttons — armored military console keys */
+[data-theme='thunderbolts'] .btn-hud {
+  background: rgba(5, 7, 9, 0.93);
+  border-color: rgba(215, 25, 32, 0.48);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='thunderbolts'] .btn-hud:hover {
+  border-color: rgba(255, 106, 26, 0.90);
+  box-shadow: 0 0 12px rgba(215, 25, 32, 0.50), 0 0 24px rgba(255, 106, 26, 0.28);
+  color: #ff9d2e;
+}
+[data-theme='thunderbolts'] .btn-hud.active {
+  border-color: var(--color-warn);
+  color: #ff9d2e;
+  box-shadow: 0 0 10px rgba(255, 157, 46, 0.48);
+}
+[data-theme='thunderbolts'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='thunderbolts'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — black-ops operations corridor */
+[data-theme='thunderbolts'] .side-nav {
+  background: rgba(3, 4, 5, 0.98);
+  border-right-color: rgba(215, 25, 32, 0.45);
+  backdrop-filter: blur(10px);
+}
+[data-theme='thunderbolts'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(215, 25, 32, 0.65) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='thunderbolts'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(215, 25, 32, 0.90),
+    0 0 20px rgba(255, 106, 26, 0.45);
+}
+[data-theme='thunderbolts'] .side-nav__item:hover {
+  background: rgba(215, 25, 32, 0.08);
+  border-color: rgba(215, 25, 32, 0.40);
+}
+[data-theme='thunderbolts'] .side-nav__item.active {
+  background: rgba(215, 25, 32, 0.16);
+  border-color: #d71920;
+  color: #e8edf2;
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.48);
+}
+
+/* Score panels */
+[data-theme='thunderbolts'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='thunderbolts'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #6b0508, #d71920);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.80);
+}
+[data-theme='thunderbolts'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #7a2a08, #ff6a1a);
+  box-shadow: 0 0 10px rgba(255, 106, 26, 0.75);
+}
+[data-theme='thunderbolts'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(232, 237, 242, 0.72),
+    0 0 16px rgba(215, 25, 32, 0.88),
+    0 0 32px rgba(255, 42, 42, 0.52);
+  animation: tbolt-pulse-left 2.8s ease-in-out infinite;
+}
+[data-theme='thunderbolts'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(232, 237, 242, 0.72),
+    0 0 16px rgba(255, 106, 26, 0.85),
+    0 0 32px rgba(255, 157, 46, 0.48);
+  animation: tbolt-pulse-right 2.8s ease-in-out infinite;
+}
+[data-theme='thunderbolts'] .score-panel__btn {
+  background: rgba(5, 7, 9, 0.95);
+  border-color: rgba(215, 25, 32, 0.38);
+}
+[data-theme='thunderbolts'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — military mission countdown */
+[data-theme='thunderbolts'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.55);
+}
+[data-theme='thunderbolts'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.18), rgba(107, 5, 8, 0.10), rgba(255, 106, 26, 0.07));
+}
+[data-theme='thunderbolts'] .timer-panel__display {
+  color: #e8edf2;
+  text-shadow:
+    0 0 8px rgba(232, 237, 242, 0.65),
+    0 0 18px rgba(215, 25, 32, 0.50),
+    0 0 6px rgba(127, 138, 150, 0.28);
+}
+[data-theme='thunderbolts'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.95) !important;
+  box-shadow: 0 0 24px rgba(215, 25, 32, 0.60), 0 0 50px rgba(107, 5, 8, 0.26) !important;
+}
+[data-theme='thunderbolts'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 16px rgba(215, 25, 32, 0.98), 0 0 36px rgba(107, 5, 8, 0.65);
+}
+[data-theme='thunderbolts'] .timer-panel__btn {
+  background: rgba(5, 7, 9, 0.95);
+  border-color: rgba(215, 25, 32, 0.38);
+  color: #e8edf2;
+}
+[data-theme='thunderbolts'] .timer-panel__btn:hover { box-shadow: 0 0 10px rgba(215, 25, 32, 0.58); }
+
+/* Round tracker — mission slot indicators */
+[data-theme='thunderbolts'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.34);
+}
+[data-theme='thunderbolts'] .round-tracker__pip {
+  border-color: rgba(215, 25, 32, 0.22);
+  background: rgba(5, 7, 9, 0.70);
+}
+[data-theme='thunderbolts'] .round-tracker__pip.active {
+  border-color: rgba(255, 106, 26, 0.48);
+  background: rgba(215, 25, 32, 0.10);
+}
+[data-theme='thunderbolts'] .round-tracker__pip.current {
+  border-color: #d71920;
+  box-shadow: 0 0 14px rgba(215, 25, 32, 0.72), 0 0 5px #ff2a2a;
+  animation: tbolt-pip-pulse 2.8s ease-in-out infinite;
+}
+
+/* Mission slots — tactical briefing panels */
+[data-theme='thunderbolts'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.48);
+  box-shadow:
+    inset 0 0 22px rgba(255, 106, 26, 0.06),
+    inset 0 0 46px rgba(0, 0, 0, 0.65);
+}
+[data-theme='thunderbolts'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='thunderbolts'] .mission-item { background: rgba(5, 7, 9, 0.85); backdrop-filter: blur(4px); }
+[data-theme='thunderbolts'] .mission-item:hover {
+  background: rgba(215, 25, 32, 0.08);
+  border-color: rgba(215, 25, 32, 0.52);
+}
+[data-theme='thunderbolts'] .mission-item--left.selected {
+  background: rgba(215, 25, 32, 0.16);
+  border-color: rgba(215, 25, 32, 0.72);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.30);
+}
+[data-theme='thunderbolts'] .mission-item--right.selected {
+  background: rgba(255, 106, 26, 0.16);
+  border-color: rgba(255, 106, 26, 0.72);
+  box-shadow: 0 0 10px rgba(255, 106, 26, 0.30);
+}
+
+/* Leader hex (main screen) */
+[data-theme='thunderbolts'] .leader-hex__name {
+  background: rgba(5, 7, 9, 0.94);
+  border-color: rgba(215, 25, 32, 0.40);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — armored tactical frames */
+[data-theme='thunderbolts'] .leader-card {
+  background: rgba(5, 7, 9, 0.88);
+  border-color: rgba(215, 25, 32, 0.24);
+  backdrop-filter: blur(5px);
+}
+[data-theme='thunderbolts'] .leader-card:hover {
+  border-color: rgba(215, 25, 32, 0.56);
+  box-shadow: 0 0 12px rgba(215, 25, 32, 0.24);
+}
+[data-theme='thunderbolts'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 18px var(--color-glow-left);
+}
+[data-theme='thunderbolts'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 18px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='thunderbolts'] .leaders-page__header,
+[data-theme='thunderbolts'] .missions-page__header {
+  background: rgba(3, 4, 5, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(215, 25, 32, 0.36);
+}
+[data-theme='thunderbolts'] .leaders-page__search {
+  background: rgba(5, 7, 9, 0.94);
+  border-color: rgba(215, 25, 32, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='thunderbolts'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='thunderbolts'] .missions-page__body { background: rgba(3, 4, 5, 0.80); }
+
+/* Assign buttons */
+[data-theme='thunderbolts'] .leaders-page__assign-btn {
+  background: rgba(5, 7, 9, 0.94);
+  border-color: rgba(215, 25, 32, 0.32);
+  backdrop-filter: blur(5px);
+}
+[data-theme='thunderbolts'] .leaders-page__assign-btn.active-left {
+  background: rgba(215, 25, 32, 0.14);
+  border-color: var(--color-accent-left);
+  color: #ff9d2e;
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='thunderbolts'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 106, 26, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='thunderbolts'] .affil-btn {
+  background: rgba(5, 7, 9, 0.88);
+  border-color: rgba(215, 25, 32, 0.22);
+}
+[data-theme='thunderbolts'] .affil-btn:hover { border-color: rgba(215, 25, 32, 0.52); }
+[data-theme='thunderbolts'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: #ff9d2e;
+  background: rgba(215, 25, 32, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='thunderbolts'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.38);
+}
+[data-theme='thunderbolts'] .settings-section__title {
+  color: #ff9d2e;
+  background: rgba(3, 4, 5, 0.96);
+  border-bottom-color: rgba(215, 25, 32, 0.28);
+}
+[data-theme='thunderbolts'] .settings-preset-btn.active,
+[data-theme='thunderbolts'] .settings-theme-btn.active,
+[data-theme='thunderbolts'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(215, 25, 32, 0.10);
+  color: #ff9d2e;
+}
+[data-theme='thunderbolts'] .settings-slider { background: rgba(215, 25, 32, 0.20); }
+[data-theme='thunderbolts'] .settings-slider::-webkit-slider-thumb {
+  background: #d71920;
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.75);
+}
+[data-theme='thunderbolts'] .settings-slider::-moz-range-thumb {
+  background: #d71920;
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.75);
+}
+
+/* Reset modal */
+[data-theme='thunderbolts'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='thunderbolts'] .main-page__modal {
+  background: rgba(5, 7, 9, 0.98);
+  border-color: rgba(215, 25, 32, 0.70);
+  box-shadow:
+    0 0 34px rgba(215, 25, 32, 0.34),
+    0 0 60px rgba(255, 106, 26, 0.16);
+  backdrop-filter: blur(14px);
+}
+[data-theme='thunderbolts'] .main-page__modal-title {
+  color: #ff9d2e;
+  text-shadow: 0 0 12px rgba(215, 25, 32, 0.80), 0 0 28px rgba(255, 106, 26, 0.42);
+}
+[data-theme='thunderbolts'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Black-ops combat pulse keyframes */
+@keyframes tbolt-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(232, 237, 242, 0.72),
+      0 0 16px rgba(215, 25, 32, 0.88),
+      0 0 32px rgba(255, 42, 42, 0.50);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(232, 237, 242, 0.92),
+      0 0 26px rgba(215, 25, 32, 1.00),
+      0 0 52px rgba(255, 42, 42, 0.76),
+      0 0 5px #ff2a2a;
+  }
+}
+@keyframes tbolt-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(232, 237, 242, 0.72),
+      0 0 16px rgba(255, 106, 26, 0.85),
+      0 0 32px rgba(255, 157, 46, 0.45);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(232, 237, 242, 0.92),
+      0 0 26px rgba(255, 106, 26, 1.00),
+      0 0 50px rgba(255, 157, 46, 0.70),
+      0 0 5px #ff6a1a;
+  }
+}
+@keyframes tbolt-pip-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(215, 25, 32, 0.68), 0 0 5px #d71920; }
+  50%       { box-shadow: 0 0 22px rgba(215, 25, 32, 0.98), 0 0 10px #ff2a2a, 0 0 4px #ff6a1a; }
+}
