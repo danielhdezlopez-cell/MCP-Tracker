@@ -16,6 +16,9 @@
 .anim-theme-bg--cap-first-avenger.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #06111f 0%, #102a54 40%, #0d2045 70%, #06111f 100%);
 }
+.anim-theme-bg--convocation.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #05030a 0%, #1b082f 40%, #0e0520 70%, #05030a 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }

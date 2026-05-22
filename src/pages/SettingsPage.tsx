@@ -6,7 +6,8 @@ import './SettingsPage.css';
 const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },
-  { value: 'hulkbuster',       label: 'Hulkbuster',      desc: 'Heavy armor power interface — red & gold'        },
+  { value: 'convocation',      label: 'Convocation',    desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
+  { value: 'hulkbuster',       label: 'Hulkbuster',     desc: 'Heavy armor power interface — red & gold'        },
   { value: 'hydra',       label: 'Hydra',         desc: 'Dark tactical — animated video BG'          },
   { value: 'miles-morales', label: 'Miles Morales', desc: 'Urban electric superhero comic-tech HUD'    },
   { value: 'shield',        label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'           },
