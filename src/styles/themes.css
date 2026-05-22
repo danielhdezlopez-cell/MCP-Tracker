@@ -3265,3 +3265,379 @@
   0%, 100% { text-shadow: 0 0 18px rgba(245, 182, 66, 0.40), 0 0 8px #f5b642; }
   50%       { text-shadow: 0 0 28px rgba(245, 182, 66, 0.70), 0 0 14px #f5b642, 0 0 4px #ffcc66; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   CAPTAIN AMERICA — FIRST AVENGER
+   Military retro-futuristic war room HUD. Dark navy base, shield red
+   accents, aged white text, brushed steel borders, tactical glow.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='cap-first-avenger'] {
+  --color-bg: transparent;
+  --color-panel: rgba(6, 17, 31, 0.85);
+  --color-panel-alt: rgba(10, 22, 40, 0.92);
+  --color-border: rgba(184, 188, 196, 0.36);
+  --color-accent-left: #b71c1c;
+  --color-accent-right: #4a7fc1;
+  --color-glow-left: rgba(183, 28, 28, 0.50);
+  --color-glow-right: rgba(74, 127, 193, 0.42);
+  --color-text: #e6e0d0;
+  --color-text-muted: #7a8696;
+  --color-warn: #c8a45d;
+  --color-critical: #b71c1c;
+  --color-success: #b8d4f0;
+  --color-round-active: #b71c1c;
+  --color-round-inactive: rgba(184, 188, 196, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.42);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='cap-first-avenger'] body { background: transparent; }
+[data-theme='cap-first-avenger'] .layout { background: transparent; }
+
+/* Tactical diagonal briefing lines on layout */
+[data-theme='cap-first-avenger'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(74, 127, 193, 0.020) 3px,
+      rgba(74, 127, 193, 0.020) 4px
+    );
+}
+
+/* Video overlay — navy vignette with red/blue radial glows */
+[data-theme='cap-first-avenger'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 30%, rgba(183, 28, 28, 0.18), transparent 36%),
+    radial-gradient(circle at 85% 65%, rgba(74, 127, 193, 0.18), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(16, 42, 84, 0.30), transparent 50%),
+    rgba(0, 0, 0, 0.50);
+}
+
+/* Panels — dark navy with brushed-steel border */
+[data-theme='cap-first-avenger'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(184, 188, 196, 0.34);
+  box-shadow: 0 0 12px rgba(74, 127, 193, 0.10), inset 0 0 22px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+}
+[data-theme='cap-first-avenger'] .panel::before {
+  background: linear-gradient(90deg, rgba(183, 28, 28, 0.10), transparent, rgba(74, 127, 193, 0.08));
+}
+[data-theme='cap-first-avenger'] .glow-left {
+  border-color: rgba(183, 28, 28, 0.48);
+  box-shadow: -2px 0 14px rgba(183, 28, 28, 0.30), 0 0 10px rgba(183, 28, 28, 0.10);
+}
+[data-theme='cap-first-avenger'] .glow-right {
+  border-color: rgba(74, 127, 193, 0.48);
+  box-shadow: 2px 0 14px rgba(74, 127, 193, 0.28), 0 0 10px rgba(74, 127, 193, 0.10);
+}
+
+/* Buttons — military physical button feel */
+[data-theme='cap-first-avenger'] .btn-hud {
+  background: rgba(6, 17, 31, 0.90);
+  border-color: rgba(184, 188, 196, 0.35);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cap-first-avenger'] .btn-hud:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  color: var(--color-accent-right);
+}
+[data-theme='cap-first-avenger'] .btn-hud.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+[data-theme='cap-first-avenger'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='cap-first-avenger'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — dark steel plate */
+[data-theme='cap-first-avenger'] .side-nav {
+  background: rgba(4, 10, 20, 0.95);
+  border-right-color: rgba(184, 188, 196, 0.30);
+  backdrop-filter: blur(8px);
+}
+[data-theme='cap-first-avenger'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(183, 28, 28, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='cap-first-avenger'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(74, 127, 193, 0.70), 0 0 20px rgba(74, 127, 193, 0.35);
+}
+[data-theme='cap-first-avenger'] .side-nav__item:hover {
+  background: rgba(74, 127, 193, 0.08);
+  border-color: rgba(74, 127, 193, 0.38);
+}
+[data-theme='cap-first-avenger'] .side-nav__item.active {
+  background: rgba(183, 28, 28, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — metal plate with red/blue bar fills */
+[data-theme='cap-first-avenger'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='cap-first-avenger'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #7b1010, #b71c1c);
+  box-shadow: 0 0 8px rgba(183, 28, 28, 0.70);
+}
+[data-theme='cap-first-avenger'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #2a5a96, #4a7fc1);
+  box-shadow: 0 0 8px rgba(74, 127, 193, 0.65);
+}
+[data-theme='cap-first-avenger'] .score-panel__value {
+  text-shadow: 0 0 16px rgba(230, 224, 208, 0.55), 0 0 6px rgba(183, 28, 28, 0.50);
+  animation: fa-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='cap-first-avenger'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px rgba(230, 224, 208, 0.55), 0 0 6px rgba(74, 127, 193, 0.55);
+  animation: fa-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='cap-first-avenger'] .score-panel__btn {
+  background: rgba(6, 17, 31, 0.92);
+  border-color: rgba(184, 188, 196, 0.30);
+}
+[data-theme='cap-first-avenger'] .score-panel__btn:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Timer panel — tactical chronometer with arc-white glow */
+[data-theme='cap-first-avenger'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(184, 188, 196, 0.38);
+}
+[data-theme='cap-first-avenger'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(183, 28, 28, 0.10), rgba(74, 127, 193, 0.08), transparent);
+}
+[data-theme='cap-first-avenger'] .timer-panel__display {
+  color: #c8dff5;
+  text-shadow: 0 0 12px rgba(184, 212, 240, 0.65), 0 0 5px rgba(74, 127, 193, 0.40);
+}
+[data-theme='cap-first-avenger'] .timer-panel--critical {
+  border-color: rgba(183, 28, 28, 0.82) !important;
+  box-shadow: 0 0 20px rgba(183, 28, 28, 0.45), 0 0 40px rgba(183, 28, 28, 0.18) !important;
+}
+[data-theme='cap-first-avenger'] .timer-panel__display.critical {
+  color: #c8a45d;
+  text-shadow: 0 0 12px rgba(200, 164, 93, 0.80);
+}
+[data-theme='cap-first-avenger'] .timer-panel__btn {
+  background: rgba(6, 17, 31, 0.92);
+  border-color: rgba(184, 188, 196, 0.30);
+  color: #c8dff5;
+}
+[data-theme='cap-first-avenger'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(74, 127, 193, 0.50);
+}
+
+/* Round tracker — tactical medal/rank slots */
+[data-theme='cap-first-avenger'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(184, 188, 196, 0.30);
+}
+[data-theme='cap-first-avenger'] .round-tracker__pip {
+  border-color: rgba(184, 188, 196, 0.24);
+  background: rgba(6, 17, 31, 0.60);
+}
+[data-theme='cap-first-avenger'] .round-tracker__pip.active {
+  border-color: rgba(184, 188, 196, 0.50);
+  background: rgba(74, 127, 193, 0.10);
+}
+[data-theme='cap-first-avenger'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: fa-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — classified tactical documents */
+[data-theme='cap-first-avenger'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(184, 188, 196, 0.28);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.40);
+}
+[data-theme='cap-first-avenger'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='cap-first-avenger'] .mission-item {
+  background: rgba(6, 17, 31, 0.78);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cap-first-avenger'] .mission-item:hover {
+  background: rgba(74, 127, 193, 0.06);
+  border-color: rgba(184, 188, 196, 0.44);
+}
+[data-theme='cap-first-avenger'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.68);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='cap-first-avenger'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.68);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='cap-first-avenger'] .leader-hex__name {
+  background: rgba(6, 17, 31, 0.90);
+  border-color: rgba(184, 188, 196, 0.30);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — shield tactical frame */
+[data-theme='cap-first-avenger'] .leader-card {
+  background: rgba(6, 17, 31, 0.84);
+  border-color: rgba(184, 188, 196, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cap-first-avenger'] .leader-card:hover {
+  border-color: rgba(184, 188, 196, 0.50);
+  box-shadow: 0 0 10px rgba(74, 127, 193, 0.18);
+}
+[data-theme='cap-first-avenger'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='cap-first-avenger'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='cap-first-avenger'] .leaders-page__header,
+[data-theme='cap-first-avenger'] .missions-page__header {
+  background: rgba(4, 10, 20, 0.93);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(184, 188, 196, 0.26);
+}
+[data-theme='cap-first-avenger'] .leaders-page__search {
+  background: rgba(6, 17, 31, 0.88);
+  border-color: rgba(184, 188, 196, 0.30);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cap-first-avenger'] .leaders-page__search:focus {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='cap-first-avenger'] .missions-page__body {
+  background: rgba(4, 10, 20, 0.72);
+}
+
+/* Assign buttons */
+[data-theme='cap-first-avenger'] .leaders-page__assign-btn {
+  background: rgba(6, 17, 31, 0.88);
+  border-color: rgba(184, 188, 196, 0.30);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cap-first-avenger'] .leaders-page__assign-btn.active-left {
+  background: rgba(183, 28, 28, 0.14);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='cap-first-avenger'] .leaders-page__assign-btn.active-right {
+  background: rgba(74, 127, 193, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='cap-first-avenger'] .affil-btn {
+  background: rgba(6, 17, 31, 0.84);
+  border-color: rgba(184, 188, 196, 0.24);
+}
+[data-theme='cap-first-avenger'] .affil-btn:hover { border-color: rgba(184, 188, 196, 0.48); }
+[data-theme='cap-first-avenger'] .affil-btn.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(74, 127, 193, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-right);
+}
+
+/* Settings */
+[data-theme='cap-first-avenger'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(184, 188, 196, 0.30);
+}
+[data-theme='cap-first-avenger'] .settings-section__title {
+  color: #c8dff5;
+  background: rgba(10, 22, 40, 0.92);
+  border-bottom-color: rgba(184, 188, 196, 0.24);
+}
+[data-theme='cap-first-avenger'] .settings-preset-btn.active,
+[data-theme='cap-first-avenger'] .settings-theme-btn.active,
+[data-theme='cap-first-avenger'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  background: rgba(74, 127, 193, 0.10);
+  color: var(--color-accent-right);
+}
+[data-theme='cap-first-avenger'] .settings-slider {
+  background: rgba(74, 127, 193, 0.16);
+}
+[data-theme='cap-first-avenger'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='cap-first-avenger'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Reset modal */
+[data-theme='cap-first-avenger'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.70); }
+[data-theme='cap-first-avenger'] .main-page__modal {
+  background: rgba(6, 17, 31, 0.96);
+  border-color: rgba(184, 188, 196, 0.50);
+  box-shadow: 0 0 28px rgba(183, 28, 28, 0.20);
+  backdrop-filter: blur(12px);
+}
+[data-theme='cap-first-avenger'] .main-page__modal-title {
+  color: #c8dff5;
+  text-shadow: 0 0 10px rgba(74, 127, 193, 0.60);
+}
+[data-theme='cap-first-avenger'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — subtle heroic energy */
+@keyframes fa-pulse-left {
+  0%, 100% { text-shadow: 0 0 16px rgba(230, 224, 208, 0.55), 0 0 6px rgba(183, 28, 28, 0.50); }
+  50%       { text-shadow: 0 0 26px rgba(230, 224, 208, 0.80), 0 0 12px rgba(183, 28, 28, 0.75), 0 0 4px #e6e0d0; }
+}
+@keyframes fa-pulse-right {
+  0%, 100% { text-shadow: 0 0 16px rgba(230, 224, 208, 0.55), 0 0 6px rgba(74, 127, 193, 0.55); }
+  50%       { text-shadow: 0 0 26px rgba(230, 224, 208, 0.80), 0 0 12px rgba(74, 127, 193, 0.80), 0 0 4px #c8dff5; }
+}
