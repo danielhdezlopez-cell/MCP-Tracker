@@ -62,6 +62,18 @@ interface McpState {
   resetGame: () => void;
 }
 
+function getThemeFromLeader(leader: Leader): Theme | null {
+  const { name, affiliations } = leader;
+  if (name === 'Miles Morales') return 'miles-morales';
+  if (name === 'Amazing Spider-Man') return 'spider-man';
+  if (affiliations.includes('Asgard')) return 'asgard';
+  if (affiliations.includes('Hydra')) return 'hydra';
+  if (affiliations.includes('S.H.I.E.L.D.')) return 'shield';
+  if (affiliations.includes('Black Order')) return 'thanos';
+  if (affiliations.includes('Cabal')) return 'ultron';
+  return null;
+}
+
 export const useMcpStore = create<McpState>()(
   persist(
     (set, get) => ({
@@ -93,7 +105,14 @@ export const useMcpStore = create<McpState>()(
 
       setScoreLeft: (score) => set({ scoreLeft: Math.max(0, Math.min(20, score)) }),
       setScoreRight: (score) => set({ scoreRight: Math.max(0, Math.min(20, score)) }),
-      setLeaderLeft: (leader) => set({ leaderLeft: leader }),
+      setLeaderLeft: (leader) => {
+        const autoTheme = leader ? getThemeFromLeader(leader) : null;
+        if (autoTheme !== null) {
+          set({ leaderLeft: leader, theme: autoTheme, interactiveBg: autoTheme === 'neon-blue' ? 'tech-hex' : 'off' });
+        } else {
+          set({ leaderLeft: leader });
+        }
+      },
       setLeaderRight: (leader) => set({ leaderRight: leader }),
       setRound: (round) => set({ round: Math.max(1, Math.min(6, round)) }),
       setSelectedSecure: (mission) => set({ selectedSecure: mission }),
