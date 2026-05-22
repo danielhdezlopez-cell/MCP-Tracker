@@ -6568,3 +6568,422 @@
   0%, 100% { box-shadow: 0 0 12px rgba(215, 25, 32, 0.68), 0 0 5px #d71920; }
   50%       { box-shadow: 0 0 22px rgba(215, 25, 32, 0.98), 0 0 10px #ff2a2a, 0 0 4px #ff6a1a; }
 }
+
+/* ============================================================
+   WEAPON X — Black-site lab cold cyan & alarm red HUD
+   ============================================================ */
+
+[data-theme='weapon-x'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 8, 11, 0.90);
+  --color-panel-alt: rgba(2, 3, 4, 0.96);
+  --color-border: rgba(56, 223, 255, 0.52);
+  --color-accent-left: #38dfff;
+  --color-accent-right: #e11919;
+  --color-glow-left: rgba(56, 223, 255, 0.55);
+  --color-glow-right: rgba(225, 25, 25, 0.50);
+  --color-text: #e8f2f6;
+  --color-text-muted: #aeb7c2;
+  --color-warn: #ffb347;
+  --color-critical: #e11919;
+  --color-success: #62ff9a;
+  --color-round-active: #38dfff;
+  --color-round-inactive: rgba(56, 223, 255, 0.14);
+  --color-mission-secure: #38dfff;
+  --color-glow-secure: rgba(56, 223, 255, 0.38);
+  --color-mission-extract: #e11919;
+  --color-glow-extract: rgba(225, 25, 25, 0.38);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='weapon-x'] body { background: transparent; }
+[data-theme='weapon-x'] .layout { background: transparent; }
+
+/* Lab grid — cold technical crosshatch */
+[data-theme='weapon-x'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 47px,
+      rgba(56, 223, 255, 0.016) 47px,
+      rgba(56, 223, 255, 0.016) 48px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 47px,
+      rgba(174, 183, 194, 0.010) 47px,
+      rgba(174, 183, 194, 0.010) 48px
+    );
+}
+
+/* Video overlay — cold blue/grey lab with alarm red accent */
+[data-theme='weapon-x'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 22% 38%, rgba(56, 223, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 78% 58%, rgba(225, 25, 25, 0.16), transparent 36%),
+    radial-gradient(circle at 50% 88%, rgba(11, 42, 58, 0.30), transparent 32%),
+    rgba(2, 3, 4, 0.64);
+}
+
+/* Panels — cold metal / reinforced glass / containment plate */
+[data-theme='weapon-x'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(56, 223, 255, 0.46);
+  box-shadow:
+    0 0 18px rgba(56, 223, 255, 0.18),
+    0 0 36px rgba(225, 25, 25, 0.10),
+    inset 0 0 26px rgba(56, 223, 255, 0.05),
+    inset 0 0 52px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(7px);
+}
+[data-theme='weapon-x'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(7, 22, 32, 0.92),
+    rgba(2, 3, 4, 0.97),
+    rgba(56, 223, 255, 0.04)
+  );
+}
+[data-theme='weapon-x'] .glow-left {
+  border-color: rgba(56, 223, 255, 0.62);
+  box-shadow: -2px 0 18px rgba(56, 223, 255, 0.38), 0 0 12px rgba(56, 223, 255, 0.16);
+}
+[data-theme='weapon-x'] .glow-right {
+  border-color: rgba(225, 25, 25, 0.55);
+  box-shadow: 2px 0 18px rgba(225, 25, 25, 0.34), 0 0 12px rgba(225, 25, 25, 0.14);
+}
+
+/* Buttons — lab industrial switches */
+[data-theme='weapon-x'] .btn-hud {
+  background: rgba(4, 8, 11, 0.93);
+  border-color: rgba(174, 183, 194, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='weapon-x'] .btn-hud:hover {
+  border-color: rgba(56, 223, 255, 0.85);
+  box-shadow: 0 0 12px rgba(56, 223, 255, 0.44), 0 0 24px rgba(225, 25, 25, 0.22);
+  color: #38dfff;
+}
+[data-theme='weapon-x'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: #38dfff;
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.48);
+}
+[data-theme='weapon-x'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='weapon-x'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — containment facility corridor */
+[data-theme='weapon-x'] .side-nav {
+  background: rgba(2, 3, 4, 0.98);
+  border-right-color: rgba(56, 223, 255, 0.36);
+  backdrop-filter: blur(10px);
+}
+[data-theme='weapon-x'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(56, 223, 255, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='weapon-x'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(56, 223, 255, 0.88),
+    0 0 20px rgba(225, 25, 25, 0.40);
+}
+[data-theme='weapon-x'] .side-nav__item:hover {
+  background: rgba(56, 223, 255, 0.07);
+  border-color: rgba(56, 223, 255, 0.36);
+}
+[data-theme='weapon-x'] .side-nav__item.active {
+  background: rgba(56, 223, 255, 0.12);
+  border-color: #38dfff;
+  color: #e8f2f6;
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.42);
+}
+
+/* Score panels */
+[data-theme='weapon-x'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='weapon-x'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #0b2a3a, #38dfff);
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.78);
+}
+[data-theme='weapon-x'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #6b0508, #e11919);
+  box-shadow: 0 0 10px rgba(225, 25, 25, 0.75);
+}
+[data-theme='weapon-x'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(232, 242, 246, 0.72),
+    0 0 16px rgba(56, 223, 255, 0.82),
+    0 0 32px rgba(11, 42, 58, 0.60);
+  animation: wx-pulse-left 2.8s ease-in-out infinite;
+}
+[data-theme='weapon-x'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(232, 242, 246, 0.72),
+    0 0 16px rgba(225, 25, 25, 0.82),
+    0 0 32px rgba(107, 5, 8, 0.52);
+  animation: wx-pulse-right 2.8s ease-in-out infinite;
+}
+[data-theme='weapon-x'] .score-panel__btn {
+  background: rgba(4, 8, 11, 0.95);
+  border-color: rgba(56, 223, 255, 0.28);
+}
+[data-theme='weapon-x'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — containment experiment counter */
+[data-theme='weapon-x'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 223, 255, 0.48);
+}
+[data-theme='weapon-x'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(56, 223, 255, 0.14), rgba(11, 42, 58, 0.10), rgba(225, 25, 25, 0.07));
+}
+[data-theme='weapon-x'] .timer-panel__display {
+  color: #c8eaf4;
+  text-shadow:
+    0 0 8px rgba(56, 223, 255, 0.68),
+    0 0 18px rgba(11, 42, 58, 0.55),
+    0 0 6px rgba(200, 234, 244, 0.30);
+}
+[data-theme='weapon-x'] .timer-panel--critical {
+  border-color: rgba(225, 25, 25, 0.95) !important;
+  box-shadow: 0 0 24px rgba(225, 25, 25, 0.56), 0 0 50px rgba(107, 5, 8, 0.24) !important;
+}
+[data-theme='weapon-x'] .timer-panel__display.critical {
+  color: #ff3030;
+  text-shadow: 0 0 16px rgba(225, 25, 25, 0.98), 0 0 36px rgba(107, 5, 8, 0.65);
+}
+[data-theme='weapon-x'] .timer-panel__btn {
+  background: rgba(4, 8, 11, 0.95);
+  border-color: rgba(56, 223, 255, 0.30);
+  color: #c8eaf4;
+}
+[data-theme='weapon-x'] .timer-panel__btn:hover { box-shadow: 0 0 10px rgba(56, 223, 255, 0.50); }
+
+/* Round tracker — containment capsule slots */
+[data-theme='weapon-x'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 223, 255, 0.30);
+}
+[data-theme='weapon-x'] .round-tracker__pip {
+  border-color: rgba(56, 223, 255, 0.20);
+  background: rgba(4, 8, 11, 0.70);
+}
+[data-theme='weapon-x'] .round-tracker__pip.active {
+  border-color: rgba(225, 25, 25, 0.44);
+  background: rgba(56, 223, 255, 0.08);
+}
+[data-theme='weapon-x'] .round-tracker__pip.current {
+  border-color: #38dfff;
+  box-shadow: 0 0 14px rgba(56, 223, 255, 0.70), 0 0 5px #38dfff;
+  animation: wx-pip-pulse 2.8s ease-in-out infinite;
+}
+
+/* Mission slots — classified briefing plates */
+[data-theme='weapon-x'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 223, 255, 0.38);
+  box-shadow:
+    inset 0 0 22px rgba(56, 223, 255, 0.05),
+    inset 0 0 46px rgba(0, 0, 0, 0.65);
+}
+[data-theme='weapon-x'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='weapon-x'] .mission-item { background: rgba(4, 8, 11, 0.85); backdrop-filter: blur(4px); }
+[data-theme='weapon-x'] .mission-item:hover {
+  background: rgba(56, 223, 255, 0.07);
+  border-color: rgba(56, 223, 255, 0.50);
+}
+[data-theme='weapon-x'] .mission-item--left.selected {
+  background: rgba(56, 223, 255, 0.14);
+  border-color: rgba(56, 223, 255, 0.68);
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.28);
+}
+[data-theme='weapon-x'] .mission-item--right.selected {
+  background: rgba(225, 25, 25, 0.14);
+  border-color: rgba(225, 25, 25, 0.68);
+  box-shadow: 0 0 10px rgba(225, 25, 25, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='weapon-x'] .leader-hex__name {
+  background: rgba(4, 8, 11, 0.94);
+  border-color: rgba(56, 223, 255, 0.38);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — containment hex frames */
+[data-theme='weapon-x'] .leader-card {
+  background: rgba(4, 8, 11, 0.88);
+  border-color: rgba(56, 223, 255, 0.22);
+  backdrop-filter: blur(5px);
+}
+[data-theme='weapon-x'] .leader-card:hover {
+  border-color: rgba(56, 223, 255, 0.54);
+  box-shadow: 0 0 12px rgba(56, 223, 255, 0.22);
+}
+[data-theme='weapon-x'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 18px var(--color-glow-left);
+}
+[data-theme='weapon-x'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 18px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='weapon-x'] .leaders-page__header,
+[data-theme='weapon-x'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(56, 223, 255, 0.30);
+}
+[data-theme='weapon-x'] .leaders-page__search {
+  background: rgba(4, 8, 11, 0.94);
+  border-color: rgba(56, 223, 255, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='weapon-x'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='weapon-x'] .missions-page__body { background: rgba(2, 3, 4, 0.80); }
+
+/* Assign buttons */
+[data-theme='weapon-x'] .leaders-page__assign-btn {
+  background: rgba(4, 8, 11, 0.94);
+  border-color: rgba(56, 223, 255, 0.28);
+  backdrop-filter: blur(5px);
+}
+[data-theme='weapon-x'] .leaders-page__assign-btn.active-left {
+  background: rgba(56, 223, 255, 0.10);
+  border-color: var(--color-accent-left);
+  color: #38dfff;
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='weapon-x'] .leaders-page__assign-btn.active-right {
+  background: rgba(225, 25, 25, 0.10);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='weapon-x'] .affil-btn {
+  background: rgba(4, 8, 11, 0.88);
+  border-color: rgba(56, 223, 255, 0.20);
+}
+[data-theme='weapon-x'] .affil-btn:hover { border-color: rgba(56, 223, 255, 0.50); }
+[data-theme='weapon-x'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: #38dfff;
+  background: rgba(56, 223, 255, 0.09);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='weapon-x'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(56, 223, 255, 0.32);
+}
+[data-theme='weapon-x'] .settings-section__title {
+  color: #38dfff;
+  background: rgba(2, 3, 4, 0.96);
+  border-bottom-color: rgba(56, 223, 255, 0.24);
+}
+[data-theme='weapon-x'] .settings-preset-btn.active,
+[data-theme='weapon-x'] .settings-theme-btn.active,
+[data-theme='weapon-x'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(56, 223, 255, 0.09);
+  color: #38dfff;
+}
+[data-theme='weapon-x'] .settings-slider { background: rgba(56, 223, 255, 0.16); }
+[data-theme='weapon-x'] .settings-slider::-webkit-slider-thumb {
+  background: #38dfff;
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.72);
+}
+[data-theme='weapon-x'] .settings-slider::-moz-range-thumb {
+  background: #38dfff;
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.72);
+}
+
+/* Reset modal */
+[data-theme='weapon-x'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='weapon-x'] .main-page__modal {
+  background: rgba(4, 8, 11, 0.98);
+  border-color: rgba(56, 223, 255, 0.62);
+  box-shadow:
+    0 0 34px rgba(56, 223, 255, 0.28),
+    0 0 60px rgba(225, 25, 25, 0.14);
+  backdrop-filter: blur(14px);
+}
+[data-theme='weapon-x'] .main-page__modal-title {
+  color: #38dfff;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.78), 0 0 28px rgba(225, 25, 25, 0.36);
+}
+[data-theme='weapon-x'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Containment experiment pulse keyframes */
+@keyframes wx-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(232, 242, 246, 0.72),
+      0 0 16px rgba(56, 223, 255, 0.82),
+      0 0 32px rgba(11, 42, 58, 0.55);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(232, 242, 246, 0.92),
+      0 0 26px rgba(56, 223, 255, 1.00),
+      0 0 52px rgba(11, 42, 58, 0.80),
+      0 0 5px #38dfff;
+  }
+}
+@keyframes wx-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(232, 242, 246, 0.72),
+      0 0 16px rgba(225, 25, 25, 0.82),
+      0 0 32px rgba(107, 5, 8, 0.48);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(232, 242, 246, 0.92),
+      0 0 26px rgba(225, 25, 25, 1.00),
+      0 0 50px rgba(107, 5, 8, 0.70),
+      0 0 5px #e11919;
+  }
+}
+@keyframes wx-pip-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(56, 223, 255, 0.62), 0 0 5px #38dfff; }
+  50%       { box-shadow: 0 0 22px rgba(56, 223, 255, 0.94), 0 0 10px #38dfff, 0 0 4px #e11919; }
+}

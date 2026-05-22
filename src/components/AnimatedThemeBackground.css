@@ -37,6 +37,9 @@
 .anim-theme-bg--thunderbolts.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030405 0%, #0b0d10 40%, #1a0608 70%, #030405 100%);
 }
+.anim-theme-bg--weapon-x.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020304 0%, #071620 40%, #0b2a3a 70%, #020304 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }

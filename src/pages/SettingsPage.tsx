@@ -20,6 +20,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'thanos',       label: 'Thanos',       desc: 'Cosmic conqueror dark command interface'     },
   { value: 'thunderbolts', label: 'Thunderbolts', desc: 'Black-ops antihero tactical combat HUD'     },
   { value: 'ultron',       label: 'Ultron',       desc: 'Hostile machine empire command system'       },
+  { value: 'weapon-x',    label: 'Weapon X',     desc: 'Black-site lab — cold cyan & alarm red HUD'  },
 ];
 
 
