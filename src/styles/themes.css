@@ -4472,3 +4472,421 @@
   0%, 100% { box-shadow: 0 0 12px rgba(176, 0, 255, 0.65), 0 0 5px #b000ff; }
   50%       { box-shadow: 0 0 22px rgba(176, 0, 255, 0.95), 0 0 10px #b000ff, 0 0 4px #ff1f3d; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   DRACULA — gothic vampire castle HUD.
+   Night-black base, blood red accents, aged silver borders, ivory text,
+   candlelight gold warn, deep stone-panel shadows, slow blood pulse.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='dracula'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 5, 7, 0.88);
+  --color-panel-alt: rgba(11, 7, 9, 0.94);
+  --color-border: rgba(177, 18, 38, 0.50);
+  --color-accent-left: #b11226;
+  --color-accent-right: #b8b0aa;
+  --color-glow-left: rgba(177, 18, 38, 0.55);
+  --color-glow-right: rgba(184, 176, 170, 0.32);
+  --color-text: #f0e6d2;
+  --color-text-muted: #6e5a50;
+  --color-warn: #c8a45d;
+  --color-critical: #b11226;
+  --color-success: #b8b0aa;
+  --color-round-active: #b11226;
+  --color-round-inactive: rgba(177, 18, 38, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.42);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='dracula'] body { background: transparent; }
+[data-theme='dracula'] .layout { background: transparent; }
+
+/* Subtle stone-texture diagonal lines */
+[data-theme='dracula'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 48px,
+      rgba(177, 18, 38, 0.018) 48px,
+      rgba(177, 18, 38, 0.018) 49px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(184, 176, 170, 0.012) 3px,
+      rgba(184, 176, 170, 0.012) 4px
+    );
+}
+
+/* Video overlay — night vignette with blood-red candlelight glows */
+[data-theme='dracula'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 35%, rgba(177, 18, 38, 0.20), transparent 38%),
+    radial-gradient(circle at 85% 60%, rgba(124, 10, 24, 0.16), transparent 35%),
+    radial-gradient(circle at 50% 95%, rgba(200, 164, 93, 0.08), transparent 28%),
+    rgba(0, 0, 0, 0.60);
+}
+
+/* Panels — dark castle stone with blood-red border */
+[data-theme='dracula'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(177, 18, 38, 0.46);
+  box-shadow:
+    0 0 16px rgba(177, 18, 38, 0.16),
+    inset 0 0 28px rgba(184, 176, 170, 0.04),
+    inset 0 0 55px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(7px);
+}
+[data-theme='dracula'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(11, 7, 9, 0.88),
+    rgba(3, 3, 5, 0.92),
+    rgba(177, 18, 38, 0.06)
+  );
+}
+[data-theme='dracula'] .glow-left {
+  border-color: rgba(177, 18, 38, 0.55);
+  box-shadow: -2px 0 16px rgba(177, 18, 38, 0.35), 0 0 12px rgba(177, 18, 38, 0.14);
+}
+[data-theme='dracula'] .glow-right {
+  border-color: rgba(184, 176, 170, 0.42);
+  box-shadow: 2px 0 14px rgba(184, 176, 170, 0.22), 0 0 10px rgba(184, 176, 170, 0.10);
+}
+
+/* Buttons — gothic forged metal */
+[data-theme='dracula'] .btn-hud {
+  background: rgba(8, 5, 7, 0.92);
+  border-color: rgba(184, 176, 170, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='dracula'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px rgba(177, 18, 38, 0.48), 0 0 22px rgba(90, 6, 16, 0.30);
+  color: #e8b4bc;
+}
+[data-theme='dracula'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: #e8b4bc;
+  box-shadow: 0 0 10px rgba(177, 18, 38, 0.48);
+}
+[data-theme='dracula'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='dracula'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Side nav — castle shadow corridor */
+[data-theme='dracula'] .side-nav {
+  background: rgba(4, 3, 4, 0.97);
+  border-right-color: rgba(177, 18, 38, 0.38);
+  backdrop-filter: blur(10px);
+}
+[data-theme='dracula'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(177, 18, 38, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='dracula'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(177, 18, 38, 0.80),
+    0 0 20px rgba(90, 6, 16, 0.45);
+}
+[data-theme='dracula'] .side-nav__item:hover {
+  background: rgba(177, 18, 38, 0.08);
+  border-color: rgba(177, 18, 38, 0.38);
+}
+[data-theme='dracula'] .side-nav__item.active {
+  background: rgba(177, 18, 38, 0.14);
+  border-color: #b11226;
+  color: #e8b4bc;
+  box-shadow: 0 0 10px rgba(177, 18, 38, 0.45);
+}
+
+/* Score panels */
+[data-theme='dracula'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='dracula'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #5a0610, #b11226);
+  box-shadow: 0 0 8px rgba(177, 18, 38, 0.75);
+}
+[data-theme='dracula'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #4a3e38, #b8b0aa);
+  box-shadow: 0 0 6px rgba(184, 176, 170, 0.55);
+}
+[data-theme='dracula'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(240, 230, 210, 0.75),
+    0 0 16px rgba(177, 18, 38, 0.75),
+    0 0 30px rgba(90, 6, 16, 0.45);
+  animation: drac-pulse-left 3.5s ease-in-out infinite;
+}
+[data-theme='dracula'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(240, 230, 210, 0.75),
+    0 0 14px rgba(184, 176, 170, 0.55),
+    0 0 26px rgba(124, 92, 80, 0.35);
+  animation: drac-pulse-right 3.5s ease-in-out infinite;
+}
+[data-theme='dracula'] .score-panel__btn {
+  background: rgba(8, 5, 7, 0.94);
+  border-color: rgba(177, 18, 38, 0.34);
+}
+[data-theme='dracula'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — gothic medallion chronometer */
+[data-theme='dracula'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(184, 176, 170, 0.36);
+}
+[data-theme='dracula'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(177, 18, 38, 0.12), rgba(184, 176, 170, 0.06), transparent);
+}
+[data-theme='dracula'] .timer-panel__display {
+  color: #f0e6d2;
+  text-shadow:
+    0 0 8px rgba(240, 230, 210, 0.60),
+    0 0 18px rgba(184, 176, 170, 0.35),
+    0 0 5px rgba(177, 18, 38, 0.20);
+}
+[data-theme='dracula'] .timer-panel--critical {
+  border-color: rgba(177, 18, 38, 0.85) !important;
+  box-shadow: 0 0 22px rgba(177, 18, 38, 0.50), 0 0 45px rgba(90, 6, 16, 0.22) !important;
+}
+[data-theme='dracula'] .timer-panel__display.critical {
+  color: #e8b4bc;
+  text-shadow: 0 0 14px rgba(177, 18, 38, 0.90), 0 0 32px rgba(90, 6, 16, 0.55);
+}
+[data-theme='dracula'] .timer-panel__btn {
+  background: rgba(8, 5, 7, 0.94);
+  border-color: rgba(184, 176, 170, 0.30);
+  color: #f0e6d2;
+}
+[data-theme='dracula'] .timer-panel__btn:hover { box-shadow: 0 0 8px rgba(177, 18, 38, 0.45); }
+
+/* Round tracker — gothic seals */
+[data-theme='dracula'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(177, 18, 38, 0.34);
+}
+[data-theme='dracula'] .round-tracker__pip {
+  border-color: rgba(177, 18, 38, 0.25);
+  background: rgba(8, 5, 7, 0.65);
+}
+[data-theme='dracula'] .round-tracker__pip.active {
+  border-color: rgba(177, 18, 38, 0.50);
+  background: rgba(177, 18, 38, 0.12);
+}
+[data-theme='dracula'] .round-tracker__pip.current {
+  border-color: #b11226;
+  box-shadow: 0 0 12px rgba(177, 18, 38, 0.65), 0 0 4px #b11226;
+  animation: drac-pip-pulse 2.5s ease-in-out infinite;
+}
+
+/* Mission slots — ancient classified parchment */
+[data-theme='dracula'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(177, 18, 38, 0.40);
+  box-shadow:
+    inset 0 0 20px rgba(184, 176, 170, 0.04),
+    inset 0 0 44px rgba(0, 0, 0, 0.55);
+}
+[data-theme='dracula'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='dracula'] .mission-item { background: rgba(8, 5, 7, 0.82); backdrop-filter: blur(4px); }
+[data-theme='dracula'] .mission-item:hover {
+  background: rgba(177, 18, 38, 0.07);
+  border-color: rgba(177, 18, 38, 0.50);
+}
+[data-theme='dracula'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.70);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='dracula'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.70);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='dracula'] .leader-hex__name {
+  background: rgba(8, 5, 7, 0.92);
+  border-color: rgba(177, 18, 38, 0.38);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — wrought iron gothic frames */
+[data-theme='dracula'] .leader-card {
+  background: rgba(8, 5, 7, 0.86);
+  border-color: rgba(177, 18, 38, 0.24);
+  backdrop-filter: blur(5px);
+}
+[data-theme='dracula'] .leader-card:hover {
+  border-color: rgba(177, 18, 38, 0.55);
+  box-shadow: 0 0 12px rgba(177, 18, 38, 0.22);
+}
+[data-theme='dracula'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='dracula'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='dracula'] .leaders-page__header,
+[data-theme='dracula'] .missions-page__header {
+  background: rgba(4, 3, 4, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(177, 18, 38, 0.32);
+}
+[data-theme='dracula'] .leaders-page__search {
+  background: rgba(8, 5, 7, 0.92);
+  border-color: rgba(184, 176, 170, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='dracula'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='dracula'] .missions-page__body { background: rgba(4, 3, 4, 0.75); }
+
+/* Assign buttons */
+[data-theme='dracula'] .leaders-page__assign-btn {
+  background: rgba(8, 5, 7, 0.92);
+  border-color: rgba(184, 176, 170, 0.30);
+  backdrop-filter: blur(5px);
+}
+[data-theme='dracula'] .leaders-page__assign-btn.active-left {
+  background: rgba(177, 18, 38, 0.14);
+  border-color: var(--color-accent-left);
+  color: #e8b4bc;
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='dracula'] .leaders-page__assign-btn.active-right {
+  background: rgba(184, 176, 170, 0.10);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='dracula'] .affil-btn {
+  background: rgba(8, 5, 7, 0.86);
+  border-color: rgba(184, 176, 170, 0.22);
+}
+[data-theme='dracula'] .affil-btn:hover { border-color: rgba(177, 18, 38, 0.50); }
+[data-theme='dracula'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: #e8b4bc;
+  background: rgba(177, 18, 38, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='dracula'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(177, 18, 38, 0.36);
+}
+[data-theme='dracula'] .settings-section__title {
+  color: #e8b4bc;
+  background: rgba(11, 7, 9, 0.94);
+  border-bottom-color: rgba(177, 18, 38, 0.28);
+}
+[data-theme='dracula'] .settings-preset-btn.active,
+[data-theme='dracula'] .settings-theme-btn.active,
+[data-theme='dracula'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(177, 18, 38, 0.10);
+  color: #e8b4bc;
+}
+[data-theme='dracula'] .settings-slider { background: rgba(177, 18, 38, 0.18); }
+[data-theme='dracula'] .settings-slider::-webkit-slider-thumb {
+  background: #b11226;
+  box-shadow: 0 0 8px rgba(177, 18, 38, 0.70);
+}
+[data-theme='dracula'] .settings-slider::-moz-range-thumb {
+  background: #b11226;
+  box-shadow: 0 0 8px rgba(177, 18, 38, 0.70);
+}
+
+/* Reset modal */
+[data-theme='dracula'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.78); }
+[data-theme='dracula'] .main-page__modal {
+  background: rgba(8, 5, 7, 0.98);
+  border-color: rgba(177, 18, 38, 0.60);
+  box-shadow:
+    0 0 32px rgba(177, 18, 38, 0.28),
+    0 0 60px rgba(90, 6, 16, 0.16);
+  backdrop-filter: blur(14px);
+}
+[data-theme='dracula'] .main-page__modal-title {
+  color: #e8b4bc;
+  text-shadow: 0 0 12px rgba(177, 18, 38, 0.70), 0 0 26px rgba(90, 6, 16, 0.40);
+}
+[data-theme='dracula'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Gothic blood pulse keyframes — slow, theatrical */
+@keyframes drac-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(240, 230, 210, 0.75),
+      0 0 16px rgba(177, 18, 38, 0.75),
+      0 0 30px rgba(90, 6, 16, 0.45);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(240, 230, 210, 0.95),
+      0 0 24px rgba(177, 18, 38, 1.00),
+      0 0 48px rgba(90, 6, 16, 0.70),
+      0 0 4px #e8b4bc;
+  }
+}
+@keyframes drac-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(240, 230, 210, 0.75),
+      0 0 14px rgba(184, 176, 170, 0.55),
+      0 0 26px rgba(124, 92, 80, 0.35);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(240, 230, 210, 0.95),
+      0 0 22px rgba(184, 176, 170, 0.80),
+      0 0 40px rgba(124, 92, 80, 0.55);
+  }
+}
+@keyframes drac-pip-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(177, 18, 38, 0.60), 0 0 4px #b11226; }
+  50%       { box-shadow: 0 0 20px rgba(177, 18, 38, 0.90), 0 0 8px #b11226, 0 0 3px #e8b4bc; }
+}
