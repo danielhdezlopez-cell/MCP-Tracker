@@ -6987,3 +6987,422 @@
   0%, 100% { box-shadow: 0 0 12px rgba(56, 223, 255, 0.62), 0 0 5px #38dfff; }
   50%       { box-shadow: 0 0 22px rgba(56, 223, 255, 0.94), 0 0 10px #38dfff, 0 0 4px #e11919; }
 }
+
+/* ============================================================
+   APOCALYPSE — Ancient cosmic dominion blue & gold HUD
+   ============================================================ */
+
+[data-theme='apocalypse'] {
+  --color-bg: transparent;
+  --color-panel: rgba(6, 10, 20, 0.90);
+  --color-panel-alt: rgba(2, 4, 10, 0.96);
+  --color-border: rgba(200, 164, 93, 0.58);
+  --color-accent-left: #4edbff;
+  --color-accent-right: #c8a45d;
+  --color-glow-left: rgba(78, 219, 255, 0.52);
+  --color-glow-right: rgba(200, 164, 93, 0.48);
+  --color-text: #e9e0c8;
+  --color-text-muted: #7b8291;
+  --color-warn: #e0c27a;
+  --color-critical: #8e2de2;
+  --color-success: #2c5cff;
+  --color-round-active: #4edbff;
+  --color-round-inactive: rgba(78, 219, 255, 0.14);
+  --color-mission-secure: #4edbff;
+  --color-glow-secure: rgba(78, 219, 255, 0.38);
+  --color-mission-extract: #c8a45d;
+  --color-glow-extract: rgba(200, 164, 93, 0.38);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='apocalypse'] body { background: transparent; }
+[data-theme='apocalypse'] .layout { background: transparent; }
+
+/* Techno-organic rune grid — ancient diagonal geometry */
+[data-theme='apocalypse'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent,
+      transparent 46px,
+      rgba(78, 219, 255, 0.016) 46px,
+      rgba(78, 219, 255, 0.016) 47px
+    ),
+    repeating-linear-gradient(
+      35deg,
+      transparent,
+      transparent 62px,
+      rgba(200, 164, 93, 0.012) 62px,
+      rgba(200, 164, 93, 0.012) 63px
+    );
+}
+
+/* Video overlay — cosmic blue/purple with gold accent */
+[data-theme='apocalypse'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 22% 38%, rgba(44, 92, 255, 0.22), transparent 42%),
+    radial-gradient(circle at 78% 55%, rgba(91, 42, 168, 0.18), transparent 38%),
+    radial-gradient(circle at 50% 90%, rgba(200, 164, 93, 0.14), transparent 32%),
+    rgba(2, 4, 10, 0.62);
+}
+
+/* Panels — monumental stone / alien-metal ritual plates */
+[data-theme='apocalypse'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(200, 164, 93, 0.52);
+  box-shadow:
+    0 0 18px rgba(44, 92, 255, 0.20),
+    0 0 36px rgba(200, 164, 93, 0.12),
+    inset 0 0 26px rgba(78, 219, 255, 0.05),
+    inset 0 0 52px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(7px);
+}
+[data-theme='apocalypse'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(12, 24, 56, 0.92),
+    rgba(2, 4, 10, 0.97),
+    rgba(91, 42, 168, 0.05)
+  );
+}
+[data-theme='apocalypse'] .glow-left {
+  border-color: rgba(78, 219, 255, 0.60);
+  box-shadow: -2px 0 18px rgba(78, 219, 255, 0.36), 0 0 12px rgba(44, 92, 255, 0.18);
+}
+[data-theme='apocalypse'] .glow-right {
+  border-color: rgba(200, 164, 93, 0.56);
+  box-shadow: 2px 0 18px rgba(200, 164, 93, 0.34), 0 0 12px rgba(91, 42, 168, 0.16);
+}
+
+/* Buttons — ancient advanced console */
+[data-theme='apocalypse'] .btn-hud {
+  background: rgba(6, 10, 20, 0.93);
+  border-color: rgba(200, 164, 93, 0.42);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='apocalypse'] .btn-hud:hover {
+  border-color: rgba(78, 219, 255, 0.88);
+  box-shadow: 0 0 12px rgba(44, 92, 255, 0.46), 0 0 24px rgba(200, 164, 93, 0.28);
+  color: #4edbff;
+}
+[data-theme='apocalypse'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: #4edbff;
+  box-shadow: 0 0 10px rgba(78, 219, 255, 0.48);
+}
+[data-theme='apocalypse'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='apocalypse'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — monumental ascension corridor */
+[data-theme='apocalypse'] .side-nav {
+  background: rgba(2, 4, 10, 0.98);
+  border-right-color: rgba(200, 164, 93, 0.40);
+  backdrop-filter: blur(10px);
+}
+[data-theme='apocalypse'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(200, 164, 93, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='apocalypse'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(78, 219, 255, 0.85),
+    0 0 20px rgba(200, 164, 93, 0.45);
+}
+[data-theme='apocalypse'] .side-nav__item:hover {
+  background: rgba(44, 92, 255, 0.08);
+  border-color: rgba(78, 219, 255, 0.36);
+}
+[data-theme='apocalypse'] .side-nav__item.active {
+  background: rgba(44, 92, 255, 0.14);
+  border-color: #4edbff;
+  color: #e9e0c8;
+  box-shadow: 0 0 10px rgba(44, 92, 255, 0.44);
+}
+
+/* Score panels */
+[data-theme='apocalypse'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='apocalypse'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #0c1838, #2c5cff);
+  box-shadow: 0 0 10px rgba(44, 92, 255, 0.80);
+}
+[data-theme='apocalypse'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #3d1a70, #c8a45d);
+  box-shadow: 0 0 10px rgba(200, 164, 93, 0.75);
+}
+[data-theme='apocalypse'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(233, 224, 200, 0.72),
+    0 0 16px rgba(78, 219, 255, 0.80),
+    0 0 32px rgba(44, 92, 255, 0.55);
+  animation: apoc-pulse-left 2.8s ease-in-out infinite;
+}
+[data-theme='apocalypse'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(233, 224, 200, 0.72),
+    0 0 16px rgba(200, 164, 93, 0.80),
+    0 0 32px rgba(91, 42, 168, 0.50);
+  animation: apoc-pulse-right 2.8s ease-in-out infinite;
+}
+[data-theme='apocalypse'] .score-panel__btn {
+  background: rgba(6, 10, 20, 0.95);
+  border-color: rgba(200, 164, 93, 0.28);
+}
+[data-theme='apocalypse'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — cosmic judgment medallion */
+[data-theme='apocalypse'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(200, 164, 93, 0.50);
+}
+[data-theme='apocalypse'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(44, 92, 255, 0.16), rgba(91, 42, 168, 0.10), rgba(200, 164, 93, 0.08));
+}
+[data-theme='apocalypse'] .timer-panel__display {
+  color: #c6d8f0;
+  text-shadow:
+    0 0 8px rgba(78, 219, 255, 0.68),
+    0 0 18px rgba(44, 92, 255, 0.52),
+    0 0 6px rgba(198, 216, 240, 0.30);
+}
+[data-theme='apocalypse'] .timer-panel--critical {
+  border-color: rgba(142, 45, 226, 0.92) !important;
+  box-shadow: 0 0 24px rgba(91, 42, 168, 0.58), 0 0 50px rgba(44, 92, 255, 0.24) !important;
+}
+[data-theme='apocalypse'] .timer-panel__display.critical {
+  color: #b060ff;
+  text-shadow: 0 0 16px rgba(142, 45, 226, 0.95), 0 0 36px rgba(91, 42, 168, 0.65);
+}
+[data-theme='apocalypse'] .timer-panel__btn {
+  background: rgba(6, 10, 20, 0.95);
+  border-color: rgba(200, 164, 93, 0.32);
+  color: #c6d8f0;
+}
+[data-theme='apocalypse'] .timer-panel__btn:hover { box-shadow: 0 0 10px rgba(78, 219, 255, 0.50); }
+
+/* Round tracker — ascension chamber seals */
+[data-theme='apocalypse'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(200, 164, 93, 0.32);
+}
+[data-theme='apocalypse'] .round-tracker__pip {
+  border-color: rgba(78, 219, 255, 0.20);
+  background: rgba(6, 10, 20, 0.70);
+}
+[data-theme='apocalypse'] .round-tracker__pip.active {
+  border-color: rgba(200, 164, 93, 0.46);
+  background: rgba(44, 92, 255, 0.08);
+}
+[data-theme='apocalypse'] .round-tracker__pip.current {
+  border-color: #4edbff;
+  box-shadow: 0 0 14px rgba(78, 219, 255, 0.68), 0 0 5px #4edbff;
+  animation: apoc-pip-pulse 2.8s ease-in-out infinite;
+}
+
+/* Mission slots — ancient ritual tablets */
+[data-theme='apocalypse'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(200, 164, 93, 0.42);
+  box-shadow:
+    inset 0 0 22px rgba(78, 219, 255, 0.05),
+    inset 0 0 46px rgba(0, 0, 0, 0.65);
+}
+[data-theme='apocalypse'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='apocalypse'] .mission-item { background: rgba(6, 10, 20, 0.85); backdrop-filter: blur(4px); }
+[data-theme='apocalypse'] .mission-item:hover {
+  background: rgba(44, 92, 255, 0.08);
+  border-color: rgba(78, 219, 255, 0.48);
+}
+[data-theme='apocalypse'] .mission-item--left.selected {
+  background: rgba(78, 219, 255, 0.14);
+  border-color: rgba(78, 219, 255, 0.66);
+  box-shadow: 0 0 10px rgba(78, 219, 255, 0.28);
+}
+[data-theme='apocalypse'] .mission-item--right.selected {
+  background: rgba(200, 164, 93, 0.14);
+  border-color: rgba(200, 164, 93, 0.66);
+  box-shadow: 0 0 10px rgba(200, 164, 93, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='apocalypse'] .leader-hex__name {
+  background: rgba(6, 10, 20, 0.94);
+  border-color: rgba(200, 164, 93, 0.40);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — monumental hex portal frames */
+[data-theme='apocalypse'] .leader-card {
+  background: rgba(6, 10, 20, 0.88);
+  border-color: rgba(200, 164, 93, 0.22);
+  backdrop-filter: blur(5px);
+}
+[data-theme='apocalypse'] .leader-card:hover {
+  border-color: rgba(78, 219, 255, 0.52);
+  box-shadow: 0 0 12px rgba(44, 92, 255, 0.22);
+}
+[data-theme='apocalypse'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 18px var(--color-glow-left);
+}
+[data-theme='apocalypse'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 18px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='apocalypse'] .leaders-page__header,
+[data-theme='apocalypse'] .missions-page__header {
+  background: rgba(2, 4, 10, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(200, 164, 93, 0.32);
+}
+[data-theme='apocalypse'] .leaders-page__search {
+  background: rgba(6, 10, 20, 0.94);
+  border-color: rgba(78, 219, 255, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='apocalypse'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='apocalypse'] .missions-page__body { background: rgba(2, 4, 10, 0.80); }
+
+/* Assign buttons */
+[data-theme='apocalypse'] .leaders-page__assign-btn {
+  background: rgba(6, 10, 20, 0.94);
+  border-color: rgba(200, 164, 93, 0.28);
+  backdrop-filter: blur(5px);
+}
+[data-theme='apocalypse'] .leaders-page__assign-btn.active-left {
+  background: rgba(44, 92, 255, 0.12);
+  border-color: var(--color-accent-left);
+  color: #4edbff;
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='apocalypse'] .leaders-page__assign-btn.active-right {
+  background: rgba(200, 164, 93, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='apocalypse'] .affil-btn {
+  background: rgba(6, 10, 20, 0.88);
+  border-color: rgba(200, 164, 93, 0.20);
+}
+[data-theme='apocalypse'] .affil-btn:hover { border-color: rgba(78, 219, 255, 0.50); }
+[data-theme='apocalypse'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: #4edbff;
+  background: rgba(44, 92, 255, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='apocalypse'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(200, 164, 93, 0.34);
+}
+[data-theme='apocalypse'] .settings-section__title {
+  color: #e0c27a;
+  background: rgba(2, 4, 10, 0.96);
+  border-bottom-color: rgba(200, 164, 93, 0.24);
+}
+[data-theme='apocalypse'] .settings-preset-btn.active,
+[data-theme='apocalypse'] .settings-theme-btn.active,
+[data-theme='apocalypse'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(44, 92, 255, 0.10);
+  color: #4edbff;
+}
+[data-theme='apocalypse'] .settings-slider { background: rgba(200, 164, 93, 0.18); }
+[data-theme='apocalypse'] .settings-slider::-webkit-slider-thumb {
+  background: #c8a45d;
+  box-shadow: 0 0 8px rgba(200, 164, 93, 0.72);
+}
+[data-theme='apocalypse'] .settings-slider::-moz-range-thumb {
+  background: #c8a45d;
+  box-shadow: 0 0 8px rgba(200, 164, 93, 0.72);
+}
+
+/* Reset modal */
+[data-theme='apocalypse'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='apocalypse'] .main-page__modal {
+  background: rgba(6, 10, 20, 0.98);
+  border-color: rgba(200, 164, 93, 0.65);
+  box-shadow:
+    0 0 34px rgba(44, 92, 255, 0.28),
+    0 0 60px rgba(200, 164, 93, 0.16);
+  backdrop-filter: blur(14px);
+}
+[data-theme='apocalypse'] .main-page__modal-title {
+  color: #e0c27a;
+  text-shadow: 0 0 12px rgba(200, 164, 93, 0.78), 0 0 28px rgba(44, 92, 255, 0.40);
+}
+[data-theme='apocalypse'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Cosmic dominion pulse keyframes */
+@keyframes apoc-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(233, 224, 200, 0.72),
+      0 0 16px rgba(78, 219, 255, 0.80),
+      0 0 32px rgba(44, 92, 255, 0.52);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(233, 224, 200, 0.92),
+      0 0 26px rgba(78, 219, 255, 1.00),
+      0 0 52px rgba(44, 92, 255, 0.78),
+      0 0 5px #4edbff;
+  }
+}
+@keyframes apoc-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(233, 224, 200, 0.72),
+      0 0 16px rgba(200, 164, 93, 0.80),
+      0 0 32px rgba(91, 42, 168, 0.48);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(233, 224, 200, 0.92),
+      0 0 26px rgba(200, 164, 93, 1.00),
+      0 0 50px rgba(91, 42, 168, 0.70),
+      0 0 5px #c8a45d;
+  }
+}
+@keyframes apoc-pip-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(78, 219, 255, 0.62), 0 0 5px #4edbff; }
+  50%       { box-shadow: 0 0 22px rgba(78, 219, 255, 0.94), 0 0 10px #4edbff, 0 0 4px #c8a45d; }
+}
