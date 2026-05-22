@@ -22,6 +22,9 @@
 .anim-theme-bg--dark-dimension.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030008 0%, #2a063f 40%, #1a0030 70%, #030008 100%);
 }
+.anim-theme-bg--dracula.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #030305 0%, #0b0709 40%, #1a0408 70%, #030305 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }
