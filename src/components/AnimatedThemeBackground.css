@@ -34,6 +34,9 @@
 .anim-theme-bg--midnight-sons.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02040a 0%, #07162a 40%, #102f4f 70%, #02040a 100%);
 }
+.anim-theme-bg--thunderbolts.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #030405 0%, #0b0d10 40%, #1a0608 70%, #030405 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }
