@@ -3641,3 +3641,438 @@
   0%, 100% { text-shadow: 0 0 16px rgba(230, 224, 208, 0.55), 0 0 6px rgba(74, 127, 193, 0.55); }
   50%       { text-shadow: 0 0 26px rgba(230, 224, 208, 0.80), 0 0 12px rgba(74, 127, 193, 0.80), 0 0 4px #c8dff5; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   CONVOCATION — arcane sorcerer dimensional HUD.
+   Void-black base, astral violet & cyan portals, runic gold accents,
+   glassmorphic translucent panels, sacred-geometry overlays.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='convocation'] {
+  --color-bg: transparent;
+  --color-panel: rgba(12, 5, 28, 0.80);
+  --color-panel-alt: rgba(18, 6, 38, 0.88);
+  --color-border: rgba(123, 44, 255, 0.55);
+  --color-accent-left: #45e7ff;
+  --color-accent-right: #ff9f1c;
+  --color-glow-left: rgba(69, 231, 255, 0.48);
+  --color-glow-right: rgba(255, 159, 28, 0.42);
+  --color-text: #f4ecff;
+  --color-text-muted: #7a5ea8;
+  --color-warn: #f6c85f;
+  --color-critical: #e040fb;
+  --color-success: #45e7ff;
+  --color-round-active: #7b2cff;
+  --color-round-inactive: rgba(123, 44, 255, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.44);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='convocation'] body { background: transparent; }
+[data-theme='convocation'] .layout { background: transparent; }
+
+/* Sacred geometry fine lines on layout */
+[data-theme='convocation'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 40px,
+      rgba(123, 44, 255, 0.025) 40px,
+      rgba(123, 44, 255, 0.025) 41px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      transparent,
+      transparent 40px,
+      rgba(69, 231, 255, 0.018) 40px,
+      rgba(69, 231, 255, 0.018) 41px
+    );
+}
+
+/* Video overlay — deep void with violet/cyan radial portal glows */
+[data-theme='convocation'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 35%, rgba(123, 44, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(255, 159, 28, 0.18), transparent 38%),
+    radial-gradient(circle at 50% 10%, rgba(69, 231, 255, 0.14), transparent 35%),
+    rgba(0, 0, 0, 0.55);
+}
+
+/* Panels — arcane crystal plates with violet border glow */
+[data-theme='convocation'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(123, 44, 255, 0.50);
+  box-shadow:
+    0 0 16px rgba(123, 44, 255, 0.18),
+    inset 0 0 24px rgba(69, 231, 255, 0.05),
+    inset 0 0 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+}
+[data-theme='convocation'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(123, 44, 255, 0.14),
+    rgba(69, 231, 255, 0.06),
+    rgba(255, 159, 28, 0.06)
+  );
+}
+[data-theme='convocation'] .glow-left {
+  border-color: rgba(69, 231, 255, 0.55);
+  box-shadow: -2px 0 18px rgba(69, 231, 255, 0.35), 0 0 12px rgba(69, 231, 255, 0.14);
+}
+[data-theme='convocation'] .glow-right {
+  border-color: rgba(255, 159, 28, 0.55);
+  box-shadow: 2px 0 18px rgba(255, 159, 28, 0.32), 0 0 12px rgba(255, 159, 28, 0.12);
+}
+
+/* Buttons — arcane HUD buttons */
+[data-theme='convocation'] .btn-hud {
+  background: rgba(12, 5, 28, 0.88);
+  border-color: rgba(246, 200, 95, 0.45);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='convocation'] .btn-hud:hover {
+  border-color: var(--color-warn);
+  box-shadow: 0 0 12px rgba(255, 159, 28, 0.45), 0 0 24px rgba(123, 44, 255, 0.28);
+  color: var(--color-warn);
+}
+[data-theme='convocation'] .btn-hud.active {
+  border-color: var(--color-warn);
+  color: var(--color-warn);
+  box-shadow: 0 0 12px rgba(246, 200, 95, 0.45);
+}
+[data-theme='convocation'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='convocation'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — void grimoire sidebar */
+[data-theme='convocation'] .side-nav {
+  background: rgba(8, 3, 18, 0.96);
+  border-right-color: rgba(123, 44, 255, 0.42);
+  backdrop-filter: blur(10px);
+}
+[data-theme='convocation'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(123, 44, 255, 0.65) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='convocation'] .side-nav__logo-text {
+  text-shadow:
+    0 0 10px rgba(123, 44, 255, 0.80),
+    0 0 22px rgba(69, 231, 255, 0.40);
+}
+[data-theme='convocation'] .side-nav__item:hover {
+  background: rgba(123, 44, 255, 0.10);
+  border-color: rgba(123, 44, 255, 0.45);
+}
+[data-theme='convocation'] .side-nav__item.active {
+  background: rgba(123, 44, 255, 0.16);
+  border-color: #7b2cff;
+  color: #c8a0ff;
+  box-shadow: 0 0 10px rgba(123, 44, 255, 0.45);
+}
+
+/* Score panels — arcane crystals */
+[data-theme='convocation'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(8px);
+}
+[data-theme='convocation'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #1a6cff, #45e7ff);
+  box-shadow: 0 0 8px rgba(69, 231, 255, 0.75);
+}
+[data-theme='convocation'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #c8700e, #ff9f1c);
+  box-shadow: 0 0 8px rgba(255, 159, 28, 0.70);
+}
+[data-theme='convocation'] .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(244, 236, 255, 0.80),
+    0 0 18px rgba(69, 231, 255, 0.70),
+    0 0 32px rgba(123, 44, 255, 0.40);
+  animation: conv-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='convocation'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(244, 236, 255, 0.80),
+    0 0 18px rgba(255, 159, 28, 0.70),
+    0 0 32px rgba(246, 200, 95, 0.40);
+  animation: conv-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='convocation'] .score-panel__btn {
+  background: rgba(12, 5, 28, 0.92);
+  border-color: rgba(123, 44, 255, 0.38);
+}
+[data-theme='convocation'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer — arcane chronometer */
+[data-theme='convocation'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(8px);
+  border-color: rgba(123, 44, 255, 0.52);
+}
+[data-theme='convocation'] .timer-panel::before {
+  background: linear-gradient(
+    90deg,
+    rgba(123, 44, 255, 0.18),
+    rgba(69, 231, 255, 0.10),
+    rgba(255, 159, 28, 0.08)
+  );
+}
+[data-theme='convocation'] .timer-panel__display {
+  color: #c8a0ff;
+  text-shadow:
+    0 0 10px rgba(200, 160, 255, 0.75),
+    0 0 20px rgba(123, 44, 255, 0.55),
+    0 0 6px rgba(69, 231, 255, 0.30);
+}
+[data-theme='convocation'] .timer-panel--critical {
+  border-color: rgba(224, 64, 251, 0.85) !important;
+  box-shadow: 0 0 22px rgba(224, 64, 251, 0.50), 0 0 45px rgba(224, 64, 251, 0.20) !important;
+}
+[data-theme='convocation'] .timer-panel__display.critical {
+  color: #e040fb;
+  text-shadow: 0 0 14px rgba(224, 64, 251, 0.90), 0 0 30px rgba(224, 64, 251, 0.50);
+}
+[data-theme='convocation'] .timer-panel__btn {
+  background: rgba(12, 5, 28, 0.92);
+  border-color: rgba(123, 44, 255, 0.38);
+  color: #c8a0ff;
+}
+[data-theme='convocation'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px rgba(123, 44, 255, 0.55);
+}
+
+/* Round tracker — invocation seals */
+[data-theme='convocation'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(8px);
+  border-color: rgba(123, 44, 255, 0.42);
+}
+[data-theme='convocation'] .round-tracker__pip {
+  border-color: rgba(123, 44, 255, 0.28);
+  background: rgba(12, 5, 28, 0.60);
+}
+[data-theme='convocation'] .round-tracker__pip.active {
+  border-color: rgba(123, 44, 255, 0.55);
+  background: rgba(123, 44, 255, 0.12);
+}
+[data-theme='convocation'] .round-tracker__pip.current {
+  border-color: #7b2cff;
+  box-shadow: 0 0 12px rgba(123, 44, 255, 0.65), 0 0 5px #7b2cff;
+  animation: conv-pip-pulse 2s ease-in-out infinite;
+}
+
+/* Mission slots — arcane parchment plates */
+[data-theme='convocation'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(8px);
+  border-color: rgba(123, 44, 255, 0.42);
+  box-shadow:
+    inset 0 0 20px rgba(69, 231, 255, 0.05),
+    inset 0 0 40px rgba(0, 0, 0, 0.40);
+}
+[data-theme='convocation'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='convocation'] .mission-item {
+  background: rgba(12, 5, 28, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='convocation'] .mission-item:hover {
+  background: rgba(123, 44, 255, 0.08);
+  border-color: rgba(123, 44, 255, 0.55);
+}
+[data-theme='convocation'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.20);
+  border-color: rgba(26, 143, 255, 0.72);
+  box-shadow: 0 0 12px rgba(26, 143, 255, 0.32);
+}
+[data-theme='convocation'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.20);
+  border-color: rgba(255, 47, 47, 0.72);
+  box-shadow: 0 0 12px rgba(255, 47, 47, 0.32);
+}
+
+/* Leader hex (main screen) */
+[data-theme='convocation'] .leader-hex__name {
+  background: rgba(12, 5, 28, 0.90);
+  border-color: rgba(123, 44, 255, 0.40);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — portal hexagonal frames */
+[data-theme='convocation'] .leader-card {
+  background: rgba(12, 5, 28, 0.82);
+  border-color: rgba(123, 44, 255, 0.28);
+  backdrop-filter: blur(5px);
+}
+[data-theme='convocation'] .leader-card:hover {
+  border-color: rgba(123, 44, 255, 0.60);
+  box-shadow: 0 0 12px rgba(123, 44, 255, 0.24);
+}
+[data-theme='convocation'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='convocation'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='convocation'] .leaders-page__header,
+[data-theme='convocation'] .missions-page__header {
+  background: rgba(8, 3, 18, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(123, 44, 255, 0.35);
+}
+[data-theme='convocation'] .leaders-page__search {
+  background: rgba(12, 5, 28, 0.90);
+  border-color: rgba(123, 44, 255, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='convocation'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='convocation'] .missions-page__body {
+  background: rgba(8, 3, 18, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='convocation'] .leaders-page__assign-btn {
+  background: rgba(12, 5, 28, 0.90);
+  border-color: rgba(123, 44, 255, 0.38);
+  backdrop-filter: blur(5px);
+}
+[data-theme='convocation'] .leaders-page__assign-btn.active-left {
+  background: rgba(69, 231, 255, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='convocation'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 159, 28, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='convocation'] .affil-btn {
+  background: rgba(12, 5, 28, 0.84);
+  border-color: rgba(123, 44, 255, 0.26);
+}
+[data-theme='convocation'] .affil-btn:hover { border-color: rgba(123, 44, 255, 0.55); }
+[data-theme='convocation'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(69, 231, 255, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='convocation'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(8px);
+  border-color: rgba(123, 44, 255, 0.38);
+}
+[data-theme='convocation'] .settings-section__title {
+  color: #c8a0ff;
+  background: rgba(18, 6, 38, 0.92);
+  border-bottom-color: rgba(123, 44, 255, 0.30);
+}
+[data-theme='convocation'] .settings-preset-btn.active,
+[data-theme='convocation'] .settings-theme-btn.active,
+[data-theme='convocation'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(69, 231, 255, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='convocation'] .settings-slider {
+  background: rgba(123, 44, 255, 0.20);
+}
+[data-theme='convocation'] .settings-slider::-webkit-slider-thumb {
+  background: #7b2cff;
+  box-shadow: 0 0 8px rgba(123, 44, 255, 0.70);
+}
+[data-theme='convocation'] .settings-slider::-moz-range-thumb {
+  background: #7b2cff;
+  box-shadow: 0 0 8px rgba(123, 44, 255, 0.70);
+}
+
+/* Reset modal */
+[data-theme='convocation'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.72); }
+[data-theme='convocation'] .main-page__modal {
+  background: rgba(12, 5, 28, 0.97);
+  border-color: rgba(123, 44, 255, 0.60);
+  box-shadow: 0 0 32px rgba(123, 44, 255, 0.28), 0 0 60px rgba(69, 231, 255, 0.10);
+  backdrop-filter: blur(14px);
+}
+[data-theme='convocation'] .main-page__modal-title {
+  color: #c8a0ff;
+  text-shadow: 0 0 12px rgba(123, 44, 255, 0.70), 0 0 24px rgba(69, 231, 255, 0.30);
+}
+[data-theme='convocation'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Arcane pulse keyframes */
+@keyframes conv-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(244, 236, 255, 0.80),
+      0 0 18px rgba(69, 231, 255, 0.70),
+      0 0 32px rgba(123, 44, 255, 0.40);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(244, 236, 255, 1.00),
+      0 0 26px rgba(69, 231, 255, 0.95),
+      0 0 48px rgba(123, 44, 255, 0.65),
+      0 0 5px #45e7ff;
+  }
+}
+@keyframes conv-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(244, 236, 255, 0.80),
+      0 0 18px rgba(255, 159, 28, 0.70),
+      0 0 32px rgba(246, 200, 95, 0.40);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(244, 236, 255, 1.00),
+      0 0 26px rgba(255, 159, 28, 0.95),
+      0 0 48px rgba(246, 200, 95, 0.65),
+      0 0 5px #ff9f1c;
+  }
+}
+@keyframes conv-pip-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(123, 44, 255, 0.60), 0 0 4px #7b2cff; }
+  50%       { box-shadow: 0 0 18px rgba(123, 44, 255, 0.90), 0 0 8px #7b2cff, 0 0 3px #45e7ff; }
+}
