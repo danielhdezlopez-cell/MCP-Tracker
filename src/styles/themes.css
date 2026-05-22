@@ -4890,3 +4890,423 @@
   0%, 100% { box-shadow: 0 0 10px rgba(177, 18, 38, 0.60), 0 0 4px #b11226; }
   50%       { box-shadow: 0 0 20px rgba(177, 18, 38, 0.90), 0 0 8px #b11226, 0 0 3px #e8b4bc; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   HELLFIRE CLUB — secret aristocratic society HUD.
+   Marble-black base, velvet red & old gold palette, ivory text,
+   fire-orange warn, chess-motif geometry, slow opulent pulse.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='hellfire-club'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 6, 7, 0.88);
+  --color-panel-alt: rgba(11, 9, 10, 0.94);
+  --color-border: rgba(196, 154, 69, 0.50);
+  --color-accent-left: #8b0f1a;
+  --color-accent-right: #c49a45;
+  --color-glow-left: rgba(139, 15, 26, 0.55);
+  --color-glow-right: rgba(196, 154, 69, 0.40);
+  --color-text: #eadfca;
+  --color-text-muted: #7a6a50;
+  --color-warn: #ff6a1a;
+  --color-critical: #8b0f1a;
+  --color-success: #c49a45;
+  --color-round-active: #c49a45;
+  --color-round-inactive: rgba(196, 154, 69, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.42);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='hellfire-club'] body { background: transparent; }
+[data-theme='hellfire-club'] .layout { background: transparent; }
+
+/* Subtle chess-board diagonal geometry on layout */
+[data-theme='hellfire-club'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 32px,
+      rgba(196, 154, 69, 0.022) 32px,
+      rgba(196, 154, 69, 0.022) 33px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 32px,
+      rgba(139, 15, 26, 0.018) 32px,
+      rgba(139, 15, 26, 0.018) 33px
+    );
+}
+
+/* Video overlay — club firelight with red/gold glows */
+[data-theme='hellfire-club'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 18% 38%, rgba(139, 15, 26, 0.22), transparent 38%),
+    radial-gradient(circle at 82% 58%, rgba(196, 154, 69, 0.16), transparent 36%),
+    radial-gradient(circle at 50% 92%, rgba(255, 106, 26, 0.10), transparent 28%),
+    rgba(0, 0, 0, 0.60);
+}
+
+/* Panels — black marble / dark lacquered wood */
+[data-theme='hellfire-club'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(196, 154, 69, 0.46);
+  box-shadow:
+    0 0 16px rgba(139, 15, 26, 0.18),
+    0 0 32px rgba(196, 154, 69, 0.10),
+    inset 0 0 26px rgba(196, 154, 69, 0.04),
+    inset 0 0 55px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(7px);
+}
+[data-theme='hellfire-club'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(11, 9, 10, 0.90),
+    rgba(3, 3, 4, 0.94),
+    rgba(196, 154, 69, 0.06)
+  );
+}
+[data-theme='hellfire-club'] .glow-left {
+  border-color: rgba(139, 15, 26, 0.58);
+  box-shadow: -2px 0 16px rgba(139, 15, 26, 0.36), 0 0 12px rgba(139, 15, 26, 0.14);
+}
+[data-theme='hellfire-club'] .glow-right {
+  border-color: rgba(196, 154, 69, 0.55);
+  box-shadow: 2px 0 16px rgba(196, 154, 69, 0.30), 0 0 12px rgba(196, 154, 69, 0.12);
+}
+
+/* Buttons — aged metal / dark leather */
+[data-theme='hellfire-club'] .btn-hud {
+  background: rgba(8, 6, 7, 0.92);
+  border-color: rgba(196, 154, 69, 0.42);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hellfire-club'] .btn-hud:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 12px rgba(196, 154, 69, 0.48), 0 0 22px rgba(139, 15, 26, 0.28);
+  color: var(--color-accent-right);
+}
+[data-theme='hellfire-club'] .btn-hud.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px rgba(196, 154, 69, 0.48);
+}
+[data-theme='hellfire-club'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='hellfire-club'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — private club corridor */
+[data-theme='hellfire-club'] .side-nav {
+  background: rgba(4, 3, 4, 0.97);
+  border-right-color: rgba(196, 154, 69, 0.36);
+  backdrop-filter: blur(10px);
+}
+[data-theme='hellfire-club'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(139, 15, 26, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='hellfire-club'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(196, 154, 69, 0.80),
+    0 0 20px rgba(139, 15, 26, 0.45);
+}
+[data-theme='hellfire-club'] .side-nav__item:hover {
+  background: rgba(196, 154, 69, 0.07);
+  border-color: rgba(196, 154, 69, 0.36);
+}
+[data-theme='hellfire-club'] .side-nav__item.active {
+  background: rgba(139, 15, 26, 0.14);
+  border-color: #8b0f1a;
+  color: #e8c87a;
+  box-shadow: 0 0 10px rgba(139, 15, 26, 0.45);
+}
+
+/* Score panels */
+[data-theme='hellfire-club'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='hellfire-club'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #4a050b, #8b0f1a);
+  box-shadow: 0 0 8px rgba(139, 15, 26, 0.75);
+}
+[data-theme='hellfire-club'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #6a4e18, #c49a45);
+  box-shadow: 0 0 8px rgba(196, 154, 69, 0.65);
+}
+[data-theme='hellfire-club'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(234, 223, 202, 0.75),
+    0 0 16px rgba(139, 15, 26, 0.75),
+    0 0 28px rgba(196, 154, 69, 0.35);
+  animation: hfc-pulse-left 3.2s ease-in-out infinite;
+}
+[data-theme='hellfire-club'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(234, 223, 202, 0.75),
+    0 0 16px rgba(196, 154, 69, 0.70),
+    0 0 28px rgba(143, 106, 42, 0.40);
+  animation: hfc-pulse-right 3.2s ease-in-out infinite;
+}
+[data-theme='hellfire-club'] .score-panel__btn {
+  background: rgba(8, 6, 7, 0.94);
+  border-color: rgba(196, 154, 69, 0.32);
+}
+[data-theme='hellfire-club'] .score-panel__btn:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Timer — aristocratic salon clock */
+[data-theme='hellfire-club'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(196, 154, 69, 0.42);
+}
+[data-theme='hellfire-club'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(139, 15, 26, 0.14), rgba(196, 154, 69, 0.08), transparent);
+}
+[data-theme='hellfire-club'] .timer-panel__display {
+  color: #eadfca;
+  text-shadow:
+    0 0 8px rgba(234, 223, 202, 0.65),
+    0 0 18px rgba(196, 154, 69, 0.38),
+    0 0 5px rgba(139, 15, 26, 0.22);
+}
+[data-theme='hellfire-club'] .timer-panel--critical {
+  border-color: rgba(139, 15, 26, 0.85) !important;
+  box-shadow: 0 0 22px rgba(139, 15, 26, 0.50), 0 0 45px rgba(74, 5, 11, 0.22) !important;
+}
+[data-theme='hellfire-club'] .timer-panel__display.critical {
+  color: #e8b4bc;
+  text-shadow: 0 0 14px rgba(139, 15, 26, 0.90), 0 0 32px rgba(74, 5, 11, 0.55);
+}
+[data-theme='hellfire-club'] .timer-panel__btn {
+  background: rgba(8, 6, 7, 0.94);
+  border-color: rgba(196, 154, 69, 0.30);
+  color: #eadfca;
+}
+[data-theme='hellfire-club'] .timer-panel__btn:hover { box-shadow: 0 0 8px rgba(196, 154, 69, 0.45); }
+
+/* Round tracker — secret society medallions */
+[data-theme='hellfire-club'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(196, 154, 69, 0.34);
+}
+[data-theme='hellfire-club'] .round-tracker__pip {
+  border-color: rgba(196, 154, 69, 0.25);
+  background: rgba(8, 6, 7, 0.65);
+}
+[data-theme='hellfire-club'] .round-tracker__pip.active {
+  border-color: rgba(196, 154, 69, 0.52);
+  background: rgba(196, 154, 69, 0.10);
+}
+[data-theme='hellfire-club'] .round-tracker__pip.current {
+  border-color: #c49a45;
+  box-shadow: 0 0 12px rgba(196, 154, 69, 0.65), 0 0 4px #c49a45;
+  animation: hfc-pip-pulse 2.8s ease-in-out infinite;
+}
+
+/* Mission slots — secret invitation / club placard */
+[data-theme='hellfire-club'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(196, 154, 69, 0.40);
+  box-shadow:
+    inset 0 0 20px rgba(196, 154, 69, 0.04),
+    inset 0 0 44px rgba(0, 0, 0, 0.55);
+}
+[data-theme='hellfire-club'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='hellfire-club'] .mission-item { background: rgba(8, 6, 7, 0.84); backdrop-filter: blur(4px); }
+[data-theme='hellfire-club'] .mission-item:hover {
+  background: rgba(196, 154, 69, 0.06);
+  border-color: rgba(196, 154, 69, 0.50);
+}
+[data-theme='hellfire-club'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.70);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='hellfire-club'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.70);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='hellfire-club'] .leader-hex__name {
+  background: rgba(8, 6, 7, 0.92);
+  border-color: rgba(196, 154, 69, 0.36);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — ornate dark frames */
+[data-theme='hellfire-club'] .leader-card {
+  background: rgba(8, 6, 7, 0.86);
+  border-color: rgba(196, 154, 69, 0.22);
+  backdrop-filter: blur(5px);
+}
+[data-theme='hellfire-club'] .leader-card:hover {
+  border-color: rgba(196, 154, 69, 0.55);
+  box-shadow: 0 0 12px rgba(196, 154, 69, 0.20);
+}
+[data-theme='hellfire-club'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='hellfire-club'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='hellfire-club'] .leaders-page__header,
+[data-theme='hellfire-club'] .missions-page__header {
+  background: rgba(4, 3, 4, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(196, 154, 69, 0.30);
+}
+[data-theme='hellfire-club'] .leaders-page__search {
+  background: rgba(8, 6, 7, 0.92);
+  border-color: rgba(196, 154, 69, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='hellfire-club'] .leaders-page__search:focus {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+[data-theme='hellfire-club'] .missions-page__body { background: rgba(4, 3, 4, 0.76); }
+
+/* Assign buttons */
+[data-theme='hellfire-club'] .leaders-page__assign-btn {
+  background: rgba(8, 6, 7, 0.92);
+  border-color: rgba(196, 154, 69, 0.30);
+  backdrop-filter: blur(5px);
+}
+[data-theme='hellfire-club'] .leaders-page__assign-btn.active-left {
+  background: rgba(139, 15, 26, 0.14);
+  border-color: var(--color-accent-left);
+  color: #e8b4bc;
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='hellfire-club'] .leaders-page__assign-btn.active-right {
+  background: rgba(196, 154, 69, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='hellfire-club'] .affil-btn {
+  background: rgba(8, 6, 7, 0.86);
+  border-color: rgba(196, 154, 69, 0.22);
+}
+[data-theme='hellfire-club'] .affil-btn:hover { border-color: rgba(196, 154, 69, 0.52); }
+[data-theme='hellfire-club'] .affil-btn.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(196, 154, 69, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Settings */
+[data-theme='hellfire-club'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(196, 154, 69, 0.36);
+}
+[data-theme='hellfire-club'] .settings-section__title {
+  color: #e8c87a;
+  background: rgba(11, 9, 10, 0.94);
+  border-bottom-color: rgba(196, 154, 69, 0.28);
+}
+[data-theme='hellfire-club'] .settings-preset-btn.active,
+[data-theme='hellfire-club'] .settings-theme-btn.active,
+[data-theme='hellfire-club'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  background: rgba(196, 154, 69, 0.10);
+  color: #e8c87a;
+}
+[data-theme='hellfire-club'] .settings-slider { background: rgba(196, 154, 69, 0.18); }
+[data-theme='hellfire-club'] .settings-slider::-webkit-slider-thumb {
+  background: #c49a45;
+  box-shadow: 0 0 8px rgba(196, 154, 69, 0.70);
+}
+[data-theme='hellfire-club'] .settings-slider::-moz-range-thumb {
+  background: #c49a45;
+  box-shadow: 0 0 8px rgba(196, 154, 69, 0.70);
+}
+
+/* Reset modal */
+[data-theme='hellfire-club'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.78); }
+[data-theme='hellfire-club'] .main-page__modal {
+  background: rgba(8, 6, 7, 0.98);
+  border-color: rgba(196, 154, 69, 0.60);
+  box-shadow:
+    0 0 30px rgba(139, 15, 26, 0.26),
+    0 0 55px rgba(196, 154, 69, 0.14);
+  backdrop-filter: blur(14px);
+}
+[data-theme='hellfire-club'] .main-page__modal-title {
+  color: #e8c87a;
+  text-shadow: 0 0 12px rgba(196, 154, 69, 0.70), 0 0 26px rgba(139, 15, 26, 0.35);
+}
+[data-theme='hellfire-club'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Opulent slow pulse keyframes */
+@keyframes hfc-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(234, 223, 202, 0.75),
+      0 0 16px rgba(139, 15, 26, 0.75),
+      0 0 28px rgba(196, 154, 69, 0.35);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(234, 223, 202, 0.95),
+      0 0 24px rgba(139, 15, 26, 1.00),
+      0 0 45px rgba(196, 154, 69, 0.55),
+      0 0 4px #e8b4bc;
+  }
+}
+@keyframes hfc-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(234, 223, 202, 0.75),
+      0 0 16px rgba(196, 154, 69, 0.70),
+      0 0 28px rgba(143, 106, 42, 0.40);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(234, 223, 202, 0.95),
+      0 0 24px rgba(196, 154, 69, 1.00),
+      0 0 42px rgba(143, 106, 42, 0.60),
+      0 0 4px #f0d080;
+  }
+}
+@keyframes hfc-pip-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(196, 154, 69, 0.60), 0 0 4px #c49a45; }
+  50%       { box-shadow: 0 0 18px rgba(196, 154, 69, 0.90), 0 0 8px #c49a45, 0 0 3px #8b0f1a; }
+}

@@ -25,6 +25,9 @@
 .anim-theme-bg--dracula.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030305 0%, #0b0709 40%, #1a0408 70%, #030305 100%);
 }
+.anim-theme-bg--hellfire-club.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #030304 0%, #0b090a 40%, #1e0d08 70%, #030304 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }
