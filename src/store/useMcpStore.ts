@@ -64,13 +64,35 @@ interface McpState {
 
 function getThemeFromLeader(leader: Leader): Theme | null {
   const { name, affiliations } = leader;
-  if (name === 'Miles Morales') return 'miles-morales';
-  if (name === 'Amazing Spider-Man') return 'spider-man';
-  if (affiliations.includes('Asgard')) return 'asgard';
-  if (affiliations.includes('Hydra')) return 'hydra';
-  if (affiliations.includes('S.H.I.E.L.D.')) return 'shield';
-  if (affiliations.includes('Black Order')) return 'thanos';
-  if (affiliations.includes('Cabal')) return 'ultron';
+
+  // Special cases by leader (checked before affiliation rules)
+  if (affiliations.includes('Avengers') && name.toLowerCase().includes('captain america')) {
+    return 'cap-first-avenger';
+  }
+  if (affiliations.includes('Avengers') && name === 'Hulkbuster') {
+    return 'hulkbuster';
+  }
+
+  // Affiliation-based rules
+  if (affiliations.includes('Apocalypse'))     return 'apocalypse';
+  if (affiliations.includes('Convocation'))    return 'convocation';
+  if (affiliations.includes('Dark Dimension')) return 'dark-dimension';
+  if (affiliations.includes('Dracula'))        return 'dracula';
+  if (affiliations.includes('Hellfire Club'))  return 'hellfire-club';
+  if (affiliations.includes('Mephisto'))       return 'mephisto';
+  if (affiliations.includes('Midnight Sons'))  return 'midnight-sons';
+  if (affiliations.includes('Weapon X'))       return 'weapon-x';
+  if (affiliations.includes('Thunderbolts'))   return 'thunderbolts';
+
+  // Legacy affiliation rules
+  if (name === 'Miles Morales')                return 'miles-morales';
+  if (name === 'Amazing Spider-Man')           return 'spider-man';
+  if (affiliations.includes('Asgard'))         return 'asgard';
+  if (affiliations.includes('Hydra'))          return 'hydra';
+  if (affiliations.includes('S.H.I.E.L.D.'))  return 'shield';
+  if (affiliations.includes('Black Order'))    return 'thanos';
+  if (affiliations.includes('Cabal'))          return 'ultron';
+
   return null;
 }
 
