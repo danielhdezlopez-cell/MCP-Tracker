@@ -12,6 +12,10 @@ function labelSizeClass(label: string): string {
   return '';
 }
 
+const SORTED_AFFILIATIONS = [...AFFILIATIONS].sort((a, b) =>
+  getAffilDisplay(a).localeCompare(getAffilDisplay(b))
+);
+
 export function AffiliationFilter({ selected, onSelect }: AffiliationFilterProps) {
   return (
     <div className="affiliation-filter">
@@ -21,7 +25,7 @@ export function AffiliationFilter({ selected, onSelect }: AffiliationFilterProps
       >
         ALL
       </button>
-      {AFFILIATIONS.map(aff => {
+      {SORTED_AFFILIATIONS.map(aff => {
         const label = getAffilDisplay(aff);
         return (
           <button
