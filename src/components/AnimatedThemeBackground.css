@@ -13,6 +13,9 @@
 }
 
 /* Fallback gradients — one per video theme */
+.anim-theme-bg--cap-first-avenger.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #06111f 0%, #102a54 40%, #0d2045 70%, #06111f 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }
