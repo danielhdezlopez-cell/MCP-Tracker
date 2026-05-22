@@ -4,6 +4,7 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
+  { value: 'apocalypse',       label: 'Apocalypse',      desc: 'Ancient cosmic dominion — blue & gold HUD'      },
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },
   { value: 'convocation',      label: 'Convocation',     desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
