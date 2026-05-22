@@ -5310,3 +5310,423 @@
   0%, 100% { box-shadow: 0 0 10px rgba(196, 154, 69, 0.60), 0 0 4px #c49a45; }
   50%       { box-shadow: 0 0 18px rgba(196, 154, 69, 0.90), 0 0 8px #c49a45, 0 0 3px #8b0f1a; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   MEPHISTO — infernal demon lord HUD.
+   Abyss-black base, infernal red & fire orange, ember amber accents,
+   charred metal panels, lava-crack geometry, aggressive hellfire pulse.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='mephisto'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 4, 4, 0.88);
+  --color-panel-alt: rgba(12, 6, 5, 0.94);
+  --color-border: rgba(215, 25, 32, 0.55);
+  --color-accent-left: #d71920;
+  --color-accent-right: #ff5a14;
+  --color-glow-left: rgba(215, 25, 32, 0.58);
+  --color-glow-right: rgba(255, 90, 20, 0.50);
+  --color-text: #f2dcc2;
+  --color-text-muted: #7a4a38;
+  --color-warn: #ffb347;
+  --color-critical: #d71920;
+  --color-success: #ff5a14;
+  --color-round-active: #ff5a14;
+  --color-round-inactive: rgba(215, 25, 32, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.42);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='mephisto'] body { background: transparent; }
+[data-theme='mephisto'] .layout { background: transparent; }
+
+/* Lava-crack diagonal geometry on layout */
+[data-theme='mephisto'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent,
+      transparent 42px,
+      rgba(215, 25, 32, 0.022) 42px,
+      rgba(215, 25, 32, 0.022) 43px
+    ),
+    repeating-linear-gradient(
+      35deg,
+      transparent,
+      transparent 58px,
+      rgba(255, 90, 20, 0.016) 58px,
+      rgba(255, 90, 20, 0.016) 59px
+    );
+}
+
+/* Video overlay — hellfire with red/orange portal glows */
+[data-theme='mephisto'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 40%, rgba(215, 25, 32, 0.26), transparent 40%),
+    radial-gradient(circle at 80% 55%, rgba(255, 90, 20, 0.20), transparent 38%),
+    radial-gradient(circle at 50% 92%, rgba(255, 179, 71, 0.12), transparent 30%),
+    rgba(0, 0, 0, 0.60);
+}
+
+/* Panels — charred metal / burnt infernal plates */
+[data-theme='mephisto'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(215, 25, 32, 0.50);
+  box-shadow:
+    0 0 18px rgba(215, 25, 32, 0.22),
+    0 0 36px rgba(255, 90, 20, 0.12),
+    inset 0 0 26px rgba(255, 90, 20, 0.06),
+    inset 0 0 52px rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(7px);
+}
+[data-theme='mephisto'] .panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(8, 4, 4, 0.92),
+    rgba(2, 2, 2, 0.96),
+    rgba(255, 90, 20, 0.05)
+  );
+}
+[data-theme='mephisto'] .glow-left {
+  border-color: rgba(215, 25, 32, 0.62);
+  box-shadow: -2px 0 18px rgba(215, 25, 32, 0.42), 0 0 12px rgba(215, 25, 32, 0.16);
+}
+[data-theme='mephisto'] .glow-right {
+  border-color: rgba(255, 90, 20, 0.58);
+  box-shadow: 2px 0 18px rgba(255, 90, 20, 0.38), 0 0 12px rgba(255, 90, 20, 0.14);
+}
+
+/* Buttons — burnt infernal metal */
+[data-theme='mephisto'] .btn-hud {
+  background: rgba(8, 4, 4, 0.92);
+  border-color: rgba(255, 90, 20, 0.44);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='mephisto'] .btn-hud:hover {
+  border-color: var(--color-warn);
+  box-shadow: 0 0 12px rgba(255, 179, 71, 0.48), 0 0 24px rgba(215, 25, 32, 0.30);
+  color: var(--color-warn);
+}
+[data-theme='mephisto'] .btn-hud.active {
+  border-color: var(--color-warn);
+  color: var(--color-warn);
+  box-shadow: 0 0 10px rgba(255, 179, 71, 0.50);
+}
+[data-theme='mephisto'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='mephisto'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — hellfire corridor */
+[data-theme='mephisto'] .side-nav {
+  background: rgba(4, 2, 2, 0.98);
+  border-right-color: rgba(215, 25, 32, 0.42);
+  backdrop-filter: blur(10px);
+}
+[data-theme='mephisto'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(215, 25, 32, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='mephisto'] .side-nav__logo-text {
+  text-shadow:
+    0 0 8px rgba(215, 25, 32, 0.90),
+    0 0 20px rgba(255, 90, 20, 0.50);
+}
+[data-theme='mephisto'] .side-nav__item:hover {
+  background: rgba(215, 25, 32, 0.09);
+  border-color: rgba(215, 25, 32, 0.42);
+}
+[data-theme='mephisto'] .side-nav__item.active {
+  background: rgba(215, 25, 32, 0.16);
+  border-color: #d71920;
+  color: #ffb08a;
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.48);
+}
+
+/* Score panels */
+[data-theme='mephisto'] .score-panel { background: var(--color-panel); backdrop-filter: blur(7px); }
+[data-theme='mephisto'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #6b0008, #d71920);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.80);
+}
+[data-theme='mephisto'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #a03010, #ff5a14);
+  box-shadow: 0 0 10px rgba(255, 90, 20, 0.75);
+}
+[data-theme='mephisto'] .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(242, 220, 194, 0.75),
+    0 0 16px rgba(215, 25, 32, 0.85),
+    0 0 32px rgba(255, 90, 20, 0.50);
+  animation: mph-pulse-left 2.8s ease-in-out infinite;
+}
+[data-theme='mephisto'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 6px rgba(242, 220, 194, 0.75),
+    0 0 16px rgba(255, 90, 20, 0.85),
+    0 0 32px rgba(255, 179, 71, 0.45);
+  animation: mph-pulse-right 2.8s ease-in-out infinite;
+}
+[data-theme='mephisto'] .score-panel__btn {
+  background: rgba(8, 4, 4, 0.95);
+  border-color: rgba(215, 25, 32, 0.36);
+}
+[data-theme='mephisto'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — infernal pact counter */
+[data-theme='mephisto'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.52);
+}
+[data-theme='mephisto'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.18), rgba(255, 90, 20, 0.10), rgba(255, 179, 71, 0.07));
+}
+[data-theme='mephisto'] .timer-panel__display {
+  color: #ffb08a;
+  text-shadow:
+    0 0 8px rgba(255, 176, 138, 0.75),
+    0 0 18px rgba(215, 25, 32, 0.60),
+    0 0 6px rgba(255, 90, 20, 0.35);
+}
+[data-theme='mephisto'] .timer-panel--critical {
+  border-color: rgba(215, 25, 32, 0.92) !important;
+  box-shadow: 0 0 24px rgba(215, 25, 32, 0.58), 0 0 50px rgba(107, 0, 8, 0.24) !important;
+}
+[data-theme='mephisto'] .timer-panel__display.critical {
+  color: #ff4444;
+  text-shadow: 0 0 16px rgba(215, 25, 32, 0.95), 0 0 36px rgba(107, 0, 8, 0.60);
+}
+[data-theme='mephisto'] .timer-panel__btn {
+  background: rgba(8, 4, 4, 0.95);
+  border-color: rgba(215, 25, 32, 0.36);
+  color: #ffb08a;
+}
+[data-theme='mephisto'] .timer-panel__btn:hover { box-shadow: 0 0 10px rgba(215, 25, 32, 0.55); }
+
+/* Round tracker — demonic pact seals */
+[data-theme='mephisto'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.38);
+}
+[data-theme='mephisto'] .round-tracker__pip {
+  border-color: rgba(215, 25, 32, 0.26);
+  background: rgba(8, 4, 4, 0.68);
+}
+[data-theme='mephisto'] .round-tracker__pip.active {
+  border-color: rgba(255, 90, 20, 0.52);
+  background: rgba(215, 25, 32, 0.12);
+}
+[data-theme='mephisto'] .round-tracker__pip.current {
+  border-color: #ff5a14;
+  box-shadow: 0 0 14px rgba(255, 90, 20, 0.70), 0 0 5px #ff5a14;
+  animation: mph-pip-pulse 2s ease-in-out infinite;
+}
+
+/* Mission slots — scorched infernal contracts */
+[data-theme='mephisto'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.44);
+  box-shadow:
+    inset 0 0 22px rgba(255, 90, 20, 0.06),
+    inset 0 0 46px rgba(0, 0, 0, 0.58);
+}
+[data-theme='mephisto'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='mephisto'] .mission-item { background: rgba(8, 4, 4, 0.84); backdrop-filter: blur(4px); }
+[data-theme='mephisto'] .mission-item:hover {
+  background: rgba(215, 25, 32, 0.08);
+  border-color: rgba(215, 25, 32, 0.55);
+}
+[data-theme='mephisto'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.70);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='mephisto'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.70);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='mephisto'] .leader-hex__name {
+  background: rgba(8, 4, 4, 0.93);
+  border-color: rgba(215, 25, 32, 0.40);
+  backdrop-filter: blur(5px);
+}
+
+/* Leader cards — infernal metal frames */
+[data-theme='mephisto'] .leader-card {
+  background: rgba(8, 4, 4, 0.87);
+  border-color: rgba(215, 25, 32, 0.26);
+  backdrop-filter: blur(5px);
+}
+[data-theme='mephisto'] .leader-card:hover {
+  border-color: rgba(255, 90, 20, 0.58);
+  box-shadow: 0 0 12px rgba(215, 25, 32, 0.24);
+}
+[data-theme='mephisto'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 18px var(--color-glow-left);
+}
+[data-theme='mephisto'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 18px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='mephisto'] .leaders-page__header,
+[data-theme='mephisto'] .missions-page__header {
+  background: rgba(4, 2, 2, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom-color: rgba(215, 25, 32, 0.36);
+}
+[data-theme='mephisto'] .leaders-page__search {
+  background: rgba(8, 4, 4, 0.93);
+  border-color: rgba(215, 25, 32, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(5px);
+}
+[data-theme='mephisto'] .leaders-page__search:focus {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+[data-theme='mephisto'] .missions-page__body { background: rgba(4, 2, 2, 0.78); }
+
+/* Assign buttons */
+[data-theme='mephisto'] .leaders-page__assign-btn {
+  background: rgba(8, 4, 4, 0.93);
+  border-color: rgba(215, 25, 32, 0.36);
+  backdrop-filter: blur(5px);
+}
+[data-theme='mephisto'] .leaders-page__assign-btn.active-left {
+  background: rgba(215, 25, 32, 0.14);
+  border-color: var(--color-accent-left);
+  color: #ffb08a;
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='mephisto'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 90, 20, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='mephisto'] .affil-btn {
+  background: rgba(8, 4, 4, 0.87);
+  border-color: rgba(215, 25, 32, 0.24);
+}
+[data-theme='mephisto'] .affil-btn:hover { border-color: rgba(255, 90, 20, 0.55); }
+[data-theme='mephisto'] .affil-btn.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(255, 90, 20, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Settings */
+[data-theme='mephisto'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(7px);
+  border-color: rgba(215, 25, 32, 0.40);
+}
+[data-theme='mephisto'] .settings-section__title {
+  color: #ffb08a;
+  background: rgba(12, 6, 5, 0.95);
+  border-bottom-color: rgba(215, 25, 32, 0.30);
+}
+[data-theme='mephisto'] .settings-preset-btn.active,
+[data-theme='mephisto'] .settings-theme-btn.active,
+[data-theme='mephisto'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+  background: rgba(255, 90, 20, 0.10);
+  color: #ffb08a;
+}
+[data-theme='mephisto'] .settings-slider { background: rgba(215, 25, 32, 0.20); }
+[data-theme='mephisto'] .settings-slider::-webkit-slider-thumb {
+  background: #d71920;
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.75);
+}
+[data-theme='mephisto'] .settings-slider::-moz-range-thumb {
+  background: #d71920;
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.75);
+}
+
+/* Reset modal */
+[data-theme='mephisto'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.78); }
+[data-theme='mephisto'] .main-page__modal {
+  background: rgba(8, 4, 4, 0.98);
+  border-color: rgba(215, 25, 32, 0.65);
+  box-shadow:
+    0 0 34px rgba(215, 25, 32, 0.32),
+    0 0 60px rgba(255, 90, 20, 0.14);
+  backdrop-filter: blur(14px);
+}
+[data-theme='mephisto'] .main-page__modal-title {
+  color: #ffb08a;
+  text-shadow: 0 0 12px rgba(215, 25, 32, 0.78), 0 0 28px rgba(255, 90, 20, 0.40);
+}
+[data-theme='mephisto'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Infernal hellfire pulse keyframes */
+@keyframes mph-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(242, 220, 194, 0.75),
+      0 0 16px rgba(215, 25, 32, 0.85),
+      0 0 32px rgba(255, 90, 20, 0.50);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(242, 220, 194, 0.95),
+      0 0 26px rgba(215, 25, 32, 1.00),
+      0 0 52px rgba(255, 90, 20, 0.75),
+      0 0 5px #ff4444;
+  }
+}
+@keyframes mph-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(242, 220, 194, 0.75),
+      0 0 16px rgba(255, 90, 20, 0.85),
+      0 0 32px rgba(255, 179, 71, 0.45);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(242, 220, 194, 0.95),
+      0 0 26px rgba(255, 90, 20, 1.00),
+      0 0 50px rgba(255, 179, 71, 0.70),
+      0 0 5px #ff5a14;
+  }
+}
+@keyframes mph-pip-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(255, 90, 20, 0.65), 0 0 5px #ff5a14; }
+  50%       { box-shadow: 0 0 22px rgba(255, 90, 20, 0.95), 0 0 10px #ff5a14, 0 0 4px #d71920; }
+}

@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'cap-first-avenger' | 'convocation' | 'dark-dimension' | 'dracula' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'shield' | 'asgard' | 'miles-morales' | 'spider-man' | 'thanos' | 'ultron';
+export type Theme = 'neon-blue' | 'comic-ink' | 'cap-first-avenger' | 'convocation' | 'dark-dimension' | 'dracula' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'mephisto' | 'shield' | 'asgard' | 'miles-morales' | 'spider-man' | 'thanos' | 'ultron';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -161,7 +161,7 @@ export const useMcpStore = create<McpState>()(
           state.interactiveBg = 'tech-hex';
         }
         // Migrate removed/unknown themes → shield
-        if (state && !(['cap-first-avenger', 'convocation', 'dark-dimension', 'dracula', 'hellfire-club', 'hulkbuster', 'hydra', 'shield', 'asgard', 'miles-morales', 'spider-man', 'thanos', 'ultron'] as string[]).includes(state.theme)) {
+        if (state && !(['cap-first-avenger', 'convocation', 'dark-dimension', 'dracula', 'hellfire-club', 'hulkbuster', 'hydra', 'mephisto', 'shield', 'asgard', 'miles-morales', 'spider-man', 'thanos', 'ultron'] as string[]).includes(state.theme)) {
           state.theme = 'shield';
         }
         // Tech Hex Grid disabled (no neon-blue theme in active set)
