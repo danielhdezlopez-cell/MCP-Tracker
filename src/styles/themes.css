@@ -2890,3 +2890,378 @@
 }
 [data-theme='miles-morales'] .main-page__modal-title { color: var(--color-accent-left); }
 [data-theme='miles-morales'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* ════════════════════════════════════════════════════════════════════
+   HULKBUSTER — heavy power-armor industrial HUD.
+   Black metal base, crimson armor accents, burnished gold trim,
+   arc-reactor blue highlights, semi-transparent panels.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='hulkbuster'] {
+  --color-bg: transparent;
+  --color-panel: rgba(7, 9, 12, 0.86);
+  --color-panel-alt: rgba(12, 4, 5, 0.92);
+  --color-border: rgba(245, 182, 66, 0.42);
+  --color-accent-left: #d32f2f;
+  --color-accent-right: #f5b642;
+  --color-glow-left: rgba(211, 47, 47, 0.50);
+  --color-glow-right: rgba(245, 182, 66, 0.40);
+  --color-text: #f0e6cc;
+  --color-text-muted: #8a6e48;
+  --color-warn: #ff7a18;
+  --color-critical: #ff2222;
+  --color-success: #52d8ff;
+  --color-round-active: #f5b642;
+  --color-round-inactive: rgba(245, 182, 66, 0.16);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.45);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.45);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so the fixed video shows through */
+[data-theme='hulkbuster'] body { background: transparent; }
+[data-theme='hulkbuster'] .layout { background: transparent; }
+
+/* Industrial rivet-line scanlines on layout */
+[data-theme='hulkbuster'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(211, 47, 47, 0.025) 3px,
+    rgba(211, 47, 47, 0.025) 4px
+  );
+}
+
+/* Video overlay — dark vignette with red/gold radial glows */
+[data-theme='hulkbuster'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 30%, rgba(211, 47, 47, 0.22), transparent 38%),
+    radial-gradient(circle at 85% 65%, rgba(245, 182, 66, 0.16), transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(82, 216, 255, 0.06), transparent 45%),
+    rgba(0, 0, 0, 0.52);
+}
+
+/* Panels — dark metal with gold border glow */
+[data-theme='hulkbuster'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(245, 182, 66, 0.38);
+  box-shadow: 0 0 14px rgba(211, 47, 47, 0.10), inset 0 0 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+}
+[data-theme='hulkbuster'] .panel::before {
+  background: linear-gradient(90deg, rgba(211, 47, 47, 0.14), transparent, rgba(245, 182, 66, 0.08));
+}
+[data-theme='hulkbuster'] .glow-left {
+  border-color: rgba(211, 47, 47, 0.50);
+  box-shadow: -2px 0 16px rgba(211, 47, 47, 0.35), 0 0 10px rgba(211, 47, 47, 0.12);
+}
+[data-theme='hulkbuster'] .glow-right {
+  border-color: rgba(245, 182, 66, 0.50);
+  box-shadow: 2px 0 16px rgba(245, 182, 66, 0.30), 0 0 10px rgba(245, 182, 66, 0.12);
+}
+
+/* Buttons */
+[data-theme='hulkbuster'] .btn-hud {
+  background: rgba(7, 9, 12, 0.88);
+  border-color: rgba(245, 182, 66, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hulkbuster'] .btn-hud:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  color: var(--color-accent-right);
+}
+[data-theme='hulkbuster'] .btn-hud.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+[data-theme='hulkbuster'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='hulkbuster'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='hulkbuster'] .side-nav {
+  background: rgba(5, 6, 8, 0.94);
+  border-right-color: rgba(245, 182, 66, 0.32);
+  backdrop-filter: blur(8px);
+}
+[data-theme='hulkbuster'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(211, 47, 47, 0.6) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='hulkbuster'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 20px var(--color-glow-left);
+}
+[data-theme='hulkbuster'] .side-nav__item:hover {
+  background: rgba(211, 47, 47, 0.08);
+  border-color: rgba(211, 47, 47, 0.40);
+}
+[data-theme='hulkbuster'] .side-nav__item.active {
+  background: rgba(211, 47, 47, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='hulkbuster'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='hulkbuster'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #b1121b, #d32f2f);
+  box-shadow: 0 0 8px rgba(211, 47, 47, 0.75);
+}
+[data-theme='hulkbuster'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #c48a1a, #f5b642);
+  box-shadow: 0 0 8px rgba(245, 182, 66, 0.70);
+}
+[data-theme='hulkbuster'] .score-panel__value {
+  text-shadow: 0 0 18px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+  animation: hb-pulse-red 2.8s ease-in-out infinite;
+}
+[data-theme='hulkbuster'] .glow-right .score-panel__value {
+  text-shadow: 0 0 18px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+  animation: hb-pulse-gold 2.8s ease-in-out infinite;
+}
+[data-theme='hulkbuster'] .score-panel__btn {
+  background: rgba(7, 9, 12, 0.92);
+  border-color: rgba(245, 182, 66, 0.32);
+}
+[data-theme='hulkbuster'] .score-panel__btn:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Timer panel — arc reactor blue accent */
+[data-theme='hulkbuster'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(82, 216, 255, 0.38);
+}
+[data-theme='hulkbuster'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(211, 47, 47, 0.14), rgba(82, 216, 255, 0.08), rgba(245, 182, 66, 0.10));
+}
+[data-theme='hulkbuster'] .timer-panel__display {
+  color: #52d8ff;
+  text-shadow: 0 0 14px rgba(82, 216, 255, 0.70), 0 0 6px rgba(82, 216, 255, 0.40);
+}
+[data-theme='hulkbuster'] .timer-panel--critical {
+  border-color: rgba(211, 47, 47, 0.85) !important;
+  box-shadow: 0 0 22px rgba(211, 47, 47, 0.50), 0 0 45px rgba(211, 47, 47, 0.20) !important;
+}
+[data-theme='hulkbuster'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 14px rgba(255, 122, 24, 0.85);
+}
+[data-theme='hulkbuster'] .timer-panel__btn {
+  background: rgba(7, 9, 12, 0.92);
+  border-color: rgba(82, 216, 255, 0.32);
+  color: #52d8ff;
+}
+[data-theme='hulkbuster'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(82, 216, 255, 0.50);
+}
+
+/* Round tracker */
+[data-theme='hulkbuster'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 182, 66, 0.32);
+}
+[data-theme='hulkbuster'] .round-tracker__pip {
+  border-color: rgba(245, 182, 66, 0.25);
+  background: rgba(7, 9, 12, 0.60);
+}
+[data-theme='hulkbuster'] .round-tracker__pip.active {
+  border-color: rgba(245, 182, 66, 0.55);
+  background: rgba(245, 182, 66, 0.10);
+}
+[data-theme='hulkbuster'] .round-tracker__pip.current {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right), 0 0 4px var(--color-accent-right);
+  animation: hb-pulse-gold 1.8s ease-in-out infinite;
+}
+
+/* Mission slot (main screen) */
+[data-theme='hulkbuster'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 182, 66, 0.32);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.45);
+}
+[data-theme='hulkbuster'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='hulkbuster'] .mission-item {
+  background: rgba(7, 9, 12, 0.78);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hulkbuster'] .mission-item:hover {
+  background: rgba(245, 182, 66, 0.05);
+  border-color: rgba(245, 182, 66, 0.45);
+}
+[data-theme='hulkbuster'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.70);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.30);
+}
+[data-theme='hulkbuster'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.70);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.30);
+}
+
+/* Leader hex (main screen) */
+[data-theme='hulkbuster'] .leader-hex__name {
+  background: rgba(7, 9, 12, 0.88);
+  border-color: rgba(245, 182, 66, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards (leaders page) */
+[data-theme='hulkbuster'] .leader-card {
+  background: rgba(7, 9, 12, 0.84);
+  border-color: rgba(245, 182, 66, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hulkbuster'] .leader-card:hover {
+  border-color: rgba(245, 182, 66, 0.52);
+  box-shadow: 0 0 10px rgba(245, 182, 66, 0.18);
+}
+[data-theme='hulkbuster'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='hulkbuster'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='hulkbuster'] .leaders-page__header,
+[data-theme='hulkbuster'] .missions-page__header {
+  background: rgba(5, 6, 8, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(245, 182, 66, 0.28);
+}
+[data-theme='hulkbuster'] .leaders-page__search {
+  background: rgba(7, 9, 12, 0.88);
+  border-color: rgba(245, 182, 66, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hulkbuster'] .leaders-page__search:focus {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='hulkbuster'] .missions-page__body {
+  background: rgba(5, 6, 8, 0.72);
+}
+
+/* Assign buttons on leaders page */
+[data-theme='hulkbuster'] .leaders-page__assign-btn {
+  background: rgba(7, 9, 12, 0.88);
+  border-color: rgba(245, 182, 66, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='hulkbuster'] .leaders-page__assign-btn.active-left {
+  background: rgba(211, 47, 47, 0.15);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='hulkbuster'] .leaders-page__assign-btn.active-right {
+  background: rgba(245, 182, 66, 0.15);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='hulkbuster'] .affil-btn {
+  background: rgba(7, 9, 12, 0.84);
+  border-color: rgba(245, 182, 66, 0.25);
+}
+[data-theme='hulkbuster'] .affil-btn:hover { border-color: rgba(245, 182, 66, 0.50); }
+[data-theme='hulkbuster'] .affil-btn.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(245, 182, 66, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-right);
+}
+
+/* Settings */
+[data-theme='hulkbuster'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 182, 66, 0.32);
+}
+[data-theme='hulkbuster'] .settings-section__title {
+  color: var(--color-accent-right);
+  background: rgba(12, 4, 5, 0.90);
+  border-bottom-color: rgba(245, 182, 66, 0.25);
+}
+[data-theme='hulkbuster'] .settings-preset-btn.active,
+[data-theme='hulkbuster'] .settings-theme-btn.active,
+[data-theme='hulkbuster'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  background: rgba(245, 182, 66, 0.10);
+  color: var(--color-accent-right);
+}
+[data-theme='hulkbuster'] .settings-slider {
+  background: rgba(245, 182, 66, 0.16);
+}
+[data-theme='hulkbuster'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='hulkbuster'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Reset modal */
+[data-theme='hulkbuster'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.70); }
+[data-theme='hulkbuster'] .main-page__modal {
+  background: rgba(7, 9, 12, 0.96);
+  border-color: rgba(245, 182, 66, 0.55);
+  box-shadow: 0 0 30px rgba(211, 47, 47, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='hulkbuster'] .main-page__modal-title {
+  color: var(--color-accent-right);
+  text-shadow: 0 0 10px var(--color-glow-right);
+}
+[data-theme='hulkbuster'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes for Hulkbuster energy effect */
+@keyframes hb-pulse-red {
+  0%, 100% { text-shadow: 0 0 18px rgba(211, 47, 47, 0.50), 0 0 8px #d32f2f; }
+  50%       { text-shadow: 0 0 28px rgba(211, 47, 47, 0.80), 0 0 14px #d32f2f, 0 0 4px #ff7a18; }
+}
+@keyframes hb-pulse-gold {
+  0%, 100% { text-shadow: 0 0 18px rgba(245, 182, 66, 0.40), 0 0 8px #f5b642; }
+  50%       { text-shadow: 0 0 28px rgba(245, 182, 66, 0.70), 0 0 14px #f5b642, 0 0 4px #ffcc66; }
+}
