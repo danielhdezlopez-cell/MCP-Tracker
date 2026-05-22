@@ -28,6 +28,9 @@
 .anim-theme-bg--hellfire-club.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030304 0%, #0b090a 40%, #1e0d08 70%, #030304 100%);
 }
+.anim-theme-bg--mephisto.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020202 0%, #080404 40%, #200508 70%, #020202 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }
