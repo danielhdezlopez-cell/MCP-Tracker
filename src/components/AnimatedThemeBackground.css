@@ -19,6 +19,9 @@
 .anim-theme-bg--convocation.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #05030a 0%, #1b082f 40%, #0e0520 70%, #05030a 100%);
 }
+.anim-theme-bg--dark-dimension.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #030008 0%, #2a063f 40%, #1a0030 70%, #030008 100%);
+}
 .anim-theme-bg--hulkbuster.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
 }
