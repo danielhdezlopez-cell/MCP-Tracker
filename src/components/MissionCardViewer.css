@@ -7,48 +7,24 @@
   align-items: center;
   justify-content: center;
   z-index: 200;
-  padding: 16px;
+  padding: 8px;
 }
 
 .mcv-container {
   display: flex;
   flex-direction: column;
-  width: min(560px, calc(100vw - 32px));
+  width: auto;
+  max-width: calc(100vw - 16px);
   /* svh = small viewport height: always excludes mobile browser chrome,
      fixing the iOS Safari 100vh overestimation that caused off-screen overflow */
-  max-height: 85vh;   /* fallback for browsers without svh */
-  max-height: 85svh;  /* preferred */
-  background: var(--color-panel);
-  border: 1px solid var(--color-border);
+  max-height: calc(100vh - 16px);   /* fallback for browsers without svh */
+  max-height: calc(100svh - 16px);  /* preferred */
+  background: transparent;
+  border: none;
   border-radius: var(--border-radius);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), 0 0 16px var(--color-glow-left);
+  box-shadow: none;
   overflow: hidden;
   position: relative;
-}
-
-/* Corner HUD brackets */
-.mcv-container::before,
-.mcv-container::after {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.mcv-container::before {
-  top: 4px; left: 4px;
-  border-top: 1px solid var(--color-accent-left);
-  border-left: 1px solid var(--color-accent-left);
-  opacity: 0.5;
-}
-
-.mcv-container::after {
-  bottom: 4px; right: 4px;
-  border-bottom: 1px solid var(--color-accent-left);
-  border-right: 1px solid var(--color-accent-left);
-  opacity: 0.5;
 }
 
 /* ── Header — compact ────────────────────────────────────────────── */
@@ -100,18 +76,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
+  background: transparent;
   overflow: hidden;
 }
 
 .mcv-img {
   display: block;
-  max-width: 100%;
-  /* max-height: 100% is unreliable when parent height comes from flex algorithm
-     (percentage heights require an explicit height on the parent).
-     Use the same viewport-unit budget as the container instead. */
-  max-height: calc(85vh - 80px);   /* fallback: 85vh minus header + footer */
-  max-height: calc(85svh - 80px);  /* preferred: svh excludes iOS browser chrome */
+  max-width: calc(100vw - 16px);
+  /* Use viewport units directly so the image can grow as large as possible.
+     96px = header (~36px) + footer (~34px) + overlay padding (16px) + safety margin */
+  max-height: calc(100vh - 96px);   /* fallback */
+  max-height: calc(100svh - 96px);  /* preferred: svh excludes iOS browser chrome */
   width: auto;
   height: auto;
   object-fit: contain;
