@@ -8,6 +8,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },
   { value: 'convocation',      label: 'Convocation',     desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
+  { value: 'cyclops',          label: 'Cyclops',         desc: 'X-Men tactical visor — red optic & blue HUD'     },
   { value: 'dark-dimension',   label: 'Dark Dimension',  desc: 'Dormammu hostile void — purple fire & red chaos' },
   { value: 'dracula',          label: 'Dracula',         desc: 'Gothic vampire castle — blood red & aged silver'  },
   { value: 'hellfire-club',    label: 'Hellfire Club',   desc: 'Secret aristocratic society — velvet red & gold'  },
