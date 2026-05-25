@@ -25,6 +25,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   'spider-man': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WebWarriors.mp4`, modifier: 'anim-theme-bg--spider-man' },
   'miles-morales': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_MilesMorales.mp4`, modifier: 'anim-theme-bg--miles-morales' },
   thanos:          { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thanos.mp4`,        modifier: 'anim-theme-bg--thanos'        },
+  'the-leader':    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_TheLeader.mp4`,    modifier: 'anim-theme-bg--the-leader', smoothLoop: true },
   thunderbolts:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thunderbolts_RedHulk.mp4`, modifier: 'anim-theme-bg--thunderbolts' },
   ultron:       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Ultron.mp4`,      modifier: 'anim-theme-bg--ultron'     },
   'weapon-x':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WeaponX.mp4`,    modifier: 'anim-theme-bg--weapon-x'   },

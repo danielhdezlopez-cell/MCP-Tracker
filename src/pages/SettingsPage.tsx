@@ -21,6 +21,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'shield',        label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'           },
   { value: 'spider-man', label: 'Spider-Man',   desc: 'Urban hero comic-tech dark city HUD'    },
   { value: 'thanos',       label: 'Thanos',       desc: 'Cosmic conqueror dark command interface'     },
+  { value: 'the-leader',  label: 'The Leader',   desc: 'Gamma lab intelligence — toxic green & cyan HUD' },
   { value: 'thunderbolts', label: 'Thunderbolts', desc: 'Black-ops antihero tactical combat HUD'     },
   { value: 'ultron',       label: 'Ultron',       desc: 'Hostile machine empire command system'       },
   { value: 'weapon-x',    label: 'Weapon X',     desc: 'Black-site lab — cold cyan & alarm red HUD'  },
