@@ -85,3 +85,8 @@
   position: absolute;
   inset: 0;
 }
+
+/* Per-theme video position overrides */
+.anim-theme-bg--onslaught video {
+  object-position: center 20%;
+}
