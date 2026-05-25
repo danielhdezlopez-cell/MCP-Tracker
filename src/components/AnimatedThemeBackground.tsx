@@ -28,6 +28,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   thunderbolts:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thunderbolts_RedHulk.mp4`, modifier: 'anim-theme-bg--thunderbolts' },
   ultron:       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Ultron.mp4`,      modifier: 'anim-theme-bg--ultron'     },
   'weapon-x':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WeaponX.mp4`,    modifier: 'anim-theme-bg--weapon-x'   },
+  sentinels:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Sentinels.mp4`,  modifier: 'anim-theme-bg--sentinels'  },
 };
 
 /* Crossfade between two video elements so the loop has no visible cut.
