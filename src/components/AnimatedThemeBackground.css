@@ -70,6 +70,9 @@
 .anim-theme-bg--ultron.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #060606 0%, #0e0808 40%, #100a08 70%, #060606 100%);
 }
+.anim-theme-bg--sentinels.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020308 0%, #0e0720 40%, #1a0a40 70%, #020308 100%);
+}
 
 /* Overlay positioning — colours defined per-theme in themes.css */
 .anim-theme-bg__overlay {
