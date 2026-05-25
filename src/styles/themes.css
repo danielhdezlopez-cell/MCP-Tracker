@@ -7406,3 +7406,360 @@
   0%, 100% { box-shadow: 0 0 12px rgba(78, 219, 255, 0.62), 0 0 5px #4edbff; }
   50%       { box-shadow: 0 0 22px rgba(78, 219, 255, 0.94), 0 0 10px #4edbff, 0 0 4px #c8a45d; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   CYCLOPS — X-Men tactical visor / optic energy HUD
+   Primary:  #ff1f2d  (optic red)
+   Secondary: #3b8bff (X-Men blue)
+   Accent:   #f5c542  (uniform yellow)
+   ══════════════════════════════════════════════════════════════════ */
+[data-theme='cyclops'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 8, 14, 0.88);
+  --color-panel-alt: rgba(2, 5, 10, 0.93);
+  --color-border: rgba(255, 31, 45, 0.55);
+  --color-accent-left: #ff1f2d;
+  --color-accent-right: #3b8bff;
+  --color-glow-left: rgba(255, 31, 45, 0.52);
+  --color-glow-right: rgba(59, 139, 255, 0.42);
+  --color-text: #f4f7ff;
+  --color-text-muted: #8ea2c8;
+  --color-warn: #f5c542;
+  --color-critical: #ff003c;
+  --color-success: #f5c542;
+  --color-round-active: #ff1f2d;
+  --color-round-inactive: rgba(255, 31, 45, 0.14);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: fully transparent so video shows through */
+[data-theme='cyclops'] body { background: transparent; }
+[data-theme='cyclops'] .layout { background: transparent; }
+
+/* Panels — dark tactical glass with optic red border */
+[data-theme='cyclops'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 31, 45, 0.45);
+  box-shadow: 0 0 14px rgba(255, 31, 45, 0.10), inset 0 0 22px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+}
+[data-theme='cyclops'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 31, 45, 0.12), transparent, rgba(59, 139, 255, 0.07));
+}
+[data-theme='cyclops'] .glow-left {
+  border-color: rgba(255, 31, 45, 0.50);
+  box-shadow: -2px 0 16px rgba(255, 31, 45, 0.32), 0 0 10px rgba(255, 31, 45, 0.14);
+}
+[data-theme='cyclops'] .glow-right {
+  border-color: rgba(59, 139, 255, 0.50);
+  box-shadow: 2px 0 16px rgba(59, 139, 255, 0.30), 0 0 10px rgba(59, 139, 255, 0.14);
+}
+
+/* Buttons */
+[data-theme='cyclops'] .btn-hud {
+  background: rgba(4, 8, 14, 0.88);
+  border-color: rgba(255, 31, 45, 0.42);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cyclops'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='cyclops'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='cyclops'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='cyclops'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='cyclops'] .side-nav {
+  background: rgba(2, 5, 10, 0.94);
+  border-right-color: rgba(255, 31, 45, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='cyclops'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 31, 45, 0.55) 0 3px,
+    transparent 3px 9px
+  );
+  opacity: 1;
+}
+[data-theme='cyclops'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 22px var(--color-glow-left);
+}
+[data-theme='cyclops'] .side-nav__item:hover {
+  background: rgba(255, 31, 45, 0.07);
+  border-color: rgba(255, 31, 45, 0.42);
+}
+[data-theme='cyclops'] .side-nav__item.active {
+  background: rgba(255, 31, 45, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='cyclops'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='cyclops'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #ff1f2d, #ff6070);
+  box-shadow: 0 0 8px rgba(255, 31, 45, 0.75);
+}
+[data-theme='cyclops'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #3b8bff, #6aabff);
+  box-shadow: 0 0 8px rgba(59, 139, 255, 0.70);
+}
+[data-theme='cyclops'] .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(244, 247, 255, 0.60),
+    0 0 18px var(--color-glow-left),
+    0 0 32px rgba(255, 0, 60, 0.30);
+  animation: cyclops-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='cyclops'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(244, 247, 255, 0.60),
+    0 0 18px var(--color-glow-right),
+    0 0 32px rgba(59, 139, 255, 0.30);
+  animation: cyclops-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='cyclops'] .score-panel__btn {
+  background: rgba(4, 8, 14, 0.92);
+  border-color: rgba(255, 31, 45, 0.38);
+}
+[data-theme='cyclops'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='cyclops'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 31, 45, 0.42);
+}
+[data-theme='cyclops'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 31, 45, 0.18), transparent, rgba(59, 139, 255, 0.10));
+}
+[data-theme='cyclops'] .timer-panel__display {
+  color: var(--color-text);
+  text-shadow:
+    0 0 8px rgba(244, 247, 255, 0.55),
+    0 0 16px rgba(255, 31, 45, 0.65);
+}
+[data-theme='cyclops'] .timer-panel--critical {
+  border-color: rgba(255, 0, 60, 0.85) !important;
+  box-shadow: 0 0 22px rgba(255, 0, 60, 0.45), 0 0 44px rgba(255, 0, 60, 0.22) !important;
+}
+[data-theme='cyclops'] .timer-panel__display.critical {
+  color: var(--color-critical);
+  text-shadow: 0 0 10px rgba(255, 0, 60, 0.90), 0 0 24px rgba(255, 0, 60, 0.55);
+}
+[data-theme='cyclops'] .timer-panel__display.warning {
+  color: var(--color-warn);
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.80);
+}
+[data-theme='cyclops'] .timer-panel__btn {
+  background: rgba(4, 8, 14, 0.92);
+  border-color: rgba(255, 31, 45, 0.38);
+  color: var(--color-accent-left);
+}
+[data-theme='cyclops'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='cyclops'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 31, 45, 0.38);
+}
+[data-theme='cyclops'] .round-tracker__pip {
+  border-color: rgba(255, 31, 45, 0.28);
+  background: rgba(4, 8, 14, 0.65);
+}
+[data-theme='cyclops'] .round-tracker__pip.active {
+  border-color: rgba(255, 31, 45, 0.55);
+  background: rgba(255, 31, 45, 0.10);
+}
+[data-theme='cyclops'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot (main screen) */
+[data-theme='cyclops'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='cyclops'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='cyclops'] .mission-item {
+  background: rgba(4, 8, 14, 0.78);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cyclops'] .mission-item:hover {
+  background: rgba(255, 31, 45, 0.06);
+  border-color: rgba(255, 31, 45, 0.52);
+}
+[data-theme='cyclops'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.72);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.30);
+}
+[data-theme='cyclops'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.72);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.30);
+}
+
+/* Leader hex (main screen) */
+[data-theme='cyclops'] .leader-hex__name {
+  background: rgba(4, 8, 14, 0.88);
+  border-color: rgba(255, 31, 45, 0.38);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card (leaders page) */
+[data-theme='cyclops'] .leader-card {
+  background: rgba(4, 8, 14, 0.84);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cyclops'] .leader-card:hover {
+  border-color: rgba(255, 31, 45, 0.55);
+  box-shadow: 0 0 12px rgba(255, 31, 45, 0.20);
+}
+[data-theme='cyclops'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='cyclops'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='cyclops'] .leaders-page__header,
+[data-theme='cyclops'] .missions-page__header {
+  background: rgba(2, 5, 10, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 31, 45, 0.32);
+}
+[data-theme='cyclops'] .leaders-page__search {
+  background: rgba(4, 8, 14, 0.88);
+  border-color: rgba(255, 31, 45, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='cyclops'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='cyclops'] .missions-page__body {
+  background: rgba(2, 5, 10, 0.72);
+}
+
+/* Settings */
+[data-theme='cyclops'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 31, 45, 0.32);
+}
+[data-theme='cyclops'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(2, 5, 10, 0.92);
+  border-bottom-color: rgba(255, 31, 45, 0.22);
+}
+[data-theme='cyclops'] .settings-preset-btn.active,
+[data-theme='cyclops'] .settings-theme-btn.active,
+[data-theme='cyclops'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 31, 45, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='cyclops'] .settings-slider {
+  background: rgba(255, 31, 45, 0.18);
+}
+[data-theme='cyclops'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='cyclops'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='cyclops'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.68); }
+[data-theme='cyclops'] .main-page__modal {
+  background: rgba(4, 8, 14, 0.96);
+  border-color: rgba(255, 31, 45, 0.55);
+  box-shadow: 0 0 32px rgba(255, 31, 45, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='cyclops'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Video overlay — optic red core + X-Men blue edge */
+[data-theme='cyclops'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 31, 45, 0.14), transparent 42%),
+    radial-gradient(circle at 18% 80%, rgba(20, 59, 122, 0.16), transparent 38%),
+    radial-gradient(circle at 82% 20%, rgba(59, 139, 255, 0.10), transparent 35%),
+    rgba(0, 0, 0, 0.52);
+}
+
+/* ── Cyclops animations ────────────────────────────────────────── */
+@keyframes cyclops-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(244, 247, 255, 0.55),
+      0 0 14px rgba(255, 31, 45, 0.70),
+      0 0 28px rgba(255, 0, 60, 0.35);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(244, 247, 255, 0.80),
+      0 0 22px rgba(255, 31, 45, 1.00),
+      0 0 42px rgba(255, 0, 60, 0.55),
+      0 0 4px #ff1f2d;
+  }
+}
+@keyframes cyclops-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(244, 247, 255, 0.55),
+      0 0 14px rgba(59, 139, 255, 0.70),
+      0 0 28px rgba(20, 59, 122, 0.40);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(244, 247, 255, 0.80),
+      0 0 22px rgba(59, 139, 255, 1.00),
+      0 0 42px rgba(20, 59, 122, 0.60),
+      0 0 4px #3b8bff;
+  }
+}
