@@ -99,6 +99,9 @@
 }
 
 /* Per-theme video position overrides */
+.anim-theme-bg--cable video {
+  object-position: center 30%;
+}
 .anim-theme-bg--magik video {
   object-position: center 25%;
 }
