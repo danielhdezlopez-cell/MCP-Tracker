@@ -16,6 +16,9 @@
 .anim-theme-bg--apocalypse.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02040a 0%, #0c1838 40%, #1a0e30 70%, #02040a 100%);
 }
+.anim-theme-bg--cable.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #02050a 0%, #071a2d 40%, #0a1e30 70%, #02050a 100%);
+}
 .anim-theme-bg--cap-first-avenger.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #06111f 0%, #102a54 40%, #0d2045 70%, #06111f 100%);
 }
