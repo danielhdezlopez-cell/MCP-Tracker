@@ -34,6 +34,9 @@
 .anim-theme-bg--dracula.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030305 0%, #0b0709 40%, #1a0408 70%, #030305 100%);
 }
+.anim-theme-bg--green-goblin.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020408 0%, #0a1c0e 40%, #1a1008 70%, #020408 100%);
+}
 .anim-theme-bg--hellfire-club.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030304 0%, #0b090a 40%, #1e0d08 70%, #030304 100%);
 }
