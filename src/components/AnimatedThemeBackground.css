@@ -43,6 +43,9 @@
 .anim-theme-bg--onslaught.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020208 0%, #21083a 40%, #7a0612 70%, #020208 100%);
 }
+.anim-theme-bg--professor-x.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020510 0%, #091830 40%, #12083a 70%, #020510 100%);
+}
 .anim-theme-bg--the-leader.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020604 0%, #0f3b20 40%, #0b2438 70%, #020604 100%);
 }
