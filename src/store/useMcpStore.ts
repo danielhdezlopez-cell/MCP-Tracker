@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'apocalypse' | 'cap-first-avenger' | 'convocation' | 'cyclops' | 'dark-dimension' | 'dracula' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'mephisto' | 'midnight-sons' | 'sentinels' | 'shield' | 'asgard' | 'miles-morales' | 'spider-man' | 'thanos' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x';
+export type Theme = 'neon-blue' | 'comic-ink' | 'apocalypse' | 'cap-first-avenger' | 'convocation' | 'cyclops' | 'dark-dimension' | 'dracula' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'mephisto' | 'midnight-sons' | 'onslaught' | 'sentinels' | 'shield' | 'asgard' | 'miles-morales' | 'spider-man' | 'thanos' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';

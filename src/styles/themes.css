@@ -8463,3 +8463,359 @@
       0 0 4px #38e8ff;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   ONSLAUGHT — Psionic doom / mental fracture / psychic dominion
+   Primary:   #ff2bd6  (magenta psiónico — P1)
+   Secondary: #4edbff  (cian ruptura mental — P2)
+   Border:    #ff1f3d  (rojo psiónico)
+   ══════════════════════════════════════════════════════════════════ */
+[data-theme='onslaught'] {
+  --color-bg: transparent;
+  --color-panel: rgba(7, 4, 14, 0.90);
+  --color-panel-alt: rgba(4, 2, 9, 0.95);
+  --color-border: rgba(255, 43, 214, 0.52);
+  --color-accent-left: #ff2bd6;
+  --color-accent-right: #4edbff;
+  --color-glow-left: rgba(255, 43, 214, 0.54);
+  --color-glow-right: rgba(78, 219, 255, 0.44);
+  --color-text: #f4eaff;
+  --color-text-muted: #b8a8cf;
+  --color-warn: #b06fff;
+  --color-critical: #ff1f3d;
+  --color-success: #ff2bd6;
+  --color-round-active: #ff2bd6;
+  --color-round-inactive: rgba(255, 43, 214, 0.14);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='onslaught'] body { background: transparent; }
+[data-theme='onslaught'] .layout { background: transparent; }
+
+/* Panels — void dark with magenta psionic border */
+[data-theme='onslaught'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 43, 214, 0.44);
+  box-shadow: 0 0 16px rgba(255, 31, 61, 0.10), inset 0 0 24px rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(6px);
+}
+[data-theme='onslaught'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 43, 214, 0.14), transparent, rgba(78, 219, 255, 0.07));
+}
+[data-theme='onslaught'] .glow-left {
+  border-color: rgba(255, 43, 214, 0.52);
+  box-shadow: -2px 0 18px rgba(255, 43, 214, 0.32), 0 0 10px rgba(255, 43, 214, 0.14);
+}
+[data-theme='onslaught'] .glow-right {
+  border-color: rgba(78, 219, 255, 0.52);
+  box-shadow: 2px 0 18px rgba(78, 219, 255, 0.30), 0 0 10px rgba(78, 219, 255, 0.14);
+}
+
+/* Buttons */
+[data-theme='onslaught'] .btn-hud {
+  background: rgba(7, 4, 14, 0.90);
+  border-color: rgba(255, 43, 214, 0.42);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='onslaught'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='onslaught'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='onslaught'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='onslaught'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='onslaught'] .side-nav {
+  background: rgba(4, 2, 9, 0.96);
+  border-right-color: rgba(255, 31, 61, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='onslaught'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 43, 214, 0.55) 0 3px,
+    transparent 3px 9px
+  );
+  opacity: 1;
+}
+[data-theme='onslaught'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 22px var(--color-glow-left);
+}
+[data-theme='onslaught'] .side-nav__item:hover {
+  background: rgba(255, 43, 214, 0.07);
+  border-color: rgba(255, 43, 214, 0.42);
+}
+[data-theme='onslaught'] .side-nav__item.active {
+  background: rgba(255, 43, 214, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='onslaught'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='onslaught'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #ff2bd6, #ff70e8);
+  box-shadow: 0 0 8px rgba(255, 43, 214, 0.78);
+}
+[data-theme='onslaught'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #4edbff, #80eaff);
+  box-shadow: 0 0 8px rgba(78, 219, 255, 0.72);
+}
+[data-theme='onslaught'] .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(244, 234, 255, 0.58),
+    0 0 18px var(--color-glow-left),
+    0 0 34px rgba(255, 31, 61, 0.32);
+  animation: onslaught-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='onslaught'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(244, 234, 255, 0.58),
+    0 0 18px var(--color-glow-right),
+    0 0 34px rgba(78, 219, 255, 0.30);
+  animation: onslaught-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='onslaught'] .score-panel__btn {
+  background: rgba(7, 4, 14, 0.94);
+  border-color: rgba(255, 43, 214, 0.36);
+}
+[data-theme='onslaught'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='onslaught'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 31, 61, 0.42);
+}
+[data-theme='onslaught'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 43, 214, 0.16), transparent, rgba(78, 219, 255, 0.09));
+}
+[data-theme='onslaught'] .timer-panel__display {
+  color: var(--color-text);
+  text-shadow:
+    0 0 8px rgba(244, 234, 255, 0.55),
+    0 0 16px rgba(255, 43, 214, 0.65);
+}
+[data-theme='onslaught'] .timer-panel--critical {
+  border-color: rgba(255, 31, 61, 0.88) !important;
+  box-shadow: 0 0 24px rgba(255, 31, 61, 0.48), 0 0 48px rgba(255, 31, 61, 0.22) !important;
+}
+[data-theme='onslaught'] .timer-panel__display.critical {
+  color: var(--color-critical);
+  text-shadow: 0 0 10px rgba(255, 31, 61, 0.92), 0 0 26px rgba(255, 31, 61, 0.55);
+}
+[data-theme='onslaught'] .timer-panel__display.warning {
+  color: var(--color-warn);
+  text-shadow: 0 0 10px rgba(176, 111, 255, 0.80);
+}
+[data-theme='onslaught'] .timer-panel__btn {
+  background: rgba(7, 4, 14, 0.94);
+  border-color: rgba(255, 43, 214, 0.36);
+  color: var(--color-accent-left);
+}
+[data-theme='onslaught'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='onslaught'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 43, 214, 0.35);
+}
+[data-theme='onslaught'] .round-tracker__pip {
+  border-color: rgba(255, 43, 214, 0.26);
+  background: rgba(7, 4, 14, 0.68);
+}
+[data-theme='onslaught'] .round-tracker__pip.active {
+  border-color: rgba(255, 43, 214, 0.54);
+  background: rgba(255, 43, 214, 0.09);
+}
+[data-theme='onslaught'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot */
+[data-theme='onslaught'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='onslaught'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='onslaught'] .mission-item {
+  background: rgba(7, 4, 14, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='onslaught'] .mission-item:hover {
+  background: rgba(255, 43, 214, 0.06);
+  border-color: rgba(255, 43, 214, 0.52);
+}
+[data-theme='onslaught'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.72);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='onslaught'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.72);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex */
+[data-theme='onslaught'] .leader-hex__name {
+  background: rgba(7, 4, 14, 0.90);
+  border-color: rgba(255, 43, 214, 0.36);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card */
+[data-theme='onslaught'] .leader-card {
+  background: rgba(7, 4, 14, 0.86);
+  backdrop-filter: blur(4px);
+}
+[data-theme='onslaught'] .leader-card:hover {
+  border-color: rgba(255, 43, 214, 0.55);
+  box-shadow: 0 0 12px rgba(255, 43, 214, 0.20);
+}
+[data-theme='onslaught'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='onslaught'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='onslaught'] .leaders-page__header,
+[data-theme='onslaught'] .missions-page__header {
+  background: rgba(4, 2, 9, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 31, 61, 0.30);
+}
+[data-theme='onslaught'] .leaders-page__search {
+  background: rgba(7, 4, 14, 0.90);
+  border-color: rgba(255, 43, 214, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='onslaught'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='onslaught'] .missions-page__body {
+  background: rgba(4, 2, 9, 0.74);
+}
+
+/* Settings */
+[data-theme='onslaught'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 43, 214, 0.28);
+}
+[data-theme='onslaught'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(4, 2, 9, 0.94);
+  border-bottom-color: rgba(255, 43, 214, 0.20);
+}
+[data-theme='onslaught'] .settings-preset-btn.active,
+[data-theme='onslaught'] .settings-theme-btn.active,
+[data-theme='onslaught'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 43, 214, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='onslaught'] .settings-slider {
+  background: rgba(255, 43, 214, 0.18);
+}
+[data-theme='onslaught'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='onslaught'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='onslaught'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.70); }
+[data-theme='onslaught'] .main-page__modal {
+  background: rgba(7, 4, 14, 0.97);
+  border-color: rgba(255, 43, 214, 0.55);
+  box-shadow: 0 0 32px rgba(255, 31, 61, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='onslaught'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Video overlay — red psionic core + purple abyss + cyan psychic edge */
+[data-theme='onslaught'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 31, 61, 0.14), transparent 44%),
+    radial-gradient(circle at 22% 75%, rgba(109, 44, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 78% 25%, rgba(255, 43, 214, 0.10), transparent 36%),
+    rgba(0, 0, 0, 0.56);
+}
+
+/* ── Onslaught animations ──────────────────────────────────────── */
+@keyframes onslaught-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(244, 234, 255, 0.52),
+      0 0 14px rgba(255, 43, 214, 0.70),
+      0 0 28px rgba(255, 31, 61, 0.32);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(244, 234, 255, 0.80),
+      0 0 22px rgba(255, 43, 214, 1.00),
+      0 0 42px rgba(255, 31, 61, 0.52),
+      0 0 4px #ff2bd6;
+  }
+}
+@keyframes onslaught-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(244, 234, 255, 0.52),
+      0 0 14px rgba(78, 219, 255, 0.70),
+      0 0 28px rgba(109, 44, 255, 0.36);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(244, 234, 255, 0.80),
+      0 0 22px rgba(78, 219, 255, 1.00),
+      0 0 42px rgba(109, 44, 255, 0.55),
+      0 0 4px #4edbff;
+  }
+}
