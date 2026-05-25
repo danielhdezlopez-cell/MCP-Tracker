@@ -8819,3 +8819,358 @@
       0 0 4px #4edbff;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   PROFESSOR X — Cerebro telepathic command interface.
+   Deep navy base, electric blue Cerebro pulse, violet psionic fringe.
+   Panels semi-transparent over the animated video backdrop.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='professor-x'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 8, 18, 0.90);
+  --color-panel-alt: rgba(2, 4, 10, 0.95);
+  --color-border: rgba(63, 140, 255, 0.52);
+  --color-accent-left: #3f8cff;
+  --color-accent-right: #8b5cf6;
+  --color-glow-left: rgba(63, 140, 255, 0.54);
+  --color-glow-right: rgba(139, 92, 246, 0.44);
+  --color-text: #f0f4ff;
+  --color-text-muted: #a0b8e8;
+  --color-warn: #a78bfa;
+  --color-critical: #ff3b5c;
+  --color-success: #3f8cff;
+  --color-round-active: #3f8cff;
+  --color-round-inactive: rgba(63, 140, 255, 0.14);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='professor-x'] body { background: transparent; }
+[data-theme='professor-x'] .layout { background: transparent; }
+
+/* Panels — deep navy with Cerebro blue border */
+[data-theme='professor-x'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(63, 140, 255, 0.44);
+  box-shadow: 0 0 16px rgba(63, 140, 255, 0.08), inset 0 0 24px rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(6px);
+}
+[data-theme='professor-x'] .panel::before {
+  background: linear-gradient(90deg, rgba(63, 140, 255, 0.14), transparent, rgba(139, 92, 246, 0.07));
+}
+[data-theme='professor-x'] .glow-left {
+  border-color: rgba(63, 140, 255, 0.52);
+  box-shadow: -2px 0 18px rgba(63, 140, 255, 0.32), 0 0 10px rgba(63, 140, 255, 0.14);
+}
+[data-theme='professor-x'] .glow-right {
+  border-color: rgba(139, 92, 246, 0.52);
+  box-shadow: 2px 0 18px rgba(139, 92, 246, 0.30), 0 0 10px rgba(139, 92, 246, 0.14);
+}
+
+/* Buttons */
+[data-theme='professor-x'] .btn-hud {
+  background: rgba(5, 8, 18, 0.90);
+  border-color: rgba(63, 140, 255, 0.42);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='professor-x'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='professor-x'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='professor-x'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='professor-x'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='professor-x'] .side-nav {
+  background: rgba(2, 4, 10, 0.96);
+  border-right-color: rgba(63, 140, 255, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='professor-x'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(63, 140, 255, 0.55) 0 3px,
+    transparent 3px 9px
+  );
+  opacity: 1;
+}
+[data-theme='professor-x'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 22px var(--color-glow-left);
+}
+[data-theme='professor-x'] .side-nav__item:hover {
+  background: rgba(63, 140, 255, 0.07);
+  border-color: rgba(63, 140, 255, 0.42);
+}
+[data-theme='professor-x'] .side-nav__item.active {
+  background: rgba(63, 140, 255, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='professor-x'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='professor-x'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #3f8cff, #70aaff);
+  box-shadow: 0 0 8px rgba(63, 140, 255, 0.78);
+}
+[data-theme='professor-x'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.72);
+}
+[data-theme='professor-x'] .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(240, 244, 255, 0.58),
+    0 0 18px var(--color-glow-left),
+    0 0 34px rgba(63, 140, 255, 0.32);
+  animation: professorx-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='professor-x'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(240, 244, 255, 0.58),
+    0 0 18px var(--color-glow-right),
+    0 0 34px rgba(139, 92, 246, 0.30);
+  animation: professorx-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='professor-x'] .score-panel__btn {
+  background: rgba(5, 8, 18, 0.94);
+  border-color: rgba(63, 140, 255, 0.36);
+}
+[data-theme='professor-x'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='professor-x'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(63, 140, 255, 0.42);
+}
+[data-theme='professor-x'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(63, 140, 255, 0.16), transparent, rgba(139, 92, 246, 0.09));
+}
+[data-theme='professor-x'] .timer-panel__display {
+  color: var(--color-text);
+  text-shadow:
+    0 0 8px rgba(240, 244, 255, 0.55),
+    0 0 16px rgba(63, 140, 255, 0.65);
+}
+[data-theme='professor-x'] .timer-panel--critical {
+  border-color: rgba(255, 59, 92, 0.88) !important;
+  box-shadow: 0 0 24px rgba(255, 59, 92, 0.48), 0 0 48px rgba(255, 59, 92, 0.22) !important;
+}
+[data-theme='professor-x'] .timer-panel__display.critical {
+  color: var(--color-critical);
+  text-shadow: 0 0 10px rgba(255, 59, 92, 0.92), 0 0 26px rgba(255, 59, 92, 0.55);
+}
+[data-theme='professor-x'] .timer-panel__display.warning {
+  color: var(--color-warn);
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.80);
+}
+[data-theme='professor-x'] .timer-panel__btn {
+  background: rgba(5, 8, 18, 0.94);
+  border-color: rgba(63, 140, 255, 0.36);
+  color: var(--color-accent-left);
+}
+[data-theme='professor-x'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='professor-x'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(63, 140, 255, 0.35);
+}
+[data-theme='professor-x'] .round-tracker__pip {
+  border-color: rgba(63, 140, 255, 0.26);
+  background: rgba(5, 8, 18, 0.68);
+}
+[data-theme='professor-x'] .round-tracker__pip.active {
+  border-color: rgba(63, 140, 255, 0.54);
+  background: rgba(63, 140, 255, 0.09);
+}
+[data-theme='professor-x'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot */
+[data-theme='professor-x'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='professor-x'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='professor-x'] .mission-item {
+  background: rgba(5, 8, 18, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='professor-x'] .mission-item:hover {
+  background: rgba(63, 140, 255, 0.06);
+  border-color: rgba(63, 140, 255, 0.52);
+}
+[data-theme='professor-x'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.72);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='professor-x'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.72);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex */
+[data-theme='professor-x'] .leader-hex__name {
+  background: rgba(5, 8, 18, 0.90);
+  border-color: rgba(63, 140, 255, 0.36);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card */
+[data-theme='professor-x'] .leader-card {
+  background: rgba(5, 8, 18, 0.86);
+  backdrop-filter: blur(4px);
+}
+[data-theme='professor-x'] .leader-card:hover {
+  border-color: rgba(63, 140, 255, 0.55);
+  box-shadow: 0 0 12px rgba(63, 140, 255, 0.20);
+}
+[data-theme='professor-x'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='professor-x'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='professor-x'] .leaders-page__header,
+[data-theme='professor-x'] .missions-page__header {
+  background: rgba(2, 4, 10, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(63, 140, 255, 0.30);
+}
+[data-theme='professor-x'] .leaders-page__search {
+  background: rgba(5, 8, 18, 0.90);
+  border-color: rgba(63, 140, 255, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='professor-x'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='professor-x'] .missions-page__body {
+  background: rgba(2, 4, 10, 0.74);
+}
+
+/* Settings */
+[data-theme='professor-x'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(63, 140, 255, 0.28);
+}
+[data-theme='professor-x'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(2, 4, 10, 0.94);
+  border-bottom-color: rgba(63, 140, 255, 0.20);
+}
+[data-theme='professor-x'] .settings-preset-btn.active,
+[data-theme='professor-x'] .settings-theme-btn.active,
+[data-theme='professor-x'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(63, 140, 255, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='professor-x'] .settings-slider {
+  background: rgba(63, 140, 255, 0.18);
+}
+[data-theme='professor-x'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='professor-x'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='professor-x'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.70); }
+[data-theme='professor-x'] .main-page__modal {
+  background: rgba(5, 8, 18, 0.97);
+  border-color: rgba(63, 140, 255, 0.55);
+  box-shadow: 0 0 32px rgba(63, 140, 255, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='professor-x'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Video overlay — Cerebro concentric ring pulse + violet psionic fringe */
+[data-theme='professor-x'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(63, 140, 255, 0.12), transparent 42%),
+    radial-gradient(circle at 20% 70%, rgba(139, 92, 246, 0.16), transparent 40%),
+    radial-gradient(circle at 80% 25%, rgba(63, 140, 255, 0.08), transparent 36%),
+    rgba(0, 0, 0, 0.54);
+}
+
+/* ── Professor X animations ───────────────────────────────────────── */
+@keyframes professorx-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(240, 244, 255, 0.52),
+      0 0 14px rgba(63, 140, 255, 0.70),
+      0 0 28px rgba(63, 140, 255, 0.32);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(240, 244, 255, 0.80),
+      0 0 22px rgba(63, 140, 255, 1.00),
+      0 0 42px rgba(63, 140, 255, 0.52),
+      0 0 4px #3f8cff;
+  }
+}
+@keyframes professorx-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(240, 244, 255, 0.52),
+      0 0 14px rgba(139, 92, 246, 0.70),
+      0 0 28px rgba(139, 92, 246, 0.36);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(240, 244, 255, 0.80),
+      0 0 22px rgba(139, 92, 246, 1.00),
+      0 0 42px rgba(139, 92, 246, 0.55),
+      0 0 4px #8b5cf6;
+  }
+}
