@@ -9531,3 +9531,360 @@
       0 0 4px #7cff3a;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   MAGNETO — Mutant supremacy, magnetic fields, armour red & void purple.
+   Deep metal-black base, imperial purple P1, armour red P2,
+   magenta energy fringe and electric-blue field accents.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='magneto'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 6, 14, 0.90);
+  --color-panel-alt: rgba(5, 5, 10, 0.95);
+  --color-border: rgba(109, 44, 255, 0.52);
+  --color-accent-left: #6d2cff;
+  --color-accent-right: #b11226;
+  --color-glow-left: rgba(109, 44, 255, 0.54);
+  --color-glow-right: rgba(177, 18, 38, 0.50);
+  --color-text: #f5ecff;
+  --color-text-muted: #c5c9d1;
+  --color-warn: #ff2bd6;
+  --color-critical: #b11226;
+  --color-success: #4edbff;
+  --color-round-active: #6d2cff;
+  --color-round-inactive: rgba(109, 44, 255, 0.14);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.4);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.4);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='magneto'] body { background: transparent; }
+[data-theme='magneto'] .layout { background: transparent; }
+
+/* Panels — dark metal with purple field border */
+[data-theme='magneto'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(109, 44, 255, 0.44);
+  box-shadow:
+    0 0 18px rgba(109, 44, 255, 0.10),
+    inset 0 0 28px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+[data-theme='magneto'] .panel::before {
+  background: linear-gradient(90deg, rgba(109, 44, 255, 0.12), transparent, rgba(177, 18, 38, 0.07));
+}
+[data-theme='magneto'] .glow-left {
+  border-color: rgba(109, 44, 255, 0.52);
+  box-shadow: -2px 0 18px rgba(109, 44, 255, 0.34), 0 0 10px rgba(109, 44, 255, 0.14);
+}
+[data-theme='magneto'] .glow-right {
+  border-color: rgba(177, 18, 38, 0.52);
+  box-shadow: 2px 0 18px rgba(177, 18, 38, 0.34), 0 0 10px rgba(177, 18, 38, 0.14);
+}
+
+/* Buttons */
+[data-theme='magneto'] .btn-hud {
+  background: rgba(8, 6, 14, 0.90);
+  border-color: rgba(197, 201, 209, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='magneto'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='magneto'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='magneto'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='magneto'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='magneto'] .side-nav {
+  background: rgba(5, 5, 10, 0.96);
+  border-right-color: rgba(109, 44, 255, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='magneto'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(109, 44, 255, 0.55) 0 3px,
+    transparent 3px 9px
+  );
+  opacity: 1;
+}
+[data-theme='magneto'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 22px var(--color-glow-left);
+}
+[data-theme='magneto'] .side-nav__item:hover {
+  background: rgba(109, 44, 255, 0.07);
+  border-color: rgba(109, 44, 255, 0.42);
+}
+[data-theme='magneto'] .side-nav__item.active {
+  background: rgba(109, 44, 255, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel */
+[data-theme='magneto'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='magneto'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #6d2cff, #9b6aff);
+  box-shadow: 0 0 8px rgba(109, 44, 255, 0.80);
+}
+[data-theme='magneto'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #b11226, #e03050);
+  box-shadow: 0 0 8px rgba(177, 18, 38, 0.78);
+}
+[data-theme='magneto'] .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(245, 236, 255, 0.58),
+    0 0 18px var(--color-glow-left),
+    0 0 34px rgba(78, 219, 255, 0.24);
+  animation: magneto-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='magneto'] .glow-right .score-panel__value {
+  text-shadow:
+    0 0 8px rgba(245, 236, 255, 0.58),
+    0 0 18px var(--color-glow-right),
+    0 0 34px rgba(255, 43, 214, 0.24);
+  animation: magneto-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='magneto'] .score-panel__btn {
+  background: rgba(8, 6, 14, 0.94);
+  border-color: rgba(197, 201, 209, 0.30);
+}
+[data-theme='magneto'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer panel */
+[data-theme='magneto'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(109, 44, 255, 0.42);
+}
+[data-theme='magneto'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(109, 44, 255, 0.14), transparent, rgba(78, 219, 255, 0.08));
+}
+[data-theme='magneto'] .timer-panel__display {
+  color: var(--color-text);
+  text-shadow:
+    0 0 8px rgba(245, 236, 255, 0.55),
+    0 0 16px rgba(109, 44, 255, 0.65);
+}
+[data-theme='magneto'] .timer-panel--critical {
+  border-color: rgba(177, 18, 38, 0.88) !important;
+  box-shadow: 0 0 24px rgba(177, 18, 38, 0.50), 0 0 48px rgba(177, 18, 38, 0.24) !important;
+}
+[data-theme='magneto'] .timer-panel__display.critical {
+  color: var(--color-critical);
+  text-shadow: 0 0 10px rgba(177, 18, 38, 0.92), 0 0 26px rgba(177, 18, 38, 0.55);
+}
+[data-theme='magneto'] .timer-panel__display.warning {
+  color: var(--color-warn);
+  text-shadow: 0 0 10px rgba(255, 43, 214, 0.80);
+}
+[data-theme='magneto'] .timer-panel__btn {
+  background: rgba(8, 6, 14, 0.94);
+  border-color: rgba(109, 44, 255, 0.36);
+  color: var(--color-accent-left);
+}
+[data-theme='magneto'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Round tracker */
+[data-theme='magneto'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(109, 44, 255, 0.35);
+}
+[data-theme='magneto'] .round-tracker__pip {
+  border-color: rgba(109, 44, 255, 0.26);
+  background: rgba(8, 6, 14, 0.68);
+}
+[data-theme='magneto'] .round-tracker__pip.active {
+  border-color: rgba(109, 44, 255, 0.54);
+  background: rgba(109, 44, 255, 0.09);
+}
+[data-theme='magneto'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot */
+[data-theme='magneto'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='magneto'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='magneto'] .mission-item {
+  background: rgba(8, 6, 14, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='magneto'] .mission-item:hover {
+  background: rgba(109, 44, 255, 0.06);
+  border-color: rgba(109, 44, 255, 0.52);
+}
+[data-theme='magneto'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.72);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='magneto'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.72);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex */
+[data-theme='magneto'] .leader-hex__name {
+  background: rgba(8, 6, 14, 0.90);
+  border-color: rgba(109, 44, 255, 0.36);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card */
+[data-theme='magneto'] .leader-card {
+  background: rgba(8, 6, 14, 0.86);
+  backdrop-filter: blur(4px);
+}
+[data-theme='magneto'] .leader-card:hover {
+  border-color: rgba(109, 44, 255, 0.55);
+  box-shadow: 0 0 12px rgba(109, 44, 255, 0.20);
+}
+[data-theme='magneto'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='magneto'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='magneto'] .leaders-page__header,
+[data-theme='magneto'] .missions-page__header {
+  background: rgba(5, 5, 10, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(109, 44, 255, 0.30);
+}
+[data-theme='magneto'] .leaders-page__search {
+  background: rgba(8, 6, 14, 0.90);
+  border-color: rgba(109, 44, 255, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='magneto'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='magneto'] .missions-page__body {
+  background: rgba(5, 5, 10, 0.74);
+}
+
+/* Settings */
+[data-theme='magneto'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(109, 44, 255, 0.28);
+}
+[data-theme='magneto'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(5, 5, 10, 0.94);
+  border-bottom-color: rgba(109, 44, 255, 0.20);
+}
+[data-theme='magneto'] .settings-preset-btn.active,
+[data-theme='magneto'] .settings-theme-btn.active,
+[data-theme='magneto'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(109, 44, 255, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='magneto'] .settings-slider {
+  background: rgba(109, 44, 255, 0.18);
+}
+[data-theme='magneto'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='magneto'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='magneto'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.70); }
+[data-theme='magneto'] .main-page__modal {
+  background: rgba(8, 6, 14, 0.97);
+  border-color: rgba(109, 44, 255, 0.55);
+  box-shadow: 0 0 32px rgba(109, 44, 255, 0.24);
+  backdrop-filter: blur(12px);
+}
+[data-theme='magneto'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Video overlay — purple field centre, red armour low, electric blue edge */
+[data-theme='magneto'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(109, 44, 255, 0.14), transparent 44%),
+    radial-gradient(circle at 22% 80%, rgba(177, 18, 38, 0.16), transparent 42%),
+    radial-gradient(circle at 78% 20%, rgba(78, 219, 255, 0.10), transparent 36%),
+    rgba(0, 0, 0, 0.54);
+}
+
+/* ── Magneto animations ───────────────────────────────────────────── */
+@keyframes magneto-pulse-left {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(245, 236, 255, 0.52),
+      0 0 14px rgba(109, 44, 255, 0.72),
+      0 0 28px rgba(78, 219, 255, 0.24);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(245, 236, 255, 0.80),
+      0 0 22px rgba(109, 44, 255, 1.00),
+      0 0 42px rgba(78, 219, 255, 0.42),
+      0 0 4px #6d2cff;
+  }
+}
+@keyframes magneto-pulse-right {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(245, 236, 255, 0.52),
+      0 0 14px rgba(177, 18, 38, 0.72),
+      0 0 28px rgba(255, 43, 214, 0.24);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(245, 236, 255, 0.80),
+      0 0 22px rgba(177, 18, 38, 1.00),
+      0 0 42px rgba(255, 43, 214, 0.42),
+      0 0 4px #b11226;
+  }
+}

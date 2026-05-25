@@ -37,6 +37,9 @@
 .anim-theme-bg--magik.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030208 0%, #0f0820 40%, #1a1006 70%, #030208 100%);
 }
+.anim-theme-bg--magneto.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #05050a 0%, #1a0830 40%, #2a0f4f 70%, #05050a 100%);
+}
 .anim-theme-bg--mephisto.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020202 0%, #080404 40%, #200508 70%, #020202 100%);
 }
