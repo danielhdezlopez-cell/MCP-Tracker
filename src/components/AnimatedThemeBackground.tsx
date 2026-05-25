@@ -36,47 +36,59 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
 function SmoothLoopVideo({ src, onError }: { src: string; onError: () => void }) {
   const refA = useRef<HTMLVideoElement>(null);
   const refB = useRef<HTMLVideoElement>(null);
-  const stateRef = useRef({ activeIsA: true, fading: false });
 
   useEffect(() => {
     const a = refA.current;
     const b = refB.current;
     if (!a || !b) return;
 
-    a.style.opacity = '1';
-    b.style.opacity = '0';
+    let dead = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
-    const crossfade = (from: HTMLVideoElement, to: HTMLVideoElement) => {
-      stateRef.current.fading = true;
-      to.currentTime = 0;
-      to.play().catch(() => {});
-      from.style.transition = `opacity ${CROSSFADE_S}s ease-in-out`;
-      to.style.transition   = `opacity ${CROSSFADE_S}s ease-in-out`;
-      from.style.opacity = '0';
-      to.style.opacity   = '1';
-      setTimeout(() => {
-        from.pause();
-        from.currentTime = 0;
-        stateRef.current.activeIsA = !stateRef.current.activeIsA;
-        stateRef.current.fading = false;
-      }, (CROSSFADE_S + 0.2) * 1000);
+    const setOp = (el: HTMLVideoElement, op: number, animated: boolean) => {
+      el.style.transition = animated ? `opacity ${CROSSFADE_S}s ease-in-out` : 'none';
+      el.style.opacity = String(op);
     };
 
-    const onTimeUpdateA = () => {
-      if (!stateRef.current.activeIsA || stateRef.current.fading || !a.duration) return;
-      if (a.duration - a.currentTime <= CROSSFADE_S) crossfade(a, b);
+    setOp(a, 1, false);
+    setOp(b, 0, false);
+
+    // Schedule the crossfade CROSSFADE_S seconds before `from` reaches its end.
+    // Using setTimeout avoids the ~250 ms polling gap of timeupdate.
+    const schedule = (from: HTMLVideoElement, to: HTMLVideoElement) => {
+      if (dead) return;
+      if (timer) clearTimeout(timer);
+      const delay = Math.max(0, (from.duration - from.currentTime - CROSSFADE_S) * 1000);
+      timer = setTimeout(() => {
+        if (dead) return;
+        // Kick off standby video — preload="auto" means it buffers immediately
+        to.currentTime = 0;
+        to.play().catch(() => {});
+        setOp(from, 0, true);
+        setOp(to, 1, true);
+        // After fade completes, retire the old active and schedule next cycle
+        timer = setTimeout(() => {
+          if (dead) return;
+          from.pause();
+          from.currentTime = 0;
+          // `to` has been playing for ~(CROSSFADE_S + 0.1)s from its start
+          if (to.duration) {
+            schedule(to, from);
+          } else {
+            to.addEventListener('loadedmetadata', () => { if (!dead) schedule(to, from); }, { once: true });
+          }
+        }, (CROSSFADE_S + 0.1) * 1000);
+      }, delay);
     };
 
-    const onTimeUpdateB = () => {
-      if (stateRef.current.activeIsA || stateRef.current.fading || !b.duration) return;
-      if (b.duration - b.currentTime <= CROSSFADE_S) crossfade(b, a);
-    };
+    const start = () => { if (!dead && !isNaN(a.duration)) schedule(a, b); };
+    a.addEventListener('loadedmetadata', start, { once: true });
+    if (a.readyState >= 1 && !isNaN(a.duration)) start();
 
-    a.addEventListener('timeupdate', onTimeUpdateA);
-    b.addEventListener('timeupdate', onTimeUpdateB);
     return () => {
-      a.removeEventListener('timeupdate', onTimeUpdateA);
-      b.removeEventListener('timeupdate', onTimeUpdateB);
+      dead = true;
+      if (timer) clearTimeout(timer);
+      a.removeEventListener('loadedmetadata', start);
     };
   }, [src]);
 
@@ -91,8 +103,8 @@ function SmoothLoopVideo({ src, onError }: { src: string; onError: () => void })
 
   return (
     <>
-      <video ref={refA} src={src} autoPlay muted playsInline style={vs} onError={onError} />
-      <video ref={refB} src={src} muted playsInline style={vs} onError={onError} />
+      <video ref={refA} src={src} autoPlay muted playsInline preload="auto" style={vs} onError={onError} />
+      <video ref={refB} src={src} muted playsInline preload="auto" style={vs} onError={onError} />
     </>
   );
 }
