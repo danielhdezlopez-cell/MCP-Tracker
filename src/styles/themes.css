@@ -12879,3 +12879,380 @@
   0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(177, 18, 38, 0.65), 0 0 36px rgba(244, 247, 255, 0.28); }
   50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(177, 18, 38, 0.88), 0 0 52px rgba(244, 247, 255, 0.40), 0 0 4px #f4f7ff; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   WINTER GUARD — Arctic military ops — Soviet red, ice blue & snow white
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='winter-guard'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 10, 18, 0.88);
+  --color-panel-alt: rgba(7, 14, 24, 0.93);
+  --color-border: rgba(215, 25, 32, 0.72);
+  --color-accent-left: #d71920;
+  --color-accent-right: #38dfff;
+  --color-glow-left: rgba(215, 25, 32, 0.56);
+  --color-glow-right: rgba(56, 223, 255, 0.50);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #ffb347;
+  --color-critical: #ff2a2a;
+  --color-success: #38dfff;
+  --color-round-active: #d71920;
+  --color-round-inactive: rgba(215, 25, 32, 0.16);
+  --color-mission-secure: #d71920;
+  --color-glow-secure: rgba(215, 25, 32, 0.44);
+  --color-mission-extract: #38dfff;
+  --color-glow-extract: rgba(56, 223, 255, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='winter-guard'] body { background: transparent; }
+[data-theme='winter-guard'] .layout { background: transparent; }
+
+/* Arctic scan-line grid — cold tactical readout */
+[data-theme='winter-guard'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(244, 247, 255, 0.014) 3px,
+      rgba(244, 247, 255, 0.014) 4px
+    );
+}
+
+/* Video overlay — dark ops sky with red Soviet & ice blue radial glows */
+[data-theme='winter-guard'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 28% 30%, rgba(215, 25, 32, 0.18), transparent 40%),
+    radial-gradient(circle at 74% 62%, rgba(56, 223, 255, 0.14), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(7, 22, 42, 0.34), transparent 52%),
+    rgba(2, 5, 10, 0.50);
+}
+
+/* Panels — dark armored steel with red border */
+[data-theme='winter-guard'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(215, 25, 32, 0.62);
+  box-shadow: 0 0 16px rgba(215, 25, 32, 0.12), inset 0 0 26px rgba(0, 0, 0, 0.54);
+  backdrop-filter: blur(6px);
+}
+[data-theme='winter-guard'] .panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.12), transparent, rgba(56, 223, 255, 0.08));
+}
+[data-theme='winter-guard'] .glow-left {
+  border-color: rgba(215, 25, 32, 0.60);
+  box-shadow: -2px 0 16px rgba(215, 25, 32, 0.32), 0 0 12px rgba(215, 25, 32, 0.12);
+}
+[data-theme='winter-guard'] .glow-right {
+  border-color: rgba(56, 223, 255, 0.54);
+  box-shadow: 2px 0 16px rgba(56, 223, 255, 0.26), 0 0 12px rgba(56, 223, 255, 0.10);
+}
+
+/* Buttons — heavy military console */
+[data-theme='winter-guard'] .btn-hud {
+  background: linear-gradient(180deg, rgba(75, 85, 99, 0.28), rgba(5, 10, 18, 0.92));
+  border-color: rgba(215, 25, 32, 0.52);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='winter-guard'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 22px rgba(56, 223, 255, 0.16);
+  color: var(--color-accent-left);
+}
+[data-theme='winter-guard'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='winter-guard'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='winter-guard'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Side nav — dark arctic command */
+[data-theme='winter-guard'] .side-nav {
+  background: rgba(2, 5, 10, 0.96);
+  border-right-color: rgba(215, 25, 32, 0.40);
+  backdrop-filter: blur(8px);
+}
+[data-theme='winter-guard'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(215, 25, 32, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='winter-guard'] .side-nav__logo-text {
+  text-shadow: 0 0 12px rgba(215, 25, 32, 0.70), 0 0 24px rgba(56, 223, 255, 0.36);
+}
+[data-theme='winter-guard'] .side-nav__item:hover {
+  background: rgba(215, 25, 32, 0.08);
+  border-color: rgba(215, 25, 32, 0.42);
+}
+[data-theme='winter-guard'] .side-nav__item.active {
+  background: rgba(215, 25, 32, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Score panels — Winter Guard power display */
+[data-theme='winter-guard'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='winter-guard'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #7a0612, #d71920);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.78);
+}
+[data-theme='winter-guard'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #0a3a5a, #38dfff);
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.72);
+}
+[data-theme='winter-guard'] .score-panel__value {
+  text-shadow: 0 0 8px rgba(244, 247, 255, 0.70), 0 0 20px rgba(215, 25, 32, 0.68), 0 0 36px rgba(56, 223, 255, 0.28);
+  animation: winterGuard-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='winter-guard'] .glow-right .score-panel__value {
+  text-shadow: 0 0 8px rgba(244, 247, 255, 0.70), 0 0 20px rgba(56, 223, 255, 0.65), 0 0 36px rgba(215, 25, 32, 0.24);
+  animation: winterGuard-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='winter-guard'] .score-panel__btn {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(215, 25, 32, 0.38);
+}
+[data-theme='winter-guard'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer panel — arctic mission countdown */
+[data-theme='winter-guard'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.55);
+}
+[data-theme='winter-guard'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.12), rgba(56, 223, 255, 0.08), transparent);
+}
+[data-theme='winter-guard'] .timer-panel__display {
+  color: #c7d2fe;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.60), 0 0 6px rgba(244, 247, 255, 0.46);
+}
+[data-theme='winter-guard'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.88) !important;
+  box-shadow: 0 0 22px rgba(255, 42, 42, 0.46), 0 0 44px rgba(255, 42, 42, 0.20) !important;
+}
+[data-theme='winter-guard'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 14px rgba(255, 42, 42, 0.88);
+}
+[data-theme='winter-guard'] .timer-panel__btn {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(215, 25, 32, 0.38);
+  color: #c7d2fe;
+}
+[data-theme='winter-guard'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.50);
+}
+
+/* Round tracker — Soviet operation nodes */
+[data-theme='winter-guard'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.38);
+}
+[data-theme='winter-guard'] .round-tracker__pip {
+  border-color: rgba(215, 25, 32, 0.26);
+  background: rgba(5, 10, 18, 0.62);
+}
+[data-theme='winter-guard'] .round-tracker__pip.active {
+  border-color: rgba(215, 25, 32, 0.55);
+  background: rgba(215, 25, 32, 0.10);
+}
+[data-theme='winter-guard'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 5px var(--color-accent-left);
+  animation: winterGuard-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — classified arctic briefing */
+[data-theme='winter-guard'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.34);
+  box-shadow:
+    inset 0 0 22px rgba(0, 0, 0, 0.46),
+    0 0 14px rgba(215, 25, 32, 0.08),
+    0 0 28px rgba(56, 223, 255, 0.06);
+}
+[data-theme='winter-guard'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='winter-guard'] .mission-item {
+  background: rgba(5, 10, 18, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='winter-guard'] .mission-item:hover {
+  background: rgba(215, 25, 32, 0.07);
+  border-color: rgba(215, 25, 32, 0.44);
+}
+[data-theme='winter-guard'] .mission-item--left.selected {
+  background: rgba(215, 25, 32, 0.16);
+  border-color: rgba(215, 25, 32, 0.70);
+  box-shadow: 0 0 12px rgba(215, 25, 32, 0.28);
+}
+[data-theme='winter-guard'] .mission-item--right.selected {
+  background: rgba(56, 223, 255, 0.14);
+  border-color: rgba(56, 223, 255, 0.68);
+  box-shadow: 0 0 12px rgba(56, 223, 255, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='winter-guard'] .leader-hex__name {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(215, 25, 32, 0.36);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — squad tactical frame */
+[data-theme='winter-guard'] .leader-card {
+  background: rgba(5, 10, 18, 0.86);
+  border-color: rgba(215, 25, 32, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='winter-guard'] .leader-card:hover {
+  border-color: rgba(215, 25, 32, 0.54);
+  box-shadow: 0 0 12px rgba(215, 25, 32, 0.20);
+}
+[data-theme='winter-guard'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='winter-guard'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='winter-guard'] .leaders-page__header,
+[data-theme='winter-guard'] .missions-page__header {
+  background: rgba(2, 5, 10, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(215, 25, 32, 0.30);
+}
+[data-theme='winter-guard'] .leaders-page__search {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(215, 25, 32, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='winter-guard'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='winter-guard'] .missions-page__body {
+  background: rgba(2, 5, 10, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='winter-guard'] .leaders-page__assign-btn {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(215, 25, 32, 0.34);
+  backdrop-filter: blur(4px);
+}
+[data-theme='winter-guard'] .leaders-page__assign-btn.active-left {
+  background: rgba(215, 25, 32, 0.14);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='winter-guard'] .leaders-page__assign-btn.active-right {
+  background: rgba(56, 223, 255, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='winter-guard'] .affil-btn {
+  background: rgba(5, 10, 18, 0.86);
+  border-color: rgba(215, 25, 32, 0.28);
+}
+[data-theme='winter-guard'] .affil-btn:hover { border-color: rgba(215, 25, 32, 0.52); }
+[data-theme='winter-guard'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(215, 25, 32, 0.11);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='winter-guard'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.36);
+}
+[data-theme='winter-guard'] .settings-section__title {
+  color: #c7d2fe;
+  background: rgba(7, 14, 24, 0.93);
+  border-bottom-color: rgba(215, 25, 32, 0.28);
+}
+[data-theme='winter-guard'] .settings-preset-btn.active,
+[data-theme='winter-guard'] .settings-theme-btn.active,
+[data-theme='winter-guard'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(215, 25, 32, 0.11);
+  color: var(--color-accent-left);
+}
+[data-theme='winter-guard'] .settings-slider {
+  background: rgba(215, 25, 32, 0.16);
+}
+[data-theme='winter-guard'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='winter-guard'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='winter-guard'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.74); }
+[data-theme='winter-guard'] .main-page__modal {
+  background: rgba(5, 10, 18, 0.97);
+  border-color: rgba(215, 25, 32, 0.58);
+  box-shadow: 0 0 30px rgba(215, 25, 32, 0.24);
+  backdrop-filter: blur(12px);
+}
+[data-theme='winter-guard'] .main-page__modal-title {
+  color: #c7d2fe;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.65);
+}
+[data-theme='winter-guard'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — Winter Guard cold fury */
+@keyframes winterGuard-pulse-left {
+  0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(215, 25, 32, 0.65), 0 0 36px rgba(56, 223, 255, 0.24); }
+  50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(215, 25, 32, 0.92), 0 0 52px rgba(56, 223, 255, 0.36), 0 0 4px #d71920; }
+}
+@keyframes winterGuard-pulse-right {
+  0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(56, 223, 255, 0.65), 0 0 36px rgba(215, 25, 32, 0.22); }
+  50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(56, 223, 255, 0.90), 0 0 52px rgba(215, 25, 32, 0.32), 0 0 4px #38dfff; }
+}
