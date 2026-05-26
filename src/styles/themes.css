@@ -13635,6 +13635,387 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SHE-HULK — Gamma-powered attorney — neon green & purple suit HUD
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='she-hulk'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 10, 7, 0.90);
+  --color-panel-alt: rgba(6, 12, 9, 0.94);
+  --color-border: rgba(57, 255, 20, 0.72);
+  --color-accent-left: #39ff14;
+  --color-accent-right: #8b2cff;
+  --color-glow-left: rgba(57, 255, 20, 0.60);
+  --color-glow-right: rgba(139, 44, 255, 0.56);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #ffb347;
+  --color-critical: #ff2a2a;
+  --color-success: #f4f7ff;
+  --color-round-active: #39ff14;
+  --color-round-inactive: rgba(57, 255, 20, 0.18);
+  --color-mission-secure: #39ff14;
+  --color-glow-secure: rgba(57, 255, 20, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='she-hulk'] body { background: transparent; }
+[data-theme='she-hulk'] .layout { background: transparent; }
+
+/* Gamma energy grid overlay */
+[data-theme='she-hulk'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(57, 255, 20, 0.014) 3px,
+      rgba(57, 255, 20, 0.014) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 51px,
+      rgba(244, 247, 255, 0.012) 51px,
+      rgba(244, 247, 255, 0.012) 52px
+    );
+}
+
+/* Video overlay — gamma lab with neon green & violet glows */
+[data-theme='she-hulk'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(57, 255, 20, 0.16), transparent 44%),
+    radial-gradient(circle at 70% 70%, rgba(139, 44, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(4, 10, 7, 0.32), transparent 52%),
+    rgba(2, 4, 2, 0.50);
+}
+
+/* Panels — dark gamma-irradiated plate with green border */
+[data-theme='she-hulk'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(57, 255, 20, 0.62);
+  box-shadow: 0 0 18px rgba(57, 255, 20, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(6px);
+}
+[data-theme='she-hulk'] .panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.10), transparent, rgba(139, 44, 255, 0.06));
+}
+[data-theme='she-hulk'] .glow-left {
+  border-color: rgba(57, 255, 20, 0.62);
+  box-shadow: -2px 0 14px rgba(57, 255, 20, 0.34), 0 0 10px rgba(57, 255, 20, 0.14);
+}
+[data-theme='she-hulk'] .glow-right {
+  border-color: rgba(139, 44, 255, 0.56);
+  box-shadow: 2px 0 14px rgba(139, 44, 255, 0.28), 0 0 10px rgba(139, 44, 255, 0.12);
+}
+
+/* Buttons — gamma power command */
+[data-theme='she-hulk'] .btn-hud {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.48);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='she-hulk'] .btn-hud:hover {
+  border-color: var(--color-text);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.46), 0 0 18px rgba(244, 247, 255, 0.22);
+  color: var(--color-text);
+}
+[data-theme='she-hulk'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='she-hulk'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='she-hulk'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — gamma attorney command */
+[data-theme='she-hulk'] .side-nav {
+  background: rgba(2, 4, 2, 0.97);
+  border-right-color: rgba(57, 255, 20, 0.36);
+  backdrop-filter: blur(8px);
+}
+[data-theme='she-hulk'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(57, 255, 20, 0.58) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='she-hulk'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.80), 0 0 22px rgba(139, 44, 255, 0.42);
+}
+[data-theme='she-hulk'] .side-nav__item:hover {
+  background: rgba(57, 255, 20, 0.07);
+  border-color: rgba(244, 247, 255, 0.32);
+}
+[data-theme='she-hulk'] .side-nav__item.active {
+  background: rgba(57, 255, 20, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — gamma power readout */
+[data-theme='she-hulk'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='she-hulk'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #0a3010, #39ff14);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.72);
+}
+[data-theme='she-hulk'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #2a0f4f, #8b2cff);
+  box-shadow: 0 0 8px rgba(139, 44, 255, 0.68);
+}
+[data-theme='she-hulk'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(57, 255, 20, 0.72), 0 0 30px rgba(139, 44, 255, 0.28);
+  animation: she-hulk-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='she-hulk'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(139, 44, 255, 0.72), 0 0 30px rgba(57, 255, 20, 0.28);
+  animation: she-hulk-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='she-hulk'] .score-panel__btn {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.34);
+}
+[data-theme='she-hulk'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — gamma surge countdown */
+[data-theme='she-hulk'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.50);
+}
+[data-theme='she-hulk'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.12), rgba(139, 44, 255, 0.06), transparent);
+}
+[data-theme='she-hulk'] .timer-panel__display {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.68), 0 0 5px rgba(244, 247, 255, 0.50);
+}
+[data-theme='she-hulk'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='she-hulk'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='she-hulk'] .timer-panel__btn {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.34);
+  color: #c7d2fe;
+}
+[data-theme='she-hulk'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.52);
+}
+
+/* Round tracker — gamma energy nodes */
+[data-theme='she-hulk'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.34);
+}
+[data-theme='she-hulk'] .round-tracker__pip {
+  border-color: rgba(57, 255, 20, 0.24);
+  background: rgba(4, 10, 7, 0.62);
+}
+[data-theme='she-hulk'] .round-tracker__pip.active {
+  border-color: rgba(244, 247, 255, 0.44);
+  background: rgba(57, 255, 20, 0.08);
+}
+[data-theme='she-hulk'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: she-hulk-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — gamma briefing console */
+[data-theme='she-hulk'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.30);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.44);
+}
+[data-theme='she-hulk'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='she-hulk'] .mission-item {
+  background: rgba(4, 10, 7, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='she-hulk'] .mission-item:hover {
+  background: rgba(57, 255, 20, 0.06);
+  border-color: rgba(244, 247, 255, 0.32);
+}
+[data-theme='she-hulk'] .mission-item--left.selected {
+  background: rgba(57, 255, 20, 0.14);
+  border-color: rgba(57, 255, 20, 0.68);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.28);
+}
+[data-theme='she-hulk'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='she-hulk'] .leader-hex__name {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — gamma attorney radar frame */
+[data-theme='she-hulk'] .leader-card {
+  background: rgba(4, 10, 7, 0.86);
+  border-color: rgba(57, 255, 20, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='she-hulk'] .leader-card:hover {
+  border-color: rgba(244, 247, 255, 0.48);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.18);
+}
+[data-theme='she-hulk'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='she-hulk'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='she-hulk'] .leaders-page__header,
+[data-theme='she-hulk'] .missions-page__header {
+  background: rgba(2, 4, 2, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(57, 255, 20, 0.26);
+}
+[data-theme='she-hulk'] .leaders-page__search {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='she-hulk'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='she-hulk'] .missions-page__body {
+  background: rgba(2, 4, 2, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='she-hulk'] .leaders-page__assign-btn {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.30);
+  backdrop-filter: blur(4px);
+}
+[data-theme='she-hulk'] .leaders-page__assign-btn.active-left {
+  background: rgba(57, 255, 20, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='she-hulk'] .leaders-page__assign-btn.active-right {
+  background: rgba(139, 44, 255, 0.11);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='she-hulk'] .affil-btn {
+  background: rgba(4, 10, 7, 0.86);
+  border-color: rgba(57, 255, 20, 0.24);
+}
+[data-theme='she-hulk'] .affil-btn:hover { border-color: rgba(244, 247, 255, 0.42); }
+[data-theme='she-hulk'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(57, 255, 20, 0.09);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='she-hulk'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.32);
+}
+[data-theme='she-hulk'] .settings-section__title {
+  color: #39ff14;
+  background: rgba(4, 10, 7, 0.95);
+  border-bottom-color: rgba(57, 255, 20, 0.24);
+}
+[data-theme='she-hulk'] .settings-preset-btn.active,
+[data-theme='she-hulk'] .settings-theme-btn.active,
+[data-theme='she-hulk'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(57, 255, 20, 0.09);
+  color: var(--color-accent-left);
+}
+[data-theme='she-hulk'] .settings-slider {
+  background: rgba(57, 255, 20, 0.16);
+}
+[data-theme='she-hulk'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='she-hulk'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='she-hulk'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.76); }
+[data-theme='she-hulk'] .main-page__modal {
+  background: rgba(4, 10, 7, 0.97);
+  border-color: rgba(57, 255, 20, 0.54);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.22), 0 0 50px rgba(139, 44, 255, 0.10);
+  backdrop-filter: blur(12px);
+}
+[data-theme='she-hulk'] .main-page__modal-title {
+  color: #39ff14;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.72), 0 0 24px rgba(139, 44, 255, 0.30);
+}
+[data-theme='she-hulk'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — gamma surge energy */
+@keyframes she-hulk-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(57, 255, 20, 0.72), 0 0 30px rgba(139, 44, 255, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.92), 0 0 26px rgba(57, 255, 20, 0.95), 0 0 46px rgba(139, 44, 255, 0.38), 0 0 4px #39ff14; }
+}
+@keyframes she-hulk-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(139, 44, 255, 0.72), 0 0 30px rgba(57, 255, 20, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.92), 0 0 26px rgba(139, 44, 255, 0.95), 0 0 46px rgba(57, 255, 20, 0.38), 0 0 4px #8b2cff; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    STORM — Elemental storm goddess HUD — electric cyan & white lightning
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='storm'] {
