@@ -471,6 +471,23 @@
   background-size: 14px 14px, 14px 14px;
 }
 
+[data-theme-preview='king-tchalla'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #020304 0%, #0f0a18 40%, #2a0f4f 70%, #f6c85f22 100%);
+  border: 1px solid rgba(246, 200, 95, 0.68);
+  box-shadow: 0 0 8px rgba(139, 44, 255, 0.38), inset 0 0 6px rgba(56, 223, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='king-tchalla'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(60deg, transparent 0%, rgba(139, 44, 255, 0.14) 1px, transparent 2px),
+    linear-gradient(120deg, transparent 0%, rgba(246, 200, 95, 0.10) 1px, transparent 2px);
+  background-size: 14px 12px, 14px 12px;
+}
+
 [data-theme-preview='kingpin'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020304 0%, #12100a 40%, #1e160c 70%, #c8a45d22 100%);
   border: 1px solid rgba(200, 164, 93, 0.60);
