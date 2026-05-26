@@ -41,6 +41,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,mp4}'],
         maximumFileSizeToCacheInBytes: 30 * 1024 * 1024, // 30 MB — covers large video themes
         runtimeCaching: [
