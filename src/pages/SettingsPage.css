@@ -420,6 +420,23 @@
   background-size: 14px 14px, 14px 14px;
 }
 
+[data-theme-preview='she-hulk'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #020a04 0%, #0a2010 40%, #1a0830 70%, #39ff1422 100%);
+  border: 1px solid rgba(57, 255, 20, 0.72);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.40), inset 0 0 6px rgba(139, 44, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='she-hulk'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(57, 255, 20, 0.10) 1px, transparent 2px),
+    linear-gradient(0deg, transparent 0%, rgba(139, 44, 255, 0.08) 1px, transparent 2px);
+  background-size: 14px 14px, 14px 14px;
+}
+
 [data-theme-preview='kingpin'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020304 0%, #12100a 40%, #1e160c 70%, #c8a45d22 100%);
   border: 1px solid rgba(200, 164, 93, 0.60);

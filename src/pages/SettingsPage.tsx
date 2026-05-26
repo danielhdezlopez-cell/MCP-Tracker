@@ -35,6 +35,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'professor-x',  label: 'Professor X',   desc: 'Cerebro telepathic interface — blue & violet HUD'  },
   { value: 'sam-wilson',   label: 'Sam Wilson',    desc: 'Aerial combat HUD — tactical blue, red wings & cyan' },
   { value: 'sentinels',     label: 'Sentinels',    desc: 'Robotic exterminator surveillance HUD — purple & scanner blue' },
+  { value: 'she-hulk',      label: 'She-Hulk',     desc: 'Gamma-powered attorney — neon green & purple suit HUD' },
   { value: 'shield',        label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'           },
   { value: 'starlord',     label: 'Starlord',      desc: 'Space outlaw retro-futurist HUD — cosmic orange, neon blue & galaxy purple' },
   { value: 'storm',        label: 'Storm',         desc: 'Elemental storm goddess HUD — electric cyan, white lightning & violet energy' },

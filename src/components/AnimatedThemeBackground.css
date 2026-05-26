@@ -106,6 +106,9 @@
 .anim-theme-bg--asgard.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #050712 0%, #0d1030 40%, #0a0e28 70%, #050712 100%);
 }
+.anim-theme-bg--she-hulk.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020a04 0%, #0a2010 40%, #1a0830 70%, #020a04 100%);
+}
 .anim-theme-bg--storm.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020304 0%, #07162a 40%, #0a1e3a 70%, #020304 100%);
 }
