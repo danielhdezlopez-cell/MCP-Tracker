@@ -9175,6 +9175,387 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   LOKI — God of Mischief — arcane green magic, asgardian gold & shadow purple
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='loki'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 10, 7, 0.90);
+  --color-panel-alt: rgba(6, 12, 9, 0.94);
+  --color-border: rgba(57, 255, 20, 0.72);
+  --color-accent-left: #39ff14;
+  --color-accent-right: #f6c85f;
+  --color-glow-left: rgba(57, 255, 20, 0.60);
+  --color-glow-right: rgba(246, 200, 95, 0.56);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c8a45d;
+  --color-warn: #fff04a;
+  --color-critical: #ff2a2a;
+  --color-success: #f4f7ff;
+  --color-round-active: #39ff14;
+  --color-round-inactive: rgba(57, 255, 20, 0.18);
+  --color-mission-secure: #39ff14;
+  --color-glow-secure: rgba(57, 255, 20, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='loki'] body { background: transparent; }
+[data-theme='loki'] .layout { background: transparent; }
+
+/* Arcane rune grid overlay */
+[data-theme='loki'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(57, 255, 20, 0.012) 3px,
+      rgba(57, 255, 20, 0.012) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 51px,
+      rgba(246, 200, 95, 0.010) 51px,
+      rgba(246, 200, 95, 0.010) 52px
+    );
+}
+
+/* Video overlay — dark asgardian palace with green magic & gold glows */
+[data-theme='loki'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(57, 255, 20, 0.14), transparent 44%),
+    radial-gradient(circle at 70% 65%, rgba(246, 200, 95, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(42, 15, 79, 0.22), transparent 52%),
+    rgba(2, 3, 4, 0.52);
+}
+
+/* Panels — dark esmeralda crystal with green/gold border */
+[data-theme='loki'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(57, 255, 20, 0.62);
+  box-shadow: 0 0 18px rgba(57, 255, 20, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(6px);
+}
+[data-theme='loki'] .panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.10), transparent, rgba(246, 200, 95, 0.08));
+}
+[data-theme='loki'] .glow-left {
+  border-color: rgba(57, 255, 20, 0.62);
+  box-shadow: -2px 0 14px rgba(57, 255, 20, 0.34), 0 0 10px rgba(57, 255, 20, 0.14);
+}
+[data-theme='loki'] .glow-right {
+  border-color: rgba(246, 200, 95, 0.56);
+  box-shadow: 2px 0 14px rgba(246, 200, 95, 0.28), 0 0 10px rgba(246, 200, 95, 0.12);
+}
+
+/* Buttons — asgardian palace command */
+[data-theme='loki'] .btn-hud {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.48);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='loki'] .btn-hud:hover {
+  border-color: rgba(246, 200, 95, 0.90);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.40), 0 0 18px rgba(246, 200, 95, 0.28);
+  color: var(--color-text);
+}
+[data-theme='loki'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='loki'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='loki'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — god of mischief command */
+[data-theme='loki'] .side-nav {
+  background: rgba(2, 3, 4, 0.97);
+  border-right-color: rgba(57, 255, 20, 0.36);
+  backdrop-filter: blur(8px);
+}
+[data-theme='loki'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(57, 255, 20, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='loki'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.80), 0 0 22px rgba(246, 200, 95, 0.42);
+}
+[data-theme='loki'] .side-nav__item:hover {
+  background: rgba(57, 255, 20, 0.07);
+  border-color: rgba(246, 200, 95, 0.32);
+}
+[data-theme='loki'] .side-nav__item.active {
+  background: rgba(57, 255, 20, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — deception power readout */
+[data-theme='loki'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='loki'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #0a3010, #39ff14);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.72);
+}
+[data-theme='loki'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #5a3800, #f6c85f);
+  box-shadow: 0 0 8px rgba(246, 200, 95, 0.68);
+}
+[data-theme='loki'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(57, 255, 20, 0.72), 0 0 30px rgba(246, 200, 95, 0.28);
+  animation: loki-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='loki'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(246, 200, 95, 0.72), 0 0 30px rgba(57, 255, 20, 0.28);
+  animation: loki-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='loki'] .score-panel__btn {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.34);
+}
+[data-theme='loki'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — illusion countdown */
+[data-theme='loki'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.50);
+}
+[data-theme='loki'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.12), rgba(246, 200, 95, 0.08), transparent);
+}
+[data-theme='loki'] .timer-panel__display {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.68), 0 0 5px rgba(246, 200, 95, 0.40);
+}
+[data-theme='loki'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='loki'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='loki'] .timer-panel__btn {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.34);
+  color: #c8a45d;
+}
+[data-theme='loki'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.52);
+}
+
+/* Round tracker — arcane rune nodes */
+[data-theme='loki'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.34);
+}
+[data-theme='loki'] .round-tracker__pip {
+  border-color: rgba(57, 255, 20, 0.24);
+  background: rgba(4, 10, 7, 0.62);
+}
+[data-theme='loki'] .round-tracker__pip.active {
+  border-color: rgba(246, 200, 95, 0.44);
+  background: rgba(57, 255, 20, 0.08);
+}
+[data-theme='loki'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: loki-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — deception briefing console */
+[data-theme='loki'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.30);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.44);
+}
+[data-theme='loki'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='loki'] .mission-item {
+  background: rgba(4, 10, 7, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='loki'] .mission-item:hover {
+  background: rgba(57, 255, 20, 0.06);
+  border-color: rgba(246, 200, 95, 0.32);
+}
+[data-theme='loki'] .mission-item--left.selected {
+  background: rgba(57, 255, 20, 0.14);
+  border-color: rgba(57, 255, 20, 0.68);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.28);
+}
+[data-theme='loki'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='loki'] .leader-hex__name {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — golden horns rune frame */
+[data-theme='loki'] .leader-card {
+  background: rgba(4, 10, 7, 0.86);
+  border-color: rgba(57, 255, 20, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='loki'] .leader-card:hover {
+  border-color: rgba(246, 200, 95, 0.48);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.18);
+}
+[data-theme='loki'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='loki'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='loki'] .leaders-page__header,
+[data-theme='loki'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(57, 255, 20, 0.26);
+}
+[data-theme='loki'] .leaders-page__search {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='loki'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='loki'] .missions-page__body {
+  background: rgba(2, 3, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='loki'] .leaders-page__assign-btn {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.30);
+  backdrop-filter: blur(4px);
+}
+[data-theme='loki'] .leaders-page__assign-btn.active-left {
+  background: rgba(57, 255, 20, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='loki'] .leaders-page__assign-btn.active-right {
+  background: rgba(246, 200, 95, 0.11);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='loki'] .affil-btn {
+  background: rgba(4, 10, 7, 0.86);
+  border-color: rgba(57, 255, 20, 0.24);
+}
+[data-theme='loki'] .affil-btn:hover { border-color: rgba(246, 200, 95, 0.42); }
+[data-theme='loki'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(57, 255, 20, 0.09);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='loki'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.32);
+}
+[data-theme='loki'] .settings-section__title {
+  color: #39ff14;
+  background: rgba(4, 10, 7, 0.95);
+  border-bottom-color: rgba(57, 255, 20, 0.24);
+}
+[data-theme='loki'] .settings-preset-btn.active,
+[data-theme='loki'] .settings-theme-btn.active,
+[data-theme='loki'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(57, 255, 20, 0.09);
+  color: var(--color-accent-left);
+}
+[data-theme='loki'] .settings-slider {
+  background: rgba(57, 255, 20, 0.16);
+}
+[data-theme='loki'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='loki'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='loki'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.78); }
+[data-theme='loki'] .main-page__modal {
+  background: rgba(4, 10, 7, 0.97);
+  border-color: rgba(57, 255, 20, 0.54);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.22), 0 0 50px rgba(246, 200, 95, 0.12);
+  backdrop-filter: blur(12px);
+}
+[data-theme='loki'] .main-page__modal-title {
+  color: #39ff14;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.72), 0 0 24px rgba(246, 200, 95, 0.30);
+}
+[data-theme='loki'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — arcane illusion energy */
+@keyframes loki-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(57, 255, 20, 0.72), 0 0 30px rgba(246, 200, 95, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.92), 0 0 26px rgba(57, 255, 20, 0.95), 0 0 46px rgba(246, 200, 95, 0.38), 0 0 4px #39ff14; }
+}
+@keyframes loki-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(246, 200, 95, 0.72), 0 0 30px rgba(57, 255, 20, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.92), 0 0 26px rgba(246, 200, 95, 0.95), 0 0 46px rgba(57, 255, 20, 0.38), 0 0 4px #f6c85f; }
+}
+
 /* ════════════════════════════════════════════════════════════════════
    MAGIK — Limbo sorcerer, Soulsword, dimensional portals.
    Near-black Limbo base, Soulsword yellow P1, Limbo green P2,
