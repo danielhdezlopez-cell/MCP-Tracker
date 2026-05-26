@@ -34,6 +34,9 @@
 .anim-theme-bg--dark-dimension.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030008 0%, #2a063f 40%, #1a0030 70%, #030008 100%);
 }
+.anim-theme-bg--doc-ock.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020604 0%, #0a2210 40%, #061a0c 70%, #020604 100%);
+}
 .anim-theme-bg--dracula.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030305 0%, #0b0709 40%, #1a0408 70%, #030305 100%);
 }

@@ -12,6 +12,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'convocation',      label: 'Convocation',     desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
   { value: 'cyclops',          label: 'Cyclops',         desc: 'X-Men tactical visor — red optic & blue HUD'     },
   { value: 'dark-dimension',   label: 'Dark Dimension',  desc: 'Dormammu hostile void — purple fire & red chaos' },
+  { value: 'doc-ock',          label: 'Doc Ock',         desc: 'Mechanical tentacle lab — reactor green & steel'  },
   { value: 'dracula',          label: 'Dracula',         desc: 'Gothic vampire castle — blood red & aged silver'  },
   { value: 'green-goblin',     label: 'Green Goblin',   desc: 'Glider villain — toxic green & explosion orange'  },
   { value: 'hellfire-club',    label: 'Hellfire Club',   desc: 'Secret aristocratic society — velvet red & gold'  },

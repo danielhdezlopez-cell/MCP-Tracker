@@ -10979,3 +10979,380 @@
   0%, 100% { text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(215, 25, 32, 0.60); }
   50%       { text-shadow: 0 0 26px rgba(244, 247, 255, 0.85), 0 0 16px rgba(215, 25, 32, 0.88), 0 0 4px #f4f7ff; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   DOC OCK — mechanical tentacle laboratory HUD.
+   Deep black base, reactor green (#39ff14) primary accents, cyan
+   technical (#38dfff) secondary, yellow-green nucleus warning.
+   Semi-transparent panels bleed the animated video through.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='doc-ock'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 10, 7, 0.88);
+  --color-panel-alt: rgba(6, 14, 9, 0.93);
+  --color-border: rgba(57, 255, 20, 0.55);
+  --color-accent-left: #39ff14;
+  --color-accent-right: #38dfff;
+  --color-glow-left: rgba(57, 255, 20, 0.50);
+  --color-glow-right: rgba(56, 223, 255, 0.44);
+  --color-text: #eafff1;
+  --color-text-muted: #8fa88f;
+  --color-warn: #d6ff3f;
+  --color-critical: #ff2a2a;
+  --color-success: #39ff14;
+  --color-round-active: #39ff14;
+  --color-round-inactive: rgba(57, 255, 20, 0.16);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.44);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='doc-ock'] body { background: transparent; }
+[data-theme='doc-ock'] .layout { background: transparent; }
+
+/* Industrial circuit grid overlay */
+[data-theme='doc-ock'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(57, 255, 20, 0.018) 3px,
+      rgba(57, 255, 20, 0.018) 4px
+    );
+}
+
+/* Video overlay — lab black with reactor-green & cyan radial glows */
+[data-theme='doc-ock'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 35%, rgba(57, 255, 20, 0.14), transparent 38%),
+    radial-gradient(circle at 75% 65%, rgba(56, 223, 255, 0.10), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(15, 59, 32, 0.28), transparent 50%),
+    rgba(2, 6, 4, 0.54);
+}
+
+/* Panels — dark industrial with reactor-green border glow */
+[data-theme='doc-ock'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(57, 255, 20, 0.48);
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.10), inset 0 0 24px rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(6px);
+}
+[data-theme='doc-ock'] .panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.14), transparent, rgba(56, 223, 255, 0.08));
+}
+[data-theme='doc-ock'] .glow-left {
+  border-color: rgba(57, 255, 20, 0.52);
+  box-shadow: -2px 0 14px rgba(57, 255, 20, 0.30), 0 0 10px rgba(57, 255, 20, 0.12);
+}
+[data-theme='doc-ock'] .glow-right {
+  border-color: rgba(56, 223, 255, 0.50);
+  box-shadow: 2px 0 14px rgba(56, 223, 255, 0.26), 0 0 10px rgba(56, 223, 255, 0.12);
+}
+
+/* Buttons — mechanical console style */
+[data-theme='doc-ock'] .btn-hud {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.44);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='doc-ock'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='doc-ock'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='doc-ock'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='doc-ock'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — dark lab steel */
+[data-theme='doc-ock'] .side-nav {
+  background: rgba(2, 6, 4, 0.96);
+  border-right-color: rgba(57, 255, 20, 0.35);
+  backdrop-filter: blur(8px);
+}
+[data-theme='doc-ock'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(57, 255, 20, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='doc-ock'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.72), 0 0 22px rgba(57, 255, 20, 0.36);
+}
+[data-theme='doc-ock'] .side-nav__item:hover {
+  background: rgba(57, 255, 20, 0.08);
+  border-color: rgba(57, 255, 20, 0.40);
+}
+[data-theme='doc-ock'] .side-nav__item.active {
+  background: rgba(57, 255, 20, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — reactor energy display */
+[data-theme='doc-ock'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='doc-ock'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #1a8f0a, #39ff14);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.72);
+}
+[data-theme='doc-ock'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #0a6f8a, #38dfff);
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.68);
+}
+[data-theme='doc-ock'] .score-panel__value {
+  text-shadow: 0 0 16px rgba(234, 255, 241, 0.58), 0 0 8px rgba(57, 255, 20, 0.68);
+  animation: docOck-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='doc-ock'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px rgba(234, 255, 241, 0.58), 0 0 8px rgba(56, 223, 255, 0.62);
+  animation: docOck-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='doc-ock'] .score-panel__btn {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.36);
+}
+[data-theme='doc-ock'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — reactor countdown display */
+[data-theme='doc-ock'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.52);
+}
+[data-theme='doc-ock'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.16), rgba(56, 223, 255, 0.08), transparent);
+}
+[data-theme='doc-ock'] .timer-panel__display {
+  color: #7cff3a;
+  text-shadow: 0 0 12px rgba(124, 255, 58, 0.65), 0 0 5px rgba(57, 255, 20, 0.45);
+}
+[data-theme='doc-ock'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.42), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='doc-ock'] .timer-panel__display.critical {
+  color: #d6ff3f;
+  text-shadow: 0 0 12px rgba(214, 255, 63, 0.82);
+}
+[data-theme='doc-ock'] .timer-panel__btn {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.36);
+  color: #7cff3a;
+}
+[data-theme='doc-ock'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.52);
+}
+
+/* Round tracker — reactor nodes / experiment slots */
+[data-theme='doc-ock'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.36);
+}
+[data-theme='doc-ock'] .round-tracker__pip {
+  border-color: rgba(57, 255, 20, 0.24);
+  background: rgba(4, 10, 7, 0.62);
+}
+[data-theme='doc-ock'] .round-tracker__pip.active {
+  border-color: rgba(57, 255, 20, 0.52);
+  background: rgba(57, 255, 20, 0.09);
+}
+[data-theme='doc-ock'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: docOck-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — experimental file / lab document */
+[data-theme='doc-ock'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.44);
+}
+[data-theme='doc-ock'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='doc-ock'] .mission-item {
+  background: rgba(4, 10, 7, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='doc-ock'] .mission-item:hover {
+  background: rgba(57, 255, 20, 0.06);
+  border-color: rgba(57, 255, 20, 0.44);
+}
+[data-theme='doc-ock'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.68);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='doc-ock'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.68);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='doc-ock'] .leader-hex__name {
+  background: rgba(4, 10, 7, 0.92);
+  border-color: rgba(57, 255, 20, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — mechanical tentacle frame */
+[data-theme='doc-ock'] .leader-card {
+  background: rgba(4, 10, 7, 0.86);
+  border-color: rgba(57, 255, 20, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='doc-ock'] .leader-card:hover {
+  border-color: rgba(57, 255, 20, 0.52);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.18);
+}
+[data-theme='doc-ock'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='doc-ock'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='doc-ock'] .leaders-page__header,
+[data-theme='doc-ock'] .missions-page__header {
+  background: rgba(2, 6, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(57, 255, 20, 0.28);
+}
+[data-theme='doc-ock'] .leaders-page__search {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='doc-ock'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='doc-ock'] .missions-page__body {
+  background: rgba(2, 6, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='doc-ock'] .leaders-page__assign-btn {
+  background: rgba(4, 10, 7, 0.90);
+  border-color: rgba(57, 255, 20, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='doc-ock'] .leaders-page__assign-btn.active-left {
+  background: rgba(57, 255, 20, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='doc-ock'] .leaders-page__assign-btn.active-right {
+  background: rgba(56, 223, 255, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='doc-ock'] .affil-btn {
+  background: rgba(4, 10, 7, 0.86);
+  border-color: rgba(57, 255, 20, 0.26);
+}
+[data-theme='doc-ock'] .affil-btn:hover { border-color: rgba(57, 255, 20, 0.50); }
+[data-theme='doc-ock'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(57, 255, 20, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='doc-ock'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(57, 255, 20, 0.34);
+}
+[data-theme='doc-ock'] .settings-section__title {
+  color: #7cff3a;
+  background: rgba(6, 14, 9, 0.93);
+  border-bottom-color: rgba(57, 255, 20, 0.26);
+}
+[data-theme='doc-ock'] .settings-preset-btn.active,
+[data-theme='doc-ock'] .settings-theme-btn.active,
+[data-theme='doc-ock'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(57, 255, 20, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='doc-ock'] .settings-slider {
+  background: rgba(57, 255, 20, 0.16);
+}
+[data-theme='doc-ock'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='doc-ock'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='doc-ock'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.72); }
+[data-theme='doc-ock'] .main-page__modal {
+  background: rgba(4, 10, 7, 0.97);
+  border-color: rgba(57, 255, 20, 0.55);
+  box-shadow: 0 0 28px rgba(57, 255, 20, 0.20);
+  backdrop-filter: blur(12px);
+}
+[data-theme='doc-ock'] .main-page__modal-title {
+  color: #7cff3a;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.65);
+}
+[data-theme='doc-ock'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — reactor energy surge */
+@keyframes docOck-pulse-left {
+  0%, 100% { text-shadow: 0 0 16px rgba(234, 255, 241, 0.58), 0 0 8px rgba(57, 255, 20, 0.68); }
+  50%       { text-shadow: 0 0 26px rgba(234, 255, 241, 0.85), 0 0 18px rgba(57, 255, 20, 0.95), 0 0 4px #7cff3a; }
+}
+@keyframes docOck-pulse-right {
+  0%, 100% { text-shadow: 0 0 16px rgba(234, 255, 241, 0.58), 0 0 8px rgba(56, 223, 255, 0.62); }
+  50%       { text-shadow: 0 0 26px rgba(234, 255, 241, 0.85), 0 0 18px rgba(56, 223, 255, 0.90), 0 0 4px #38dfff; }
+}
