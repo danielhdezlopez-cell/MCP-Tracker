@@ -13635,6 +13635,387 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   M.O.D.O.K. — AIM laboratory mind supremacy — yellow scientific & psionic purple
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='modok'] {
+  --color-bg: transparent;
+  --color-panel: rgba(7, 6, 10, 0.88);
+  --color-panel-alt: rgba(9, 8, 14, 0.93);
+  --color-border: rgba(245, 197, 66, 0.78);
+  --color-accent-left: #f5c542;
+  --color-accent-right: #8b2cff;
+  --color-glow-left: rgba(245, 197, 66, 0.62);
+  --color-glow-right: rgba(139, 44, 255, 0.58);
+  --color-text: #f4f7ff;
+  --color-text-muted: #d8c98a;
+  --color-warn: #7cff3a;
+  --color-critical: #ff2a2a;
+  --color-success: #38dfff;
+  --color-round-active: #f5c542;
+  --color-round-inactive: rgba(245, 197, 66, 0.18);
+  --color-mission-secure: #38dfff;
+  --color-glow-secure: rgba(56, 223, 255, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='modok'] body { background: transparent; }
+[data-theme='modok'] .layout { background: transparent; }
+
+/* AIM laboratory data-grid scan-line overlay */
+[data-theme='modok'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(245, 197, 66, 0.014) 3px,
+      rgba(245, 197, 66, 0.014) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 51px,
+      rgba(56, 223, 255, 0.018) 51px,
+      rgba(56, 223, 255, 0.018) 52px
+    );
+}
+
+/* Video overlay — deep black with yellow scientific & psionic purple glows */
+[data-theme='modok'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 20%, rgba(245, 197, 66, 0.16), transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(139, 44, 255, 0.16), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(7, 6, 10, 0.34), transparent 52%),
+    rgba(2, 3, 4, 0.50);
+}
+
+/* Panels — dark lab plate with AIM yellow border */
+[data-theme='modok'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(245, 197, 66, 0.68);
+  box-shadow: 0 0 18px rgba(245, 197, 66, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(6px);
+}
+[data-theme='modok'] .panel::before {
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.10), transparent, rgba(139, 44, 255, 0.08));
+}
+[data-theme='modok'] .glow-left {
+  border-color: rgba(245, 197, 66, 0.62);
+  box-shadow: -2px 0 14px rgba(245, 197, 66, 0.34), 0 0 10px rgba(245, 197, 66, 0.14);
+}
+[data-theme='modok'] .glow-right {
+  border-color: rgba(139, 44, 255, 0.58);
+  box-shadow: 2px 0 14px rgba(139, 44, 255, 0.30), 0 0 10px rgba(139, 44, 255, 0.12);
+}
+
+/* Buttons — AIM console command style */
+[data-theme='modok'] .btn-hud {
+  background: rgba(7, 6, 10, 0.90);
+  border-color: rgba(245, 197, 66, 0.50);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='modok'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 18px rgba(255, 43, 214, 0.20);
+  color: var(--color-accent-left);
+}
+[data-theme='modok'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='modok'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='modok'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — AIM tactical command */
+[data-theme='modok'] .side-nav {
+  background: rgba(2, 3, 4, 0.96);
+  border-right-color: rgba(245, 197, 66, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='modok'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(245, 197, 66, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='modok'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.80), 0 0 22px rgba(139, 44, 255, 0.42);
+}
+[data-theme='modok'] .side-nav__item:hover {
+  background: rgba(245, 197, 66, 0.07);
+  border-color: rgba(56, 223, 255, 0.38);
+}
+[data-theme='modok'] .side-nav__item.active {
+  background: rgba(245, 197, 66, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — experiment data readout */
+[data-theme='modok'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='modok'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #a07010, #f5c542);
+  box-shadow: 0 0 8px rgba(245, 197, 66, 0.72);
+}
+[data-theme='modok'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #3a0890, #8b2cff);
+  box-shadow: 0 0 8px rgba(139, 44, 255, 0.68);
+}
+[data-theme='modok'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(245, 197, 66, 0.70), 0 0 30px rgba(56, 223, 255, 0.30);
+  animation: modok-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='modok'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(139, 44, 255, 0.70), 0 0 30px rgba(255, 43, 214, 0.28);
+  animation: modok-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='modok'] .score-panel__btn {
+  background: rgba(7, 6, 10, 0.92);
+  border-color: rgba(245, 197, 66, 0.36);
+}
+[data-theme='modok'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — psionic experiment countdown */
+[data-theme='modok'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.52);
+}
+[data-theme='modok'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.12), rgba(139, 44, 255, 0.08), transparent);
+}
+[data-theme='modok'] .timer-panel__display {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(245, 197, 66, 0.68), 0 0 5px rgba(56, 223, 255, 0.45);
+}
+[data-theme='modok'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='modok'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='modok'] .timer-panel__btn {
+  background: rgba(7, 6, 10, 0.92);
+  border-color: rgba(245, 197, 66, 0.36);
+  color: #d8c98a;
+}
+[data-theme='modok'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(245, 197, 66, 0.52);
+}
+
+/* Round tracker — AIM experiment node sequence */
+[data-theme='modok'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.36);
+}
+[data-theme='modok'] .round-tracker__pip {
+  border-color: rgba(245, 197, 66, 0.26);
+  background: rgba(7, 6, 10, 0.62);
+}
+[data-theme='modok'] .round-tracker__pip.active {
+  border-color: rgba(56, 223, 255, 0.50);
+  background: rgba(245, 197, 66, 0.08);
+}
+[data-theme='modok'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: modok-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — AIM briefing console */
+[data-theme='modok'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.42);
+}
+[data-theme='modok'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='modok'] .mission-item {
+  background: rgba(7, 6, 10, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='modok'] .mission-item:hover {
+  background: rgba(245, 197, 66, 0.06);
+  border-color: rgba(56, 223, 255, 0.42);
+}
+[data-theme='modok'] .mission-item--left.selected {
+  background: rgba(56, 223, 255, 0.14);
+  border-color: rgba(56, 223, 255, 0.68);
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.28);
+}
+[data-theme='modok'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='modok'] .leader-hex__name {
+  background: rgba(7, 6, 10, 0.92);
+  border-color: rgba(245, 197, 66, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — AIM analysis visor frame */
+[data-theme='modok'] .leader-card {
+  background: rgba(7, 6, 10, 0.86);
+  border-color: rgba(245, 197, 66, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='modok'] .leader-card:hover {
+  border-color: rgba(56, 223, 255, 0.50);
+  box-shadow: 0 0 10px rgba(245, 197, 66, 0.18);
+}
+[data-theme='modok'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='modok'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='modok'] .leaders-page__header,
+[data-theme='modok'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(245, 197, 66, 0.28);
+}
+[data-theme='modok'] .leaders-page__search {
+  background: rgba(7, 6, 10, 0.90);
+  border-color: rgba(245, 197, 66, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='modok'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='modok'] .missions-page__body {
+  background: rgba(2, 3, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='modok'] .leaders-page__assign-btn {
+  background: rgba(7, 6, 10, 0.90);
+  border-color: rgba(245, 197, 66, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='modok'] .leaders-page__assign-btn.active-left {
+  background: rgba(245, 197, 66, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='modok'] .leaders-page__assign-btn.active-right {
+  background: rgba(139, 44, 255, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='modok'] .affil-btn {
+  background: rgba(7, 6, 10, 0.86);
+  border-color: rgba(245, 197, 66, 0.26);
+}
+[data-theme='modok'] .affil-btn:hover { border-color: rgba(56, 223, 255, 0.48); }
+[data-theme='modok'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(245, 197, 66, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='modok'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.34);
+}
+[data-theme='modok'] .settings-section__title {
+  color: #f5c542;
+  background: rgba(7, 6, 10, 0.94);
+  border-bottom-color: rgba(245, 197, 66, 0.26);
+}
+[data-theme='modok'] .settings-preset-btn.active,
+[data-theme='modok'] .settings-theme-btn.active,
+[data-theme='modok'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(245, 197, 66, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='modok'] .settings-slider {
+  background: rgba(245, 197, 66, 0.16);
+}
+[data-theme='modok'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='modok'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='modok'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.74); }
+[data-theme='modok'] .main-page__modal {
+  background: rgba(7, 6, 10, 0.97);
+  border-color: rgba(245, 197, 66, 0.56);
+  box-shadow: 0 0 30px rgba(245, 197, 66, 0.22), 0 0 50px rgba(139, 44, 255, 0.12);
+  backdrop-filter: blur(12px);
+}
+[data-theme='modok'] .main-page__modal-title {
+  color: #f5c542;
+  text-shadow: 0 0 12px rgba(245, 197, 66, 0.72), 0 0 24px rgba(56, 223, 255, 0.30);
+}
+[data-theme='modok'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — psionic mind energy surge */
+@keyframes modok-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(245, 197, 66, 0.68), 0 0 30px rgba(56, 223, 255, 0.28); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.90), 0 0 26px rgba(245, 197, 66, 0.95), 0 0 46px rgba(56, 223, 255, 0.40), 0 0 4px #f5c542; }
+}
+@keyframes modok-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(139, 44, 255, 0.68), 0 0 30px rgba(255, 43, 214, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.90), 0 0 26px rgba(139, 44, 255, 0.95), 0 0 46px rgba(255, 43, 214, 0.36), 0 0 4px #8b2cff; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    ADAM WARLOCK — Cosmic Soul Gem guardian — golden divine & astral cyan
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='adam-warlock'] {
