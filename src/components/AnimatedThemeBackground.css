@@ -55,6 +55,9 @@
 .anim-theme-bg--green-goblin.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020408 0%, #0a1c0e 40%, #1a1008 70%, #020408 100%);
 }
+.anim-theme-bg--invincible-ironman.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #07090c 0%, #1a0406 40%, #2a0607 70%, #07090c 100%);
+}
 .anim-theme-bg--kingpin.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020304 0%, #12100a 40%, #1a0c0e 70%, #020304 100%);
 }

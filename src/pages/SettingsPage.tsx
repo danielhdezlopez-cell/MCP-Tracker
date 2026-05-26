@@ -22,6 +22,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hellfire-club',    label: 'Hellfire Club',   desc: 'Secret aristocratic society — velvet red & gold'  },
   { value: 'hulkbuster',       label: 'Hulkbuster',      desc: 'Heavy armor power interface — red & gold'        },
   { value: 'hydra',       label: 'Hydra',         desc: 'Dark tactical — animated video BG'                },
+  { value: 'invincible-ironman', label: 'Invincible Ironman', desc: 'Stark tech HUD — arc reactor blue, armor red & gold interface' },
   { value: 'kingpin',      label: 'Kingpin',         desc: 'Criminal empire — black marble, dark gold & blood red HUD' },
   { value: 'klaw',         label: 'Klaw',            desc: 'Sonic energy weapon — blood red, psionic magenta & vibranium cyan HUD' },
   { value: 'loki',         label: 'Loki',            desc: 'God of Mischief — arcane green magic, asgardian gold & shadow purple HUD' },

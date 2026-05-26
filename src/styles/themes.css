@@ -15540,6 +15540,387 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   INVINCIBLE IRON MAN — Stark tech HUD — arc reactor blue, armor red & gold
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='invincible-ironman'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 6, 8, 0.90);
+  --color-panel-alt: rgba(10, 8, 10, 0.94);
+  --color-border: rgba(246, 200, 95, 0.72);
+  --color-accent-left: #d71920;
+  --color-accent-right: #38dfff;
+  --color-glow-left: rgba(215, 25, 32, 0.60);
+  --color-glow-right: rgba(56, 223, 255, 0.56);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #ffb347;
+  --color-critical: #ff2a2a;
+  --color-success: #f4f7ff;
+  --color-round-active: #38dfff;
+  --color-round-inactive: rgba(56, 223, 255, 0.18);
+  --color-mission-secure: #38dfff;
+  --color-glow-secure: rgba(56, 223, 255, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='invincible-ironman'] body { background: transparent; }
+[data-theme='invincible-ironman'] .layout { background: transparent; }
+
+/* Stark HUD targeting grid overlay */
+[data-theme='invincible-ironman'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(56, 223, 255, 0.012) 3px,
+      rgba(56, 223, 255, 0.012) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 51px,
+      rgba(246, 200, 95, 0.010) 51px,
+      rgba(246, 200, 95, 0.010) 52px
+    );
+}
+
+/* Video overlay — dark Stark lab with red armor & blue reactor glows */
+[data-theme='invincible-ironman'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(215, 25, 32, 0.16), transparent 44%),
+    radial-gradient(circle at 70% 65%, rgba(56, 223, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(30, 10, 6, 0.28), transparent 52%),
+    rgba(2, 3, 4, 0.52);
+}
+
+/* Panels — dark metal with gold border */
+[data-theme='invincible-ironman'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(246, 200, 95, 0.62);
+  box-shadow: 0 0 18px rgba(246, 200, 95, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.64);
+  backdrop-filter: blur(6px);
+}
+[data-theme='invincible-ironman'] .panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.10), transparent, rgba(56, 223, 255, 0.06));
+}
+[data-theme='invincible-ironman'] .glow-left {
+  border-color: rgba(215, 25, 32, 0.62);
+  box-shadow: -2px 0 14px rgba(215, 25, 32, 0.34), 0 0 10px rgba(215, 25, 32, 0.14);
+}
+[data-theme='invincible-ironman'] .glow-right {
+  border-color: rgba(56, 223, 255, 0.56);
+  box-shadow: 2px 0 14px rgba(56, 223, 255, 0.28), 0 0 10px rgba(56, 223, 255, 0.12);
+}
+
+/* Buttons — Stark console command */
+[data-theme='invincible-ironman'] .btn-hud {
+  background: rgba(8, 6, 8, 0.90);
+  border-color: rgba(246, 200, 95, 0.48);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='invincible-ironman'] .btn-hud:hover {
+  border-color: rgba(56, 223, 255, 0.90);
+  box-shadow: 0 0 10px rgba(246, 200, 95, 0.38), 0 0 18px rgba(56, 223, 255, 0.28);
+  color: var(--color-text);
+}
+[data-theme='invincible-ironman'] .btn-hud.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+[data-theme='invincible-ironman'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='invincible-ironman'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — Stark JARVIS interface */
+[data-theme='invincible-ironman'] .side-nav {
+  background: rgba(2, 3, 4, 0.97);
+  border-right-color: rgba(246, 200, 95, 0.36);
+  backdrop-filter: blur(8px);
+}
+[data-theme='invincible-ironman'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(56, 223, 255, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='invincible-ironman'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(56, 223, 255, 0.80), 0 0 22px rgba(246, 200, 95, 0.42);
+}
+[data-theme='invincible-ironman'] .side-nav__item:hover {
+  background: rgba(56, 223, 255, 0.07);
+  border-color: rgba(246, 200, 95, 0.32);
+}
+[data-theme='invincible-ironman'] .side-nav__item.active {
+  background: rgba(56, 223, 255, 0.11);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Score panels — repulsor energy readout */
+[data-theme='invincible-ironman'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='invincible-ironman'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #7a0612, #d71920);
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.72);
+}
+[data-theme='invincible-ironman'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #103a5a, #38dfff);
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.68);
+}
+[data-theme='invincible-ironman'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(215, 25, 32, 0.72), 0 0 30px rgba(56, 223, 255, 0.28);
+  animation: ironman-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='invincible-ironman'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(56, 223, 255, 0.72), 0 0 30px rgba(246, 200, 95, 0.28);
+  animation: ironman-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='invincible-ironman'] .score-panel__btn {
+  background: rgba(8, 6, 8, 0.92);
+  border-color: rgba(246, 200, 95, 0.34);
+}
+[data-theme='invincible-ironman'] .score-panel__btn:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Timer panel — arc reactor countdown */
+[data-theme='invincible-ironman'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.50);
+}
+[data-theme='invincible-ironman'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.12), rgba(56, 223, 255, 0.08), transparent);
+}
+[data-theme='invincible-ironman'] .timer-panel__display {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.68), 0 0 5px rgba(246, 200, 95, 0.40);
+}
+[data-theme='invincible-ironman'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='invincible-ironman'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='invincible-ironman'] .timer-panel__btn {
+  background: rgba(8, 6, 8, 0.92);
+  border-color: rgba(246, 200, 95, 0.34);
+  color: #c7d2fe;
+}
+[data-theme='invincible-ironman'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.52);
+}
+
+/* Round tracker — armor module nodes */
+[data-theme='invincible-ironman'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.34);
+}
+[data-theme='invincible-ironman'] .round-tracker__pip {
+  border-color: rgba(246, 200, 95, 0.24);
+  background: rgba(8, 6, 8, 0.62);
+}
+[data-theme='invincible-ironman'] .round-tracker__pip.active {
+  border-color: rgba(56, 223, 255, 0.44);
+  background: rgba(56, 223, 255, 0.08);
+}
+[data-theme='invincible-ironman'] .round-tracker__pip.current {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right), 0 0 4px var(--color-accent-right);
+  animation: ironman-pulse-right 2s ease-in-out infinite;
+}
+
+/* Mission slots — Stark mission briefing */
+[data-theme='invincible-ironman'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.30);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.48);
+}
+[data-theme='invincible-ironman'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='invincible-ironman'] .mission-item {
+  background: rgba(8, 6, 8, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='invincible-ironman'] .mission-item:hover {
+  background: rgba(56, 223, 255, 0.06);
+  border-color: rgba(246, 200, 95, 0.32);
+}
+[data-theme='invincible-ironman'] .mission-item--left.selected {
+  background: rgba(215, 25, 32, 0.14);
+  border-color: rgba(215, 25, 32, 0.68);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.28);
+}
+[data-theme='invincible-ironman'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='invincible-ironman'] .leader-hex__name {
+  background: rgba(8, 6, 8, 0.92);
+  border-color: rgba(246, 200, 95, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — visor targeting frame */
+[data-theme='invincible-ironman'] .leader-card {
+  background: rgba(8, 6, 8, 0.86);
+  border-color: rgba(246, 200, 95, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='invincible-ironman'] .leader-card:hover {
+  border-color: rgba(56, 223, 255, 0.48);
+  box-shadow: 0 0 10px rgba(246, 200, 95, 0.18);
+}
+[data-theme='invincible-ironman'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='invincible-ironman'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='invincible-ironman'] .leaders-page__header,
+[data-theme='invincible-ironman'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(246, 200, 95, 0.26);
+}
+[data-theme='invincible-ironman'] .leaders-page__search {
+  background: rgba(8, 6, 8, 0.90);
+  border-color: rgba(246, 200, 95, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='invincible-ironman'] .leaders-page__search:focus {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='invincible-ironman'] .missions-page__body {
+  background: rgba(2, 3, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='invincible-ironman'] .leaders-page__assign-btn {
+  background: rgba(8, 6, 8, 0.90);
+  border-color: rgba(246, 200, 95, 0.30);
+  backdrop-filter: blur(4px);
+}
+[data-theme='invincible-ironman'] .leaders-page__assign-btn.active-left {
+  background: rgba(215, 25, 32, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='invincible-ironman'] .leaders-page__assign-btn.active-right {
+  background: rgba(56, 223, 255, 0.11);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='invincible-ironman'] .affil-btn {
+  background: rgba(8, 6, 8, 0.86);
+  border-color: rgba(246, 200, 95, 0.24);
+}
+[data-theme='invincible-ironman'] .affil-btn:hover { border-color: rgba(56, 223, 255, 0.42); }
+[data-theme='invincible-ironman'] .affil-btn.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(56, 223, 255, 0.09);
+  box-shadow: 0 0 6px var(--color-glow-right);
+}
+
+/* Settings */
+[data-theme='invincible-ironman'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.32);
+}
+[data-theme='invincible-ironman'] .settings-section__title {
+  color: #f6c85f;
+  background: rgba(8, 6, 8, 0.95);
+  border-bottom-color: rgba(246, 200, 95, 0.24);
+}
+[data-theme='invincible-ironman'] .settings-preset-btn.active,
+[data-theme='invincible-ironman'] .settings-theme-btn.active,
+[data-theme='invincible-ironman'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  background: rgba(56, 223, 255, 0.09);
+  color: var(--color-accent-right);
+}
+[data-theme='invincible-ironman'] .settings-slider {
+  background: rgba(56, 223, 255, 0.16);
+}
+[data-theme='invincible-ironman'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='invincible-ironman'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Reset modal */
+[data-theme='invincible-ironman'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.78); }
+[data-theme='invincible-ironman'] .main-page__modal {
+  background: rgba(8, 6, 8, 0.97);
+  border-color: rgba(246, 200, 95, 0.54);
+  box-shadow: 0 0 30px rgba(246, 200, 95, 0.22), 0 0 50px rgba(56, 223, 255, 0.12);
+  backdrop-filter: blur(12px);
+}
+[data-theme='invincible-ironman'] .main-page__modal-title {
+  color: #f6c85f;
+  text-shadow: 0 0 12px rgba(246, 200, 95, 0.72), 0 0 24px rgba(56, 223, 255, 0.30);
+}
+[data-theme='invincible-ironman'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — arc reactor energy surge */
+@keyframes ironman-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(215, 25, 32, 0.72), 0 0 30px rgba(56, 223, 255, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.92), 0 0 26px rgba(215, 25, 32, 0.95), 0 0 46px rgba(56, 223, 255, 0.38), 0 0 4px #d71920; }
+}
+@keyframes ironman-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(56, 223, 255, 0.72), 0 0 30px rgba(246, 200, 95, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.92), 0 0 26px rgba(56, 223, 255, 0.95), 0 0 46px rgba(246, 200, 95, 0.38), 0 0 4px #38dfff; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    KINGPIN — Criminal empire — black marble, dark gold & blood red
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='kingpin'] {
