@@ -39,7 +39,7 @@ export const LEADERS: Leader[] = [
   { id: 'kingpin', name: 'Kingpin', affiliations: ['Criminal Syndicate'], image: img('Kingpin.png') },
   { id: 'king-tchalla', name: "King T'Challa", affiliations: ['Wakanda'], image: img('KingTChalla.webp') },
   { id: 'klaw', name: 'Klaw', affiliations: ['Criminal Syndicate'], image: img('Klaw.png') },
-  { id: 'the-leader', name: 'The Leader', affiliations: ['Intelligencia'], image: img('Leader.png') },
+  { id: 'the-leader', name: 'Leader', affiliations: ['Intelligencia'], image: img('Leader.png') },
   { id: 'loki', name: 'Loki', affiliations: ['Asgard'], image: img('Loki.png') },
   { id: 'mbaku', name: "M'Baku", affiliations: ['Wakanda'], image: img('MBaku.png') },
   { id: 'magik', name: 'Magik', affiliations: ['New Mutants'], image: img('Magik.png') },
