@@ -8,6 +8,10 @@ interface Props {
 
 const CROSSFADE_S = 0.8;
 
+const IMAGE_THEMES: Partial<Record<Theme, { src: string; modifier: string }>> = {
+  'new-mutants': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_NewMutants.jpg`, modifier: 'anim-theme-bg--new-mutants' },
+};
+
 const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoothLoop?: boolean }>> = {
   apocalypse:          { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Apocalypse.mp4`,                  modifier: 'anim-theme-bg--apocalypse'        },
   cable:               { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Cable.mp4`,                    modifier: 'anim-theme-bg--cable', smoothLoop: true },
@@ -125,20 +129,41 @@ function SmoothLoopVideo({ src, onError }: { src: string; onError: () => void })
 }
 
 export function AnimatedThemeBackground({ theme }: Props) {
-  const [videoError, setVideoError] = useState(false);
-  const config = VIDEO_THEMES[theme];
+  const [bgError, setBgError] = useState(false);
+  const videoConfig = VIDEO_THEMES[theme];
+  const imageConfig = IMAGE_THEMES[theme];
 
-  // Reset error state when theme switches so the new theme's video retries
-  useEffect(() => { setVideoError(false); }, [theme]);
+  // Reset error state when theme switches so the new theme's bg retries
+  useEffect(() => { setBgError(false); }, [theme]);
 
-  if (!config) return null;
+  if (imageConfig) {
+    const imgStyle: React.CSSProperties = {
+      position: 'absolute',
+      inset: 0,
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block',
+      pointerEvents: 'none',
+    };
+    return (
+      <div className={`anim-theme-bg ${imageConfig.modifier}${bgError ? ' anim-theme-bg--fallback' : ''}`}>
+        {!bgError && (
+          <img src={imageConfig.src} alt="" aria-hidden="true" style={imgStyle} onError={() => setBgError(true)} />
+        )}
+        <div className="anim-theme-bg__overlay" />
+      </div>
+    );
+  }
+
+  if (!videoConfig) return null;
 
   return (
-    <div className={`anim-theme-bg ${config.modifier}${videoError ? ' anim-theme-bg--fallback' : ''}`}>
-      {!videoError && (
-        config.smoothLoop
-          ? <SmoothLoopVideo src={config.src} onError={() => setVideoError(true)} />
-          : <video src={config.src} autoPlay loop muted playsInline onError={() => setVideoError(true)} />
+    <div className={`anim-theme-bg ${videoConfig.modifier}${bgError ? ' anim-theme-bg--fallback' : ''}`}>
+      {!bgError && (
+        videoConfig.smoothLoop
+          ? <SmoothLoopVideo src={videoConfig.src} onError={() => setBgError(true)} />
+          : <video src={videoConfig.src} autoPlay loop muted playsInline onError={() => setBgError(true)} />
       )}
       <div className="anim-theme-bg__overlay" />
     </div>

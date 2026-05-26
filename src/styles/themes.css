@@ -13256,3 +13256,380 @@
   0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(56, 223, 255, 0.65), 0 0 36px rgba(215, 25, 32, 0.22); }
   50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(56, 223, 255, 0.90), 0 0 52px rgba(215, 25, 32, 0.32), 0 0 4px #38dfff; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   NEW MUTANTS — Mutant academy squad — yellow uniform, psychic purple & cyan energy
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='new-mutants'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 7, 10, 0.90);
+  --color-panel-alt: rgba(7, 10, 14, 0.94);
+  --color-border: rgba(245, 197, 66, 0.70);
+  --color-accent-left: #f5c542;
+  --color-accent-right: #8b2cff;
+  --color-glow-left: rgba(245, 197, 66, 0.55);
+  --color-glow-right: rgba(139, 44, 255, 0.50);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #d8a928;
+  --color-critical: #d71920;
+  --color-success: #38dfff;
+  --color-round-active: #f5c542;
+  --color-round-inactive: rgba(245, 197, 66, 0.16);
+  --color-mission-secure: #f5c542;
+  --color-glow-secure: rgba(245, 197, 66, 0.44);
+  --color-mission-extract: #8b2cff;
+  --color-glow-extract: rgba(139, 44, 255, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so image shows through */
+[data-theme='new-mutants'] body { background: transparent; }
+[data-theme='new-mutants'] .layout { background: transparent; }
+
+/* Mutant academy energy grid */
+[data-theme='new-mutants'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(245, 197, 66, 0.014) 3px,
+      rgba(245, 197, 66, 0.014) 4px
+    );
+}
+
+/* Image overlay — dark with yellow/purple psychic radial glows */
+[data-theme='new-mutants'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 30%, rgba(245, 197, 66, 0.14), transparent 42%),
+    radial-gradient(circle at 76% 58%, rgba(139, 44, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(5, 7, 10, 0.40), transparent 55%),
+    rgba(2, 3, 4, 0.54);
+}
+
+/* Panels — dark academy plate with yellow border */
+[data-theme='new-mutants'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(245, 197, 66, 0.60);
+  box-shadow: 0 0 16px rgba(245, 197, 66, 0.10), inset 0 0 26px rgba(0, 0, 0, 0.56);
+  backdrop-filter: blur(6px);
+}
+[data-theme='new-mutants'] .panel::before {
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.12), transparent, rgba(139, 44, 255, 0.08));
+}
+[data-theme='new-mutants'] .glow-left {
+  border-color: rgba(245, 197, 66, 0.58);
+  box-shadow: -2px 0 16px rgba(245, 197, 66, 0.30), 0 0 12px rgba(245, 197, 66, 0.12);
+}
+[data-theme='new-mutants'] .glow-right {
+  border-color: rgba(139, 44, 255, 0.55);
+  box-shadow: 2px 0 16px rgba(139, 44, 255, 0.28), 0 0 12px rgba(139, 44, 255, 0.10);
+}
+
+/* Buttons — mutant training console */
+[data-theme='new-mutants'] .btn-hud {
+  background: linear-gradient(180deg, rgba(47, 55, 66, 0.28), rgba(5, 7, 10, 0.92));
+  border-color: rgba(245, 197, 66, 0.50);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='new-mutants'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 22px rgba(56, 223, 255, 0.16);
+  color: var(--color-accent-left);
+}
+[data-theme='new-mutants'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='new-mutants'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='new-mutants'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
+}
+
+/* Side nav — dark academy corridor */
+[data-theme='new-mutants'] .side-nav {
+  background: rgba(2, 3, 4, 0.96);
+  border-right-color: rgba(245, 197, 66, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='new-mutants'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(245, 197, 66, 0.58) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='new-mutants'] .side-nav__logo-text {
+  text-shadow: 0 0 12px rgba(245, 197, 66, 0.72), 0 0 24px rgba(56, 223, 255, 0.32);
+}
+[data-theme='new-mutants'] .side-nav__item:hover {
+  background: rgba(245, 197, 66, 0.07);
+  border-color: rgba(245, 197, 66, 0.40);
+}
+[data-theme='new-mutants'] .side-nav__item.active {
+  background: rgba(245, 197, 66, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Score panels — mutant power display */
+[data-theme='new-mutants'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='new-mutants'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #8a6a00, #f5c542);
+  box-shadow: 0 0 10px rgba(245, 197, 66, 0.78);
+}
+[data-theme='new-mutants'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #3a0a8a, #8b2cff);
+  box-shadow: 0 0 10px rgba(139, 44, 255, 0.72);
+}
+[data-theme='new-mutants'] .score-panel__value {
+  text-shadow: 0 0 8px rgba(244, 247, 255, 0.70), 0 0 20px rgba(245, 197, 66, 0.70), 0 0 36px rgba(56, 223, 255, 0.26);
+  animation: newMutants-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='new-mutants'] .glow-right .score-panel__value {
+  text-shadow: 0 0 8px rgba(244, 247, 255, 0.70), 0 0 20px rgba(139, 44, 255, 0.68), 0 0 36px rgba(245, 197, 66, 0.22);
+  animation: newMutants-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='new-mutants'] .score-panel__btn {
+  background: rgba(5, 7, 10, 0.92);
+  border-color: rgba(245, 197, 66, 0.36);
+}
+[data-theme='new-mutants'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Timer panel — training mission countdown */
+[data-theme='new-mutants'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.55);
+}
+[data-theme='new-mutants'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.12), rgba(56, 223, 255, 0.08), transparent);
+}
+[data-theme='new-mutants'] .timer-panel__display {
+  color: #c7d2fe;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.58), 0 0 6px rgba(245, 197, 66, 0.42);
+}
+[data-theme='new-mutants'] .timer-panel--critical {
+  border-color: rgba(215, 25, 32, 0.88) !important;
+  box-shadow: 0 0 22px rgba(215, 25, 32, 0.46), 0 0 44px rgba(215, 25, 32, 0.18) !important;
+}
+[data-theme='new-mutants'] .timer-panel__display.critical {
+  color: #d71920;
+  text-shadow: 0 0 14px rgba(215, 25, 32, 0.88);
+}
+[data-theme='new-mutants'] .timer-panel__btn {
+  background: rgba(5, 7, 10, 0.92);
+  border-color: rgba(245, 197, 66, 0.36);
+  color: #c7d2fe;
+}
+[data-theme='new-mutants'] .timer-panel__btn:hover {
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.48);
+}
+
+/* Round tracker — mutant power nodes */
+[data-theme='new-mutants'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.36);
+}
+[data-theme='new-mutants'] .round-tracker__pip {
+  border-color: rgba(245, 197, 66, 0.24);
+  background: rgba(5, 7, 10, 0.62);
+}
+[data-theme='new-mutants'] .round-tracker__pip.active {
+  border-color: rgba(245, 197, 66, 0.52);
+  background: rgba(245, 197, 66, 0.09);
+}
+[data-theme='new-mutants'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left), 0 0 5px var(--color-accent-left);
+  animation: newMutants-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — academy mission briefing */
+[data-theme='new-mutants'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.32);
+  box-shadow:
+    inset 0 0 22px rgba(0, 0, 0, 0.50),
+    0 0 14px rgba(245, 197, 66, 0.07),
+    0 0 28px rgba(139, 44, 255, 0.06);
+}
+[data-theme='new-mutants'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='new-mutants'] .mission-item {
+  background: rgba(5, 7, 10, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='new-mutants'] .mission-item:hover {
+  background: rgba(245, 197, 66, 0.06);
+  border-color: rgba(245, 197, 66, 0.42);
+}
+[data-theme='new-mutants'] .mission-item--left.selected {
+  background: rgba(245, 197, 66, 0.14);
+  border-color: rgba(245, 197, 66, 0.68);
+  box-shadow: 0 0 12px rgba(245, 197, 66, 0.26);
+}
+[data-theme='new-mutants'] .mission-item--right.selected {
+  background: rgba(139, 44, 255, 0.14);
+  border-color: rgba(139, 44, 255, 0.66);
+  box-shadow: 0 0 12px rgba(139, 44, 255, 0.24);
+}
+
+/* Leader hex (main screen) */
+[data-theme='new-mutants'] .leader-hex__name {
+  background: rgba(5, 7, 10, 0.92);
+  border-color: rgba(245, 197, 66, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — squad training frame */
+[data-theme='new-mutants'] .leader-card {
+  background: rgba(5, 7, 10, 0.86);
+  border-color: rgba(245, 197, 66, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='new-mutants'] .leader-card:hover {
+  border-color: rgba(245, 197, 66, 0.52);
+  box-shadow: 0 0 12px rgba(245, 197, 66, 0.18);
+}
+[data-theme='new-mutants'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 16px var(--color-glow-left);
+}
+[data-theme='new-mutants'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 16px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='new-mutants'] .leaders-page__header,
+[data-theme='new-mutants'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(245, 197, 66, 0.28);
+}
+[data-theme='new-mutants'] .leaders-page__search {
+  background: rgba(5, 7, 10, 0.90);
+  border-color: rgba(245, 197, 66, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='new-mutants'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='new-mutants'] .missions-page__body {
+  background: rgba(2, 3, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='new-mutants'] .leaders-page__assign-btn {
+  background: rgba(5, 7, 10, 0.90);
+  border-color: rgba(245, 197, 66, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='new-mutants'] .leaders-page__assign-btn.active-left {
+  background: rgba(245, 197, 66, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='new-mutants'] .leaders-page__assign-btn.active-right {
+  background: rgba(139, 44, 255, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='new-mutants'] .affil-btn {
+  background: rgba(5, 7, 10, 0.86);
+  border-color: rgba(245, 197, 66, 0.26);
+}
+[data-theme='new-mutants'] .affil-btn:hover { border-color: rgba(245, 197, 66, 0.50); }
+[data-theme='new-mutants'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(245, 197, 66, 0.10);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='new-mutants'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 197, 66, 0.34);
+}
+[data-theme='new-mutants'] .settings-section__title {
+  color: #c7d2fe;
+  background: rgba(7, 10, 14, 0.94);
+  border-bottom-color: rgba(245, 197, 66, 0.26);
+}
+[data-theme='new-mutants'] .settings-preset-btn.active,
+[data-theme='new-mutants'] .settings-theme-btn.active,
+[data-theme='new-mutants'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
+  background: rgba(245, 197, 66, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='new-mutants'] .settings-slider {
+  background: rgba(245, 197, 66, 0.16);
+}
+[data-theme='new-mutants'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='new-mutants'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='new-mutants'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.74); }
+[data-theme='new-mutants'] .main-page__modal {
+  background: rgba(5, 7, 10, 0.97);
+  border-color: rgba(245, 197, 66, 0.56);
+  box-shadow: 0 0 30px rgba(245, 197, 66, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='new-mutants'] .main-page__modal-title {
+  color: #c7d2fe;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.62);
+}
+[data-theme='new-mutants'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — mutant energy surge */
+@keyframes newMutants-pulse-left {
+  0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(245, 197, 66, 0.65), 0 0 36px rgba(56, 223, 255, 0.22); }
+  50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(245, 197, 66, 0.92), 0 0 52px rgba(56, 223, 255, 0.34), 0 0 4px #f5c542; }
+}
+@keyframes newMutants-pulse-right {
+  0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(139, 44, 255, 0.65), 0 0 36px rgba(245, 197, 66, 0.20); }
+  50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(139, 44, 255, 0.90), 0 0 52px rgba(245, 197, 66, 0.28), 0 0 4px #8b2cff; }
+}

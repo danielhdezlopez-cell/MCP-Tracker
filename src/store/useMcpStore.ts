@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'apocalypse' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'cyclops' | 'dark-dimension' | 'doc-ock' | 'dr-strange' | 'dracula' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'magik' | 'magneto' | 'mephisto' | 'midnight-sons' | 'mystique' | 'onslaught' | 'professor-x' | 'sam-wilson' | 'sentinels' | 'shield' | 'asgard' | 'miles-morales' | 'spider-man' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
+export type Theme = 'neon-blue' | 'comic-ink' | 'apocalypse' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'cyclops' | 'dark-dimension' | 'doc-ock' | 'dr-strange' | 'dracula' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'magik' | 'magneto' | 'mephisto' | 'midnight-sons' | 'mystique' | 'new-mutants' | 'onslaught' | 'professor-x' | 'sam-wilson' | 'sentinels' | 'shield' | 'asgard' | 'miles-morales' | 'spider-man' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -183,7 +183,7 @@ export const useMcpStore = create<McpState>()(
           state.interactiveBg = 'tech-hex';
         }
         // Migrate removed/unknown themes → shield
-        if (state && !(['apocalypse', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'dark-dimension', 'doc-ock', 'dr-strange', 'dracula', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'magik', 'magneto', 'mephisto', 'midnight-sons', 'mystique', 'onslaught', 'professor-x', 'sam-wilson', 'sentinels', 'shield', 'asgard', 'miles-morales', 'spider-man', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
+        if (state && !(['apocalypse', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'dark-dimension', 'doc-ock', 'dr-strange', 'dracula', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'magik', 'magneto', 'mephisto', 'midnight-sons', 'mystique', 'new-mutants', 'onslaught', 'professor-x', 'sam-wilson', 'sentinels', 'shield', 'asgard', 'miles-morales', 'spider-man', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
           state.theme = 'shield';
         }
         // Tech Hex Grid disabled (no neon-blue theme in active set)

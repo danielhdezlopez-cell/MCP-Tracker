@@ -115,6 +115,14 @@
 .anim-theme-bg--winter-guard.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02050a 0%, #0b1e2e 40%, #1a0408 70%, #02050a 100%);
 }
+.anim-theme-bg--new-mutants.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020304 0%, #0c0a04 40%, #12080a 70%, #020304 100%);
+}
+
+/* New Mutants — image position (vertical art, frame the team group) */
+.anim-theme-bg--new-mutants img {
+  object-position: center 42%;
+}
 
 /* Overlay positioning — colours defined per-theme in themes.css */
 .anim-theme-bg__overlay {
