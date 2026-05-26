@@ -368,6 +368,23 @@
   background-size: 10px 10px;
 }
 
+[data-theme-preview='storm'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #020304 0%, #07162a 40%, #0a1e3a 70%, #38dfff22 100%);
+  border: 1px solid rgba(56, 223, 255, 0.64);
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.38), inset 0 0 6px rgba(244, 247, 255, 0.10);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='storm'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(56, 223, 255, 0.14) 1px, transparent 2px),
+    linear-gradient(0deg, transparent 0%, rgba(244, 247, 255, 0.10) 1px, transparent 2px);
+  background-size: 14px 14px, 14px 14px;
+}
+
 [data-theme-preview='starlord'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #02030a 0%, #07162a 40%, #1a0e08 70%, #ff7a1822 100%);
   border: 1px solid rgba(255, 122, 24, 0.62);
