@@ -385,6 +385,24 @@
   background-size: 14px 14px, 14px 14px;
 }
 
+[data-theme-preview='adam-warlock'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #02030a 0%, #1a0a30 40%, #2e1a00 70%, #f6c85f22 100%);
+  border: 1px solid rgba(246, 200, 95, 0.60);
+  box-shadow: 0 0 8px rgba(246, 200, 95, 0.38), inset 0 0 6px rgba(123, 44, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='adam-warlock'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(246, 200, 95, 0.22) 1px, transparent 1px),
+    linear-gradient(rgba(69, 231, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 44, 255, 0.06) 1px, transparent 1px);
+  background-size: 10px 10px, 14px 14px, 14px 14px;
+}
+
 /* Video background sub-section */
 .settings-themes-sub-title {
   font-family: var(--font-display);

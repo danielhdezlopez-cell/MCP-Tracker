@@ -13635,6 +13635,380 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   ADAM WARLOCK — Cosmic Soul Gem guardian — golden divine & astral cyan
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='adam-warlock'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 5, 18, 0.88);
+  --color-panel-alt: rgba(10, 6, 22, 0.93);
+  --color-border: rgba(246, 200, 95, 0.78);
+  --color-accent-left: #f6c85f;
+  --color-accent-right: #7b2cff;
+  --color-glow-left: rgba(246, 200, 95, 0.60);
+  --color-glow-right: rgba(123, 44, 255, 0.55);
+  --color-text: #fff8d6;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #ffb347;
+  --color-critical: #ff2a2a;
+  --color-success: #45e7ff;
+  --color-round-active: #f6c85f;
+  --color-round-inactive: rgba(246, 200, 95, 0.18);
+  --color-mission-secure: #45e7ff;
+  --color-glow-secure: rgba(69, 231, 255, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='adam-warlock'] body { background: transparent; }
+[data-theme='adam-warlock'] .layout { background: transparent; }
+
+/* Cosmic Soul Gem scan-line overlay */
+[data-theme='adam-warlock'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(246, 200, 95, 0.012) 3px,
+      rgba(246, 200, 95, 0.012) 4px
+    );
+}
+
+/* Video overlay — deep cosmic with golden divine & purple astral glows */
+[data-theme='adam-warlock'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(246, 200, 95, 0.18), transparent 40%),
+    radial-gradient(circle at 70% 65%, rgba(123, 44, 255, 0.16), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(8, 5, 18, 0.30), transparent 52%),
+    rgba(2, 3, 10, 0.48);
+}
+
+/* Panels — deep space plate with golden border */
+[data-theme='adam-warlock'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(246, 200, 95, 0.68);
+  box-shadow: 0 0 14px rgba(246, 200, 95, 0.10), inset 0 0 24px rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(6px);
+}
+[data-theme='adam-warlock'] .panel::before {
+  background: linear-gradient(90deg, rgba(246, 200, 95, 0.12), transparent, rgba(123, 44, 255, 0.08));
+}
+[data-theme='adam-warlock'] .glow-left {
+  border-color: rgba(246, 200, 95, 0.60);
+  box-shadow: -2px 0 14px rgba(246, 200, 95, 0.32), 0 0 10px rgba(246, 200, 95, 0.12);
+}
+[data-theme='adam-warlock'] .glow-right {
+  border-color: rgba(123, 44, 255, 0.55);
+  box-shadow: 2px 0 14px rgba(123, 44, 255, 0.28), 0 0 10px rgba(123, 44, 255, 0.10);
+}
+
+/* Buttons — divine interface */
+[data-theme='adam-warlock'] .btn-hud {
+  background: rgba(8, 5, 18, 0.90);
+  border-color: rgba(246, 200, 95, 0.48);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='adam-warlock'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='adam-warlock'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='adam-warlock'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='adam-warlock'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — cosmic soul steel */
+[data-theme='adam-warlock'] .side-nav {
+  background: rgba(2, 3, 10, 0.96);
+  border-right-color: rgba(246, 200, 95, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='adam-warlock'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(246, 200, 95, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='adam-warlock'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(246, 200, 95, 0.75), 0 0 22px rgba(123, 44, 255, 0.40);
+}
+[data-theme='adam-warlock'] .side-nav__item:hover {
+  background: rgba(246, 200, 95, 0.07);
+  border-color: rgba(69, 231, 255, 0.38);
+}
+[data-theme='adam-warlock'] .side-nav__item.active {
+  background: rgba(246, 200, 95, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — soul gem power display */
+[data-theme='adam-warlock'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='adam-warlock'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #a07010, #f6c85f);
+  box-shadow: 0 0 8px rgba(246, 200, 95, 0.72);
+}
+[data-theme='adam-warlock'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #3a0890, #7b2cff);
+  box-shadow: 0 0 8px rgba(123, 44, 255, 0.68);
+}
+[data-theme='adam-warlock'] .score-panel__value {
+  text-shadow: 0 0 16px rgba(255, 248, 214, 0.60), 0 0 8px rgba(246, 200, 95, 0.65);
+  animation: adamWarlock-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='adam-warlock'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px rgba(255, 248, 214, 0.60), 0 0 8px rgba(123, 44, 255, 0.65);
+  animation: adamWarlock-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='adam-warlock'] .score-panel__btn {
+  background: rgba(8, 5, 18, 0.92);
+  border-color: rgba(246, 200, 95, 0.36);
+}
+[data-theme='adam-warlock'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — cosmic mission clock */
+[data-theme='adam-warlock'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.52);
+}
+[data-theme='adam-warlock'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(246, 200, 95, 0.12), rgba(123, 44, 255, 0.08), transparent);
+}
+[data-theme='adam-warlock'] .timer-panel__display {
+  color: #fff8d6;
+  text-shadow: 0 0 12px rgba(246, 200, 95, 0.65), 0 0 5px rgba(69, 231, 255, 0.42);
+}
+[data-theme='adam-warlock'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='adam-warlock'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='adam-warlock'] .timer-panel__btn {
+  background: rgba(8, 5, 18, 0.92);
+  border-color: rgba(246, 200, 95, 0.36);
+  color: #c7d2fe;
+}
+[data-theme='adam-warlock'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(246, 200, 95, 0.52);
+}
+
+/* Round tracker — cosmic gem nodes */
+[data-theme='adam-warlock'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.36);
+}
+[data-theme='adam-warlock'] .round-tracker__pip {
+  border-color: rgba(246, 200, 95, 0.26);
+  background: rgba(8, 5, 18, 0.62);
+}
+[data-theme='adam-warlock'] .round-tracker__pip.active {
+  border-color: rgba(69, 231, 255, 0.50);
+  background: rgba(246, 200, 95, 0.08);
+}
+[data-theme='adam-warlock'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: adamWarlock-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — cosmic briefing documents */
+[data-theme='adam-warlock'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.42);
+}
+[data-theme='adam-warlock'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='adam-warlock'] .mission-item {
+  background: rgba(8, 5, 18, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='adam-warlock'] .mission-item:hover {
+  background: rgba(246, 200, 95, 0.06);
+  border-color: rgba(69, 231, 255, 0.42);
+}
+[data-theme='adam-warlock'] .mission-item--left.selected {
+  background: rgba(69, 231, 255, 0.14);
+  border-color: rgba(69, 231, 255, 0.68);
+  box-shadow: 0 0 10px rgba(69, 231, 255, 0.28);
+}
+[data-theme='adam-warlock'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='adam-warlock'] .leader-hex__name {
+  background: rgba(8, 5, 18, 0.92);
+  border-color: rgba(246, 200, 95, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — divine cosmic frame */
+[data-theme='adam-warlock'] .leader-card {
+  background: rgba(8, 5, 18, 0.86);
+  border-color: rgba(246, 200, 95, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='adam-warlock'] .leader-card:hover {
+  border-color: rgba(69, 231, 255, 0.50);
+  box-shadow: 0 0 10px rgba(246, 200, 95, 0.16);
+}
+[data-theme='adam-warlock'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='adam-warlock'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='adam-warlock'] .leaders-page__header,
+[data-theme='adam-warlock'] .missions-page__header {
+  background: rgba(2, 3, 10, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(246, 200, 95, 0.28);
+}
+[data-theme='adam-warlock'] .leaders-page__search {
+  background: rgba(8, 5, 18, 0.90);
+  border-color: rgba(246, 200, 95, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='adam-warlock'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='adam-warlock'] .missions-page__body {
+  background: rgba(2, 3, 10, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='adam-warlock'] .leaders-page__assign-btn {
+  background: rgba(8, 5, 18, 0.90);
+  border-color: rgba(246, 200, 95, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='adam-warlock'] .leaders-page__assign-btn.active-left {
+  background: rgba(246, 200, 95, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='adam-warlock'] .leaders-page__assign-btn.active-right {
+  background: rgba(123, 44, 255, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='adam-warlock'] .affil-btn {
+  background: rgba(8, 5, 18, 0.86);
+  border-color: rgba(246, 200, 95, 0.26);
+}
+[data-theme='adam-warlock'] .affil-btn:hover { border-color: rgba(69, 231, 255, 0.48); }
+[data-theme='adam-warlock'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(246, 200, 95, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='adam-warlock'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.34);
+}
+[data-theme='adam-warlock'] .settings-section__title {
+  color: #fff8d6;
+  background: rgba(8, 5, 18, 0.94);
+  border-bottom-color: rgba(246, 200, 95, 0.26);
+}
+[data-theme='adam-warlock'] .settings-preset-btn.active,
+[data-theme='adam-warlock'] .settings-theme-btn.active,
+[data-theme='adam-warlock'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(246, 200, 95, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='adam-warlock'] .settings-slider {
+  background: rgba(246, 200, 95, 0.16);
+}
+[data-theme='adam-warlock'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='adam-warlock'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='adam-warlock'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.74); }
+[data-theme='adam-warlock'] .main-page__modal {
+  background: rgba(8, 5, 18, 0.97);
+  border-color: rgba(246, 200, 95, 0.56);
+  box-shadow: 0 0 30px rgba(246, 200, 95, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='adam-warlock'] .main-page__modal-title {
+  color: #fff8d6;
+  text-shadow: 0 0 12px rgba(246, 200, 95, 0.70);
+}
+[data-theme='adam-warlock'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — soul gem cosmic radiance */
+@keyframes adamWarlock-pulse-left {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 248, 214, 0.65), 0 0 20px rgba(246, 200, 95, 0.65), 0 0 36px rgba(69, 231, 255, 0.22); }
+  50%       { text-shadow: 0 0 14px rgba(255, 248, 214, 0.90), 0 0 32px rgba(246, 200, 95, 0.92), 0 0 52px rgba(69, 231, 255, 0.34), 0 0 4px #f6c85f; }
+}
+@keyframes adamWarlock-pulse-right {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 248, 214, 0.65), 0 0 20px rgba(123, 44, 255, 0.65), 0 0 36px rgba(246, 200, 95, 0.20); }
+  50%       { text-shadow: 0 0 14px rgba(255, 248, 214, 0.90), 0 0 32px rgba(123, 44, 255, 0.90), 0 0 52px rgba(246, 200, 95, 0.28), 0 0 4px #7b2cff; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    GLOBAL — Fixed mission type identity colors
    SECURE is always blue (#3b82f6), EXTRACT is always red (#ff1744).
 

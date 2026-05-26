@@ -4,6 +4,7 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
+  { value: 'adam-warlock',     label: 'Adam Warlock',    desc: 'Cosmic Soul Gem guardian — golden divine & astral cyan HUD' },
   { value: 'apocalypse',       label: 'Apocalypse',      desc: 'Ancient cosmic dominion — blue & gold HUD'      },
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
   { value: 'cable',            label: 'Cable',           desc: 'Future soldier tactical HUD — blue & orange'    },

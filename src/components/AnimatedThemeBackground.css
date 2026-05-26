@@ -13,6 +13,9 @@
 }
 
 /* Fallback gradients — one per video theme */
+.anim-theme-bg--adam-warlock.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #02030a 0%, #1a0a30 40%, #2e1a00 70%, #02030a 100%);
+}
 .anim-theme-bg--apocalypse.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02040a 0%, #0c1838 40%, #1a0e30 70%, #02040a 100%);
 }
