@@ -11356,3 +11356,380 @@
   0%, 100% { text-shadow: 0 0 16px rgba(234, 255, 241, 0.58), 0 0 8px rgba(56, 223, 255, 0.62); }
   50%       { text-shadow: 0 0 26px rgba(234, 255, 241, 0.85), 0 0 18px rgba(56, 223, 255, 0.90), 0 0 4px #38dfff; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   DR. STRANGE — Sorcerer Supreme arcane dimensional HUD.
+   Void-black base, golden spell (#f6c85f) primary, violet astral
+   (#7b2cff) secondary, cyan magic (#45e7ff) accent. Semi-transparent
+   panels bleed the animated video through with mystical overlays.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='dr-strange'] {
+  --color-bg: transparent;
+  --color-panel: rgba(10, 5, 20, 0.88);
+  --color-panel-alt: rgba(14, 7, 28, 0.93);
+  --color-border: rgba(246, 200, 95, 0.58);
+  --color-accent-left: #f6c85f;
+  --color-accent-right: #7b2cff;
+  --color-glow-left: rgba(246, 200, 95, 0.52);
+  --color-glow-right: rgba(123, 44, 255, 0.48);
+  --color-text: #f4ecff;
+  --color-text-muted: #d8c98a;
+  --color-warn: #ff9f1c;
+  --color-critical: #b11226;
+  --color-success: #45e7ff;
+  --color-round-active: #f6c85f;
+  --color-round-inactive: rgba(246, 200, 95, 0.16);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.44);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='dr-strange'] body { background: transparent; }
+[data-theme='dr-strange'] .layout { background: transparent; }
+
+/* Arcane geometry overlay */
+[data-theme='dr-strange'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(246, 200, 95, 0.016) 3px,
+      rgba(246, 200, 95, 0.016) 4px
+    );
+}
+
+/* Video overlay — void with golden/violet radial glows */
+[data-theme='dr-strange'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(246, 200, 95, 0.16), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(123, 44, 255, 0.16), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(27, 8, 47, 0.30), transparent 50%),
+    rgba(5, 3, 10, 0.52);
+}
+
+/* Panels — void arcane crystal with golden border */
+[data-theme='dr-strange'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(246, 200, 95, 0.50);
+  box-shadow: 0 0 14px rgba(246, 200, 95, 0.10), inset 0 0 24px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+[data-theme='dr-strange'] .panel::before {
+  background: linear-gradient(90deg, rgba(246, 200, 95, 0.14), transparent, rgba(123, 44, 255, 0.10));
+}
+[data-theme='dr-strange'] .glow-left {
+  border-color: rgba(246, 200, 95, 0.55);
+  box-shadow: -2px 0 14px rgba(246, 200, 95, 0.30), 0 0 10px rgba(246, 200, 95, 0.12);
+}
+[data-theme='dr-strange'] .glow-right {
+  border-color: rgba(123, 44, 255, 0.52);
+  box-shadow: 2px 0 14px rgba(123, 44, 255, 0.28), 0 0 10px rgba(123, 44, 255, 0.12);
+}
+
+/* Buttons — arcane grimoire style */
+[data-theme='dr-strange'] .btn-hud {
+  background: rgba(10, 5, 20, 0.90);
+  border-color: rgba(246, 200, 95, 0.44);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='dr-strange'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='dr-strange'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='dr-strange'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='dr-strange'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — sanctum sanctorum dark plate */
+[data-theme='dr-strange'] .side-nav {
+  background: rgba(5, 3, 10, 0.96);
+  border-right-color: rgba(246, 200, 95, 0.34);
+  backdrop-filter: blur(8px);
+}
+[data-theme='dr-strange'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(246, 200, 95, 0.58) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='dr-strange'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(246, 200, 95, 0.72), 0 0 22px rgba(246, 200, 95, 0.36);
+}
+[data-theme='dr-strange'] .side-nav__item:hover {
+  background: rgba(246, 200, 95, 0.08);
+  border-color: rgba(246, 200, 95, 0.38);
+}
+[data-theme='dr-strange'] .side-nav__item.active {
+  background: rgba(246, 200, 95, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — arcane power display */
+[data-theme='dr-strange'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='dr-strange'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #c8962a, #f6c85f);
+  box-shadow: 0 0 8px rgba(246, 200, 95, 0.72);
+}
+[data-theme='dr-strange'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #4a1aa8, #7b2cff);
+  box-shadow: 0 0 8px rgba(123, 44, 255, 0.68);
+}
+[data-theme='dr-strange'] .score-panel__value {
+  text-shadow: 0 0 16px rgba(244, 236, 255, 0.60), 0 0 8px rgba(246, 200, 95, 0.68);
+  animation: drStrange-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='dr-strange'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px rgba(244, 236, 255, 0.60), 0 0 8px rgba(123, 44, 255, 0.65);
+  animation: drStrange-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='dr-strange'] .score-panel__btn {
+  background: rgba(10, 5, 20, 0.92);
+  border-color: rgba(246, 200, 95, 0.36);
+}
+[data-theme='dr-strange'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — arcane portal clock */
+[data-theme='dr-strange'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.50);
+}
+[data-theme='dr-strange'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(246, 200, 95, 0.14), rgba(123, 44, 255, 0.10), transparent);
+}
+[data-theme='dr-strange'] .timer-panel__display {
+  color: #ffcc66;
+  text-shadow: 0 0 12px rgba(255, 204, 102, 0.65), 0 0 5px rgba(246, 200, 95, 0.45);
+}
+[data-theme='dr-strange'] .timer-panel--critical {
+  border-color: rgba(177, 18, 38, 0.88) !important;
+  box-shadow: 0 0 20px rgba(177, 18, 38, 0.44), 0 0 40px rgba(177, 18, 38, 0.20) !important;
+}
+[data-theme='dr-strange'] .timer-panel__display.critical {
+  color: #ff9f1c;
+  text-shadow: 0 0 12px rgba(255, 159, 28, 0.85);
+}
+[data-theme='dr-strange'] .timer-panel__btn {
+  background: rgba(10, 5, 20, 0.92);
+  border-color: rgba(246, 200, 95, 0.36);
+  color: #ffcc66;
+}
+[data-theme='dr-strange'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(246, 200, 95, 0.52);
+}
+
+/* Round tracker — spell circle / dimensional nodes */
+[data-theme='dr-strange'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.36);
+}
+[data-theme='dr-strange'] .round-tracker__pip {
+  border-color: rgba(246, 200, 95, 0.24);
+  background: rgba(10, 5, 20, 0.62);
+}
+[data-theme='dr-strange'] .round-tracker__pip.active {
+  border-color: rgba(246, 200, 95, 0.52);
+  background: rgba(246, 200, 95, 0.09);
+}
+[data-theme='dr-strange'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: drStrange-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — grimoire / arcane tome */
+[data-theme='dr-strange'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.46);
+}
+[data-theme='dr-strange'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='dr-strange'] .mission-item {
+  background: rgba(10, 5, 20, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='dr-strange'] .mission-item:hover {
+  background: rgba(246, 200, 95, 0.06);
+  border-color: rgba(246, 200, 95, 0.44);
+}
+[data-theme='dr-strange'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.68);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='dr-strange'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.68);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex (main screen) */
+[data-theme='dr-strange'] .leader-hex__name {
+  background: rgba(10, 5, 20, 0.92);
+  border-color: rgba(246, 200, 95, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — arcane portal frame */
+[data-theme='dr-strange'] .leader-card {
+  background: rgba(10, 5, 20, 0.86);
+  border-color: rgba(246, 200, 95, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='dr-strange'] .leader-card:hover {
+  border-color: rgba(246, 200, 95, 0.52);
+  box-shadow: 0 0 10px rgba(246, 200, 95, 0.18);
+}
+[data-theme='dr-strange'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='dr-strange'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='dr-strange'] .leaders-page__header,
+[data-theme='dr-strange'] .missions-page__header {
+  background: rgba(5, 3, 10, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(246, 200, 95, 0.28);
+}
+[data-theme='dr-strange'] .leaders-page__search {
+  background: rgba(10, 5, 20, 0.90);
+  border-color: rgba(246, 200, 95, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='dr-strange'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='dr-strange'] .missions-page__body {
+  background: rgba(5, 3, 10, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='dr-strange'] .leaders-page__assign-btn {
+  background: rgba(10, 5, 20, 0.90);
+  border-color: rgba(246, 200, 95, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='dr-strange'] .leaders-page__assign-btn.active-left {
+  background: rgba(246, 200, 95, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='dr-strange'] .leaders-page__assign-btn.active-right {
+  background: rgba(123, 44, 255, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='dr-strange'] .affil-btn {
+  background: rgba(10, 5, 20, 0.86);
+  border-color: rgba(246, 200, 95, 0.26);
+}
+[data-theme='dr-strange'] .affil-btn:hover { border-color: rgba(246, 200, 95, 0.50); }
+[data-theme='dr-strange'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(246, 200, 95, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='dr-strange'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(246, 200, 95, 0.34);
+}
+[data-theme='dr-strange'] .settings-section__title {
+  color: #ffcc66;
+  background: rgba(14, 7, 28, 0.93);
+  border-bottom-color: rgba(246, 200, 95, 0.26);
+}
+[data-theme='dr-strange'] .settings-preset-btn.active,
+[data-theme='dr-strange'] .settings-theme-btn.active,
+[data-theme='dr-strange'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(246, 200, 95, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='dr-strange'] .settings-slider {
+  background: rgba(246, 200, 95, 0.16);
+}
+[data-theme='dr-strange'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='dr-strange'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='dr-strange'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.72); }
+[data-theme='dr-strange'] .main-page__modal {
+  background: rgba(10, 5, 20, 0.97);
+  border-color: rgba(246, 200, 95, 0.55);
+  box-shadow: 0 0 28px rgba(246, 200, 95, 0.20);
+  backdrop-filter: blur(12px);
+}
+[data-theme='dr-strange'] .main-page__modal-title {
+  color: #ffcc66;
+  text-shadow: 0 0 10px rgba(246, 200, 95, 0.65);
+}
+[data-theme='dr-strange'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — arcane spell energy */
+@keyframes drStrange-pulse-left {
+  0%, 100% { text-shadow: 0 0 16px rgba(244, 236, 255, 0.60), 0 0 8px rgba(246, 200, 95, 0.68); }
+  50%       { text-shadow: 0 0 26px rgba(244, 236, 255, 0.85), 0 0 18px rgba(246, 200, 95, 0.95), 0 0 4px #ffcc66; }
+}
+@keyframes drStrange-pulse-right {
+  0%, 100% { text-shadow: 0 0 16px rgba(244, 236, 255, 0.60), 0 0 8px rgba(123, 44, 255, 0.65); }
+  50%       { text-shadow: 0 0 26px rgba(244, 236, 255, 0.85), 0 0 18px rgba(123, 44, 255, 0.92), 0 0 4px #a070ff; }
+}

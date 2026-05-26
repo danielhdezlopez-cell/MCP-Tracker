@@ -37,6 +37,9 @@
 .anim-theme-bg--doc-ock.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020604 0%, #0a2210 40%, #061a0c 70%, #020604 100%);
 }
+.anim-theme-bg--dr-strange.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #05030a 0%, #1b082f 40%, #2a0e0a 70%, #05030a 100%);
+}
 .anim-theme-bg--dracula.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030305 0%, #0b0709 40%, #1a0408 70%, #030305 100%);
 }
