@@ -34,6 +34,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   hydra:  { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_HYDRA.mp4`,       modifier: 'anim-theme-bg--hydra'      },
   kingpin: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Kingpin.mp4`,     modifier: 'anim-theme-bg--kingpin', smoothLoop: true },
   klaw:   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Klaw.mp4`,        modifier: 'anim-theme-bg--klaw', smoothLoop: true },
+  loki:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Loki.mp4`,     modifier: 'anim-theme-bg--loki', smoothLoop: true },
   magik:   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Magik.mp4`,    modifier: 'anim-theme-bg--magik', smoothLoop: true },
   magneto: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Magneto.mp4`, modifier: 'anim-theme-bg--magneto', smoothLoop: true },
   shield: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SHIELD.mp4`,      modifier: 'anim-theme-bg--shield'     },

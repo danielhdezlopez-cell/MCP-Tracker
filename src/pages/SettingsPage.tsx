@@ -23,6 +23,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hydra',       label: 'Hydra',         desc: 'Dark tactical — animated video BG'                },
   { value: 'kingpin',      label: 'Kingpin',         desc: 'Criminal empire — black marble, dark gold & blood red HUD' },
   { value: 'klaw',         label: 'Klaw',            desc: 'Sonic energy weapon — blood red, psionic magenta & vibranium cyan HUD' },
+  { value: 'loki',         label: 'Loki',            desc: 'God of Mischief — arcane green magic, asgardian gold & shadow purple HUD' },
   { value: 'magik',       label: 'Magik',          desc: 'Limbo sorcerer — Soulsword yellow & void purple'  },
   { value: 'magneto',     label: 'Magneto',        desc: 'Magnetic supremacy — purple field & armour red'   },
   { value: 'mephisto',    label: 'Mephisto',      desc: 'Infernal demon lord — fire red & ember amber'     },
