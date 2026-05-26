@@ -79,7 +79,8 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Crimson Dynamo':     'winter-guard',
   'Cable':              'cable',
   'Onslaught':          'onslaught',
-  'The Leader':         'the-leader',
+  'Leader':             'the-leader',
+  'The Leader':         'the-leader', // fallback alias for any persisted old data
 };
 
 function getThemeFromLeader(leader: Leader): Theme | null {
