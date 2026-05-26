@@ -34,6 +34,9 @@
 .anim-theme-bg--cyclops.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02050a 0%, #06111f 35%, #200408 65%, #02050a 100%);
 }
+.anim-theme-bg--daredevil.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020304 0%, #200408 40%, #3a0612 70%, #020304 100%);
+}
 .anim-theme-bg--dark-dimension.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030008 0%, #2a063f 40%, #1a0030 70%, #030008 100%);
 }

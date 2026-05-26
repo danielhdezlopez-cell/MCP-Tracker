@@ -12,6 +12,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },
   { value: 'convocation',      label: 'Convocation',     desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
   { value: 'cyclops',          label: 'Cyclops',         desc: 'X-Men tactical visor — red optic & blue HUD'     },
+  { value: 'daredevil',        label: 'Daredevil',       desc: "Hell's Kitchen vigilante — blood red, urban black & radar white HUD" },
   { value: 'dark-dimension',   label: 'Dark Dimension',  desc: 'Dormammu hostile void — purple fire & red chaos' },
   { value: 'doc-ock',          label: 'Doc Ock',         desc: 'Mechanical tentacle lab — reactor green & steel'  },
   { value: 'dr-strange',       label: 'Dr. Strange',     desc: 'Sorcerer Supreme — arcane gold & dimensional violet' },
