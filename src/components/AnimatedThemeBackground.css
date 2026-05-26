@@ -132,7 +132,7 @@
 
 /* Per-theme video position overrides */
 .anim-theme-bg--magneto video {
-  object-position: center 55%;
+  object-position: top;
 }
 .anim-theme-bg--mystique video {
   object-position: center 38%;
