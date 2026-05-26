@@ -19,6 +19,9 @@
 .anim-theme-bg--cable.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02050a 0%, #071a2d 40%, #0a1e30 70%, #02050a 100%);
 }
+.anim-theme-bg--captain-america.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #02050a 0%, #071a3d 40%, #0b1f4a 70%, #02050a 100%);
+}
 .anim-theme-bg--cap-first-avenger.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #06111f 0%, #102a54 40%, #0d2045 70%, #06111f 100%);
 }
@@ -102,6 +105,9 @@
 }
 
 /* Per-theme video position overrides */
+.anim-theme-bg--captain-america video {
+  object-position: center 35%;
+}
 .anim-theme-bg--cable video {
   object-position: center 30%;
 }
