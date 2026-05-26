@@ -7,6 +7,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'adam-warlock',     label: 'Adam Warlock',    desc: 'Cosmic Soul Gem guardian — golden divine & astral cyan HUD' },
   { value: 'apocalypse',       label: 'Apocalypse',      desc: 'Ancient cosmic dominion — blue & gold HUD'      },
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
+  { value: 'black-panther',    label: 'Black Panther',   desc: 'Wakandan vibranium tech — purple energy, cyan & royal gold HUD' },
   { value: 'cable',            label: 'Cable',           desc: 'Future soldier tactical HUD — blue & orange'    },
   { value: 'captain-america', label: 'Captain America', desc: 'Shield tactical command — blue, red & star white' },
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },

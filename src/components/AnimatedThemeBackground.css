@@ -19,6 +19,9 @@
 .anim-theme-bg--apocalypse.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02040a 0%, #0c1838 40%, #1a0e30 70%, #02040a 100%);
 }
+.anim-theme-bg--black-panther.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020304 0%, #0f0a18 40%, #2a0f4f 70%, #020304 100%);
+}
 .anim-theme-bg--cable.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #02050a 0%, #071a2d 40%, #0a1e30 70%, #02050a 100%);
 }

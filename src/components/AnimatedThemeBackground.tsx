@@ -14,6 +14,7 @@ const IMAGE_THEMES: Partial<Record<Theme, { src: string; modifier: string }>> = 
 
 const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoothLoop?: boolean }>> = {
   apocalypse:          { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Apocalypse.mp4`,                  modifier: 'anim-theme-bg--apocalypse'        },
+  'black-panther': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_BlackPanther.mp4`, modifier: 'anim-theme-bg--black-panther', smoothLoop: true },
   cable:               { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Cable.mp4`,                    modifier: 'anim-theme-bg--cable', smoothLoop: true },
   'captain-america':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_CaptainAmerica.mp4`,            modifier: 'anim-theme-bg--captain-america' },
   'cap-first-avenger': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_CaptainAmericaFirstAvenger.mp4`, modifier: 'anim-theme-bg--cap-first-avenger' },
