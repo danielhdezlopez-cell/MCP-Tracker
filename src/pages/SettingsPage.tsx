@@ -36,6 +36,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'sam-wilson',   label: 'Sam Wilson',    desc: 'Aerial combat HUD — tactical blue, red wings & cyan' },
   { value: 'sentinels',     label: 'Sentinels',    desc: 'Robotic exterminator surveillance HUD — purple & scanner blue' },
   { value: 'shield',        label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'           },
+  { value: 'starlord',     label: 'Starlord',      desc: 'Space outlaw retro-futurist HUD — cosmic orange, neon blue & galaxy purple' },
   { value: 'spider-man', label: 'Spider-Man',   desc: 'Urban hero comic-tech dark city HUD'    },
   { value: 'thanos',       label: 'Thanos',       desc: 'Cosmic conqueror dark command interface'     },
   { value: 'thor',         label: 'Thor',         desc: 'Asgardian storm god — lightning blue, cape red & golden rune HUD' },
