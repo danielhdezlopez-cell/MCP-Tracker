@@ -9565,6 +9565,23 @@
 [data-theme='magneto'] body { background: transparent; }
 [data-theme='magneto'] .layout { background: transparent; }
 
+/* Electromagnetic field lines overlay */
+[data-theme='magneto'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent,
+      transparent 3px,
+      rgba(109, 44, 255, 0.018) 3px,
+      rgba(109, 44, 255, 0.018) 4px
+    );
+}
+
 /* Panels — dark metal with purple field border */
 [data-theme='magneto'] .panel {
   background: var(--color-panel);
@@ -9851,10 +9868,11 @@
 /* Video overlay — purple field centre, red armour low, electric blue edge */
 [data-theme='magneto'] .anim-theme-bg__overlay {
   background:
-    radial-gradient(circle at 50% 38%, rgba(109, 44, 255, 0.14), transparent 44%),
-    radial-gradient(circle at 22% 80%, rgba(177, 18, 38, 0.16), transparent 42%),
-    radial-gradient(circle at 78% 20%, rgba(78, 219, 255, 0.10), transparent 36%),
-    rgba(0, 0, 0, 0.54);
+    radial-gradient(circle at 50% 35%, rgba(109, 44, 255, 0.18), transparent 45%),
+    radial-gradient(circle at 20% 75%, rgba(177, 18, 38, 0.18), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(78, 219, 255, 0.12), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(42, 15, 79, 0.28), transparent 50%),
+    rgba(0, 0, 0, 0.52);
 }
 
 /* ── Magneto animations ───────────────────────────────────────────── */
