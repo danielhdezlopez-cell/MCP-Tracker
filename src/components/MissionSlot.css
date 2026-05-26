@@ -210,14 +210,13 @@
     letter-spacing: 0.2em;
   }
 
+  /* Keep single-line on tablet — panel is wide enough */
   .mission-slot__name {
-    font-size: var(--fs-16);
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    font-size: var(--fs-14);
+    white-space: nowrap;
     overflow: hidden;
-    line-height: 1.25;
+    text-overflow: ellipsis;
+    letter-spacing: -0.03em;
   }
 
   .mission-slot__threat-val {
