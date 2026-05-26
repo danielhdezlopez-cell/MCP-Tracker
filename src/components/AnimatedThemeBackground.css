@@ -52,6 +52,9 @@
 .anim-theme-bg--green-goblin.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020408 0%, #0a1c0e 40%, #1a1008 70%, #020408 100%);
 }
+.anim-theme-bg--klaw.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #020304 0%, #1a0010 40%, #2a0f4f 70%, #020304 100%);
+}
 .anim-theme-bg--hellfire-club.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030304 0%, #0b090a 40%, #1e0d08 70%, #030304 100%);
 }

@@ -21,6 +21,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hellfire-club',    label: 'Hellfire Club',   desc: 'Secret aristocratic society — velvet red & gold'  },
   { value: 'hulkbuster',       label: 'Hulkbuster',      desc: 'Heavy armor power interface — red & gold'        },
   { value: 'hydra',       label: 'Hydra',         desc: 'Dark tactical — animated video BG'                },
+  { value: 'klaw',         label: 'Klaw',            desc: 'Sonic energy weapon — blood red, psionic magenta & vibranium cyan HUD' },
   { value: 'magik',       label: 'Magik',          desc: 'Limbo sorcerer — Soulsword yellow & void purple'  },
   { value: 'magneto',     label: 'Magneto',        desc: 'Magnetic supremacy — purple field & armour red'   },
   { value: 'mephisto',    label: 'Mephisto',      desc: 'Infernal demon lord — fire red & ember amber'     },

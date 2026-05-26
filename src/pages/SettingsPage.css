@@ -385,6 +385,23 @@
   background-size: 14px 14px, 14px 14px;
 }
 
+[data-theme-preview='klaw'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #020304 0%, #1a0010 40%, #2a0f4f 70%, #ff174422 100%);
+  border: 1px solid rgba(255, 23, 68, 0.65);
+  box-shadow: 0 0 8px rgba(255, 43, 214, 0.36), inset 0 0 6px rgba(139, 44, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='klaw'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255, 43, 214, 0.12) 1px, transparent 2px),
+    linear-gradient(0deg, transparent 0%, rgba(56, 223, 255, 0.10) 1px, transparent 2px);
+  background-size: 8px 8px, 8px 8px;
+}
+
 [data-theme-preview='daredevil'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020304 0%, #200408 40%, #3a0612 70%, #ff174422 100%);
   border: 1px solid rgba(215, 25, 32, 0.68);

@@ -13635,6 +13635,387 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   KLAW — Sonic energy weapon — blood red, magenta frequency & cyan wave
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='klaw'] {
+  --color-bg: transparent;
+  --color-panel: rgba(10, 4, 12, 0.90);
+  --color-panel-alt: rgba(12, 5, 15, 0.94);
+  --color-border: rgba(255, 23, 68, 0.72);
+  --color-accent-left: #ff1744;
+  --color-accent-right: #8b2cff;
+  --color-glow-left: rgba(255, 23, 68, 0.62);
+  --color-glow-right: rgba(139, 44, 255, 0.58);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #ffb347;
+  --color-critical: #ff2a2a;
+  --color-success: #38dfff;
+  --color-round-active: #ff1744;
+  --color-round-inactive: rgba(255, 23, 68, 0.18);
+  --color-mission-secure: #38dfff;
+  --color-glow-secure: rgba(56, 223, 255, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='klaw'] body { background: transparent; }
+[data-theme='klaw'] .layout { background: transparent; }
+
+/* Sonic waveform scan-line overlay */
+[data-theme='klaw'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 23, 68, 0.012) 3px,
+      rgba(255, 23, 68, 0.012) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 51px,
+      rgba(255, 43, 214, 0.014) 51px,
+      rgba(255, 43, 214, 0.014) 52px
+    );
+}
+
+/* Video overlay — deep void with sonic red & vibration purple glows */
+[data-theme='klaw'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 23, 68, 0.18), transparent 42%),
+    radial-gradient(circle at 72% 68%, rgba(139, 44, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(10, 4, 12, 0.32), transparent 52%),
+    rgba(2, 3, 4, 0.52);
+}
+
+/* Panels — dark sonic lab with red/magenta border */
+[data-theme='klaw'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 23, 68, 0.62);
+  box-shadow: 0 0 18px rgba(255, 23, 68, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+[data-theme='klaw'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 23, 68, 0.10), transparent, rgba(56, 223, 255, 0.06));
+}
+[data-theme='klaw'] .glow-left {
+  border-color: rgba(255, 23, 68, 0.62);
+  box-shadow: -2px 0 14px rgba(255, 23, 68, 0.34), 0 0 10px rgba(255, 43, 214, 0.14);
+}
+[data-theme='klaw'] .glow-right {
+  border-color: rgba(139, 44, 255, 0.58);
+  box-shadow: 2px 0 14px rgba(139, 44, 255, 0.30), 0 0 10px rgba(56, 223, 255, 0.12);
+}
+
+/* Buttons — sonic pulse command */
+[data-theme='klaw'] .btn-hud {
+  background: rgba(10, 4, 12, 0.90);
+  border-color: rgba(255, 23, 68, 0.50);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='klaw'] .btn-hud:hover {
+  border-color: var(--color-success);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.48), 0 0 18px rgba(56, 223, 255, 0.24);
+  color: var(--color-text);
+}
+[data-theme='klaw'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='klaw'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='klaw'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — sonic frequency lab */
+[data-theme='klaw'] .side-nav {
+  background: rgba(2, 3, 4, 0.96);
+  border-right-color: rgba(255, 23, 68, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='klaw'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 23, 68, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='klaw'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(255, 23, 68, 0.80), 0 0 22px rgba(255, 43, 214, 0.42);
+}
+[data-theme='klaw'] .side-nav__item:hover {
+  background: rgba(255, 23, 68, 0.07);
+  border-color: rgba(56, 223, 255, 0.38);
+}
+[data-theme='klaw'] .side-nav__item.active {
+  background: rgba(255, 23, 68, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — sonic frequency readout */
+[data-theme='klaw'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='klaw'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #7a0612, #ff1744);
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.72);
+}
+[data-theme='klaw'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #2a0f4f, #8b2cff);
+  box-shadow: 0 0 8px rgba(139, 44, 255, 0.68);
+}
+[data-theme='klaw'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(255, 23, 68, 0.72), 0 0 30px rgba(56, 223, 255, 0.32);
+  animation: klaw-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='klaw'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(139, 44, 255, 0.72), 0 0 30px rgba(255, 43, 214, 0.30);
+  animation: klaw-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='klaw'] .score-panel__btn {
+  background: rgba(10, 4, 12, 0.92);
+  border-color: rgba(255, 23, 68, 0.36);
+}
+[data-theme='klaw'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — critical frequency countdown */
+[data-theme='klaw'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.52);
+}
+[data-theme='klaw'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 23, 68, 0.12), rgba(255, 43, 214, 0.08), transparent);
+}
+[data-theme='klaw'] .timer-panel__display {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(255, 23, 68, 0.68), 0 0 5px rgba(56, 223, 255, 0.45);
+}
+[data-theme='klaw'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='klaw'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='klaw'] .timer-panel__btn {
+  background: rgba(10, 4, 12, 0.92);
+  border-color: rgba(255, 23, 68, 0.36);
+  color: #c7d2fe;
+}
+[data-theme='klaw'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.52);
+}
+
+/* Round tracker — sonic wave nodes */
+[data-theme='klaw'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.36);
+}
+[data-theme='klaw'] .round-tracker__pip {
+  border-color: rgba(255, 23, 68, 0.26);
+  background: rgba(10, 4, 12, 0.62);
+}
+[data-theme='klaw'] .round-tracker__pip.active {
+  border-color: rgba(56, 223, 255, 0.50);
+  background: rgba(255, 23, 68, 0.08);
+}
+[data-theme='klaw'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: klaw-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — sonic weapon briefing */
+[data-theme='klaw'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.46);
+}
+[data-theme='klaw'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='klaw'] .mission-item {
+  background: rgba(10, 4, 12, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='klaw'] .mission-item:hover {
+  background: rgba(255, 23, 68, 0.06);
+  border-color: rgba(56, 223, 255, 0.42);
+}
+[data-theme='klaw'] .mission-item--left.selected {
+  background: rgba(56, 223, 255, 0.14);
+  border-color: rgba(56, 223, 255, 0.68);
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.28);
+}
+[data-theme='klaw'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='klaw'] .leader-hex__name {
+  background: rgba(10, 4, 12, 0.92);
+  border-color: rgba(255, 23, 68, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — sonic frequency visor frame */
+[data-theme='klaw'] .leader-card {
+  background: rgba(10, 4, 12, 0.86);
+  border-color: rgba(255, 23, 68, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='klaw'] .leader-card:hover {
+  border-color: rgba(56, 223, 255, 0.50);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.18);
+}
+[data-theme='klaw'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='klaw'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='klaw'] .leaders-page__header,
+[data-theme='klaw'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 23, 68, 0.28);
+}
+[data-theme='klaw'] .leaders-page__search {
+  background: rgba(10, 4, 12, 0.90);
+  border-color: rgba(255, 23, 68, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='klaw'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='klaw'] .missions-page__body {
+  background: rgba(2, 3, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='klaw'] .leaders-page__assign-btn {
+  background: rgba(10, 4, 12, 0.90);
+  border-color: rgba(255, 23, 68, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='klaw'] .leaders-page__assign-btn.active-left {
+  background: rgba(255, 23, 68, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='klaw'] .leaders-page__assign-btn.active-right {
+  background: rgba(139, 44, 255, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='klaw'] .affil-btn {
+  background: rgba(10, 4, 12, 0.86);
+  border-color: rgba(255, 23, 68, 0.26);
+}
+[data-theme='klaw'] .affil-btn:hover { border-color: rgba(56, 223, 255, 0.48); }
+[data-theme='klaw'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(255, 23, 68, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='klaw'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.34);
+}
+[data-theme='klaw'] .settings-section__title {
+  color: #f4f7ff;
+  background: rgba(10, 4, 12, 0.94);
+  border-bottom-color: rgba(255, 23, 68, 0.26);
+}
+[data-theme='klaw'] .settings-preset-btn.active,
+[data-theme='klaw'] .settings-theme-btn.active,
+[data-theme='klaw'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 23, 68, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='klaw'] .settings-slider {
+  background: rgba(255, 23, 68, 0.16);
+}
+[data-theme='klaw'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='klaw'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='klaw'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.76); }
+[data-theme='klaw'] .main-page__modal {
+  background: rgba(10, 4, 12, 0.97);
+  border-color: rgba(255, 23, 68, 0.56);
+  box-shadow: 0 0 30px rgba(255, 23, 68, 0.22), 0 0 50px rgba(255, 43, 214, 0.12);
+  backdrop-filter: blur(12px);
+}
+[data-theme='klaw'] .main-page__modal-title {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(255, 23, 68, 0.72), 0 0 24px rgba(56, 223, 255, 0.30);
+}
+[data-theme='klaw'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — sonic frequency wave */
+@keyframes klaw-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(255, 23, 68, 0.72), 0 0 30px rgba(56, 223, 255, 0.30); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.90), 0 0 26px rgba(255, 23, 68, 0.95), 0 0 46px rgba(56, 223, 255, 0.44), 0 0 4px #ff1744; }
+}
+@keyframes klaw-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(139, 44, 255, 0.72), 0 0 30px rgba(255, 43, 214, 0.28); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.90), 0 0 26px rgba(139, 44, 255, 0.95), 0 0 46px rgba(255, 43, 214, 0.38), 0 0 4px #8b2cff; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    DAREDEVIL — Hell's Kitchen vigilante — blood red & radar white
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='daredevil'] {
