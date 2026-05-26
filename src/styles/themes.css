@@ -11733,3 +11733,380 @@
   0%, 100% { text-shadow: 0 0 16px rgba(244, 236, 255, 0.60), 0 0 8px rgba(123, 44, 255, 0.65); }
   50%       { text-shadow: 0 0 26px rgba(244, 236, 255, 0.85), 0 0 18px rgba(123, 44, 255, 0.92), 0 0 4px #a070ff; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   SAM WILSON — aerial tactical combat HUD.
+   Deep navy/black base, electric blue (#1d4ed8) primary, red wings
+   (#d71920) secondary, cyan HUD (#38dfff) accent, star-white text.
+   Semi-transparent panels bleed the animated video through.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='sam-wilson'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 10, 18, 0.88);
+  --color-panel-alt: rgba(7, 15, 26, 0.93);
+  --color-border: rgba(29, 78, 216, 0.68);
+  --color-accent-left: #1d4ed8;
+  --color-accent-right: #d71920;
+  --color-glow-left: rgba(29, 78, 216, 0.55);
+  --color-glow-right: rgba(215, 25, 32, 0.50);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #38dfff;
+  --color-critical: #ff2a2a;
+  --color-success: #38dfff;
+  --color-round-active: #1d4ed8;
+  --color-round-inactive: rgba(29, 78, 216, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.44);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='sam-wilson'] body { background: transparent; }
+[data-theme='sam-wilson'] .layout { background: transparent; }
+
+/* Aerial flight grid overlay */
+[data-theme='sam-wilson'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(56, 223, 255, 0.018) 3px,
+      rgba(56, 223, 255, 0.018) 4px
+    );
+}
+
+/* Video overlay — deep sky blue with red-wing and cyan radial glows */
+[data-theme='sam-wilson'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(29, 78, 216, 0.18), transparent 38%),
+    radial-gradient(circle at 80% 65%, rgba(215, 25, 32, 0.14), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(7, 26, 61, 0.30), transparent 50%),
+    rgba(2, 5, 10, 0.50);
+}
+
+/* Panels — dark tactical plate with blue border */
+[data-theme='sam-wilson'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(29, 78, 216, 0.60);
+  box-shadow: 0 0 14px rgba(29, 78, 216, 0.10), inset 0 0 24px rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(6px);
+}
+[data-theme='sam-wilson'] .panel::before {
+  background: linear-gradient(90deg, rgba(56, 223, 255, 0.12), transparent, rgba(215, 25, 32, 0.08));
+}
+[data-theme='sam-wilson'] .glow-left {
+  border-color: rgba(29, 78, 216, 0.55);
+  box-shadow: -2px 0 14px rgba(29, 78, 216, 0.30), 0 0 10px rgba(29, 78, 216, 0.12);
+}
+[data-theme='sam-wilson'] .glow-right {
+  border-color: rgba(215, 25, 32, 0.52);
+  box-shadow: 2px 0 14px rgba(215, 25, 32, 0.26), 0 0 10px rgba(215, 25, 32, 0.10);
+}
+
+/* Buttons — flight console style */
+[data-theme='sam-wilson'] .btn-hud {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(29, 78, 216, 0.48);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sam-wilson'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='sam-wilson'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='sam-wilson'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='sam-wilson'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — dark aerial steel */
+[data-theme='sam-wilson'] .side-nav {
+  background: rgba(2, 5, 10, 0.96);
+  border-right-color: rgba(29, 78, 216, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='sam-wilson'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(56, 223, 255, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='sam-wilson'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(56, 223, 255, 0.70), 0 0 22px rgba(29, 78, 216, 0.38);
+}
+[data-theme='sam-wilson'] .side-nav__item:hover {
+  background: rgba(29, 78, 216, 0.08);
+  border-color: rgba(56, 223, 255, 0.38);
+}
+[data-theme='sam-wilson'] .side-nav__item.active {
+  background: rgba(29, 78, 216, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — aerial power display */
+[data-theme='sam-wilson'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='sam-wilson'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #1035a8, #1d4ed8);
+  box-shadow: 0 0 8px rgba(29, 78, 216, 0.72);
+}
+[data-theme='sam-wilson'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #7a0612, #d71920);
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.68);
+}
+[data-theme='sam-wilson'] .score-panel__value {
+  text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(56, 223, 255, 0.60);
+  animation: samWilson-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='sam-wilson'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(215, 25, 32, 0.60);
+  animation: samWilson-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='sam-wilson'] .score-panel__btn {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(29, 78, 216, 0.36);
+}
+[data-theme='sam-wilson'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — aerial mission clock */
+[data-theme='sam-wilson'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.52);
+}
+[data-theme='sam-wilson'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(56, 223, 255, 0.12), rgba(29, 78, 216, 0.10), transparent);
+}
+[data-theme='sam-wilson'] .timer-panel__display {
+  color: #c7d2fe;
+  text-shadow: 0 0 12px rgba(56, 223, 255, 0.60), 0 0 5px rgba(29, 78, 216, 0.45);
+}
+[data-theme='sam-wilson'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='sam-wilson'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='sam-wilson'] .timer-panel__btn {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(29, 78, 216, 0.36);
+  color: #c7d2fe;
+}
+[data-theme='sam-wilson'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(56, 223, 255, 0.50);
+}
+
+/* Round tracker — radar nodes / flight segments */
+[data-theme='sam-wilson'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.36);
+}
+[data-theme='sam-wilson'] .round-tracker__pip {
+  border-color: rgba(29, 78, 216, 0.26);
+  background: rgba(5, 10, 18, 0.62);
+}
+[data-theme='sam-wilson'] .round-tracker__pip.active {
+  border-color: rgba(56, 223, 255, 0.50);
+  background: rgba(29, 78, 216, 0.10);
+}
+[data-theme='sam-wilson'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: samWilson-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — aerial briefing documents */
+[data-theme='sam-wilson'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.42);
+}
+[data-theme='sam-wilson'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='sam-wilson'] .mission-item {
+  background: rgba(5, 10, 18, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sam-wilson'] .mission-item:hover {
+  background: rgba(29, 78, 216, 0.07);
+  border-color: rgba(56, 223, 255, 0.42);
+}
+[data-theme='sam-wilson'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.68);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='sam-wilson'] .mission-item--right.selected {
+  background: rgba(215, 25, 32, 0.16);
+  border-color: rgba(215, 25, 32, 0.68);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='sam-wilson'] .leader-hex__name {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(29, 78, 216, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — wing tech frame */
+[data-theme='sam-wilson'] .leader-card {
+  background: rgba(5, 10, 18, 0.86);
+  border-color: rgba(29, 78, 216, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sam-wilson'] .leader-card:hover {
+  border-color: rgba(56, 223, 255, 0.50);
+  box-shadow: 0 0 10px rgba(29, 78, 216, 0.18);
+}
+[data-theme='sam-wilson'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='sam-wilson'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='sam-wilson'] .leaders-page__header,
+[data-theme='sam-wilson'] .missions-page__header {
+  background: rgba(2, 5, 10, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(29, 78, 216, 0.28);
+}
+[data-theme='sam-wilson'] .leaders-page__search {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(29, 78, 216, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sam-wilson'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='sam-wilson'] .missions-page__body {
+  background: rgba(2, 5, 10, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='sam-wilson'] .leaders-page__assign-btn {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(29, 78, 216, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sam-wilson'] .leaders-page__assign-btn.active-left {
+  background: rgba(29, 78, 216, 0.14);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='sam-wilson'] .leaders-page__assign-btn.active-right {
+  background: rgba(215, 25, 32, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='sam-wilson'] .affil-btn {
+  background: rgba(5, 10, 18, 0.86);
+  border-color: rgba(29, 78, 216, 0.26);
+}
+[data-theme='sam-wilson'] .affil-btn:hover { border-color: rgba(56, 223, 255, 0.48); }
+[data-theme='sam-wilson'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(29, 78, 216, 0.11);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='sam-wilson'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.34);
+}
+[data-theme='sam-wilson'] .settings-section__title {
+  color: #c7d2fe;
+  background: rgba(7, 15, 26, 0.93);
+  border-bottom-color: rgba(29, 78, 216, 0.26);
+}
+[data-theme='sam-wilson'] .settings-preset-btn.active,
+[data-theme='sam-wilson'] .settings-theme-btn.active,
+[data-theme='sam-wilson'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(29, 78, 216, 0.11);
+  color: var(--color-accent-left);
+}
+[data-theme='sam-wilson'] .settings-slider {
+  background: rgba(29, 78, 216, 0.16);
+}
+[data-theme='sam-wilson'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='sam-wilson'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='sam-wilson'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.72); }
+[data-theme='sam-wilson'] .main-page__modal {
+  background: rgba(5, 10, 18, 0.97);
+  border-color: rgba(29, 78, 216, 0.55);
+  box-shadow: 0 0 28px rgba(29, 78, 216, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='sam-wilson'] .main-page__modal-title {
+  color: #c7d2fe;
+  text-shadow: 0 0 10px rgba(56, 223, 255, 0.65);
+}
+[data-theme='sam-wilson'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — aerial wing energy */
+@keyframes samWilson-pulse-left {
+  0%, 100% { text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(56, 223, 255, 0.60); }
+  50%       { text-shadow: 0 0 26px rgba(244, 247, 255, 0.85), 0 0 18px rgba(56, 223, 255, 0.90), 0 0 4px #38dfff; }
+}
+@keyframes samWilson-pulse-right {
+  0%, 100% { text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(215, 25, 32, 0.60); }
+  50%       { text-shadow: 0 0 26px rgba(244, 247, 255, 0.85), 0 0 18px rgba(215, 25, 32, 0.88), 0 0 4px #f4f7ff; }
+}
