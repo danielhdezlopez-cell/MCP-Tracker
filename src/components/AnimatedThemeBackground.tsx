@@ -39,7 +39,8 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   'the-leader':    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_TheLeader.mp4`,    modifier: 'anim-theme-bg--the-leader', smoothLoop: true },
   thunderbolts:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thunderbolts_RedHulk.mp4`, modifier: 'anim-theme-bg--thunderbolts' },
   ultron:       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Ultron.mp4`,      modifier: 'anim-theme-bg--ultron'     },
-  'weapon-x':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WeaponX.mp4`,    modifier: 'anim-theme-bg--weapon-x'   },
+  'weapon-x':    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WeaponX.mp4`,      modifier: 'anim-theme-bg--weapon-x'    },
+  'winter-guard': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WinterGuard.mp4`, modifier: 'anim-theme-bg--winter-guard' },
   'sam-wilson': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SamWilson.mp4`, modifier: 'anim-theme-bg--sam-wilson' },
   sentinels:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Sentinels.mp4`,  modifier: 'anim-theme-bg--sentinels'  },
 };
