@@ -20,6 +20,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   convocation:         { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Convocation.mp4`,                modifier: 'anim-theme-bg--convocation'       },
   cyclops:             { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Cyclops.mp4`,                    modifier: 'anim-theme-bg--cyclops', smoothLoop: true },
   'dark-dimension':    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Dormammu.mp4`,                   modifier: 'anim-theme-bg--dark-dimension'    },
+  daredevil:           { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Daredevil.mp4`,                  modifier: 'anim-theme-bg--daredevil', smoothLoop: true },
   'doc-ock':           { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_DocOck.mp4`,                     modifier: 'anim-theme-bg--doc-ock'           },
   'dr-strange':        { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_DrStrange.mp4`,                  modifier: 'anim-theme-bg--dr-strange'        },
   dracula:             { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Dracula.mp4`,                    modifier: 'anim-theme-bg--dracula'           },

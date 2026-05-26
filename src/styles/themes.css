@@ -13635,6 +13635,380 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   DAREDEVIL — Hell's Kitchen vigilante — blood red & radar white
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='daredevil'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 5, 6, 0.90);
+  --color-panel-alt: rgba(7, 6, 8, 0.94);
+  --color-border: rgba(215, 25, 32, 0.72);
+  --color-accent-left: #d71920;
+  --color-accent-right: #ff1744;
+  --color-glow-left: rgba(215, 25, 32, 0.60);
+  --color-glow-right: rgba(255, 23, 68, 0.58);
+  --color-text: #f4f7ff;
+  --color-text-muted: #9ca3af;
+  --color-warn: #ffb347;
+  --color-critical: #ff2a2a;
+  --color-success: #38dfff;
+  --color-round-active: #d71920;
+  --color-round-inactive: rgba(215, 25, 32, 0.18);
+  --color-mission-secure: #38dfff;
+  --color-glow-secure: rgba(56, 223, 255, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='daredevil'] body { background: transparent; }
+[data-theme='daredevil'] .layout { background: transparent; }
+
+/* Radar sense scan-line overlay */
+[data-theme='daredevil'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(215, 25, 32, 0.014) 3px,
+      rgba(215, 25, 32, 0.014) 4px
+    );
+}
+
+/* Video overlay — deep black with blood red & radar white glows */
+[data-theme='daredevil'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(215, 25, 32, 0.18), transparent 42%),
+    radial-gradient(circle at 70% 70%, rgba(255, 23, 68, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(5, 5, 6, 0.32), transparent 52%),
+    rgba(2, 3, 4, 0.52);
+}
+
+/* Panels — dark urban plate with red border */
+[data-theme='daredevil'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(215, 25, 32, 0.62);
+  box-shadow: 0 0 18px rgba(215, 25, 32, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+[data-theme='daredevil'] .panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.10), transparent, rgba(244, 247, 255, 0.04));
+}
+[data-theme='daredevil'] .glow-left {
+  border-color: rgba(215, 25, 32, 0.62);
+  box-shadow: -2px 0 14px rgba(215, 25, 32, 0.34), 0 0 10px rgba(215, 25, 32, 0.14);
+}
+[data-theme='daredevil'] .glow-right {
+  border-color: rgba(255, 23, 68, 0.58);
+  box-shadow: 2px 0 14px rgba(255, 23, 68, 0.30), 0 0 10px rgba(255, 23, 68, 0.12);
+}
+
+/* Buttons — night patrol command */
+[data-theme='daredevil'] .btn-hud {
+  background: rgba(5, 5, 6, 0.90);
+  border-color: rgba(215, 25, 32, 0.50);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='daredevil'] .btn-hud:hover {
+  border-color: var(--color-text);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.48), 0 0 18px rgba(244, 247, 255, 0.16);
+  color: var(--color-text);
+}
+[data-theme='daredevil'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='daredevil'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='daredevil'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — urban vigilante */
+[data-theme='daredevil'] .side-nav {
+  background: rgba(2, 3, 4, 0.96);
+  border-right-color: rgba(215, 25, 32, 0.38);
+  backdrop-filter: blur(8px);
+}
+[data-theme='daredevil'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(215, 25, 32, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='daredevil'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(215, 25, 32, 0.80), 0 0 22px rgba(255, 23, 68, 0.42);
+}
+[data-theme='daredevil'] .side-nav__item:hover {
+  background: rgba(215, 25, 32, 0.07);
+  border-color: rgba(244, 247, 255, 0.28);
+}
+[data-theme='daredevil'] .side-nav__item.active {
+  background: rgba(215, 25, 32, 0.11);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — street fight counter */
+[data-theme='daredevil'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='daredevil'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #7a0612, #d71920);
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.72);
+}
+[data-theme='daredevil'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #8a0010, #ff1744);
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.68);
+}
+[data-theme='daredevil'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(215, 25, 32, 0.72), 0 0 30px rgba(255, 23, 68, 0.34);
+  animation: daredevil-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='daredevil'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(255, 23, 68, 0.72), 0 0 30px rgba(255, 179, 71, 0.28);
+  animation: daredevil-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='daredevil'] .score-panel__btn {
+  background: rgba(5, 5, 6, 0.92);
+  border-color: rgba(215, 25, 32, 0.36);
+}
+[data-theme='daredevil'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — vigilance countdown */
+[data-theme='daredevil'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.52);
+}
+[data-theme='daredevil'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(215, 25, 32, 0.12), rgba(244, 247, 255, 0.04), transparent);
+}
+[data-theme='daredevil'] .timer-panel__display {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(215, 25, 32, 0.70), 0 0 5px rgba(244, 247, 255, 0.50);
+}
+[data-theme='daredevil'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='daredevil'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='daredevil'] .timer-panel__btn {
+  background: rgba(5, 5, 6, 0.92);
+  border-color: rgba(215, 25, 32, 0.36);
+  color: #9ca3af;
+}
+[data-theme='daredevil'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.52);
+}
+
+/* Round tracker — radar pulse nodes */
+[data-theme='daredevil'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.36);
+}
+[data-theme='daredevil'] .round-tracker__pip {
+  border-color: rgba(215, 25, 32, 0.26);
+  background: rgba(5, 5, 6, 0.62);
+}
+[data-theme='daredevil'] .round-tracker__pip.active {
+  border-color: rgba(244, 247, 255, 0.44);
+  background: rgba(215, 25, 32, 0.08);
+}
+[data-theme='daredevil'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: daredevil-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — street briefing */
+[data-theme='daredevil'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.32);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.46);
+}
+[data-theme='daredevil'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='daredevil'] .mission-item {
+  background: rgba(5, 5, 6, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='daredevil'] .mission-item:hover {
+  background: rgba(215, 25, 32, 0.06);
+  border-color: rgba(244, 247, 255, 0.32);
+}
+[data-theme='daredevil'] .mission-item--left.selected {
+  background: rgba(56, 223, 255, 0.14);
+  border-color: rgba(56, 223, 255, 0.68);
+  box-shadow: 0 0 10px rgba(56, 223, 255, 0.28);
+}
+[data-theme='daredevil'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.14);
+  border-color: rgba(255, 42, 42, 0.68);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='daredevil'] .leader-hex__name {
+  background: rgba(5, 5, 6, 0.92);
+  border-color: rgba(215, 25, 32, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — radar sense frame */
+[data-theme='daredevil'] .leader-card {
+  background: rgba(5, 5, 6, 0.86);
+  border-color: rgba(215, 25, 32, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='daredevil'] .leader-card:hover {
+  border-color: rgba(244, 247, 255, 0.44);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.18);
+}
+[data-theme='daredevil'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='daredevil'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='daredevil'] .leaders-page__header,
+[data-theme='daredevil'] .missions-page__header {
+  background: rgba(2, 3, 4, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(215, 25, 32, 0.28);
+}
+[data-theme='daredevil'] .leaders-page__search {
+  background: rgba(5, 5, 6, 0.90);
+  border-color: rgba(215, 25, 32, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='daredevil'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='daredevil'] .missions-page__body {
+  background: rgba(2, 3, 4, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='daredevil'] .leaders-page__assign-btn {
+  background: rgba(5, 5, 6, 0.90);
+  border-color: rgba(215, 25, 32, 0.32);
+  backdrop-filter: blur(4px);
+}
+[data-theme='daredevil'] .leaders-page__assign-btn.active-left {
+  background: rgba(215, 25, 32, 0.12);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='daredevil'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 23, 68, 0.12);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='daredevil'] .affil-btn {
+  background: rgba(5, 5, 6, 0.86);
+  border-color: rgba(215, 25, 32, 0.26);
+}
+[data-theme='daredevil'] .affil-btn:hover { border-color: rgba(244, 247, 255, 0.40); }
+[data-theme='daredevil'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(215, 25, 32, 0.10);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='daredevil'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(215, 25, 32, 0.34);
+}
+[data-theme='daredevil'] .settings-section__title {
+  color: #f4f7ff;
+  background: rgba(5, 5, 6, 0.94);
+  border-bottom-color: rgba(215, 25, 32, 0.26);
+}
+[data-theme='daredevil'] .settings-preset-btn.active,
+[data-theme='daredevil'] .settings-theme-btn.active,
+[data-theme='daredevil'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(215, 25, 32, 0.10);
+  color: var(--color-accent-left);
+}
+[data-theme='daredevil'] .settings-slider {
+  background: rgba(215, 25, 32, 0.16);
+}
+[data-theme='daredevil'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='daredevil'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='daredevil'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.76); }
+[data-theme='daredevil'] .main-page__modal {
+  background: rgba(5, 5, 6, 0.97);
+  border-color: rgba(215, 25, 32, 0.56);
+  box-shadow: 0 0 30px rgba(215, 25, 32, 0.22), 0 0 50px rgba(255, 23, 68, 0.10);
+  backdrop-filter: blur(12px);
+}
+[data-theme='daredevil'] .main-page__modal-title {
+  color: #f4f7ff;
+  text-shadow: 0 0 12px rgba(215, 25, 32, 0.72), 0 0 24px rgba(255, 23, 68, 0.30);
+}
+[data-theme='daredevil'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — radar sense urban pulse */
+@keyframes daredevil-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(215, 25, 32, 0.72), 0 0 30px rgba(255, 23, 68, 0.32); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.90), 0 0 26px rgba(215, 25, 32, 0.95), 0 0 46px rgba(255, 23, 68, 0.44), 0 0 4px #d71920; }
+}
+@keyframes daredevil-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 247, 255, 0.72), 0 0 16px rgba(255, 23, 68, 0.72), 0 0 30px rgba(255, 179, 71, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(244, 247, 255, 0.90), 0 0 26px rgba(255, 23, 68, 0.95), 0 0 46px rgba(255, 179, 71, 0.36), 0 0 4px #ff1744; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    M.O.D.O.K. — AIM laboratory mind supremacy — yellow scientific & psionic purple
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='modok'] {
