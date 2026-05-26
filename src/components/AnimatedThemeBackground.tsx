@@ -33,6 +33,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   mystique:            { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Mystique.mp4`,                 modifier: 'anim-theme-bg--mystique'          },
   hulkbuster: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Avengers_Hulkbuster.mp4`, modifier: 'anim-theme-bg--hulkbuster' },
   hydra:  { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_HYDRA.mp4`,       modifier: 'anim-theme-bg--hydra'      },
+  'invincible-ironman': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_InvincibleIronman.mp4`, modifier: 'anim-theme-bg--invincible-ironman', smoothLoop: true },
   kingpin: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Kingpin.mp4`,     modifier: 'anim-theme-bg--kingpin', smoothLoop: true },
   klaw:   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Klaw.mp4`,        modifier: 'anim-theme-bg--klaw', smoothLoop: true },
   loki:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Loki.mp4`,     modifier: 'anim-theme-bg--loki', smoothLoop: true },
