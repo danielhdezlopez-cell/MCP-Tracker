@@ -7,6 +7,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'apocalypse',       label: 'Apocalypse',      desc: 'Ancient cosmic dominion — blue & gold HUD'      },
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
   { value: 'cable',            label: 'Cable',           desc: 'Future soldier tactical HUD — blue & orange'    },
+  { value: 'captain-america', label: 'Captain America', desc: 'Shield tactical command — blue, red & star white' },
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },
   { value: 'convocation',      label: 'Convocation',     desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
   { value: 'cyclops',          label: 'Cyclops',         desc: 'X-Men tactical visor — red optic & blue HUD'     },

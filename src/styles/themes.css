@@ -10602,3 +10602,380 @@
       0 0 4px #ff7a18;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   CAPTAIN AMERICA — heroic shield tactical command HUD.
+   Deep navy/black base, electric blue Captain accents, red shield
+   highlights, star-white text. Semi-transparent panels let the
+   animated video bleed through with tactical blur overlays.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='captain-america'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 10, 18, 0.88);
+  --color-panel-alt: rgba(7, 15, 26, 0.93);
+  --color-border: rgba(29, 78, 216, 0.70);
+  --color-accent-left: #1d4ed8;
+  --color-accent-right: #d71920;
+  --color-glow-left: rgba(29, 78, 216, 0.55);
+  --color-glow-right: rgba(215, 25, 32, 0.50);
+  --color-text: #f4f7ff;
+  --color-text-muted: #c7d2fe;
+  --color-warn: #c8a45d;
+  --color-critical: #d71920;
+  --color-success: #f4f7ff;
+  --color-round-active: #1d4ed8;
+  --color-round-inactive: rgba(29, 78, 216, 0.18);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.44);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+/* Body + layout: transparent so video shows through */
+[data-theme='captain-america'] body { background: transparent; }
+[data-theme='captain-america'] .layout { background: transparent; }
+
+/* Tactical grid overlay on layout */
+[data-theme='captain-america'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(29, 78, 216, 0.022) 3px,
+      rgba(29, 78, 216, 0.022) 4px
+    );
+}
+
+/* Video overlay — deep navy vignette with blue/red radial glows */
+[data-theme='captain-america'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(29, 78, 216, 0.20), transparent 38%),
+    radial-gradient(circle at 80% 70%, rgba(215, 25, 32, 0.16), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(7, 26, 61, 0.32), transparent 50%),
+    rgba(2, 5, 10, 0.52);
+}
+
+/* Panels — dark tactical plate with blue border glow */
+[data-theme='captain-america'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(29, 78, 216, 0.62);
+  box-shadow: 0 0 14px rgba(29, 78, 216, 0.12), inset 0 0 24px rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(6px);
+}
+[data-theme='captain-america'] .panel::before {
+  background: linear-gradient(90deg, rgba(29, 78, 216, 0.14), transparent, rgba(215, 25, 32, 0.08));
+}
+[data-theme='captain-america'] .glow-left {
+  border-color: rgba(29, 78, 216, 0.55);
+  box-shadow: -2px 0 14px rgba(29, 78, 216, 0.32), 0 0 10px rgba(29, 78, 216, 0.14);
+}
+[data-theme='captain-america'] .glow-right {
+  border-color: rgba(215, 25, 32, 0.52);
+  box-shadow: 2px 0 14px rgba(215, 25, 32, 0.28), 0 0 10px rgba(215, 25, 32, 0.12);
+}
+
+/* Buttons — military console style */
+[data-theme='captain-america'] .btn-hud {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(29, 78, 216, 0.50);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='captain-america'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='captain-america'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='captain-america'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='captain-america'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — dark shield steel plate */
+[data-theme='captain-america'] .side-nav {
+  background: rgba(2, 5, 10, 0.95);
+  border-right-color: rgba(29, 78, 216, 0.40);
+  backdrop-filter: blur(8px);
+}
+[data-theme='captain-america'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(29, 78, 216, 0.65) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='captain-america'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(29, 78, 216, 0.75), 0 0 22px rgba(29, 78, 216, 0.38);
+}
+[data-theme='captain-america'] .side-nav__item:hover {
+  background: rgba(29, 78, 216, 0.09);
+  border-color: rgba(29, 78, 216, 0.42);
+}
+[data-theme='captain-america'] .side-nav__item.active {
+  background: rgba(29, 78, 216, 0.14);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — shield-reinforced tactical display */
+[data-theme='captain-america'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='captain-america'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #1035a8, #1d4ed8);
+  box-shadow: 0 0 8px rgba(29, 78, 216, 0.72);
+}
+[data-theme='captain-america'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #7a0612, #d71920);
+  box-shadow: 0 0 8px rgba(215, 25, 32, 0.68);
+}
+[data-theme='captain-america'] .score-panel__value {
+  text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(29, 78, 216, 0.65);
+  animation: cap-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='captain-america'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(215, 25, 32, 0.60);
+  animation: cap-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='captain-america'] .score-panel__btn {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(29, 78, 216, 0.38);
+}
+[data-theme='captain-america'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — mission chronometer */
+[data-theme='captain-america'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.55);
+}
+[data-theme='captain-america'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(29, 78, 216, 0.14), rgba(215, 25, 32, 0.08), transparent);
+}
+[data-theme='captain-america'] .timer-panel__display {
+  color: #c7d2fe;
+  text-shadow: 0 0 12px rgba(199, 210, 254, 0.65), 0 0 5px rgba(29, 78, 216, 0.45);
+}
+[data-theme='captain-america'] .timer-panel--critical {
+  border-color: rgba(215, 25, 32, 0.85) !important;
+  box-shadow: 0 0 20px rgba(215, 25, 32, 0.45), 0 0 40px rgba(215, 25, 32, 0.20) !important;
+}
+[data-theme='captain-america'] .timer-panel__display.critical {
+  color: #c8a45d;
+  text-shadow: 0 0 12px rgba(200, 164, 93, 0.82);
+}
+[data-theme='captain-america'] .timer-panel__btn {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(29, 78, 216, 0.38);
+  color: #c7d2fe;
+}
+[data-theme='captain-america'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(29, 78, 216, 0.52);
+}
+
+/* Round tracker — shield segment / mission rank slots */
+[data-theme='captain-america'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.38);
+}
+[data-theme='captain-america'] .round-tracker__pip {
+  border-color: rgba(29, 78, 216, 0.26);
+  background: rgba(5, 10, 18, 0.62);
+}
+[data-theme='captain-america'] .round-tracker__pip.active {
+  border-color: rgba(29, 78, 216, 0.55);
+  background: rgba(29, 78, 216, 0.10);
+}
+[data-theme='captain-america'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: cap-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — briefing tactical documents */
+[data-theme='captain-america'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.34);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.42);
+}
+[data-theme='captain-america'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='captain-america'] .mission-item {
+  background: rgba(5, 10, 18, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='captain-america'] .mission-item:hover {
+  background: rgba(29, 78, 216, 0.07);
+  border-color: rgba(29, 78, 216, 0.46);
+}
+[data-theme='captain-america'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.68);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='captain-america'] .mission-item--right.selected {
+  background: rgba(215, 25, 32, 0.16);
+  border-color: rgba(215, 25, 32, 0.68);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='captain-america'] .leader-hex__name {
+  background: rgba(5, 10, 18, 0.92);
+  border-color: rgba(29, 78, 216, 0.36);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — shield tactical frame */
+[data-theme='captain-america'] .leader-card {
+  background: rgba(5, 10, 18, 0.86);
+  border-color: rgba(29, 78, 216, 0.26);
+  backdrop-filter: blur(4px);
+}
+[data-theme='captain-america'] .leader-card:hover {
+  border-color: rgba(29, 78, 216, 0.55);
+  box-shadow: 0 0 10px rgba(29, 78, 216, 0.20);
+}
+[data-theme='captain-america'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='captain-america'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='captain-america'] .leaders-page__header,
+[data-theme='captain-america'] .missions-page__header {
+  background: rgba(2, 5, 10, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(29, 78, 216, 0.30);
+}
+[data-theme='captain-america'] .leaders-page__search {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(29, 78, 216, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='captain-america'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='captain-america'] .missions-page__body {
+  background: rgba(2, 5, 10, 0.74);
+}
+
+/* Assign buttons */
+[data-theme='captain-america'] .leaders-page__assign-btn {
+  background: rgba(5, 10, 18, 0.90);
+  border-color: rgba(29, 78, 216, 0.34);
+  backdrop-filter: blur(4px);
+}
+[data-theme='captain-america'] .leaders-page__assign-btn.active-left {
+  background: rgba(29, 78, 216, 0.14);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='captain-america'] .leaders-page__assign-btn.active-right {
+  background: rgba(215, 25, 32, 0.14);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='captain-america'] .affil-btn {
+  background: rgba(5, 10, 18, 0.86);
+  border-color: rgba(29, 78, 216, 0.28);
+}
+[data-theme='captain-america'] .affil-btn:hover { border-color: rgba(29, 78, 216, 0.52); }
+[data-theme='captain-america'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(29, 78, 216, 0.12);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='captain-america'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(29, 78, 216, 0.36);
+}
+[data-theme='captain-america'] .settings-section__title {
+  color: #c7d2fe;
+  background: rgba(7, 15, 26, 0.93);
+  border-bottom-color: rgba(29, 78, 216, 0.28);
+}
+[data-theme='captain-america'] .settings-preset-btn.active,
+[data-theme='captain-america'] .settings-theme-btn.active,
+[data-theme='captain-america'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(29, 78, 216, 0.12);
+  color: var(--color-accent-left);
+}
+[data-theme='captain-america'] .settings-slider {
+  background: rgba(29, 78, 216, 0.18);
+}
+[data-theme='captain-america'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='captain-america'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='captain-america'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.72); }
+[data-theme='captain-america'] .main-page__modal {
+  background: rgba(5, 10, 18, 0.96);
+  border-color: rgba(29, 78, 216, 0.56);
+  box-shadow: 0 0 28px rgba(29, 78, 216, 0.22);
+  backdrop-filter: blur(12px);
+}
+[data-theme='captain-america'] .main-page__modal-title {
+  color: #c7d2fe;
+  text-shadow: 0 0 10px rgba(29, 78, 216, 0.65);
+}
+[data-theme='captain-america'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — heroic shield energy */
+@keyframes cap-pulse-left {
+  0%, 100% { text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(29, 78, 216, 0.65); }
+  50%       { text-shadow: 0 0 26px rgba(244, 247, 255, 0.85), 0 0 16px rgba(29, 78, 216, 0.90), 0 0 4px #c7d2fe; }
+}
+@keyframes cap-pulse-right {
+  0%, 100% { text-shadow: 0 0 16px rgba(244, 247, 255, 0.60), 0 0 8px rgba(215, 25, 32, 0.60); }
+  50%       { text-shadow: 0 0 26px rgba(244, 247, 255, 0.85), 0 0 16px rgba(215, 25, 32, 0.88), 0 0 4px #f4f7ff; }
+}
