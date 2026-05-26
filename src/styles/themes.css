@@ -13633,3 +13633,32 @@
   0%, 100% { text-shadow: 0 0 8px rgba(244, 247, 255, 0.65), 0 0 20px rgba(139, 44, 255, 0.65), 0 0 36px rgba(245, 197, 66, 0.20); }
   50%       { text-shadow: 0 0 14px rgba(244, 247, 255, 0.90), 0 0 32px rgba(139, 44, 255, 0.90), 0 0 52px rgba(245, 197, 66, 0.28), 0 0 4px #8b2cff; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL — Fixed mission type identity colors
+   SECURE is always blue (#3b82f6), EXTRACT is always red (#ff1744).
+
+   Setting these custom properties directly on the mission elements
+   overrides any inherited theme-level value — CSS custom properties
+   set on the element itself take priority over all ancestor values.
+   This must remain at the very end of this file so it is never
+   overridden by theme blocks above.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* SECURE — canonical blue, applied to every secure mission element */
+.mission-slot--left,
+.mission-item--left,
+.missions-page__col-header--secure,
+.mcv-type--secure {
+  --color-mission-secure: #3b82f6;
+  --color-glow-secure: rgba(59, 130, 246, 0.52);
+}
+
+/* EXTRACT — canonical red, applied to every extract mission element */
+.mission-slot--right,
+.mission-item--right,
+.missions-page__col-header--extract,
+.mcv-type--extract {
+  --color-mission-extract: #ff1744;
+  --color-glow-extract: rgba(255, 23, 68, 0.52);
+}
