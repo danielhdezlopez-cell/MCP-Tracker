@@ -62,8 +62,30 @@ interface McpState {
   resetGame: () => void;
 }
 
+// Name-based P1 auto-theme table — checked before affiliation rules.
+// Exact match against Leader.name; covers all characters in the theme table.
+const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
+  'Thor':               'thor',
+  'Captain America':    'captain-america',
+  'Magneto':            'magneto',
+  'Mystique':           'mystique',
+  'Doctor Strange':     'dr-strange',
+  'Magik':              'magik',
+  'Sentinel Prime MK4': 'sentinels',
+  'Doctor Octopus':     'doc-ock',
+  'Green Goblin':       'green-goblin',
+  'Cyclops':            'cyclops',
+  'Professor X':        'professor-x',
+  'Crimson Dynamo':     'winter-guard',
+  'Cable':              'cable',
+  'Onslaught':          'onslaught',
+};
+
 function getThemeFromLeader(leader: Leader): Theme | null {
   const { name, affiliations } = leader;
+
+  // Name-based rules take priority over affiliation rules
+  if (P1_NAME_THEME_MAP[name]) return P1_NAME_THEME_MAP[name]!;
 
   // Special cases by leader (checked before affiliation rules)
   if (affiliations.includes('Avengers') && name.toLowerCase().includes('captain america')) {
