@@ -556,6 +556,26 @@
   background-size: 10px 10px, 14px 14px;
 }
 
+[data-theme-preview='shadowland-daredevil'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #050507 0%, #0a0a0e 40%, #1a0306 70%, #ff1f2d33 100%);
+  border: 1px solid rgba(255, 31, 45, 0.80);
+  box-shadow: 0 0 10px rgba(255, 20, 40, 0.55), inset 0 0 8px rgba(139, 0, 15, 0.20);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='shadowland-daredevil'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 31, 45, 0.06) 3px,
+    rgba(255, 31, 45, 0.06) 4px
+  );
+}
+
 [data-theme-preview='modok'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020304 0%, #0e0a1a 40%, #1e1400 70%, #f5c54222 100%);
   border: 1px solid rgba(245, 197, 66, 0.65);
