@@ -41,6 +41,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'nick-fury',    label: 'Nick Fury',     desc: 'S.H.I.E.L.D. director tactical command — steel blue, carbon black & red alert HUD' },
   { value: 'onslaught',    label: 'Onslaught',     desc: 'Psionic doom — magenta mental energy & void HUD' },
   { value: 'professor-x',  label: 'Professor X',   desc: 'Cerebro telepathic interface — blue & violet HUD'  },
+  { value: 'red-skull-master-of-hydra', label: 'Red Skull, Master of Hydra', desc: 'Hydra dark science command — blood red, carbon black & cosmic cyan HUD' },
   { value: 'sam-wilson',   label: 'Sam Wilson',    desc: 'Aerial combat HUD — tactical blue, red wings & cyan' },
   { value: 'sentinels',          label: 'Sentinels',           desc: 'Robotic exterminator surveillance HUD — purple & scanner blue' },
   { value: 'shadowland-daredevil', label: 'Shadowland Daredevil', desc: 'Rooftop noir vigilante — black leather, neon red & storm-lit city HUD' },
