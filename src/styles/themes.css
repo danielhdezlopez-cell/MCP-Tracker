@@ -10669,6 +10669,385 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   BLADE — Techno-gothic vampire hunter — carbon black, blood red & cold silver
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='blade'] {
+  --color-bg: transparent;
+  --color-panel: rgba(5, 5, 7, 0.78);
+  --color-panel-alt: rgba(3, 3, 5, 0.88);
+  --color-border: rgba(220, 20, 38, 0.78);
+  --color-accent-left: #dc1426;
+  --color-accent-right: #7a000c;
+  --color-glow-left: rgba(220, 20, 38, 0.55);
+  --color-glow-right: rgba(122, 0, 12, 0.48);
+  --color-text: #f4f4f4;
+  --color-text-muted: #aeb0b4;
+  --color-warn: #c8780a;
+  --color-critical: #dc1426;
+  --color-success: #cfd3d6;
+  --color-round-active: #dc1426;
+  --color-round-inactive: rgba(220, 20, 38, 0.14);
+  --color-mission-secure: #cfd3d6;
+  --color-glow-secure: rgba(207, 211, 214, 0.36);
+  --color-mission-extract: #dc1426;
+  --color-glow-extract: rgba(220, 20, 38, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='blade'] body { background: transparent; }
+[data-theme='blade'] .layout { background: transparent; }
+
+/* Gothic scanline overlay */
+[data-theme='blade'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(220, 20, 38, 0.012) 3px,
+    rgba(220, 20, 38, 0.012) 4px
+  );
+}
+
+/* Video overlay — deep black vignette with blood-red glows */
+[data-theme='blade'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(220, 20, 38, 0.16), transparent 40%),
+    radial-gradient(circle at 75% 72%, rgba(122, 0, 12, 0.12), transparent 38%),
+    radial-gradient(ellipse at 50% 0%, rgba(2, 2, 3, 0.32), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(2, 2, 3, 0.55), transparent 55%),
+    radial-gradient(ellipse at 0% 50%, rgba(2, 2, 3, 0.28), transparent 40%),
+    radial-gradient(ellipse at 100% 50%, rgba(2, 2, 3, 0.28), transparent 40%),
+    rgba(2, 2, 3, 0.44);
+}
+
+/* Panels — obsidian glass with blood-red border */
+[data-theme='blade'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(220, 20, 38, 0.62);
+  box-shadow: 0 0 16px rgba(220, 20, 38, 0.10), inset 0 0 26px rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+}
+[data-theme='blade'] .panel::before {
+  background: linear-gradient(90deg, rgba(220, 20, 38, 0.08), transparent, rgba(207, 211, 214, 0.04));
+}
+[data-theme='blade'] .glow-left {
+  border-color: rgba(220, 20, 38, 0.70);
+  box-shadow: -2px 0 14px rgba(220, 20, 38, 0.36), 0 0 10px rgba(220, 20, 38, 0.14);
+}
+[data-theme='blade'] .glow-right {
+  border-color: rgba(122, 0, 12, 0.60);
+  box-shadow: 2px 0 14px rgba(122, 0, 12, 0.30), 0 0 10px rgba(122, 0, 12, 0.12);
+}
+
+/* Buttons — gothic tactical panel */
+[data-theme='blade'] .btn-hud {
+  background: rgba(5, 5, 7, 0.90);
+  border-color: rgba(220, 20, 38, 0.46);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='blade'] .btn-hud:hover {
+  border-color: var(--color-text);
+  box-shadow: 0 0 10px rgba(220, 20, 38, 0.44), 0 0 18px rgba(207, 211, 214, 0.12);
+  color: var(--color-text);
+}
+[data-theme='blade'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='blade'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='blade'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — dark blade corridor */
+[data-theme='blade'] .side-nav {
+  background: rgba(2, 2, 3, 0.97);
+  border-right-color: rgba(220, 20, 38, 0.32);
+  backdrop-filter: blur(8px);
+}
+[data-theme='blade'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(220, 20, 38, 0.65) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='blade'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(220, 20, 38, 0.82), 0 0 22px rgba(122, 0, 12, 0.48);
+}
+[data-theme='blade'] .side-nav__item:hover {
+  background: rgba(220, 20, 38, 0.06);
+  border-color: rgba(244, 244, 244, 0.24);
+}
+[data-theme='blade'] .side-nav__item.active {
+  background: rgba(220, 20, 38, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — P1 blood red / P2 dark crimson */
+[data-theme='blade'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+}
+[data-theme='blade'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #60000a, #dc1426);
+  box-shadow: 0 0 8px rgba(220, 20, 38, 0.72);
+}
+[data-theme='blade'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #3a0006, #7a000c);
+  box-shadow: 0 0 8px rgba(122, 0, 12, 0.64);
+}
+[data-theme='blade'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 244, 244, 0.72), 0 0 16px rgba(220, 20, 38, 0.72), 0 0 30px rgba(220, 20, 38, 0.36);
+  animation: blade-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='blade'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(244, 244, 244, 0.72), 0 0 16px rgba(122, 0, 12, 0.80), 0 0 30px rgba(207, 211, 214, 0.20);
+  animation: blade-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='blade'] .score-panel__btn {
+  background: rgba(5, 5, 7, 0.92);
+  border-color: rgba(220, 20, 38, 0.32);
+}
+[data-theme='blade'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — silver / amber warning / blood red critical */
+[data-theme='blade'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(220, 20, 38, 0.50);
+}
+[data-theme='blade'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(220, 20, 38, 0.10), rgba(207, 211, 214, 0.04), transparent);
+}
+[data-theme='blade'] .timer-panel__display {
+  color: #e8eaec;
+  text-shadow: 0 0 10px rgba(220, 20, 38, 0.52), 0 0 4px rgba(207, 211, 214, 0.38);
+}
+[data-theme='blade'] .timer-panel--warning .timer-panel__display {
+  color: #c8780a;
+  text-shadow: 0 0 10px rgba(200, 120, 10, 0.72), 0 0 22px rgba(200, 120, 10, 0.36);
+}
+[data-theme='blade'] .timer-panel--critical {
+  border-color: rgba(220, 20, 38, 0.92) !important;
+  box-shadow: 0 0 22px rgba(220, 20, 38, 0.52), 0 0 44px rgba(220, 20, 38, 0.22) !important;
+}
+[data-theme='blade'] .timer-panel__display.critical {
+  color: #dc1426;
+  text-shadow: 0 0 14px rgba(220, 20, 38, 0.94), 0 0 28px rgba(220, 20, 38, 0.60);
+}
+[data-theme='blade'] .timer-panel__btn {
+  background: rgba(5, 5, 7, 0.92);
+  border-color: rgba(220, 20, 38, 0.30);
+  color: #aeb0b4;
+}
+[data-theme='blade'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(220, 20, 38, 0.48);
+}
+
+/* Round tracker — hunter target nodes */
+[data-theme='blade'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(220, 20, 38, 0.30);
+}
+[data-theme='blade'] .round-tracker__pip {
+  border-color: rgba(220, 20, 38, 0.20);
+  background: rgba(5, 5, 7, 0.64);
+}
+[data-theme='blade'] .round-tracker__pip.active {
+  border-color: rgba(244, 244, 244, 0.36);
+  background: rgba(220, 20, 38, 0.06);
+}
+[data-theme='blade'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: blade-pulse-left 2.4s ease-in-out infinite;
+}
+
+/* Mission slots — night ops briefing */
+[data-theme='blade'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(220, 20, 38, 0.26);
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.60);
+}
+[data-theme='blade'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='blade'] .mission-item {
+  background: rgba(5, 5, 7, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='blade'] .mission-item:hover {
+  background: rgba(220, 20, 38, 0.06);
+  border-color: rgba(244, 244, 244, 0.28);
+}
+[data-theme='blade'] .mission-item--left.selected {
+  background: rgba(207, 211, 214, 0.10);
+  border-color: rgba(207, 211, 214, 0.58);
+  box-shadow: 0 0 10px rgba(207, 211, 214, 0.22);
+}
+[data-theme='blade'] .mission-item--right.selected {
+  background: rgba(220, 20, 38, 0.12);
+  border-color: rgba(220, 20, 38, 0.64);
+  box-shadow: 0 0 10px rgba(220, 20, 38, 0.24);
+}
+
+/* Leader hex */
+[data-theme='blade'] .leader-hex__name {
+  background: rgba(5, 5, 7, 0.92);
+  border-color: rgba(220, 20, 38, 0.28);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='blade'] .leader-card {
+  background: rgba(5, 5, 7, 0.84);
+  border-color: rgba(220, 20, 38, 0.20);
+  backdrop-filter: blur(4px);
+}
+[data-theme='blade'] .leader-card:hover {
+  border-color: rgba(244, 244, 244, 0.40);
+  box-shadow: 0 0 10px rgba(220, 20, 38, 0.16);
+}
+[data-theme='blade'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='blade'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='blade'] .leaders-page__header,
+[data-theme='blade'] .missions-page__header {
+  background: rgba(2, 2, 3, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(220, 20, 38, 0.22);
+}
+[data-theme='blade'] .leaders-page__search {
+  background: rgba(5, 5, 7, 0.90);
+  border-color: rgba(220, 20, 38, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='blade'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='blade'] .missions-page__body {
+  background: rgba(2, 2, 3, 0.72);
+}
+
+/* Assign buttons */
+[data-theme='blade'] .leaders-page__assign-btn {
+  background: rgba(5, 5, 7, 0.90);
+  border-color: rgba(220, 20, 38, 0.26);
+  backdrop-filter: blur(4px);
+}
+[data-theme='blade'] .leaders-page__assign-btn.active-left {
+  background: rgba(220, 20, 38, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='blade'] .leaders-page__assign-btn.active-right {
+  background: rgba(122, 0, 12, 0.10);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='blade'] .affil-btn {
+  background: rgba(5, 5, 7, 0.84);
+  border-color: rgba(220, 20, 38, 0.18);
+}
+[data-theme='blade'] .affil-btn:hover { border-color: rgba(244, 244, 244, 0.34); }
+[data-theme='blade'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(220, 20, 38, 0.09);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='blade'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(220, 20, 38, 0.28);
+}
+[data-theme='blade'] .settings-section__title {
+  color: #f4f4f4;
+  background: rgba(3, 3, 5, 0.94);
+  border-bottom-color: rgba(220, 20, 38, 0.20);
+}
+[data-theme='blade'] .settings-preset-btn.active,
+[data-theme='blade'] .settings-theme-btn.active,
+[data-theme='blade'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(220, 20, 38, 0.09);
+  color: var(--color-accent-left);
+}
+[data-theme='blade'] .settings-slider {
+  background: rgba(220, 20, 38, 0.14);
+}
+[data-theme='blade'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='blade'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='blade'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='blade'] .main-page__modal {
+  background: rgba(5, 5, 7, 0.97);
+  border-color: rgba(220, 20, 38, 0.58);
+  box-shadow: 0 0 30px rgba(220, 20, 38, 0.24), 0 0 50px rgba(122, 0, 12, 0.12);
+  backdrop-filter: blur(12px);
+}
+[data-theme='blade'] .main-page__modal-title {
+  color: #f4f4f4;
+  text-shadow: 0 0 12px rgba(220, 20, 38, 0.76), 0 0 24px rgba(220, 20, 38, 0.36);
+}
+[data-theme='blade'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — blade strike energy */
+@keyframes blade-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 244, 244, 0.70), 0 0 16px rgba(220, 20, 38, 0.70), 0 0 30px rgba(220, 20, 38, 0.34); }
+  50%       { text-shadow: 0 0 10px rgba(244, 244, 244, 0.90), 0 0 26px rgba(220, 20, 38, 0.96), 0 0 46px rgba(220, 20, 38, 0.50), 0 0 4px #dc1426; }
+}
+@keyframes blade-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(244, 244, 244, 0.70), 0 0 16px rgba(122, 0, 12, 0.80), 0 0 30px rgba(207, 211, 214, 0.18); }
+  50%       { text-shadow: 0 0 10px rgba(244, 244, 244, 0.90), 0 0 26px rgba(122, 0, 12, 0.96), 0 0 46px rgba(207, 211, 214, 0.28), 0 0 4px #7a000c; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BLACK PANTHER — Wakandan vibranium tech — purple energy, cyan & royal gold
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='black-panther'] {
