@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-zemo' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
+export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -79,6 +79,7 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Crimson Dynamo':     'winter-guard',
   'Cable':              'cable',
   'Daredevil':          'daredevil',
+  'Baron Strucker':        'baron-strucker',
   'Baron Zemo':            'baron-zemo',
   'Blade':                 'blade',
   'Nick Fury':             'nick-fury',
@@ -224,7 +225,7 @@ export const useMcpStore = create<McpState>()(
           state.interactiveBg = 'tech-hex';
         }
         // Migrate removed/unknown themes → shield
-        if (state && !(['adam-warlock', 'apocalypse', 'asgard', 'baron-zemo', 'black-panther', 'blade', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'dark-dimension', 'daredevil', 'doc-ock', 'dr-strange', 'dracula', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'invincible-ironman', 'king-tchalla', 'kingpin', 'klaw', 'loki', 'magik', 'magneto', 'mephisto', 'midnight-sons', 'modok', 'mystique', 'new-mutants', 'nick-fury', 'onslaught', 'professor-x', 'sam-wilson', 'sentinels', 'shadowland-daredevil', 'she-hulk', 'shield', 'miles-morales', 'spider-man', 'starlord', 'storm', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
+        if (state && !(['adam-warlock', 'apocalypse', 'asgard', 'baron-strucker', 'baron-zemo', 'black-panther', 'blade', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'dark-dimension', 'daredevil', 'doc-ock', 'dr-strange', 'dracula', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'invincible-ironman', 'king-tchalla', 'kingpin', 'klaw', 'loki', 'magik', 'magneto', 'mephisto', 'midnight-sons', 'modok', 'mystique', 'new-mutants', 'nick-fury', 'onslaught', 'professor-x', 'sam-wilson', 'sentinels', 'shadowland-daredevil', 'she-hulk', 'shield', 'miles-morales', 'spider-man', 'starlord', 'storm', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
           state.theme = 'shield';
         }
         // Tech Hex Grid disabled (no neon-blue theme in active set)
