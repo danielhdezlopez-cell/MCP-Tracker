@@ -508,6 +508,23 @@
   background-size: 16px 16px, 100% 100%;
 }
 
+[data-theme-preview='red-skull-master-of-the-world'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #020203 0%, #200306 40%, #300408 70%, #00d8ff14 100%);
+  border: 1px solid rgba(220, 18, 32, 0.86);
+  box-shadow: 0 0 10px rgba(220, 18, 32, 0.50), inset 0 0 6px rgba(0, 216, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='red-skull-master-of-the-world'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(220, 18, 32, 0.12) 1px, transparent 2px),
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 216, 255, 0.05) 3px, rgba(0, 216, 255, 0.05) 4px);
+  background-size: 16px 16px, 100% 100%;
+}
+
 [data-theme-preview='sam-wilson'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020509 0%, #071428 40%, #0d1f3a 65%, #1a050822 100%);
   border: 1px solid rgba(45, 135, 255, 0.78);
