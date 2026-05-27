@@ -79,6 +79,7 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Crimson Dynamo':     'winter-guard',
   'Cable':              'cable',
   'Daredevil':          'daredevil',
+  'Sam Wilson':            'sam-wilson',
   'Shadowlands Daredevil': 'shadowland-daredevil',
   'Klaw':               'klaw',
   'Invincible Iron Man': 'invincible-ironman',

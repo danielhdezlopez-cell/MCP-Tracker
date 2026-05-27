@@ -437,6 +437,26 @@
   background-size: 14px 14px, 14px 14px;
 }
 
+[data-theme-preview='sam-wilson'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #020509 0%, #071428 40%, #0d1f3a 65%, #1a050822 100%);
+  border: 1px solid rgba(45, 135, 255, 0.78);
+  box-shadow: 0 0 10px rgba(45, 135, 255, 0.42), inset 0 0 6px rgba(226, 43, 53, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='sam-wilson'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(45, 135, 255, 0.05) 3px,
+    rgba(45, 135, 255, 0.05) 4px
+  );
+}
+
 [data-theme-preview='she-hulk'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020a04 0%, #0a2010 40%, #1a0830 70%, #39ff1422 100%);
   border: 1px solid rgba(57, 255, 20, 0.72);
