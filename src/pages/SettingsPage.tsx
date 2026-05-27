@@ -26,6 +26,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'hulkbuster',       label: 'Hulkbuster',      desc: 'Heavy armor power interface — red & gold'        },
   { value: 'hydra',       label: 'Hydra',         desc: 'Dark tactical — animated video BG'                },
   { value: 'invincible-ironman', label: 'Invincible Ironman', desc: 'Stark tech HUD — arc reactor blue, armor red & gold interface' },
+  { value: 'kang',              label: 'Kang',               desc: 'Temporal conqueror command interface — green-cyan temporal energy, violet power & dark space HUD' },
   { value: 'king-tchalla', label: "King T'Challa",   desc: "Wakandan warrior king — royal purple vibranium, cyan energy & gold HUD" },
   { value: 'kingpin',      label: 'Kingpin',         desc: 'Criminal empire — black marble, dark gold & blood red HUD' },
   { value: 'klaw',         label: 'Klaw',            desc: 'Sonic energy weapon — blood red, psionic magenta & vibranium cyan HUD' },

@@ -21240,6 +21240,393 @@
   50%       { text-shadow: 0 0 10px rgba(242, 242, 242, 0.88), 0 0 26px rgba(139, 0, 15, 0.96), 0 0 46px rgba(184, 188, 200, 0.30), 0 0 4px #8b000f; }
 }
 
+/* ════════════════════════════════════════════════════════════════════
+   KANG — temporal conqueror sci-fi command interface.
+   Black-space base, temporal-green/cyan accents, violet secondaries.
+   Panels are semi-transparent crystal-temporal glass over the video.
+   ════════════════════════════════════════════════════════════════════ */
+[data-theme='kang'] {
+  --color-bg: transparent;
+  --color-panel: rgba(6, 5, 12, 0.78);
+  --color-panel-alt: rgba(9, 6, 18, 0.84);
+  --color-border: rgba(78, 220, 170, 0.76);
+  --color-accent-left: #4edcaa;
+  --color-accent-right: #8b5cf6;
+  --color-glow-left: rgba(78, 220, 170, 0.48);
+  --color-glow-right: rgba(139, 92, 246, 0.42);
+  --color-text: #f2f7ff;
+  --color-text-muted: #b8c0d0;
+  --color-warn: #f59e0b;
+  --color-critical: #ef4444;
+  --color-success: #4edcaa;
+  --color-round-active: #4edcaa;
+  --color-round-inactive: rgba(78, 220, 170, 0.14);
+  --color-mission-secure: #4edcaa;
+  --color-glow-secure: rgba(78, 220, 170, 0.42);
+  --color-mission-extract: #8b5cf6;
+  --color-glow-extract: rgba(139, 92, 246, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='kang'] body { background: transparent; }
+[data-theme='kang'] .layout { background: transparent; }
+
+/* Temporal scanline overlay */
+[data-theme='kang'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(78, 220, 170, 0.010) 3px,
+    rgba(78, 220, 170, 0.010) 4px
+  );
+}
+
+/* Video overlay — temporal void vignette with green/cyan and violet command glows */
+[data-theme='kang'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 22% 30%, rgba(78, 220, 170, 0.14), transparent 38%),
+    radial-gradient(circle at 76% 68%, rgba(139, 92, 246, 0.14), transparent 36%),
+    radial-gradient(circle at 50% 50%, rgba(0, 216, 255, 0.06), transparent 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(5, 4, 10, 0.32), transparent 52%),
+    radial-gradient(ellipse at 50% 100%, rgba(5, 4, 10, 0.55), transparent 55%),
+    radial-gradient(ellipse at 0% 50%, rgba(5, 4, 10, 0.28), transparent 40%),
+    radial-gradient(ellipse at 100% 50%, rgba(5, 4, 10, 0.28), transparent 40%),
+    rgba(5, 4, 10, 0.38);
+}
+
+/* Panels — dark temporal crystal glass with green-cyan border */
+[data-theme='kang'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(78, 220, 170, 0.56);
+  box-shadow: 0 0 16px rgba(78, 220, 170, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+}
+[data-theme='kang'] .panel::before {
+  background: linear-gradient(90deg, rgba(78, 220, 170, 0.06), transparent, rgba(139, 92, 246, 0.05));
+}
+[data-theme='kang'] .glow-left {
+  border-color: rgba(78, 220, 170, 0.72);
+  box-shadow: -2px 0 14px rgba(78, 220, 170, 0.36), 0 0 10px rgba(78, 220, 170, 0.14);
+}
+[data-theme='kang'] .glow-right {
+  border-color: rgba(139, 92, 246, 0.62);
+  box-shadow: 2px 0 14px rgba(139, 92, 246, 0.30), 0 0 10px rgba(139, 92, 246, 0.12);
+}
+
+/* Buttons — sci-fi imperial command */
+[data-theme='kang'] .btn-hud {
+  background: rgba(6, 5, 12, 0.90);
+  border-color: rgba(78, 220, 170, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kang'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-text);
+}
+[data-theme='kang'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='kang'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='kang'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — temporal empire corridor */
+[data-theme='kang'] .side-nav {
+  background: rgba(3, 2, 8, 0.97);
+  border-right-color: rgba(78, 220, 170, 0.26);
+  backdrop-filter: blur(8px);
+}
+[data-theme='kang'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(78, 220, 170, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='kang'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(78, 220, 170, 0.80), 0 0 22px rgba(139, 92, 246, 0.38);
+}
+[data-theme='kang'] .side-nav__item:hover {
+  background: rgba(78, 220, 170, 0.05);
+  border-color: rgba(242, 247, 255, 0.22);
+}
+[data-theme='kang'] .side-nav__item.active {
+  background: rgba(78, 220, 170, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — P1 temporal-green / P2 violet electric */
+[data-theme='kang'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+}
+[data-theme='kang'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #0a3d2a, #4edcaa);
+  box-shadow: 0 0 8px rgba(78, 220, 170, 0.72);
+}
+[data-theme='kang'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #2a1060, #8b5cf6);
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.64);
+}
+[data-theme='kang'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(242, 247, 255, 0.72), 0 0 16px rgba(78, 220, 170, 0.76), 0 0 30px rgba(78, 220, 170, 0.38);
+  animation: kang-pulse-left 3.0s ease-in-out infinite;
+}
+[data-theme='kang'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(242, 247, 255, 0.72), 0 0 16px rgba(139, 92, 246, 0.76), 0 0 30px rgba(139, 92, 246, 0.36);
+  animation: kang-pulse-right 3.0s ease-in-out infinite;
+}
+[data-theme='kang'] .score-panel__btn {
+  background: rgba(6, 5, 12, 0.92);
+  border-color: rgba(78, 220, 170, 0.28);
+}
+[data-theme='kang'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — temporal green / amber warning / red critical */
+[data-theme='kang'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(78, 220, 170, 0.46);
+}
+[data-theme='kang'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(78, 220, 170, 0.08), rgba(0, 216, 255, 0.05), transparent);
+}
+[data-theme='kang'] .timer-panel__display {
+  color: #e8fdf5;
+  text-shadow: 0 0 10px rgba(78, 220, 170, 0.62), 0 0 4px rgba(242, 247, 255, 0.40);
+}
+[data-theme='kang'] .timer-panel--warning .timer-panel__display {
+  color: #f59e0b;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.72), 0 0 22px rgba(245, 158, 11, 0.38);
+}
+[data-theme='kang'] .timer-panel--critical {
+  border-color: rgba(239, 68, 68, 0.90) !important;
+  box-shadow: 0 0 22px rgba(239, 68, 68, 0.50), 0 0 44px rgba(239, 68, 68, 0.22) !important;
+}
+[data-theme='kang'] .timer-panel__display.critical {
+  color: #ef4444;
+  text-shadow: 0 0 14px rgba(239, 68, 68, 0.92), 0 0 28px rgba(239, 68, 68, 0.58);
+  animation: kang-critical-pulse 1.4s ease-in-out infinite;
+}
+[data-theme='kang'] .timer-panel__btn {
+  background: rgba(6, 5, 12, 0.92);
+  border-color: rgba(78, 220, 170, 0.26);
+  color: #b8c0d0;
+}
+[data-theme='kang'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(78, 220, 170, 0.44);
+}
+
+/* Round tracker — temporal nexus nodes */
+[data-theme='kang'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(78, 220, 170, 0.26);
+}
+[data-theme='kang'] .round-tracker__pip {
+  border-color: rgba(78, 220, 170, 0.18);
+  background: rgba(6, 5, 12, 0.62);
+}
+[data-theme='kang'] .round-tracker__pip.active {
+  border-color: rgba(139, 92, 246, 0.34);
+  background: rgba(78, 220, 170, 0.06);
+}
+[data-theme='kang'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: kang-pulse-left 2.4s ease-in-out infinite;
+}
+
+/* Mission slots — temporal intelligence panels */
+[data-theme='kang'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(78, 220, 170, 0.22);
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.64);
+}
+[data-theme='kang'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='kang'] .mission-item {
+  background: rgba(6, 5, 12, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kang'] .mission-item:hover {
+  background: rgba(78, 220, 170, 0.05);
+  border-color: rgba(242, 247, 255, 0.26);
+}
+[data-theme='kang'] .mission-item--left.selected {
+  background: rgba(78, 220, 170, 0.10);
+  border-color: rgba(78, 220, 170, 0.64);
+  box-shadow: 0 0 10px rgba(78, 220, 170, 0.26);
+}
+[data-theme='kang'] .mission-item--right.selected {
+  background: rgba(139, 92, 246, 0.10);
+  border-color: rgba(139, 92, 246, 0.64);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.24);
+}
+
+/* Leader hex */
+[data-theme='kang'] .leader-hex__name {
+  background: rgba(6, 5, 12, 0.92);
+  border-color: rgba(78, 220, 170, 0.24);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='kang'] .leader-card {
+  background: rgba(6, 5, 12, 0.84);
+  border-color: rgba(78, 220, 170, 0.18);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kang'] .leader-card:hover {
+  border-color: rgba(0, 216, 255, 0.40);
+  box-shadow: 0 0 10px rgba(78, 220, 170, 0.14);
+}
+[data-theme='kang'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='kang'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='kang'] .leaders-page__header,
+[data-theme='kang'] .missions-page__header {
+  background: rgba(3, 2, 8, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(78, 220, 170, 0.20);
+}
+[data-theme='kang'] .leaders-page__search {
+  background: rgba(6, 5, 12, 0.90);
+  border-color: rgba(78, 220, 170, 0.26);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kang'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='kang'] .missions-page__body {
+  background: rgba(3, 2, 8, 0.72);
+}
+
+/* Assign buttons */
+[data-theme='kang'] .leaders-page__assign-btn {
+  background: rgba(6, 5, 12, 0.90);
+  border-color: rgba(78, 220, 170, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kang'] .leaders-page__assign-btn.active-left {
+  background: rgba(78, 220, 170, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='kang'] .leaders-page__assign-btn.active-right {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='kang'] .affil-btn {
+  background: rgba(6, 5, 12, 0.84);
+  border-color: rgba(78, 220, 170, 0.16);
+}
+[data-theme='kang'] .affil-btn:hover { border-color: rgba(0, 216, 255, 0.32); }
+[data-theme='kang'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(78, 220, 170, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='kang'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(78, 220, 170, 0.26);
+}
+[data-theme='kang'] .settings-section__title {
+  color: #f2f7ff;
+  background: rgba(5, 4, 10, 0.94);
+  border-bottom-color: rgba(78, 220, 170, 0.18);
+}
+[data-theme='kang'] .settings-preset-btn.active,
+[data-theme='kang'] .settings-theme-btn.active,
+[data-theme='kang'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(78, 220, 170, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='kang'] .settings-slider {
+  background: rgba(78, 220, 170, 0.12);
+}
+[data-theme='kang'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='kang'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='kang'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.80); }
+[data-theme='kang'] .main-page__modal {
+  background: rgba(6, 5, 12, 0.97);
+  border-color: rgba(78, 220, 170, 0.56);
+  box-shadow: 0 0 30px rgba(78, 220, 170, 0.20), 0 0 50px rgba(139, 92, 246, 0.10);
+  backdrop-filter: blur(12px);
+}
+[data-theme='kang'] .main-page__modal-title {
+  color: #f2f7ff;
+  text-shadow: 0 0 12px rgba(78, 220, 170, 0.76), 0 0 24px rgba(139, 92, 246, 0.34);
+}
+[data-theme='kang'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — temporal energy */
+@keyframes kang-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(242, 247, 255, 0.70), 0 0 16px rgba(78, 220, 170, 0.72), 0 0 30px rgba(78, 220, 170, 0.36); }
+  50%       { text-shadow: 0 0 10px rgba(242, 247, 255, 0.88), 0 0 26px rgba(78, 220, 170, 0.96), 0 0 46px rgba(78, 220, 170, 0.50), 0 0 4px #4edcaa; }
+}
+@keyframes kang-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(242, 247, 255, 0.70), 0 0 16px rgba(139, 92, 246, 0.80), 0 0 30px rgba(139, 92, 246, 0.30); }
+  50%       { text-shadow: 0 0 10px rgba(242, 247, 255, 0.88), 0 0 26px rgba(139, 92, 246, 0.96), 0 0 46px rgba(139, 92, 246, 0.42), 0 0 4px #8b5cf6; }
+}
+@keyframes kang-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(239, 68, 68, 0.82), 0 0 20px rgba(239, 68, 68, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(239, 68, 68, 0.96), 0 0 32px rgba(239, 68, 68, 0.68), 0 0 6px #ef4444; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    GLOBAL — Fixed mission type identity colors
    SECURE is always blue (#3b82f6), EXTRACT is always red (#ff1744).
