@@ -10669,6 +10669,385 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   BARON ZEMO — Aristocratic villain command — imperial purple, aged gold & dark tactical
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='baron-zemo'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 6, 14, 0.78);
+  --color-panel-alt: rgba(5, 4, 10, 0.88);
+  --color-border: rgba(143, 92, 201, 0.78);
+  --color-accent-left: #8f5cc9;
+  --color-accent-right: #c7a64a;
+  --color-glow-left: rgba(143, 92, 201, 0.48);
+  --color-glow-right: rgba(199, 166, 74, 0.38);
+  --color-text: #f2eff8;
+  --color-text-muted: #b9b1c8;
+  --color-warn: #c8780a;
+  --color-critical: #be2434;
+  --color-success: #c7a64a;
+  --color-round-active: #8f5cc9;
+  --color-round-inactive: rgba(143, 92, 201, 0.14);
+  --color-mission-secure: #9b72d4;
+  --color-glow-secure: rgba(155, 114, 212, 0.42);
+  --color-mission-extract: #c7a64a;
+  --color-glow-extract: rgba(199, 166, 74, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='baron-zemo'] body { background: transparent; }
+[data-theme='baron-zemo'] .layout { background: transparent; }
+
+/* Royal conspiracy scanline */
+[data-theme='baron-zemo'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(143, 92, 201, 0.012) 3px,
+    rgba(143, 92, 201, 0.012) 4px
+  );
+}
+
+/* Video overlay — deep imperial vignette with purple & gold command glows */
+[data-theme='baron-zemo'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 28%, rgba(143, 92, 201, 0.18), transparent 40%),
+    radial-gradient(circle at 78% 70%, rgba(199, 166, 74, 0.12), transparent 36%),
+    radial-gradient(ellipse at 50% 0%, rgba(5, 3, 10, 0.30), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(5, 3, 10, 0.52), transparent 55%),
+    radial-gradient(ellipse at 0% 50%, rgba(5, 3, 10, 0.26), transparent 40%),
+    radial-gradient(ellipse at 100% 50%, rgba(5, 3, 10, 0.26), transparent 40%),
+    rgba(5, 3, 10, 0.42);
+}
+
+/* Panels — dark imperial glass with purple border */
+[data-theme='baron-zemo'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(143, 92, 201, 0.62);
+  box-shadow: 0 0 16px rgba(143, 92, 201, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(5px);
+}
+[data-theme='baron-zemo'] .panel::before {
+  background: linear-gradient(90deg, rgba(143, 92, 201, 0.08), transparent, rgba(199, 166, 74, 0.06));
+}
+[data-theme='baron-zemo'] .glow-left {
+  border-color: rgba(143, 92, 201, 0.68);
+  box-shadow: -2px 0 14px rgba(143, 92, 201, 0.32), 0 0 10px rgba(143, 92, 201, 0.12);
+}
+[data-theme='baron-zemo'] .glow-right {
+  border-color: rgba(199, 166, 74, 0.58);
+  box-shadow: 2px 0 14px rgba(199, 166, 74, 0.26), 0 0 10px rgba(199, 166, 74, 0.10);
+}
+
+/* Buttons — aristocratic command panel */
+[data-theme='baron-zemo'] .btn-hud {
+  background: rgba(8, 6, 14, 0.90);
+  border-color: rgba(143, 92, 201, 0.44);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='baron-zemo'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-text);
+}
+[data-theme='baron-zemo'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='baron-zemo'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='baron-zemo'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — noble operations corridor */
+[data-theme='baron-zemo'] .side-nav {
+  background: rgba(3, 2, 7, 0.97);
+  border-right-color: rgba(143, 92, 201, 0.30);
+  backdrop-filter: blur(8px);
+}
+[data-theme='baron-zemo'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(143, 92, 201, 0.60) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='baron-zemo'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(143, 92, 201, 0.78), 0 0 22px rgba(199, 166, 74, 0.34);
+}
+[data-theme='baron-zemo'] .side-nav__item:hover {
+  background: rgba(143, 92, 201, 0.06);
+  border-color: rgba(242, 239, 248, 0.24);
+}
+[data-theme='baron-zemo'] .side-nav__item.active {
+  background: rgba(143, 92, 201, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — P1 imperial purple / P2 aged gold */
+[data-theme='baron-zemo'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+}
+[data-theme='baron-zemo'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #3e1878, #8f5cc9);
+  box-shadow: 0 0 8px rgba(143, 92, 201, 0.68);
+}
+[data-theme='baron-zemo'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #6a4a10, #c7a64a);
+  box-shadow: 0 0 8px rgba(199, 166, 74, 0.60);
+}
+[data-theme='baron-zemo'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(242, 239, 248, 0.72), 0 0 16px rgba(143, 92, 201, 0.72), 0 0 30px rgba(143, 92, 201, 0.36);
+  animation: baronZemo-pulse-left 3.2s ease-in-out infinite;
+}
+[data-theme='baron-zemo'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(242, 239, 248, 0.72), 0 0 16px rgba(199, 166, 74, 0.72), 0 0 30px rgba(199, 166, 74, 0.32);
+  animation: baronZemo-pulse-right 3.2s ease-in-out infinite;
+}
+[data-theme='baron-zemo'] .score-panel__btn {
+  background: rgba(8, 6, 14, 0.92);
+  border-color: rgba(143, 92, 201, 0.30);
+}
+[data-theme='baron-zemo'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer — purple / amber warning / red critical */
+[data-theme='baron-zemo'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(143, 92, 201, 0.50);
+}
+[data-theme='baron-zemo'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(143, 92, 201, 0.10), rgba(199, 166, 74, 0.06), transparent);
+}
+[data-theme='baron-zemo'] .timer-panel__display {
+  color: #ece7f6;
+  text-shadow: 0 0 10px rgba(143, 92, 201, 0.58), 0 0 4px rgba(242, 239, 248, 0.38);
+}
+[data-theme='baron-zemo'] .timer-panel--warning .timer-panel__display {
+  color: #c8780a;
+  text-shadow: 0 0 10px rgba(200, 120, 10, 0.72), 0 0 22px rgba(200, 120, 10, 0.36);
+}
+[data-theme='baron-zemo'] .timer-panel--critical {
+  border-color: rgba(190, 36, 52, 0.90) !important;
+  box-shadow: 0 0 22px rgba(190, 36, 52, 0.48), 0 0 44px rgba(190, 36, 52, 0.20) !important;
+}
+[data-theme='baron-zemo'] .timer-panel__display.critical {
+  color: #be2434;
+  text-shadow: 0 0 14px rgba(190, 36, 52, 0.92), 0 0 28px rgba(190, 36, 52, 0.55);
+}
+[data-theme='baron-zemo'] .timer-panel__btn {
+  background: rgba(8, 6, 14, 0.92);
+  border-color: rgba(143, 92, 201, 0.28);
+  color: #b9b1c8;
+}
+[data-theme='baron-zemo'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(143, 92, 201, 0.44);
+}
+
+/* Round tracker — noble crest nodes */
+[data-theme='baron-zemo'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(143, 92, 201, 0.28);
+}
+[data-theme='baron-zemo'] .round-tracker__pip {
+  border-color: rgba(143, 92, 201, 0.20);
+  background: rgba(8, 6, 14, 0.64);
+}
+[data-theme='baron-zemo'] .round-tracker__pip.active {
+  border-color: rgba(199, 166, 74, 0.40);
+  background: rgba(143, 92, 201, 0.07);
+}
+[data-theme='baron-zemo'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: baronZemo-pulse-left 2.6s ease-in-out infinite;
+}
+
+/* Mission slots — classified intelligence panels */
+[data-theme='baron-zemo'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(143, 92, 201, 0.24);
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.62);
+}
+[data-theme='baron-zemo'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='baron-zemo'] .mission-item {
+  background: rgba(8, 6, 14, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='baron-zemo'] .mission-item:hover {
+  background: rgba(143, 92, 201, 0.06);
+  border-color: rgba(242, 239, 248, 0.28);
+}
+[data-theme='baron-zemo'] .mission-item--left.selected {
+  background: rgba(155, 114, 212, 0.12);
+  border-color: rgba(155, 114, 212, 0.62);
+  box-shadow: 0 0 10px rgba(143, 92, 201, 0.26);
+}
+[data-theme='baron-zemo'] .mission-item--right.selected {
+  background: rgba(199, 166, 74, 0.12);
+  border-color: rgba(199, 166, 74, 0.62);
+  box-shadow: 0 0 10px rgba(199, 166, 74, 0.24);
+}
+
+/* Leader hex */
+[data-theme='baron-zemo'] .leader-hex__name {
+  background: rgba(8, 6, 14, 0.92);
+  border-color: rgba(143, 92, 201, 0.26);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='baron-zemo'] .leader-card {
+  background: rgba(8, 6, 14, 0.84);
+  border-color: rgba(143, 92, 201, 0.20);
+  backdrop-filter: blur(4px);
+}
+[data-theme='baron-zemo'] .leader-card:hover {
+  border-color: rgba(199, 166, 74, 0.44);
+  box-shadow: 0 0 10px rgba(143, 92, 201, 0.16);
+}
+[data-theme='baron-zemo'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='baron-zemo'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='baron-zemo'] .leaders-page__header,
+[data-theme='baron-zemo'] .missions-page__header {
+  background: rgba(3, 2, 7, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(143, 92, 201, 0.22);
+}
+[data-theme='baron-zemo'] .leaders-page__search {
+  background: rgba(8, 6, 14, 0.90);
+  border-color: rgba(143, 92, 201, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='baron-zemo'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='baron-zemo'] .missions-page__body {
+  background: rgba(3, 2, 7, 0.72);
+}
+
+/* Assign buttons */
+[data-theme='baron-zemo'] .leaders-page__assign-btn {
+  background: rgba(8, 6, 14, 0.90);
+  border-color: rgba(143, 92, 201, 0.26);
+  backdrop-filter: blur(4px);
+}
+[data-theme='baron-zemo'] .leaders-page__assign-btn.active-left {
+  background: rgba(143, 92, 201, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='baron-zemo'] .leaders-page__assign-btn.active-right {
+  background: rgba(199, 166, 74, 0.10);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='baron-zemo'] .affil-btn {
+  background: rgba(8, 6, 14, 0.84);
+  border-color: rgba(143, 92, 201, 0.18);
+}
+[data-theme='baron-zemo'] .affil-btn:hover { border-color: rgba(199, 166, 74, 0.36); }
+[data-theme='baron-zemo'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(143, 92, 201, 0.09);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='baron-zemo'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(5px);
+  border-color: rgba(143, 92, 201, 0.28);
+}
+[data-theme='baron-zemo'] .settings-section__title {
+  color: #f2eff8;
+  background: rgba(5, 4, 10, 0.94);
+  border-bottom-color: rgba(143, 92, 201, 0.20);
+}
+[data-theme='baron-zemo'] .settings-preset-btn.active,
+[data-theme='baron-zemo'] .settings-theme-btn.active,
+[data-theme='baron-zemo'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(143, 92, 201, 0.09);
+  color: var(--color-accent-left);
+}
+[data-theme='baron-zemo'] .settings-slider {
+  background: rgba(143, 92, 201, 0.14);
+}
+[data-theme='baron-zemo'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='baron-zemo'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='baron-zemo'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='baron-zemo'] .main-page__modal {
+  background: rgba(8, 6, 14, 0.97);
+  border-color: rgba(143, 92, 201, 0.58);
+  box-shadow: 0 0 30px rgba(143, 92, 201, 0.22), 0 0 50px rgba(199, 166, 74, 0.10);
+  backdrop-filter: blur(12px);
+}
+[data-theme='baron-zemo'] .main-page__modal-title {
+  color: #f2eff8;
+  text-shadow: 0 0 12px rgba(143, 92, 201, 0.74), 0 0 24px rgba(199, 166, 74, 0.30);
+}
+[data-theme='baron-zemo'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — imperial dominion energy */
+@keyframes baronZemo-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(242, 239, 248, 0.70), 0 0 16px rgba(143, 92, 201, 0.70), 0 0 30px rgba(143, 92, 201, 0.34); }
+  50%       { text-shadow: 0 0 10px rgba(242, 239, 248, 0.90), 0 0 26px rgba(143, 92, 201, 0.96), 0 0 46px rgba(143, 92, 201, 0.48), 0 0 4px #8f5cc9; }
+}
+@keyframes baronZemo-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(242, 239, 248, 0.70), 0 0 16px rgba(199, 166, 74, 0.70), 0 0 30px rgba(199, 166, 74, 0.30); }
+  50%       { text-shadow: 0 0 10px rgba(242, 239, 248, 0.90), 0 0 26px rgba(199, 166, 74, 0.94), 0 0 46px rgba(199, 166, 74, 0.42), 0 0 4px #c7a64a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BLADE — Techno-gothic vampire hunter — carbon black, blood red & cold silver
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='blade'] {

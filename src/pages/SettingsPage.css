@@ -299,6 +299,23 @@
     rgba(255, 214, 107, 0.04) 4px
   );
 }
+[data-theme-preview='baron-zemo'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #05030a 0%, #0e0818 40%, #1a0e30 70%, #8f5cc922 100%);
+  border: 1px solid rgba(143, 92, 201, 0.78);
+  box-shadow: 0 0 10px rgba(143, 92, 201, 0.40), inset 0 0 6px rgba(199, 166, 74, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='baron-zemo'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(199, 166, 74, 0.10) 1px, transparent 2px),
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(143, 92, 201, 0.05) 3px, rgba(143, 92, 201, 0.05) 4px);
+  background-size: 16px 16px, 100% 100%;
+}
+
 [data-theme-preview='blade'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020203 0%, #080508 40%, #180208 70%, #dc142622 100%);
   border: 1px solid rgba(220, 20, 38, 0.80);
