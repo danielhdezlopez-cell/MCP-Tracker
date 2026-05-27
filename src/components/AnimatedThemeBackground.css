@@ -145,6 +145,9 @@
 .anim-theme-bg--sentinels.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020308 0%, #0e0720 40%, #1a0a40 70%, #020308 100%);
 }
+.anim-theme-bg--shadowland-daredevil.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #050507 0%, #0a0a0e 35%, #1a0306 65%, #050507 100%);
+}
 .anim-theme-bg--thor.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020304 0%, #07162a 40%, #0a1e3a 70%, #020304 100%);
 }
