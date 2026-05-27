@@ -57,6 +57,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   'weapon-x':    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WeaponX.mp4`,      modifier: 'anim-theme-bg--weapon-x'    },
   'winter-guard': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WinterGuard.mp4`, modifier: 'anim-theme-bg--winter-guard' },
   'adam-warlock': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_AdamWarlock.mp4`, modifier: 'anim-theme-bg--adam-warlock', smoothLoop: true },
+  'red-skull-master-of-hydra': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_RedSkullMasterOfHydra.mp4`, modifier: 'anim-theme-bg--red-skull-master-of-hydra', smoothLoop: true },
   'sam-wilson': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SamWilson.mp4`, modifier: 'anim-theme-bg--sam-wilson' },
   sentinels:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Sentinels.mp4`,  modifier: 'anim-theme-bg--sentinels'  },
   'baron-strucker':       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_BaronStrucker.mp4`,      modifier: 'anim-theme-bg--baron-strucker', smoothLoop: true },
