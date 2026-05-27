@@ -35,6 +35,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'modok',         label: 'M.O.D.O.K.',   desc: 'AIM laboratory mind supremacy — yellow scientific, psionic purple & cyan data HUD' },
   { value: 'mystique',     label: 'Mystique',      desc: 'Shapeshifting infiltrator — tactical blue, fire orange & stealth' },
   { value: 'new-mutants',  label: 'New Mutants',   desc: 'Mutant academy squad — yellow uniform, psychic purple & cyan energy HUD' },
+  { value: 'nick-fury',    label: 'Nick Fury',     desc: 'S.H.I.E.L.D. director tactical command — steel blue, carbon black & red alert HUD' },
   { value: 'onslaught',    label: 'Onslaught',     desc: 'Psionic doom — magenta mental energy & void HUD' },
   { value: 'professor-x',  label: 'Professor X',   desc: 'Cerebro telepathic interface — blue & violet HUD'  },
   { value: 'sam-wilson',   label: 'Sam Wilson',    desc: 'Aerial combat HUD — tactical blue, red wings & cyan' },

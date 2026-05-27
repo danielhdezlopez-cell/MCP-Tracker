@@ -596,6 +596,26 @@
   );
 }
 
+[data-theme-preview='nick-fury'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #030507 0%, #080c12 40%, #0d1520 70%, #5c82a022 100%);
+  border: 1px solid rgba(92, 130, 160, 0.72);
+  box-shadow: 0 0 8px rgba(92, 130, 160, 0.36), inset 0 0 6px rgba(198, 31, 46, 0.10);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='nick-fury'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(92, 130, 160, 0.05) 3px,
+    rgba(92, 130, 160, 0.05) 4px
+  );
+}
+
 [data-theme-preview='modok'] .settings-theme-btn__swatch {
   background: linear-gradient(135deg, #020304 0%, #0e0a1a 40%, #1e1400 70%, #f5c54222 100%);
   border: 1px solid rgba(245, 197, 66, 0.65);

@@ -59,6 +59,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   'adam-warlock': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_AdamWarlock.mp4`, modifier: 'anim-theme-bg--adam-warlock', smoothLoop: true },
   'sam-wilson': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SamWilson.mp4`, modifier: 'anim-theme-bg--sam-wilson' },
   sentinels:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Sentinels.mp4`,  modifier: 'anim-theme-bg--sentinels'  },
+  'nick-fury':            { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_NickFury.mp4`,            modifier: 'anim-theme-bg--nick-fury', smoothLoop: true },
   'shadowland-daredevil': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_ShadowlandDaredevil.mp4`, modifier: 'anim-theme-bg--shadowland-daredevil', smoothLoop: true },
 };
 
