@@ -80,7 +80,8 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Cable':              'cable',
   'Daredevil':          'daredevil',
   'Baron Strucker':        'baron-strucker',
-  'Baron Zemo':            'baron-zemo',
+  'Baron Helmut Zemo':     'baron-zemo',
+  'Baron Zemo':            'baron-zemo', // alias for any persisted old data
   'Blade':                 'blade',
   'Nick Fury':             'nick-fury',
   'Sam Wilson':            'sam-wilson',
