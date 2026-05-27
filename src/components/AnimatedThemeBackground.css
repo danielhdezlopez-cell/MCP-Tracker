@@ -139,6 +139,9 @@
 .anim-theme-bg--ultron.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #060606 0%, #0e0808 40%, #100a08 70%, #060606 100%);
 }
+.anim-theme-bg--red-skull.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #030304 0%, #160204 40%, #220308 70%, #030304 100%);
+}
 .anim-theme-bg--red-skull-master-of-hydra.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030304 0%, #1a0204 40%, #2a0308 70%, #030304 100%);
 }
