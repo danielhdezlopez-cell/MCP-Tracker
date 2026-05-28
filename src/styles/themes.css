@@ -21628,6 +21628,390 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   BLACK BOLT — Inhuman silent king: cosmic electric cyan, royal navy
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='black-bolt'] {
+  --color-bg: transparent;
+  --color-panel: rgba(2, 12, 32, 0.72);
+  --color-panel-alt: rgba(3, 16, 40, 0.80);
+  --color-border: rgba(0, 207, 255, 0.65);
+  --color-accent-left: #00cfff;
+  --color-accent-right: #ffffff;
+  --color-glow-left: rgba(0, 207, 255, 0.65);
+  --color-glow-right: rgba(255, 255, 255, 0.55);
+  --color-text: #e8f8ff;
+  --color-text-muted: #a8d8ee;
+  --color-warn: #f6c85f;
+  --color-critical: #ff2a2a;
+  --color-success: #e8f8ff;
+  --color-round-active: #00cfff;
+  --color-round-inactive: rgba(0, 207, 255, 0.14);
+  --color-mission-secure: #00cfff;
+  --color-glow-secure: rgba(0, 207, 255, 0.44);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='black-bolt'] body { background: transparent; }
+[data-theme='black-bolt'] .layout { background: transparent; }
+
+/* Inhuman tuning-fork circuit overlay */
+[data-theme='black-bolt'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 59px,
+      rgba(0, 207, 255, 0.008) 59px,
+      rgba(0, 207, 255, 0.008) 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 59px,
+      rgba(0, 207, 255, 0.008) 59px,
+      rgba(0, 207, 255, 0.008) 60px
+    );
+}
+
+/* Video overlay — deep cosmic navy with cyan quasiparticle bursts */
+[data-theme='black-bolt'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 207, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 80% 65%, rgba(0, 100, 200, 0.12), transparent 44%),
+    radial-gradient(circle at 50% 90%, rgba(0, 8, 24, 0.32), transparent 55%),
+    rgba(0, 8, 24, 0.45);
+}
+
+/* Panels — dark translucent navy with cyan border glow */
+[data-theme='black-bolt'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(0, 207, 255, 0.55);
+  box-shadow: 0 0 18px rgba(0, 207, 255, 0.10), inset 0 0 28px rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(6px);
+}
+[data-theme='black-bolt'] .panel::before {
+  background: linear-gradient(90deg, rgba(0, 207, 255, 0.10), transparent, rgba(255, 255, 255, 0.04));
+}
+[data-theme='black-bolt'] .glow-left {
+  border-color: rgba(0, 207, 255, 0.60);
+  box-shadow: -2px 0 14px rgba(0, 207, 255, 0.32), 0 0 10px rgba(0, 207, 255, 0.14);
+}
+[data-theme='black-bolt'] .glow-right {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 2px 0 14px rgba(255, 255, 255, 0.20), 0 0 10px rgba(0, 207, 255, 0.12);
+}
+
+/* Buttons — Inhuman kinetic command */
+[data-theme='black-bolt'] .btn-hud {
+  background: rgba(2, 12, 32, 0.78);
+  border-color: rgba(0, 207, 255, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='black-bolt'] .btn-hud:hover {
+  border-color: rgba(0, 207, 255, 0.90);
+  box-shadow: 0 0 10px rgba(0, 207, 255, 0.42), 0 0 20px rgba(0, 207, 255, 0.20);
+  color: var(--color-text);
+}
+[data-theme='black-bolt'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='black-bolt'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='black-bolt'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — Attilan royal command */
+[data-theme='black-bolt'] .side-nav {
+  background: rgba(0, 6, 18, 0.97);
+  border-right-color: rgba(0, 207, 255, 0.30);
+  backdrop-filter: blur(8px);
+}
+[data-theme='black-bolt'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 207, 255, 0.52) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='black-bolt'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(0, 207, 255, 0.80), 0 0 22px rgba(255, 255, 255, 0.32);
+}
+[data-theme='black-bolt'] .side-nav__item:hover {
+  background: rgba(0, 207, 255, 0.06);
+  border-color: rgba(0, 207, 255, 0.28);
+}
+[data-theme='black-bolt'] .side-nav__item.active {
+  background: rgba(0, 207, 255, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — Inhuman electron-voice energy readout */
+[data-theme='black-bolt'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='black-bolt'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #001830, #00cfff);
+  box-shadow: 0 0 8px rgba(0, 207, 255, 0.72);
+}
+[data-theme='black-bolt'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #102040, #ffffff);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.60);
+}
+[data-theme='black-bolt'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(232, 248, 255, 0.72), 0 0 16px rgba(0, 207, 255, 0.72), 0 0 32px rgba(0, 207, 255, 0.36);
+  animation: black-bolt-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='black-bolt'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(232, 248, 255, 0.72), 0 0 16px rgba(255, 255, 255, 0.72), 0 0 32px rgba(0, 207, 255, 0.28);
+  animation: black-bolt-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='black-bolt'] .score-panel__btn {
+  background: rgba(2, 12, 32, 0.90);
+  border-color: rgba(0, 207, 255, 0.30);
+}
+[data-theme='black-bolt'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — quasiparticle resonance countdown */
+[data-theme='black-bolt'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 207, 255, 0.48);
+}
+[data-theme='black-bolt'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(0, 207, 255, 0.12), rgba(255, 255, 255, 0.04), transparent);
+}
+[data-theme='black-bolt'] .timer-panel__display {
+  color: #e8f8ff;
+  text-shadow: 0 0 12px rgba(0, 207, 255, 0.70), 0 0 5px rgba(255, 255, 255, 0.30);
+}
+[data-theme='black-bolt'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='black-bolt'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='black-bolt'] .timer-panel__btn {
+  background: rgba(2, 12, 32, 0.90);
+  border-color: rgba(0, 207, 255, 0.30);
+  color: #a8d8ee;
+}
+[data-theme='black-bolt'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(0, 207, 255, 0.50);
+}
+
+/* Round tracker — Inhuman tuning-fork nodes */
+[data-theme='black-bolt'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 207, 255, 0.30);
+}
+[data-theme='black-bolt'] .round-tracker__pip {
+  border-color: rgba(0, 207, 255, 0.20);
+  background: rgba(2, 12, 32, 0.60);
+}
+[data-theme='black-bolt'] .round-tracker__pip.active {
+  border-color: rgba(0, 207, 255, 0.38);
+  background: rgba(0, 207, 255, 0.06);
+}
+[data-theme='black-bolt'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: black-bolt-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — Inhuman tactical briefing */
+[data-theme='black-bolt'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 207, 255, 0.28);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.48);
+}
+[data-theme='black-bolt'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='black-bolt'] .mission-item {
+  background: rgba(2, 12, 32, 0.78);
+  backdrop-filter: blur(4px);
+}
+[data-theme='black-bolt'] .mission-item:hover {
+  background: rgba(0, 207, 255, 0.05);
+  border-color: rgba(0, 207, 255, 0.30);
+}
+[data-theme='black-bolt'] .mission-item--left.selected {
+  background: rgba(0, 207, 255, 0.12);
+  border-color: rgba(0, 207, 255, 0.65);
+  box-shadow: 0 0 10px rgba(0, 207, 255, 0.28);
+}
+[data-theme='black-bolt'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.12);
+  border-color: rgba(255, 42, 42, 0.65);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='black-bolt'] .leader-hex__name {
+  background: rgba(2, 12, 32, 0.90);
+  border-color: rgba(0, 207, 255, 0.28);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — Inhuman royal hex frame */
+[data-theme='black-bolt'] .leader-card {
+  background: rgba(2, 12, 32, 0.84);
+  border-color: rgba(0, 207, 255, 0.20);
+  backdrop-filter: blur(4px);
+}
+[data-theme='black-bolt'] .leader-card:hover {
+  border-color: rgba(0, 207, 255, 0.48);
+  box-shadow: 0 0 10px rgba(0, 207, 255, 0.16);
+}
+[data-theme='black-bolt'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='black-bolt'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='black-bolt'] .leaders-page__header,
+[data-theme='black-bolt'] .missions-page__header {
+  background: rgba(0, 6, 18, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(0, 207, 255, 0.22);
+}
+[data-theme='black-bolt'] .leaders-page__search {
+  background: rgba(2, 12, 32, 0.88);
+  border-color: rgba(0, 207, 255, 0.30);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='black-bolt'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='black-bolt'] .missions-page__body {
+  background: rgba(0, 6, 18, 0.72);
+}
+
+/* Assign buttons */
+[data-theme='black-bolt'] .leaders-page__assign-btn {
+  background: rgba(2, 12, 32, 0.88);
+  border-color: rgba(0, 207, 255, 0.28);
+  backdrop-filter: blur(4px);
+}
+[data-theme='black-bolt'] .leaders-page__assign-btn.active-left {
+  background: rgba(0, 207, 255, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='black-bolt'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='black-bolt'] .affil-btn {
+  background: rgba(2, 12, 32, 0.84);
+  border-color: rgba(0, 207, 255, 0.22);
+}
+[data-theme='black-bolt'] .affil-btn:hover { border-color: rgba(0, 207, 255, 0.40); }
+[data-theme='black-bolt'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(0, 207, 255, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='black-bolt'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 207, 255, 0.28);
+}
+[data-theme='black-bolt'] .settings-section__title {
+  color: #00cfff;
+  background: rgba(2, 12, 32, 0.95);
+  border-bottom-color: rgba(0, 207, 255, 0.20);
+}
+[data-theme='black-bolt'] .settings-preset-btn.active,
+[data-theme='black-bolt'] .settings-theme-btn.active,
+[data-theme='black-bolt'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(0, 207, 255, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='black-bolt'] .settings-slider {
+  background: rgba(0, 207, 255, 0.14);
+}
+[data-theme='black-bolt'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='black-bolt'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='black-bolt'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.80); }
+[data-theme='black-bolt'] .main-page__modal {
+  background: rgba(2, 12, 32, 0.97);
+  border-color: rgba(0, 207, 255, 0.52);
+  box-shadow: 0 0 30px rgba(0, 207, 255, 0.20), 0 0 50px rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='black-bolt'] .main-page__modal-title {
+  color: #00cfff;
+  text-shadow: 0 0 12px rgba(0, 207, 255, 0.72), 0 0 24px rgba(255, 255, 255, 0.22);
+}
+[data-theme='black-bolt'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — Inhuman quasiparticle energy surge */
+@keyframes black-bolt-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(232, 248, 255, 0.70), 0 0 16px rgba(0, 207, 255, 0.72), 0 0 30px rgba(0, 207, 255, 0.36); }
+  50%       { text-shadow: 0 0 10px rgba(232, 248, 255, 0.88), 0 0 26px rgba(0, 207, 255, 0.96), 0 0 48px rgba(0, 207, 255, 0.52), 0 0 4px #00cfff; }
+}
+@keyframes black-bolt-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(232, 248, 255, 0.70), 0 0 16px rgba(255, 255, 255, 0.80), 0 0 30px rgba(0, 207, 255, 0.28); }
+  50%       { text-shadow: 0 0 10px rgba(232, 248, 255, 0.96), 0 0 26px rgba(255, 255, 255, 0.96), 0 0 48px rgba(0, 207, 255, 0.40), 0 0 4px #ffffff; }
+}
+@keyframes black-bolt-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    GLOBAL — Fixed mission type identity colors
    SECURE is always blue (#3b82f6), EXTRACT is always red (#ff1744).
 
