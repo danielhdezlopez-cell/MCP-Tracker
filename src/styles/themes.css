@@ -22012,6 +22012,383 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   MAXIMUS THE MAD — Inhuman mad genius: cold silver, crimson menace, dark graphite
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='maximus-the-mad'] {
+  --color-bg: transparent;
+  --color-panel: rgba(10, 12, 18, 0.74);
+  --color-panel-alt: rgba(14, 16, 24, 0.82);
+  --color-border: rgba(232, 237, 245, 0.42);
+  --color-accent-left: #e8edf5;
+  --color-accent-right: #ff3b3b;
+  --color-glow-left: rgba(232, 237, 245, 0.40);
+  --color-glow-right: rgba(255, 59, 59, 0.50);
+  --color-text: #e8edf5;
+  --color-text-muted: #9aA8b8;
+  --color-warn: #ff9a3b;
+  --color-critical: #ff3b3b;
+  --color-success: #e8edf5;
+  --color-round-active: #e8edf5;
+  --color-round-inactive: rgba(232, 237, 245, 0.12);
+  --color-mission-secure: #e8edf5;
+  --color-glow-secure: rgba(232, 237, 245, 0.36);
+  --color-mission-extract: #ff3b3b;
+  --color-glow-extract: rgba(255, 59, 59, 0.44);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='maximus-the-mad'] body { background: transparent; }
+[data-theme='maximus-the-mad'] .layout { background: transparent; }
+
+/* Unstable lab-console scanline overlay */
+[data-theme='maximus-the-mad'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(232, 237, 245, 0.006) 3px,
+      rgba(232, 237, 245, 0.006) 4px
+    );
+}
+
+/* Video overlay — dark cold void with silver & crimson flicker */
+[data-theme='maximus-the-mad'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255, 59, 59, 0.10), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(232, 237, 245, 0.07), transparent 42%),
+    radial-gradient(circle at 50% 100%, rgba(6, 8, 12, 0.28), transparent 50%),
+    rgba(6, 8, 12, 0.52);
+}
+
+/* Panels — dark graphite with silver border */
+[data-theme='maximus-the-mad'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(232, 237, 245, 0.34);
+  box-shadow: 0 0 16px rgba(255, 59, 59, 0.06), inset 0 0 28px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+[data-theme='maximus-the-mad'] .panel::before {
+  background: linear-gradient(90deg, rgba(232, 237, 245, 0.06), transparent, rgba(255, 59, 59, 0.04));
+}
+[data-theme='maximus-the-mad'] .glow-left {
+  border-color: rgba(232, 237, 245, 0.40);
+  box-shadow: -2px 0 14px rgba(232, 237, 245, 0.14), 0 0 10px rgba(232, 237, 245, 0.08);
+}
+[data-theme='maximus-the-mad'] .glow-right {
+  border-color: rgba(255, 59, 59, 0.44);
+  box-shadow: 2px 0 14px rgba(255, 59, 59, 0.22), 0 0 10px rgba(255, 59, 59, 0.10);
+}
+
+/* Buttons — cold mastermind command */
+[data-theme='maximus-the-mad'] .btn-hud {
+  background: rgba(10, 12, 18, 0.80);
+  border-color: rgba(232, 237, 245, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='maximus-the-mad'] .btn-hud:hover {
+  border-color: rgba(232, 237, 245, 0.70);
+  box-shadow: 0 0 10px rgba(232, 237, 245, 0.22), 0 0 18px rgba(255, 59, 59, 0.14);
+  color: var(--color-text);
+}
+[data-theme='maximus-the-mad'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='maximus-the-mad'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='maximus-the-mad'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — sinister lab command */
+[data-theme='maximus-the-mad'] .side-nav {
+  background: rgba(6, 8, 12, 0.97);
+  border-right-color: rgba(232, 237, 245, 0.22);
+  backdrop-filter: blur(8px);
+}
+[data-theme='maximus-the-mad'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 59, 59, 0.45) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='maximus-the-mad'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(232, 237, 245, 0.60), 0 0 22px rgba(255, 59, 59, 0.28);
+}
+[data-theme='maximus-the-mad'] .side-nav__item:hover {
+  background: rgba(232, 237, 245, 0.04);
+  border-color: rgba(255, 59, 59, 0.24);
+}
+[data-theme='maximus-the-mad'] .side-nav__item.active {
+  background: rgba(255, 59, 59, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Score panels — cold analytical readout */
+[data-theme='maximus-the-mad'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='maximus-the-mad'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #181c26, #e8edf5);
+  box-shadow: 0 0 8px rgba(232, 237, 245, 0.50);
+}
+[data-theme='maximus-the-mad'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #200808, #ff3b3b);
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.60);
+}
+[data-theme='maximus-the-mad'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(232, 237, 245, 0.70), 0 0 16px rgba(232, 237, 245, 0.50), 0 0 30px rgba(255, 59, 59, 0.20);
+  animation: maximus-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='maximus-the-mad'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(232, 237, 245, 0.70), 0 0 16px rgba(255, 59, 59, 0.70), 0 0 30px rgba(255, 59, 59, 0.36);
+  animation: maximus-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='maximus-the-mad'] .score-panel__btn {
+  background: rgba(10, 12, 18, 0.90);
+  border-color: rgba(232, 237, 245, 0.22);
+}
+[data-theme='maximus-the-mad'] .score-panel__btn:hover {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Timer panel — lab-console countdown */
+[data-theme='maximus-the-mad'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(232, 237, 245, 0.32);
+}
+[data-theme='maximus-the-mad'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(232, 237, 245, 0.08), rgba(255, 59, 59, 0.04), transparent);
+}
+[data-theme='maximus-the-mad'] .timer-panel__display {
+  color: #e8edf5;
+  text-shadow: 0 0 10px rgba(232, 237, 245, 0.55), 0 0 4px rgba(255, 59, 59, 0.20);
+}
+[data-theme='maximus-the-mad'] .timer-panel--critical {
+  border-color: rgba(255, 59, 59, 0.90) !important;
+  box-shadow: 0 0 20px rgba(255, 59, 59, 0.50), 0 0 40px rgba(255, 59, 59, 0.20) !important;
+}
+[data-theme='maximus-the-mad'] .timer-panel__display.critical {
+  color: #ff3b3b;
+  text-shadow: 0 0 12px rgba(255, 59, 59, 0.90);
+}
+[data-theme='maximus-the-mad'] .timer-panel__btn {
+  background: rgba(10, 12, 18, 0.90);
+  border-color: rgba(232, 237, 245, 0.20);
+  color: #9aA8b8;
+}
+[data-theme='maximus-the-mad'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.40);
+}
+
+/* Round tracker — unstable sequence nodes */
+[data-theme='maximus-the-mad'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(232, 237, 245, 0.24);
+}
+[data-theme='maximus-the-mad'] .round-tracker__pip {
+  border-color: rgba(232, 237, 245, 0.16);
+  background: rgba(10, 12, 18, 0.58);
+}
+[data-theme='maximus-the-mad'] .round-tracker__pip.active {
+  border-color: rgba(255, 59, 59, 0.30);
+  background: rgba(255, 59, 59, 0.05);
+}
+[data-theme='maximus-the-mad'] .round-tracker__pip.current {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right), 0 0 4px var(--color-accent-right);
+  animation: maximus-pulse-right 2s ease-in-out infinite;
+}
+
+/* Mission slots — cold precise briefing */
+[data-theme='maximus-the-mad'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(232, 237, 245, 0.22);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.50);
+}
+[data-theme='maximus-the-mad'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='maximus-the-mad'] .mission-item {
+  background: rgba(10, 12, 18, 0.76);
+  backdrop-filter: blur(4px);
+}
+[data-theme='maximus-the-mad'] .mission-item:hover {
+  background: rgba(232, 237, 245, 0.04);
+  border-color: rgba(232, 237, 245, 0.26);
+}
+[data-theme='maximus-the-mad'] .mission-item--left.selected {
+  background: rgba(232, 237, 245, 0.07);
+  border-color: rgba(232, 237, 245, 0.55);
+  box-shadow: 0 0 10px rgba(232, 237, 245, 0.20);
+}
+[data-theme='maximus-the-mad'] .mission-item--right.selected {
+  background: rgba(255, 59, 59, 0.10);
+  border-color: rgba(255, 59, 59, 0.60);
+  box-shadow: 0 0 10px rgba(255, 59, 59, 0.26);
+}
+
+/* Leader hex (main screen) */
+[data-theme='maximus-the-mad'] .leader-hex__name {
+  background: rgba(10, 12, 18, 0.90);
+  border-color: rgba(232, 237, 245, 0.22);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — cold experiment frame */
+[data-theme='maximus-the-mad'] .leader-card {
+  background: rgba(10, 12, 18, 0.82);
+  border-color: rgba(232, 237, 245, 0.16);
+  backdrop-filter: blur(4px);
+}
+[data-theme='maximus-the-mad'] .leader-card:hover {
+  border-color: rgba(255, 59, 59, 0.40);
+  box-shadow: 0 0 10px rgba(255, 59, 59, 0.12);
+}
+[data-theme='maximus-the-mad'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='maximus-the-mad'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='maximus-the-mad'] .leaders-page__header,
+[data-theme='maximus-the-mad'] .missions-page__header {
+  background: rgba(6, 8, 12, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(232, 237, 245, 0.18);
+}
+[data-theme='maximus-the-mad'] .leaders-page__search {
+  background: rgba(10, 12, 18, 0.88);
+  border-color: rgba(232, 237, 245, 0.24);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='maximus-the-mad'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='maximus-the-mad'] .missions-page__body {
+  background: rgba(6, 8, 12, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='maximus-the-mad'] .leaders-page__assign-btn {
+  background: rgba(10, 12, 18, 0.86);
+  border-color: rgba(232, 237, 245, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='maximus-the-mad'] .leaders-page__assign-btn.active-left {
+  background: rgba(232, 237, 245, 0.07);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='maximus-the-mad'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 59, 59, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='maximus-the-mad'] .affil-btn {
+  background: rgba(10, 12, 18, 0.82);
+  border-color: rgba(232, 237, 245, 0.16);
+}
+[data-theme='maximus-the-mad'] .affil-btn:hover { border-color: rgba(255, 59, 59, 0.34); }
+[data-theme='maximus-the-mad'] .affil-btn.active {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(255, 59, 59, 0.07);
+  box-shadow: 0 0 6px var(--color-glow-right);
+}
+
+/* Settings */
+[data-theme='maximus-the-mad'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(232, 237, 245, 0.22);
+}
+[data-theme='maximus-the-mad'] .settings-section__title {
+  color: #e8edf5;
+  background: rgba(10, 12, 18, 0.95);
+  border-bottom-color: rgba(232, 237, 245, 0.14);
+}
+[data-theme='maximus-the-mad'] .settings-preset-btn.active,
+[data-theme='maximus-the-mad'] .settings-theme-btn.active,
+[data-theme='maximus-the-mad'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+  background: rgba(255, 59, 59, 0.07);
+  color: var(--color-accent-right);
+}
+[data-theme='maximus-the-mad'] .settings-slider {
+  background: rgba(232, 237, 245, 0.12);
+}
+[data-theme='maximus-the-mad'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+[data-theme='maximus-the-mad'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Reset modal */
+[data-theme='maximus-the-mad'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='maximus-the-mad'] .main-page__modal {
+  background: rgba(10, 12, 18, 0.97);
+  border-color: rgba(255, 59, 59, 0.48);
+  box-shadow: 0 0 30px rgba(255, 59, 59, 0.16), 0 0 50px rgba(232, 237, 245, 0.04);
+  backdrop-filter: blur(12px);
+}
+[data-theme='maximus-the-mad'] .main-page__modal-title {
+  color: #e8edf5;
+  text-shadow: 0 0 12px rgba(232, 237, 245, 0.55), 0 0 24px rgba(255, 59, 59, 0.24);
+}
+[data-theme='maximus-the-mad'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — unstable genius fluctuation */
+@keyframes maximus-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(232, 237, 245, 0.65), 0 0 14px rgba(232, 237, 245, 0.45), 0 0 28px rgba(255, 59, 59, 0.16); }
+  50%       { text-shadow: 0 0 10px rgba(232, 237, 245, 0.85), 0 0 22px rgba(232, 237, 245, 0.68), 0 0 40px rgba(255, 59, 59, 0.28), 0 0 4px #e8edf5; }
+}
+@keyframes maximus-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(232, 237, 245, 0.65), 0 0 14px rgba(255, 59, 59, 0.65), 0 0 28px rgba(255, 59, 59, 0.30); }
+  50%       { text-shadow: 0 0 10px rgba(232, 237, 245, 0.85), 0 0 22px rgba(255, 59, 59, 0.90), 0 0 40px rgba(255, 59, 59, 0.50), 0 0 4px #ff3b3b; }
+}
+@keyframes maximus-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 59, 59, 0.85), 0 0 20px rgba(255, 59, 59, 0.50); }
+  50%       { text-shadow: 0 0 14px rgba(255, 59, 59, 0.98), 0 0 32px rgba(255, 59, 59, 0.70), 0 0 6px #ff3b3b; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    MEDUSA — Inhuman queen: regal violet, copper rose-gold, dark throne-room
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='medusa'] {

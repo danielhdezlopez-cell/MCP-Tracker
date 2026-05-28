@@ -88,6 +88,9 @@
 .anim-theme-bg--mystique.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020304 0%, #07162a 40%, #0a1e30 70%, #020304 100%);
 }
+.anim-theme-bg--maximus-the-mad.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #06080c 0%, #0e1018 40%, #1a0608 70%, #06080c 100%);
+}
 .anim-theme-bg--medusa.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #140618 0%, #280830 40%, #3a0a44 70%, #140618 100%);
 }
