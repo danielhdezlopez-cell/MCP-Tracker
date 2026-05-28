@@ -10,6 +10,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'baron-strucker',   label: 'Baron Strucker',  desc: 'Dark science paramilitary command — tactical green, carbon black & steel grey HUD' },
   { value: 'baron-zemo',       label: 'Baron Zemo',      desc: 'Aristocratic villain command — imperial purple, aged gold & dark tactical HUD' },
   { value: 'blade',            label: 'Blade',           desc: 'Techno-gothic vampire hunter — carbon black, blood red & cold silver HUD' },
+  { value: 'black-bolt',       label: 'Black Bolt',      desc: 'Inhuman silent king — electric cyan energy, royal blue & white-glow cosmic HUD' },
   { value: 'black-panther',    label: 'Black Panther',   desc: 'Wakandan vibranium tech — purple energy, cyan & royal gold HUD' },
   { value: 'cable',            label: 'Cable',           desc: 'Future soldier tactical HUD — blue & orange'    },
   { value: 'captain-america', label: 'Captain America', desc: 'Shield tactical command — blue, red & star white' },
