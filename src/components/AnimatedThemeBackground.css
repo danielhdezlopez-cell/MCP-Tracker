@@ -58,6 +58,9 @@
 .anim-theme-bg--dracula.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #030305 0%, #0b0709 40%, #1a0408 70%, #030305 100%);
 }
+.anim-theme-bg--elsa-bloodstone.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #05090e 0%, #0a1014 40%, #1a0a04 70%, #05090e 100%);
+}
 .anim-theme-bg--green-goblin.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020408 0%, #0a1c0e 40%, #1a1008 70%, #020408 100%);
 }
@@ -229,4 +232,8 @@
 }
 .anim-theme-bg--the-leader video {
   object-position: center 20%;
+}
+.anim-theme-bg--elsa-bloodstone video {
+  object-fit: cover;
+  object-position: center center;
 }
