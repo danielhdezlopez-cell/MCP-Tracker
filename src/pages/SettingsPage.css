@@ -756,6 +756,34 @@
   background-size: 10px 10px, 14px 14px, 14px 14px;
 }
 
+[data-theme-preview='elsa-bloodstone'] .settings-theme-btn__swatch {
+  background: linear-gradient(135deg, #05090e 0%, #0a1014 40%, #1a0c06 70%, #ff6a1a22 100%);
+  border: 1px solid rgba(255, 106, 26, 0.60);
+  box-shadow: 0 0 8px rgba(255, 106, 26, 0.36), inset 0 0 6px rgba(158, 220, 255, 0.10);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme-preview='elsa-bloodstone'] .settings-theme-btn__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      110deg,
+      transparent,
+      transparent 18px,
+      rgba(255, 106, 26, 0.07) 18px,
+      rgba(255, 106, 26, 0.07) 19px
+    ),
+    repeating-linear-gradient(
+      20deg,
+      transparent,
+      transparent 22px,
+      rgba(158, 220, 255, 0.05) 22px,
+      rgba(158, 220, 255, 0.05) 23px
+    );
+}
+
 /* Video background sub-section */
 .settings-themes-sub-title {
   font-family: var(--font-display);
