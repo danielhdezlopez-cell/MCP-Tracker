@@ -88,6 +88,9 @@
 .anim-theme-bg--mystique.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020304 0%, #07162a 40%, #0a1e30 70%, #020304 100%);
 }
+.anim-theme-bg--medusa.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #140618 0%, #280830 40%, #3a0a44 70%, #140618 100%);
+}
 .anim-theme-bg--mephisto.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020202 0%, #080404 40%, #200508 70%, #020202 100%);
 }
