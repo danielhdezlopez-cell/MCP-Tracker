@@ -34,6 +34,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'loki',         label: 'Loki',            desc: 'God of Mischief — arcane green magic, asgardian gold & shadow purple HUD' },
   { value: 'magik',       label: 'Magik',          desc: 'Limbo sorcerer — Soulsword yellow & void purple'  },
   { value: 'magneto',     label: 'Magneto',        desc: 'Magnetic supremacy — purple field & armour red'   },
+  { value: 'medusa',      label: 'Medusa',         desc: 'Inhuman queen — regal violet, copper rose-gold & dark throne-room HUD' },
   { value: 'mephisto',    label: 'Mephisto',      desc: 'Infernal demon lord — fire red & ember amber'     },
   { value: 'midnight-sons', label: 'Midnight Sons', desc: 'Occultist hunters — spectral cyan & blood fire'  },
   { value: 'miles-morales', label: 'Miles Morales', desc: 'Urban electric superhero comic-tech HUD'        },

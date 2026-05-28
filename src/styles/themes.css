@@ -22012,6 +22012,390 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   MEDUSA — Inhuman queen: regal violet, copper rose-gold, dark throne-room
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='medusa'] {
+  --color-bg: transparent;
+  --color-panel: rgba(24, 8, 30, 0.72);
+  --color-panel-alt: rgba(30, 10, 38, 0.80);
+  --color-border: rgba(196, 92, 255, 0.55);
+  --color-accent-left: #c45cff;
+  --color-accent-right: #ff9acb;
+  --color-glow-left: rgba(196, 92, 255, 0.55);
+  --color-glow-right: rgba(255, 154, 203, 0.50);
+  --color-text: #f5eeff;
+  --color-text-muted: #d4b8e8;
+  --color-warn: #d4955a;
+  --color-critical: #ff2a2a;
+  --color-success: #f5eeff;
+  --color-round-active: #c45cff;
+  --color-round-inactive: rgba(196, 92, 255, 0.13);
+  --color-mission-secure: #c45cff;
+  --color-glow-secure: rgba(196, 92, 255, 0.42);
+  --color-mission-extract: #ff2a2a;
+  --color-glow-extract: rgba(255, 42, 42, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='medusa'] body { background: transparent; }
+[data-theme='medusa'] .layout { background: transparent; }
+
+/* Inhuman trichoid-hair weave overlay */
+[data-theme='medusa'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      70deg,
+      transparent,
+      transparent 47px,
+      rgba(196, 92, 255, 0.008) 47px,
+      rgba(196, 92, 255, 0.008) 48px
+    ),
+    repeating-linear-gradient(
+      160deg,
+      transparent,
+      transparent 63px,
+      rgba(255, 154, 203, 0.006) 63px,
+      rgba(255, 154, 203, 0.006) 64px
+    );
+}
+
+/* Video overlay — dark throne-room with violet & rose-copper energy */
+[data-theme='medusa'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 20%, rgba(196, 92, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 75% 75%, rgba(180, 106, 76, 0.10), transparent 40%),
+    radial-gradient(circle at 50% 95%, rgba(20, 6, 24, 0.30), transparent 50%),
+    rgba(20, 6, 24, 0.48);
+}
+
+/* Panels — dark amethyst throne with violet border */
+[data-theme='medusa'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(196, 92, 255, 0.48);
+  box-shadow: 0 0 18px rgba(196, 92, 255, 0.08), inset 0 0 28px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+[data-theme='medusa'] .panel::before {
+  background: linear-gradient(90deg, rgba(196, 92, 255, 0.09), transparent, rgba(255, 154, 203, 0.05));
+}
+[data-theme='medusa'] .glow-left {
+  border-color: rgba(196, 92, 255, 0.56);
+  box-shadow: -2px 0 14px rgba(196, 92, 255, 0.30), 0 0 10px rgba(196, 92, 255, 0.12);
+}
+[data-theme='medusa'] .glow-right {
+  border-color: rgba(255, 154, 203, 0.46);
+  box-shadow: 2px 0 14px rgba(255, 154, 203, 0.22), 0 0 10px rgba(196, 92, 255, 0.10);
+}
+
+/* Buttons — Inhuman royal command */
+[data-theme='medusa'] .btn-hud {
+  background: rgba(24, 8, 30, 0.80);
+  border-color: rgba(196, 92, 255, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='medusa'] .btn-hud:hover {
+  border-color: rgba(196, 92, 255, 0.80);
+  box-shadow: 0 0 10px rgba(196, 92, 255, 0.36), 0 0 18px rgba(255, 154, 203, 0.18);
+  color: var(--color-text);
+}
+[data-theme='medusa'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='medusa'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='medusa'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — Attilan throne-room command */
+[data-theme='medusa'] .side-nav {
+  background: rgba(12, 4, 16, 0.97);
+  border-right-color: rgba(196, 92, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+[data-theme='medusa'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(196, 92, 255, 0.48) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='medusa'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(196, 92, 255, 0.75), 0 0 22px rgba(255, 154, 203, 0.30);
+}
+[data-theme='medusa'] .side-nav__item:hover {
+  background: rgba(196, 92, 255, 0.06);
+  border-color: rgba(255, 154, 203, 0.26);
+}
+[data-theme='medusa'] .side-nav__item.active {
+  background: rgba(196, 92, 255, 0.09);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — living hair energy readout */
+[data-theme='medusa'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='medusa'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #200830, #c45cff);
+  box-shadow: 0 0 8px rgba(196, 92, 255, 0.68);
+}
+[data-theme='medusa'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #2a1020, #ff9acb);
+  box-shadow: 0 0 8px rgba(255, 154, 203, 0.58);
+}
+[data-theme='medusa'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(245, 238, 255, 0.70), 0 0 16px rgba(196, 92, 255, 0.68), 0 0 32px rgba(196, 92, 255, 0.32);
+  animation: medusa-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='medusa'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(245, 238, 255, 0.70), 0 0 16px rgba(255, 154, 203, 0.68), 0 0 32px rgba(196, 92, 255, 0.26);
+  animation: medusa-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='medusa'] .score-panel__btn {
+  background: rgba(24, 8, 30, 0.90);
+  border-color: rgba(196, 92, 255, 0.28);
+}
+[data-theme='medusa'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — royal resonance countdown */
+[data-theme='medusa'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(196, 92, 255, 0.44);
+}
+[data-theme='medusa'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(196, 92, 255, 0.11), rgba(255, 154, 203, 0.05), transparent);
+}
+[data-theme='medusa'] .timer-panel__display {
+  color: #f5eeff;
+  text-shadow: 0 0 12px rgba(196, 92, 255, 0.65), 0 0 5px rgba(255, 154, 203, 0.28);
+}
+[data-theme='medusa'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='medusa'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='medusa'] .timer-panel__btn {
+  background: rgba(24, 8, 30, 0.90);
+  border-color: rgba(196, 92, 255, 0.26);
+  color: #d4b8e8;
+}
+[data-theme='medusa'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(196, 92, 255, 0.46);
+}
+
+/* Round tracker — Inhuman royal court nodes */
+[data-theme='medusa'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(196, 92, 255, 0.28);
+}
+[data-theme='medusa'] .round-tracker__pip {
+  border-color: rgba(196, 92, 255, 0.18);
+  background: rgba(24, 8, 30, 0.58);
+}
+[data-theme='medusa'] .round-tracker__pip.active {
+  border-color: rgba(255, 154, 203, 0.34);
+  background: rgba(196, 92, 255, 0.06);
+}
+[data-theme='medusa'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: medusa-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — Inhuman tactical briefing */
+[data-theme='medusa'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(196, 92, 255, 0.26);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.48);
+}
+[data-theme='medusa'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='medusa'] .mission-item {
+  background: rgba(24, 8, 30, 0.76);
+  backdrop-filter: blur(4px);
+}
+[data-theme='medusa'] .mission-item:hover {
+  background: rgba(196, 92, 255, 0.05);
+  border-color: rgba(196, 92, 255, 0.28);
+}
+[data-theme='medusa'] .mission-item--left.selected {
+  background: rgba(196, 92, 255, 0.11);
+  border-color: rgba(196, 92, 255, 0.62);
+  box-shadow: 0 0 10px rgba(196, 92, 255, 0.26);
+}
+[data-theme='medusa'] .mission-item--right.selected {
+  background: rgba(255, 42, 42, 0.11);
+  border-color: rgba(255, 42, 42, 0.62);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.24);
+}
+
+/* Leader hex (main screen) */
+[data-theme='medusa'] .leader-hex__name {
+  background: rgba(24, 8, 30, 0.90);
+  border-color: rgba(196, 92, 255, 0.26);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — Attilan regal frame */
+[data-theme='medusa'] .leader-card {
+  background: rgba(24, 8, 30, 0.82);
+  border-color: rgba(196, 92, 255, 0.18);
+  backdrop-filter: blur(4px);
+}
+[data-theme='medusa'] .leader-card:hover {
+  border-color: rgba(255, 154, 203, 0.42);
+  box-shadow: 0 0 10px rgba(196, 92, 255, 0.14);
+}
+[data-theme='medusa'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='medusa'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='medusa'] .leaders-page__header,
+[data-theme='medusa'] .missions-page__header {
+  background: rgba(12, 4, 16, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(196, 92, 255, 0.20);
+}
+[data-theme='medusa'] .leaders-page__search {
+  background: rgba(24, 8, 30, 0.88);
+  border-color: rgba(196, 92, 255, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='medusa'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='medusa'] .missions-page__body {
+  background: rgba(12, 4, 16, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='medusa'] .leaders-page__assign-btn {
+  background: rgba(24, 8, 30, 0.86);
+  border-color: rgba(196, 92, 255, 0.26);
+  backdrop-filter: blur(4px);
+}
+[data-theme='medusa'] .leaders-page__assign-btn.active-left {
+  background: rgba(196, 92, 255, 0.09);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='medusa'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 154, 203, 0.09);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='medusa'] .affil-btn {
+  background: rgba(24, 8, 30, 0.82);
+  border-color: rgba(196, 92, 255, 0.20);
+}
+[data-theme='medusa'] .affil-btn:hover { border-color: rgba(255, 154, 203, 0.36); }
+[data-theme='medusa'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(196, 92, 255, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='medusa'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(196, 92, 255, 0.26);
+}
+[data-theme='medusa'] .settings-section__title {
+  color: #c45cff;
+  background: rgba(24, 8, 30, 0.95);
+  border-bottom-color: rgba(196, 92, 255, 0.18);
+}
+[data-theme='medusa'] .settings-preset-btn.active,
+[data-theme='medusa'] .settings-theme-btn.active,
+[data-theme='medusa'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(196, 92, 255, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='medusa'] .settings-slider {
+  background: rgba(196, 92, 255, 0.13);
+}
+[data-theme='medusa'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='medusa'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='medusa'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.80); }
+[data-theme='medusa'] .main-page__modal {
+  background: rgba(24, 8, 30, 0.97);
+  border-color: rgba(196, 92, 255, 0.50);
+  box-shadow: 0 0 30px rgba(196, 92, 255, 0.18), 0 0 50px rgba(255, 154, 203, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='medusa'] .main-page__modal-title {
+  color: #c45cff;
+  text-shadow: 0 0 12px rgba(196, 92, 255, 0.68), 0 0 24px rgba(255, 154, 203, 0.20);
+}
+[data-theme='medusa'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — living hair resonance */
+@keyframes medusa-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(245, 238, 255, 0.68), 0 0 16px rgba(196, 92, 255, 0.68), 0 0 30px rgba(196, 92, 255, 0.30); }
+  50%       { text-shadow: 0 0 10px rgba(245, 238, 255, 0.86), 0 0 26px rgba(196, 92, 255, 0.90), 0 0 46px rgba(196, 92, 255, 0.46), 0 0 4px #c45cff; }
+}
+@keyframes medusa-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(245, 238, 255, 0.68), 0 0 16px rgba(255, 154, 203, 0.70), 0 0 30px rgba(196, 92, 255, 0.24); }
+  50%       { text-shadow: 0 0 10px rgba(245, 238, 255, 0.86), 0 0 26px rgba(255, 154, 203, 0.90), 0 0 46px rgba(196, 92, 255, 0.36), 0 0 4px #ff9acb; }
+}
+@keyframes medusa-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    GLOBAL — Fixed mission type identity colors
    SECURE is always blue (#3b82f6), EXTRACT is always red (#ff1744).
 
