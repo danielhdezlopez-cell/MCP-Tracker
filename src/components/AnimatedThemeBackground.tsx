@@ -52,7 +52,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   'she-hulk':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SheHulk.mp4`,   modifier: 'anim-theme-bg--she-hulk', smoothLoop: true },
   storm:        { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Storm.mp4`,      modifier: 'anim-theme-bg--storm', smoothLoop: true },
   'miles-morales': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_MilesMorales.mp4`, modifier: 'anim-theme-bg--miles-morales' },
-  thanos:          { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thanos.mp4`,        modifier: 'anim-theme-bg--thanos'        },
+  thanos:          { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thanos.mp4`,        modifier: 'anim-theme-bg--thanos', smoothLoop: true },
   thor:            { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Thor.mp4`,          modifier: 'anim-theme-bg--thor'          },
   onslaught:       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Onslaught.mp4`,   modifier: 'anim-theme-bg--onslaught', smoothLoop: true  },
   'professor-x':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_ProfessorX2.mp4`, modifier: 'anim-theme-bg--professor-x', smoothLoop: true },
