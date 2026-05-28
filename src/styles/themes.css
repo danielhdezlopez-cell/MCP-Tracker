@@ -11814,6 +11814,330 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   BASTION — Anti-mutant techno-lab surveillance control interface.
+   Corrupted cybernetic HUD: hot magenta energy, cold steel, black
+   graphite, muted purple. Clinical, hostile, obsessive, dangerous.
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='bastion'] {
+  --color-bg: transparent;
+  --color-panel: rgba(12, 10, 18, 0.76);
+  --color-panel-alt: rgba(8, 6, 14, 0.86);
+  --color-border: rgba(255, 79, 216, 0.55);
+  --color-accent-left: #ff4fd8;
+  --color-accent-right: #8d5cff;
+  --color-glow-left: rgba(255, 79, 216, 0.50);
+  --color-glow-right: rgba(141, 92, 255, 0.40);
+  --color-text: #cfd6e6;
+  --color-text-muted: #7a7a9a;
+  --color-warn: #ffb800;
+  --color-critical: #ff2a2a;
+  --color-success: #ff4fd8;
+  --color-round-active: #ff4fd8;
+  --color-round-inactive: rgba(255, 79, 216, 0.15);
+  --color-mission-secure: #1a8fff;
+  --color-glow-secure: rgba(26, 143, 255, 0.40);
+  --color-mission-extract: #ff2f2f;
+  --color-glow-extract: rgba(255, 47, 47, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 4px;
+}
+
+[data-theme='bastion'] body { background: #08060e; }
+[data-theme='bastion'] .layout { background: transparent; }
+
+/* Subtle scanline overlay via ::before pseudo-element */
+[data-theme='bastion'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(255, 79, 216, 0.018) 3px,
+    rgba(255, 79, 216, 0.018) 4px
+  );
+}
+
+/* Panels — dark translucent with magenta border glow */
+[data-theme='bastion'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 79, 216, 0.40);
+  box-shadow: 0 0 14px rgba(255, 79, 216, 0.10), inset 0 0 20px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+}
+[data-theme='bastion'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 79, 216, 0.12), transparent, rgba(141, 92, 255, 0.07));
+}
+[data-theme='bastion'] .glow-left {
+  border-color: rgba(255, 79, 216, 0.50);
+  box-shadow: -2px 0 14px rgba(255, 79, 216, 0.28), 0 0 10px rgba(255, 79, 216, 0.10);
+}
+[data-theme='bastion'] .glow-right {
+  border-color: rgba(141, 92, 255, 0.50);
+  box-shadow: 2px 0 14px rgba(141, 92, 255, 0.28), 0 0 10px rgba(141, 92, 255, 0.10);
+}
+
+/* Buttons */
+[data-theme='bastion'] .btn-hud {
+  background: rgba(12, 10, 18, 0.85);
+  border-color: rgba(255, 79, 216, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='bastion'] .btn-hud:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  color: var(--color-accent-left);
+}
+[data-theme='bastion'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='bastion'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='bastion'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav */
+[data-theme='bastion'] .side-nav {
+  background: rgba(6, 4, 12, 0.93);
+  border-right-color: rgba(255, 79, 216, 0.30);
+  backdrop-filter: blur(8px);
+}
+[data-theme='bastion'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 79, 216, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='bastion'] .side-nav__logo-text {
+  text-shadow: 0 0 10px var(--color-accent-left), 0 0 22px var(--color-glow-left);
+}
+[data-theme='bastion'] .side-nav__item:hover {
+  background: rgba(255, 79, 216, 0.07);
+  border-color: rgba(255, 79, 216, 0.38);
+}
+[data-theme='bastion'] .side-nav__item.active {
+  background: rgba(255, 79, 216, 0.10);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panel — dark cybernetic HUD module */
+[data-theme='bastion'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='bastion'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #ff4fd8, #c740b0);
+  box-shadow: 0 0 6px rgba(255, 79, 216, 0.70);
+}
+[data-theme='bastion'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #8d5cff, #6a3fcc);
+  box-shadow: 0 0 6px rgba(141, 92, 255, 0.70);
+}
+[data-theme='bastion'] .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-left), 0 0 8px var(--color-accent-left);
+}
+[data-theme='bastion'] .glow-right .score-panel__value {
+  text-shadow: 0 0 16px var(--color-glow-right), 0 0 8px var(--color-accent-right);
+}
+[data-theme='bastion'] .score-panel__btn {
+  background: rgba(12, 10, 18, 0.90);
+  border-color: rgba(255, 79, 216, 0.32);
+}
+[data-theme='bastion'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — surveillance / machine-control interface */
+[data-theme='bastion'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 79, 216, 0.40);
+}
+[data-theme='bastion'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 79, 216, 0.18), transparent, rgba(141, 92, 255, 0.08));
+}
+[data-theme='bastion'] .timer-panel__display {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-glow-left);
+}
+[data-theme='bastion'] .timer-panel--critical {
+  border-color: rgba(255, 79, 216, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 79, 216, 0.40), 0 0 40px rgba(255, 79, 216, 0.20) !important;
+}
+[data-theme='bastion'] .timer-panel__display.critical {
+  color: var(--color-warn);
+  text-shadow: 0 0 12px rgba(255, 184, 0, 0.80);
+}
+[data-theme='bastion'] .timer-panel__btn {
+  background: rgba(12, 10, 18, 0.90);
+  border-color: rgba(255, 79, 216, 0.32);
+  color: var(--color-accent-left);
+}
+[data-theme='bastion'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Round tracker — machine-control surveillance interface */
+[data-theme='bastion'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 79, 216, 0.32);
+}
+[data-theme='bastion'] .round-tracker__pip {
+  border-color: rgba(255, 79, 216, 0.25);
+  background: rgba(12, 10, 18, 0.60);
+}
+[data-theme='bastion'] .round-tracker__pip.active {
+  border-color: rgba(255, 79, 216, 0.55);
+  background: rgba(255, 79, 216, 0.10);
+}
+[data-theme='bastion'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+}
+
+/* Mission slot — clean, readable, not noisy */
+[data-theme='bastion'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='bastion'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list */
+[data-theme='bastion'] .mission-item {
+  background: rgba(12, 10, 18, 0.75);
+  backdrop-filter: blur(4px);
+}
+[data-theme='bastion'] .mission-item:hover {
+  background: rgba(255, 79, 216, 0.05);
+  border-color: rgba(255, 79, 216, 0.45);
+}
+[data-theme='bastion'] .mission-item--left.selected {
+  background: rgba(26, 143, 255, 0.18);
+  border-color: rgba(26, 143, 255, 0.70);
+  box-shadow: 0 0 10px rgba(26, 143, 255, 0.28);
+}
+[data-theme='bastion'] .mission-item--right.selected {
+  background: rgba(255, 47, 47, 0.18);
+  border-color: rgba(255, 47, 47, 0.70);
+  box-shadow: 0 0 10px rgba(255, 47, 47, 0.28);
+}
+
+/* Leader hex */
+[data-theme='bastion'] .leader-hex__name {
+  background: rgba(12, 10, 18, 0.85);
+  border-color: rgba(255, 79, 216, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader card */
+[data-theme='bastion'] .leader-card {
+  background: rgba(12, 10, 18, 0.80);
+  backdrop-filter: blur(4px);
+}
+[data-theme='bastion'] .leader-card:hover {
+  border-color: rgba(255, 79, 216, 0.52);
+  box-shadow: 0 0 10px rgba(255, 79, 216, 0.18);
+}
+[data-theme='bastion'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='bastion'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='bastion'] .leaders-page__header,
+[data-theme='bastion'] .missions-page__header {
+  background: rgba(6, 4, 12, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 79, 216, 0.28);
+}
+[data-theme='bastion'] .leaders-page__search {
+  background: rgba(12, 10, 18, 0.85);
+  border-color: rgba(255, 79, 216, 0.32);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='bastion'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='bastion'] .missions-page__body {
+  background: rgba(6, 4, 12, 0.70);
+}
+
+/* Settings */
+[data-theme='bastion'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 79, 216, 0.28);
+}
+[data-theme='bastion'] .settings-section__title {
+  color: var(--color-accent-left);
+  background: rgba(12, 10, 18, 0.90);
+  border-bottom-color: rgba(255, 79, 216, 0.22);
+}
+[data-theme='bastion'] .settings-preset-btn.active,
+[data-theme='bastion'] .settings-theme-btn.active,
+[data-theme='bastion'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 79, 216, 0.07);
+  color: var(--color-accent-left);
+}
+[data-theme='bastion'] .settings-slider {
+  background: rgba(255, 79, 216, 0.14);
+}
+[data-theme='bastion'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='bastion'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='bastion'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.68); }
+[data-theme='bastion'] .main-page__modal {
+  background: rgba(12, 10, 18, 0.96);
+  border-color: rgba(255, 79, 216, 0.52);
+  box-shadow: 0 0 30px rgba(255, 79, 216, 0.18);
+  backdrop-filter: blur(12px);
+}
+[data-theme='bastion'] .main-page__modal-title {
+  color: var(--color-accent-left);
+  text-shadow: 0 0 10px var(--color-glow-left);
+}
+
+/* Video overlay — dark with magenta and purple radial glows */
+[data-theme='bastion'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 30%, rgba(255, 79, 216, 0.14), transparent 38%),
+    radial-gradient(circle at 85% 65%, rgba(141, 92, 255, 0.10), transparent 35%),
+    rgba(8, 6, 14, 0.52);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BLADE — Techno-gothic vampire hunter — carbon black, blood red & cold silver
    ═══════════════════════════════════════════════════════════════ */
 [data-theme='blade'] {

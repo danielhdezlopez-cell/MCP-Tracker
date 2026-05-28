@@ -69,6 +69,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   sentinels:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Sentinels.mp4`,  modifier: 'anim-theme-bg--sentinels'  },
   'baron-strucker':       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_BaronStrucker.mp4`,      modifier: 'anim-theme-bg--baron-strucker', smoothLoop: true },
   'baron-zemo':           { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_BaronZemo.mp4`,           modifier: 'anim-theme-bg--baron-zemo', smoothLoop: true },
+  'bastion':              { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Bastion.mp4`,             modifier: 'anim-theme-bg--bastion' },
   'blade':                { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Blade.mp4`,               modifier: 'anim-theme-bg--blade', smoothLoop: true },
   'nick-fury':            { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_NickFury.mp4`,            modifier: 'anim-theme-bg--nick-fury', smoothLoop: true },
   'shadowland-daredevil': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_ShadowlandDaredevil.mp4`, modifier: 'anim-theme-bg--shadowland-daredevil', smoothLoop: true },

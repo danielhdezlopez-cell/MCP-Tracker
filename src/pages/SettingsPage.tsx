@@ -9,6 +9,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'asgard',           label: 'Asgard',          desc: 'Mythic celestial command interface'              },
   { value: 'baron-strucker',   label: 'Baron Strucker',  desc: 'Dark science paramilitary command — tactical green, carbon black & steel grey HUD' },
   { value: 'baron-zemo',       label: 'Baron Zemo',      desc: 'Aristocratic villain command — imperial purple, aged gold & dark tactical HUD' },
+  { value: 'bastion',          label: 'Bastion',         desc: 'Anti-mutant techno-lab surveillance — hot magenta, cold steel & corrupted control HUD' },
   { value: 'blade',            label: 'Blade',           desc: 'Techno-gothic vampire hunter — carbon black, blood red & cold silver HUD' },
   { value: 'black-bolt',       label: 'Black Bolt',      desc: 'Inhuman silent king — electric cyan energy, royal blue & white-glow cosmic HUD' },
   { value: 'black-panther',    label: 'Black Panther',   desc: 'Wakandan vibranium tech — purple energy, cyan & royal gold HUD' },
