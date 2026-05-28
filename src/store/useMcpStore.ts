@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'kang' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'maximus-the-mad' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
+export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'kang' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'maximus-the-mad' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -83,6 +83,7 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Baron Strucker':        'baron-strucker',
   'Baron Helmut Zemo':     'baron-zemo',
   'Baron Zemo':            'baron-zemo', // alias for any persisted old data
+  'Bastion':               'bastion',
   'Blade':                 'blade',
   'Nick Fury':             'nick-fury',
   'Red Skull':                      'red-skull',
@@ -234,7 +235,7 @@ export const useMcpStore = create<McpState>()(
           state.interactiveBg = 'tech-hex';
         }
         // Migrate removed/unknown themes → shield
-        if (state && !(['adam-warlock', 'apocalypse', 'asgard', 'baron-strucker', 'baron-zemo', 'black-bolt', 'black-panther', 'blade', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'corbus', 'dark-dimension', 'daredevil', 'doc-ock', 'dr-strange', 'dracula', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'invincible-ironman', 'kang', 'king-tchalla', 'kingpin', 'klaw', 'loki', 'magik', 'magneto', 'maximus-the-mad', 'medusa', 'mephisto', 'midnight-sons', 'modok', 'mystique', 'new-mutants', 'nick-fury', 'onslaught', 'professor-x', 'red-skull', 'red-skull-master-of-hydra', 'red-skull-master-of-the-world', 'sam-wilson', 'sentinels', 'shadowland-daredevil', 'she-hulk', 'shield', 'miles-morales', 'spider-man', 'starlord', 'storm', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
+        if (state && !(['adam-warlock', 'apocalypse', 'asgard', 'baron-strucker', 'baron-zemo', 'bastion', 'black-bolt', 'black-panther', 'blade', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'corbus', 'dark-dimension', 'daredevil', 'doc-ock', 'dr-strange', 'dracula', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'invincible-ironman', 'kang', 'king-tchalla', 'kingpin', 'klaw', 'loki', 'magik', 'magneto', 'maximus-the-mad', 'medusa', 'mephisto', 'midnight-sons', 'modok', 'mystique', 'new-mutants', 'nick-fury', 'onslaught', 'professor-x', 'red-skull', 'red-skull-master-of-hydra', 'red-skull-master-of-the-world', 'sam-wilson', 'sentinels', 'shadowland-daredevil', 'she-hulk', 'shield', 'miles-morales', 'spider-man', 'starlord', 'storm', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
           state.theme = 'shield';
         }
         // Tech Hex Grid disabled (no neon-blue theme in active set)

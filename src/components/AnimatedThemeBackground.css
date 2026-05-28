@@ -172,6 +172,9 @@
 .anim-theme-bg--baron-zemo.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #05030a 0%, #0e0818 40%, #1a0e30 70%, #05030a 100%);
 }
+.anim-theme-bg--bastion.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #08060e 0%, #14042a 40%, #2a0830 70%, #08060e 100%);
+}
 .anim-theme-bg--blade.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020203 0%, #080508 40%, #180208 70%, #020203 100%);
 }
