@@ -7407,6 +7407,390 @@
   50%       { box-shadow: 0 0 22px rgba(78, 219, 255, 0.94), 0 0 10px #4edbff, 0 0 4px #c8a45d; }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CORBUS — Dark cosmic warlord: necro-tech battlefield, teal energy, bone-white
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme='corbus'] {
+  --color-bg: transparent;
+  --color-panel: rgba(10, 18, 14, 0.76);
+  --color-panel-alt: rgba(12, 22, 16, 0.84);
+  --color-border: rgba(47, 255, 195, 0.42);
+  --color-accent-left: #2fffc3;
+  --color-accent-right: #d8d1bd;
+  --color-glow-left: rgba(47, 255, 195, 0.48);
+  --color-glow-right: rgba(216, 209, 189, 0.40);
+  --color-text: #d8d1bd;
+  --color-text-muted: #8a9e90;
+  --color-warn: #c66a2e;
+  --color-critical: #ff3b3b;
+  --color-success: #2fffc3;
+  --color-round-active: #2fffc3;
+  --color-round-inactive: rgba(47, 255, 195, 0.12);
+  --color-mission-secure: #2fffc3;
+  --color-glow-secure: rgba(47, 255, 195, 0.40);
+  --color-mission-extract: #ff3b3b;
+  --color-glow-extract: rgba(255, 59, 59, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 3px;
+}
+
+[data-theme='corbus'] body { background: transparent; }
+[data-theme='corbus'] .layout { background: transparent; }
+
+/* Corrupted battlefield grid overlay */
+[data-theme='corbus'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 55px,
+      rgba(47, 255, 195, 0.008) 55px,
+      rgba(47, 255, 195, 0.008) 56px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 55px,
+      rgba(47, 255, 195, 0.006) 55px,
+      rgba(47, 255, 195, 0.006) 56px
+    );
+}
+
+/* Video overlay — dark alien void with teal energy seeping through */
+[data-theme='corbus'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 15% 30%, rgba(47, 255, 195, 0.10), transparent 40%),
+    radial-gradient(circle at 85% 65%, rgba(198, 106, 46, 0.08), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(8, 10, 8, 0.30), transparent 52%),
+    rgba(8, 10, 8, 0.55);
+}
+
+/* Panels — dark military-green base with teal border */
+[data-theme='corbus'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(47, 255, 195, 0.36);
+  box-shadow: 0 0 16px rgba(47, 255, 195, 0.06), inset 0 0 28px rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+[data-theme='corbus'] .panel::before {
+  background: linear-gradient(90deg, rgba(47, 255, 195, 0.07), transparent, rgba(198, 106, 46, 0.04));
+}
+[data-theme='corbus'] .glow-left {
+  border-color: rgba(47, 255, 195, 0.45);
+  box-shadow: -2px 0 14px rgba(47, 255, 195, 0.24), 0 0 10px rgba(47, 255, 195, 0.10);
+}
+[data-theme='corbus'] .glow-right {
+  border-color: rgba(216, 209, 189, 0.36);
+  box-shadow: 2px 0 14px rgba(216, 209, 189, 0.16), 0 0 10px rgba(47, 255, 195, 0.08);
+}
+
+/* Buttons — corrupted warlord command */
+[data-theme='corbus'] .btn-hud {
+  background: rgba(10, 18, 14, 0.80);
+  border-color: rgba(47, 255, 195, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='corbus'] .btn-hud:hover {
+  border-color: rgba(47, 255, 195, 0.75);
+  box-shadow: 0 0 10px rgba(47, 255, 195, 0.28), 0 0 18px rgba(198, 106, 46, 0.14);
+  color: var(--color-text);
+}
+[data-theme='corbus'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='corbus'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='corbus'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — necro-tech command rail */
+[data-theme='corbus'] .side-nav {
+  background: rgba(6, 10, 8, 0.97);
+  border-right-color: rgba(47, 255, 195, 0.22);
+  backdrop-filter: blur(8px);
+}
+[data-theme='corbus'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(47, 255, 195, 0.44) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='corbus'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(47, 255, 195, 0.65), 0 0 22px rgba(198, 106, 46, 0.22);
+}
+[data-theme='corbus'] .side-nav__item:hover {
+  background: rgba(47, 255, 195, 0.05);
+  border-color: rgba(47, 255, 195, 0.24);
+}
+[data-theme='corbus'] .side-nav__item.active {
+  background: rgba(47, 255, 195, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — battlefield energy readout */
+[data-theme='corbus'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='corbus'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #081410, #2fffc3);
+  box-shadow: 0 0 8px rgba(47, 255, 195, 0.64);
+}
+[data-theme='corbus'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #1c1a14, #d8d1bd);
+  box-shadow: 0 0 8px rgba(216, 209, 189, 0.50);
+}
+[data-theme='corbus'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(216, 209, 189, 0.65), 0 0 16px rgba(47, 255, 195, 0.60), 0 0 30px rgba(47, 255, 195, 0.28);
+  animation: corbus-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='corbus'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(216, 209, 189, 0.65), 0 0 16px rgba(216, 209, 189, 0.60), 0 0 30px rgba(47, 255, 195, 0.22);
+  animation: corbus-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='corbus'] .score-panel__btn {
+  background: rgba(10, 18, 14, 0.90);
+  border-color: rgba(47, 255, 195, 0.22);
+}
+[data-theme='corbus'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — ritual countdown */
+[data-theme='corbus'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(47, 255, 195, 0.36);
+}
+[data-theme='corbus'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(47, 255, 195, 0.10), rgba(198, 106, 46, 0.04), transparent);
+}
+[data-theme='corbus'] .timer-panel__display {
+  color: #d8d1bd;
+  text-shadow: 0 0 10px rgba(47, 255, 195, 0.55), 0 0 4px rgba(198, 106, 46, 0.18);
+}
+[data-theme='corbus'] .timer-panel--critical {
+  border-color: rgba(255, 59, 59, 0.88) !important;
+  box-shadow: 0 0 20px rgba(255, 59, 59, 0.46), 0 0 40px rgba(255, 59, 59, 0.18) !important;
+}
+[data-theme='corbus'] .timer-panel__display.critical {
+  color: #ff3b3b;
+  text-shadow: 0 0 12px rgba(255, 59, 59, 0.88);
+}
+[data-theme='corbus'] .timer-panel__btn {
+  background: rgba(10, 18, 14, 0.90);
+  border-color: rgba(47, 255, 195, 0.20);
+  color: #8a9e90;
+}
+[data-theme='corbus'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(47, 255, 195, 0.38);
+}
+
+/* Round tracker — alien command nodes */
+[data-theme='corbus'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(47, 255, 195, 0.24);
+}
+[data-theme='corbus'] .round-tracker__pip {
+  border-color: rgba(47, 255, 195, 0.16);
+  background: rgba(10, 18, 14, 0.58);
+}
+[data-theme='corbus'] .round-tracker__pip.active {
+  border-color: rgba(47, 255, 195, 0.32);
+  background: rgba(47, 255, 195, 0.05);
+}
+[data-theme='corbus'] .round-tracker__pip.current {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left), 0 0 4px var(--color-accent-left);
+  animation: corbus-pulse-left 2s ease-in-out infinite;
+}
+
+/* Mission slots — corrupted tactical briefing */
+[data-theme='corbus'] .mission-slot {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(47, 255, 195, 0.22);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.52);
+}
+[data-theme='corbus'] .mission-slot__name { color: var(--color-text); }
+
+/* Mission list page */
+[data-theme='corbus'] .mission-item {
+  background: rgba(10, 18, 14, 0.76);
+  backdrop-filter: blur(4px);
+}
+[data-theme='corbus'] .mission-item:hover {
+  background: rgba(47, 255, 195, 0.04);
+  border-color: rgba(47, 255, 195, 0.26);
+}
+[data-theme='corbus'] .mission-item--left.selected {
+  background: rgba(47, 255, 195, 0.09);
+  border-color: rgba(47, 255, 195, 0.58);
+  box-shadow: 0 0 10px rgba(47, 255, 195, 0.22);
+}
+[data-theme='corbus'] .mission-item--right.selected {
+  background: rgba(255, 59, 59, 0.10);
+  border-color: rgba(255, 59, 59, 0.58);
+  box-shadow: 0 0 10px rgba(255, 59, 59, 0.22);
+}
+
+/* Leader hex (main screen) */
+[data-theme='corbus'] .leader-hex__name {
+  background: rgba(10, 18, 14, 0.90);
+  border-color: rgba(47, 255, 195, 0.22);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — alien warlord frame */
+[data-theme='corbus'] .leader-card {
+  background: rgba(10, 18, 14, 0.82);
+  border-color: rgba(47, 255, 195, 0.16);
+  backdrop-filter: blur(4px);
+}
+[data-theme='corbus'] .leader-card:hover {
+  border-color: rgba(47, 255, 195, 0.44);
+  box-shadow: 0 0 10px rgba(47, 255, 195, 0.12);
+}
+[data-theme='corbus'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='corbus'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='corbus'] .leaders-page__header,
+[data-theme='corbus'] .missions-page__header {
+  background: rgba(6, 10, 8, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(47, 255, 195, 0.18);
+}
+[data-theme='corbus'] .leaders-page__search {
+  background: rgba(10, 18, 14, 0.88);
+  border-color: rgba(47, 255, 195, 0.24);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='corbus'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='corbus'] .missions-page__body {
+  background: rgba(6, 10, 8, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='corbus'] .leaders-page__assign-btn {
+  background: rgba(10, 18, 14, 0.86);
+  border-color: rgba(47, 255, 195, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='corbus'] .leaders-page__assign-btn.active-left {
+  background: rgba(47, 255, 195, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='corbus'] .leaders-page__assign-btn.active-right {
+  background: rgba(216, 209, 189, 0.07);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='corbus'] .affil-btn {
+  background: rgba(10, 18, 14, 0.82);
+  border-color: rgba(47, 255, 195, 0.16);
+}
+[data-theme='corbus'] .affil-btn:hover { border-color: rgba(47, 255, 195, 0.36); }
+[data-theme='corbus'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(47, 255, 195, 0.07);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='corbus'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(47, 255, 195, 0.22);
+}
+[data-theme='corbus'] .settings-section__title {
+  color: #2fffc3;
+  background: rgba(10, 18, 14, 0.95);
+  border-bottom-color: rgba(47, 255, 195, 0.16);
+}
+[data-theme='corbus'] .settings-preset-btn.active,
+[data-theme='corbus'] .settings-theme-btn.active,
+[data-theme='corbus'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(47, 255, 195, 0.07);
+  color: var(--color-accent-left);
+}
+[data-theme='corbus'] .settings-slider {
+  background: rgba(47, 255, 195, 0.12);
+}
+[data-theme='corbus'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='corbus'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='corbus'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.82); }
+[data-theme='corbus'] .main-page__modal {
+  background: rgba(10, 18, 14, 0.97);
+  border-color: rgba(47, 255, 195, 0.46);
+  box-shadow: 0 0 30px rgba(47, 255, 195, 0.14), 0 0 50px rgba(198, 106, 46, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='corbus'] .main-page__modal-title {
+  color: #2fffc3;
+  text-shadow: 0 0 12px rgba(47, 255, 195, 0.62), 0 0 24px rgba(198, 106, 46, 0.18);
+}
+[data-theme='corbus'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — necro-tech energy surge */
+@keyframes corbus-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(216, 209, 189, 0.62), 0 0 14px rgba(47, 255, 195, 0.58), 0 0 28px rgba(47, 255, 195, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(216, 209, 189, 0.82), 0 0 22px rgba(47, 255, 195, 0.84), 0 0 42px rgba(47, 255, 195, 0.44), 0 0 4px #2fffc3; }
+}
+@keyframes corbus-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(216, 209, 189, 0.62), 0 0 14px rgba(216, 209, 189, 0.60), 0 0 28px rgba(47, 255, 195, 0.20); }
+  50%       { text-shadow: 0 0 10px rgba(216, 209, 189, 0.82), 0 0 22px rgba(216, 209, 189, 0.84), 0 0 42px rgba(47, 255, 195, 0.32), 0 0 4px #d8d1bd; }
+}
+@keyframes corbus-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 59, 59, 0.82), 0 0 20px rgba(255, 59, 59, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 59, 59, 0.96), 0 0 32px rgba(255, 59, 59, 0.68), 0 0 6px #ff3b3b; }
+}
+
 /* ══════════════════════════════════════════════════════════════════
    CYCLOPS — X-Men tactical visor / optic energy HUD
    Primary:  #ff1f2d  (optic red)
