@@ -20,6 +20,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   'captain-america':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_CaptainAmerica.mp4`,            modifier: 'anim-theme-bg--captain-america' },
   'cap-first-avenger': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_CaptainAmericaFirstAvenger.mp4`, modifier: 'anim-theme-bg--cap-first-avenger' },
   convocation:         { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Convocation.mp4`,                modifier: 'anim-theme-bg--convocation'       },
+  corbus:              { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Corbus.mp4`,                    modifier: 'anim-theme-bg--corbus',            smoothLoop: true },
   cyclops:             { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Cyclops.mp4`,                    modifier: 'anim-theme-bg--cyclops', smoothLoop: true },
   'dark-dimension':    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Dormammu.mp4`,                   modifier: 'anim-theme-bg--dark-dimension'    },
   daredevil:           { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Daredevil.mp4`,                  modifier: 'anim-theme-bg--daredevil', smoothLoop: true },

@@ -16,6 +16,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'captain-america', label: 'Captain America', desc: 'Shield tactical command — blue, red & star white' },
   { value: 'cap-first-avenger', label: 'First Avenger',  desc: 'Military retro-futuristic war room HUD'          },
   { value: 'convocation',      label: 'Convocation',     desc: 'Arcane sorcerer dimension — violet & cyan HUD'   },
+  { value: 'corbus',           label: 'Corbus',          desc: 'Dark cosmic warlord — necro-tech battlefield, teal energy & bone-white HUD' },
   { value: 'cyclops',          label: 'Cyclops',         desc: 'X-Men tactical visor — red optic & blue HUD'     },
   { value: 'daredevil',        label: 'Daredevil',       desc: "Hell's Kitchen vigilante — blood red, urban black & radar white HUD" },
   { value: 'dark-dimension',   label: 'Dark Dimension',  desc: 'Dormammu hostile void — purple fire & red chaos' },
