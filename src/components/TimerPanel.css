@@ -203,7 +203,6 @@
   align-items: center;
   justify-content: center;
   z-index: 200;
-  backdrop-filter: blur(4px);
   animation: timer-overlay-in 0.2s ease;
 }
 
