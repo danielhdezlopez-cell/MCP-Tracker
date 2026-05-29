@@ -44,6 +44,7 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
         ctx.beginPath();
         for (let i = 0; i < 6; i++) {
           const a = (Math.PI / 3) * i;
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           i === 0 ? ctx.moveTo(x + SIZE * Math.cos(a), y + SIZE * Math.sin(a))
                    : ctx.lineTo(x + SIZE * Math.cos(a), y + SIZE * Math.sin(a));
         }

@@ -161,6 +161,7 @@ export function AnimatedThemeBackground({ theme }: Props) {
   const imageConfig = IMAGE_THEMES[theme];
 
   // Reset error state when theme switches so the new theme's bg retries
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setBgError(false); }, [theme]);
 
   if (imageConfig) {
