@@ -5,13 +5,13 @@
   align-items: center;
   justify-content: center;
   z-index: 9000;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(4px);
 }
 
 .kang-modal {
-  width: clamp(280px, 36vw, 420px);
-  padding: 24px 28px 20px;
+  width: clamp(300px, 40vw, 460px);
+  padding: 22px 24px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,42 +21,40 @@
 
 .kang-modal--left {
   border-color: var(--color-accent-left);
-  box-shadow: 0 0 24px var(--color-glow-left), inset 0 1px 0 rgba(0, 195, 255, 0.12);
+  box-shadow: 0 0 28px var(--color-glow-left), inset 0 1px 0 rgba(0, 195, 255, 0.1);
 }
 
 .kang-modal--right {
   border-color: var(--color-accent-right);
-  box-shadow: 0 0 24px var(--color-glow-right), inset 0 1px 0 rgba(255, 106, 0, 0.12);
+  box-shadow: 0 0 28px var(--color-glow-right), inset 0 1px 0 rgba(255, 106, 0, 0.1);
 }
 
-.kang-modal__badge {
+/* ── Header ── */
+.kang-modal__header {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.kang-modal__kang-label {
+.kang-modal__kang-chip {
   font-family: var(--font-display);
   font-size: var(--fs-11);
   font-weight: 700;
   letter-spacing: 0.12em;
   padding: 2px 8px;
   border-radius: 3px;
-  background: rgba(180, 120, 255, 0.18);
-  color: #c07aff;
-  border: 1px solid rgba(180, 120, 255, 0.35);
 }
 
-.kang-modal--left .kang-modal__kang-label {
+.kang-modal__kang-chip.kang-modal--left {
   background: rgba(0, 195, 255, 0.12);
   color: var(--color-accent-left);
-  border-color: rgba(0, 195, 255, 0.3);
+  border: 1px solid rgba(0, 195, 255, 0.3);
 }
 
-.kang-modal--right .kang-modal__kang-label {
+.kang-modal__kang-chip.kang-modal--right {
   background: rgba(255, 106, 0, 0.12);
   color: var(--color-accent-right);
-  border-color: rgba(255, 106, 0, 0.3);
+  border: 1px solid rgba(255, 106, 0, 0.3);
 }
 
 .kang-modal__player-label {
@@ -66,6 +64,7 @@
   color: var(--color-text-muted);
 }
 
+/* ── Title ── */
 .kang-modal__title {
   font-family: var(--font-display);
   font-size: var(--fs-16);
@@ -74,23 +73,164 @@
   color: var(--color-text);
 }
 
+/* ── Question text ── */
 .kang-modal__question {
   font-family: var(--font-main);
   font-size: var(--fs-13);
   color: var(--color-text-muted);
   line-height: 1.4;
-  max-width: 280px;
+  max-width: 320px;
 }
 
+/* ── Card toggles ── */
+.kang-modal__card-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kang-modal__card-toggle {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+  text-align: left;
+}
+
+.kang-modal__card-toggle:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.kang-modal__card-toggle--on.kang-modal--left {
+  background: rgba(0, 195, 255, 0.09);
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px rgba(0, 195, 255, 0.2);
+}
+
+.kang-modal__card-toggle--on.kang-modal--right {
+  background: rgba(255, 106, 0, 0.09);
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 8px rgba(255, 106, 0, 0.2);
+}
+
+.kang-modal__card-toggle-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kang-modal__card-check {
+  font-size: var(--fs-14);
+  width: 16px;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.kang-modal__card-toggle--on .kang-modal__card-check {
+  color: var(--color-text);
+}
+
+.kang-modal__card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.kang-modal__card-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-12);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+}
+
+.kang-modal__card-hint {
+  font-family: var(--font-main);
+  font-size: var(--fs-11);
+  color: var(--color-text-muted);
+}
+
+.kang-modal__card-badge {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.kang-modal__card-badge--ts {
+  background: rgba(0, 195, 255, 0.15);
+  color: var(--color-accent-left);
+  border: 1px solid rgba(0, 195, 255, 0.35);
+}
+
+.kang-modal__card-badge--tn {
+  background: rgba(180, 120, 255, 0.15);
+  color: #c07aff;
+  border: 1px solid rgba(180, 120, 255, 0.35);
+}
+
+/* ── Step badge (above round picker) ── */
+.kang-modal__step-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: var(--fs-11);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.kang-modal__step-badge span {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.kang-modal__step-badge--ts {
+  background: rgba(0, 195, 255, 0.08);
+  color: var(--color-accent-left);
+  border: 1px solid rgba(0, 195, 255, 0.25);
+}
+
+.kang-modal__step-badge--ts span {
+  background: rgba(0, 195, 255, 0.2);
+  border: 1px solid rgba(0, 195, 255, 0.4);
+}
+
+.kang-modal__step-badge--tn {
+  background: rgba(180, 120, 255, 0.08);
+  color: #c07aff;
+  border: 1px solid rgba(180, 120, 255, 0.25);
+}
+
+.kang-modal__step-badge--tn span {
+  background: rgba(180, 120, 255, 0.2);
+  border: 1px solid rgba(180, 120, 255, 0.4);
+}
+
+/* ── Action buttons ── */
 .kang-modal__actions {
   display: flex;
-  gap: 12px;
-  margin-top: 4px;
+  gap: 10px;
+  margin-top: 2px;
 }
 
 .kang-modal__btn {
   min-width: 90px;
-  padding: 8px 20px;
+  padding: 8px 18px;
   font-family: var(--font-display);
   font-size: var(--fs-13);
   font-weight: 700;
@@ -100,49 +240,49 @@
   transition: all var(--transition);
 }
 
-.kang-modal__btn--yes {
+.kang-modal__btn--confirm.kang-modal--left {
   border-color: var(--color-accent-left);
   color: var(--color-accent-left);
   background: rgba(0, 195, 255, 0.08);
 }
 
-.kang-modal--right .kang-modal__btn--yes {
+.kang-modal__btn--confirm.kang-modal--left:hover {
+  background: rgba(0, 195, 255, 0.18);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+.kang-modal__btn--confirm.kang-modal--right {
   border-color: var(--color-accent-right);
   color: var(--color-accent-right);
   background: rgba(255, 106, 0, 0.08);
 }
 
-.kang-modal__btn--yes:hover {
-  background: rgba(0, 195, 255, 0.18);
-  box-shadow: 0 0 10px var(--color-glow-left);
-}
-
-.kang-modal--right .kang-modal__btn--yes:hover {
+.kang-modal__btn--confirm.kang-modal--right:hover {
   background: rgba(255, 106, 0, 0.18);
   box-shadow: 0 0 10px var(--color-glow-right);
 }
 
-.kang-modal__btn--no {
+.kang-modal__btn--skip {
   border-color: var(--color-border);
   color: var(--color-text-muted);
   background: transparent;
 }
 
-.kang-modal__btn--no:hover {
+.kang-modal__btn--skip:hover {
   background: rgba(255, 255, 255, 0.05);
   color: var(--color-text);
 }
 
-/* Round selection */
+/* ── Round selector ── */
 .kang-modal__rounds {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .kang-modal__round-btn {
-  width: clamp(36px, 5vw, 48px);
-  height: clamp(36px, 5vw, 48px);
+  width: clamp(38px, 5.5vw, 50px);
+  height: clamp(38px, 5.5vw, 50px);
   border-radius: 50%;
   border: 2px solid;
   display: flex;
@@ -168,11 +308,11 @@
 .kang-modal__round-btn.kang-modal--left:hover {
   background: rgba(0, 195, 255, 0.15);
   border-color: var(--color-accent-left);
-  box-shadow: 0 0 10px var(--color-glow-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
 }
 
 .kang-modal__round-btn.kang-modal--right:hover {
   background: rgba(255, 106, 0, 0.15);
   border-color: var(--color-accent-right);
-  box-shadow: 0 0 10px var(--color-glow-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
 }

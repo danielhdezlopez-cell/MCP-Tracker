@@ -24,11 +24,17 @@ interface McpState {
   selectedSecure: Mission | null;
   selectedExtract: Mission | null;
 
-  // Kang / Chronal Manipulation state
-  kangLeftPromptAnswered: boolean;
-  kangLeftTimestreamRound: number | null;
-  kangRightPromptAnswered: boolean;
-  kangRightTimestreamRound: number | null;
+  // Kang tactics setup state (per player)
+  kangLeftSetupAnswered: boolean;
+  kangLeftChronalPlayed: boolean;
+  kangLeftChronalRound: number | null;
+  kangLeftTrustPlayed: boolean;
+  kangLeftTrustRound: number | null;
+  kangRightSetupAnswered: boolean;
+  kangRightChronalPlayed: boolean;
+  kangRightChronalRound: number | null;
+  kangRightTrustPlayed: boolean;
+  kangRightTrustRound: number | null;
 
   // Timer
   timerDuration: number;
@@ -55,10 +61,8 @@ interface McpState {
   setSelectedSecure: (mission: Mission | null) => void;
   setSelectedExtract: (mission: Mission | null) => void;
 
-  setKangLeftPromptAnswered: (answered: boolean) => void;
-  setKangLeftTimestreamRound: (round: number | null) => void;
-  setKangRightPromptAnswered: (answered: boolean) => void;
-  setKangRightTimestreamRound: (round: number | null) => void;
+  setKangLeftSetup: (data: { answered: boolean; chronalPlayed: boolean; chronalRound: number | null; trustPlayed: boolean; trustRound: number | null }) => void;
+  setKangRightSetup: (data: { answered: boolean; chronalPlayed: boolean; chronalRound: number | null; trustPlayed: boolean; trustRound: number | null }) => void;
 
   setTimerDuration: (duration: number) => void;
   setTimerRemaining: (remaining: number) => void;
@@ -160,6 +164,22 @@ function getThemeFromLeader(leader: Leader): Theme | null {
   return null;
 }
 
+const KANG_LEFT_RESET = {
+  kangLeftSetupAnswered: false,
+  kangLeftChronalPlayed: false,
+  kangLeftChronalRound: null as number | null,
+  kangLeftTrustPlayed: false,
+  kangLeftTrustRound: null as number | null,
+};
+
+const KANG_RIGHT_RESET = {
+  kangRightSetupAnswered: false,
+  kangRightChronalPlayed: false,
+  kangRightChronalRound: null as number | null,
+  kangRightTrustPlayed: false,
+  kangRightTrustRound: null as number | null,
+};
+
 export const useMcpStore = create<McpState>()(
   persist(
     (set, get) => ({
@@ -175,10 +195,16 @@ export const useMcpStore = create<McpState>()(
       selectedSecure: null,
       selectedExtract: null,
 
-      kangLeftPromptAnswered: false,
-      kangLeftTimestreamRound: null,
-      kangRightPromptAnswered: false,
-      kangRightTimestreamRound: null,
+      kangLeftSetupAnswered: false,
+      kangLeftChronalPlayed: false,
+      kangLeftChronalRound: null,
+      kangLeftTrustPlayed: false,
+      kangLeftTrustRound: null,
+      kangRightSetupAnswered: false,
+      kangRightChronalPlayed: false,
+      kangRightChronalRound: null,
+      kangRightTrustPlayed: false,
+      kangRightTrustRound: null,
 
       timerDuration: 90 * 60,
       timerRemaining: 90 * 60,
@@ -198,9 +224,7 @@ export const useMcpStore = create<McpState>()(
       setScoreRight: (score) => set({ scoreRight: Math.max(0, Math.min(20, score)) }),
       setLeaderLeft: (leader) => {
         const autoTheme = leader ? getThemeFromLeader(leader) : null;
-        const kangReset = leader?.name !== 'Kang'
-          ? { kangLeftPromptAnswered: false, kangLeftTimestreamRound: null }
-          : {};
+        const kangReset = leader?.name !== 'Kang' ? KANG_LEFT_RESET : {};
         if (autoTheme !== null) {
           set({ leaderLeft: leader, theme: autoTheme, interactiveBg: autoTheme === 'neon-blue' ? 'tech-hex' : 'off', ...kangReset });
         } else {
@@ -208,31 +232,39 @@ export const useMcpStore = create<McpState>()(
         }
       },
       setLeaderRight: (leader) => {
-        const kangReset = leader?.name !== 'Kang'
-          ? { kangRightPromptAnswered: false, kangRightTimestreamRound: null }
-          : {};
+        const kangReset = leader?.name !== 'Kang' ? KANG_RIGHT_RESET : {};
         set({ leaderRight: leader, ...kangReset });
       },
       setRound: (round) => set({ round: Math.max(1, Math.min(6, round)) }),
       setSelectedSecure: (mission) => {
         if (mission === null) {
-          set({ selectedSecure: null, kangLeftPromptAnswered: false, kangLeftTimestreamRound: null, kangRightPromptAnswered: false, kangRightTimestreamRound: null });
+          set({ selectedSecure: null, ...KANG_LEFT_RESET, ...KANG_RIGHT_RESET });
         } else {
           set({ selectedSecure: mission });
         }
       },
       setSelectedExtract: (mission) => {
         if (mission === null) {
-          set({ selectedExtract: null, kangLeftPromptAnswered: false, kangLeftTimestreamRound: null, kangRightPromptAnswered: false, kangRightTimestreamRound: null });
+          set({ selectedExtract: null, ...KANG_LEFT_RESET, ...KANG_RIGHT_RESET });
         } else {
           set({ selectedExtract: mission });
         }
       },
 
-      setKangLeftPromptAnswered: (answered) => set({ kangLeftPromptAnswered: answered }),
-      setKangLeftTimestreamRound: (round) => set({ kangLeftTimestreamRound: round }),
-      setKangRightPromptAnswered: (answered) => set({ kangRightPromptAnswered: answered }),
-      setKangRightTimestreamRound: (round) => set({ kangRightTimestreamRound: round }),
+      setKangLeftSetup: (data) => set({
+        kangLeftSetupAnswered: data.answered,
+        kangLeftChronalPlayed: data.chronalPlayed,
+        kangLeftChronalRound: data.chronalRound,
+        kangLeftTrustPlayed: data.trustPlayed,
+        kangLeftTrustRound: data.trustRound,
+      }),
+      setKangRightSetup: (data) => set({
+        kangRightSetupAnswered: data.answered,
+        kangRightChronalPlayed: data.chronalPlayed,
+        kangRightChronalRound: data.chronalRound,
+        kangRightTrustPlayed: data.trustPlayed,
+        kangRightTrustRound: data.trustRound,
+      }),
 
       setTimerDuration: (duration) => {
         const current = get();
@@ -267,10 +299,8 @@ export const useMcpStore = create<McpState>()(
           selectedExtract: null,
           timerRemaining: timerDuration,
           timerRunning: false,
-          kangLeftPromptAnswered: false,
-          kangLeftTimestreamRound: null,
-          kangRightPromptAnswered: false,
-          kangRightTimestreamRound: null,
+          ...KANG_LEFT_RESET,
+          ...KANG_RIGHT_RESET,
         });
       },
     }),
