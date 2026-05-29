@@ -10,6 +10,7 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
 import { NavIconSettings } from '../components/icons';
 import { McpLogo } from '../components/McpLogo';
+import { KangChronalModal } from '../components/KangChronalModal';
 import './MainPage.css';
 
 export function MainPage() {
@@ -143,6 +144,8 @@ export function MainPage() {
         </div>
 
       </div>
+
+      <KangChronalModal />
 
       {showResetConfirm && createPortal(
         <div className="side-nav__modal-overlay" onClick={() => setShowResetConfirm(false)}>

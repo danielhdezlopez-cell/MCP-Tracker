@@ -1,0 +1,178 @@
+.kang-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.kang-modal {
+  width: clamp(280px, 36vw, 420px);
+  padding: 24px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.kang-modal--left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 24px var(--color-glow-left), inset 0 1px 0 rgba(0, 195, 255, 0.12);
+}
+
+.kang-modal--right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 24px var(--color-glow-right), inset 0 1px 0 rgba(255, 106, 0, 0.12);
+}
+
+.kang-modal__badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kang-modal__kang-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-11);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(180, 120, 255, 0.18);
+  color: #c07aff;
+  border: 1px solid rgba(180, 120, 255, 0.35);
+}
+
+.kang-modal--left .kang-modal__kang-label {
+  background: rgba(0, 195, 255, 0.12);
+  color: var(--color-accent-left);
+  border-color: rgba(0, 195, 255, 0.3);
+}
+
+.kang-modal--right .kang-modal__kang-label {
+  background: rgba(255, 106, 0, 0.12);
+  color: var(--color-accent-right);
+  border-color: rgba(255, 106, 0, 0.3);
+}
+
+.kang-modal__player-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-11);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.kang-modal__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-16);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+
+.kang-modal__question {
+  font-family: var(--font-main);
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  max-width: 280px;
+}
+
+.kang-modal__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.kang-modal__btn {
+  min-width: 90px;
+  padding: 8px 20px;
+  font-family: var(--font-display);
+  font-size: var(--fs-13);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: all var(--transition);
+}
+
+.kang-modal__btn--yes {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(0, 195, 255, 0.08);
+}
+
+.kang-modal--right .kang-modal__btn--yes {
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  background: rgba(255, 106, 0, 0.08);
+}
+
+.kang-modal__btn--yes:hover {
+  background: rgba(0, 195, 255, 0.18);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+.kang-modal--right .kang-modal__btn--yes:hover {
+  background: rgba(255, 106, 0, 0.18);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+.kang-modal__btn--no {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  background: transparent;
+}
+
+.kang-modal__btn--no:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+}
+
+/* Round selection */
+.kang-modal__rounds {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.kang-modal__round-btn {
+  width: clamp(36px, 5vw, 48px);
+  height: clamp(36px, 5vw, 48px);
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-14);
+  font-weight: 700;
+  transition: all var(--transition);
+  background: var(--color-panel);
+}
+
+.kang-modal__round-btn.kang-modal--left {
+  border-color: rgba(0, 195, 255, 0.4);
+  color: var(--color-accent-left);
+}
+
+.kang-modal__round-btn.kang-modal--right {
+  border-color: rgba(255, 106, 0, 0.4);
+  color: var(--color-accent-right);
+}
+
+.kang-modal__round-btn.kang-modal--left:hover {
+  background: rgba(0, 195, 255, 0.15);
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+
+.kang-modal__round-btn.kang-modal--right:hover {
+  background: rgba(255, 106, 0, 0.15);
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
