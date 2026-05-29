@@ -23846,6 +23846,395 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SIN — Crimson assassin / covert villain safehouse HUD
+   Primary: crimson red #ff1744 | Secondary: hot pink #ff4fb3
+   Accent: gunmetal green #5f6f5f | Mood: dangerous, covert, violent
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='sin'] {
+  --color-bg: transparent;
+  --color-panel: rgba(14, 8, 10, 0.78);
+  --color-panel-alt: rgba(10, 5, 7, 0.90);
+  --color-border: rgba(255, 23, 68, 0.52);
+  --color-accent-left: #ff1744;
+  --color-accent-right: #ff4fb3;
+  --color-glow-left: rgba(255, 23, 68, 0.52);
+  --color-glow-right: rgba(255, 79, 179, 0.46);
+  --color-text: #ffe0e6;
+  --color-text-muted: #b87a8a;
+  --color-warn: #5f6f5f;
+  --color-critical: #ff1744;
+  --color-success: #ffe0e6;
+  --color-round-active: #ff1744;
+  --color-round-inactive: rgba(255, 23, 68, 0.14);
+  --color-mission-secure: #ff1744;
+  --color-glow-secure: rgba(255, 23, 68, 0.44);
+  --color-mission-extract: #ff4fb3;
+  --color-glow-extract: rgba(255, 79, 179, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='sin'] body { background: transparent; }
+[data-theme='sin'] .layout { background: transparent; }
+
+/* Surveillance grid overlay — faint gritty scan-lines */
+[data-theme='sin'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 23, 68, 0.012) 3px,
+      rgba(255, 23, 68, 0.012) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 71px,
+      rgba(95, 111, 95, 0.014) 71px,
+      rgba(95, 111, 95, 0.014) 72px
+    );
+}
+
+/* Video overlay — dark safehouse with crimson & pink threat-light */
+[data-theme='sin'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 75%, rgba(255, 23, 68, 0.18), transparent 42%),
+    radial-gradient(circle at 75% 25%, rgba(255, 79, 179, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 50%, rgba(8, 4, 6, 0.08), transparent 56%),
+    rgba(8, 4, 6, 0.54);
+}
+
+/* Panels — black leather assassin modules */
+[data-theme='sin'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 23, 68, 0.46);
+  box-shadow: 0 0 18px rgba(255, 23, 68, 0.08), inset 0 0 28px rgba(0, 0, 0, 0.74);
+  backdrop-filter: blur(6px);
+}
+[data-theme='sin'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 23, 68, 0.08), transparent, rgba(255, 79, 179, 0.05));
+}
+[data-theme='sin'] .glow-left {
+  border-color: rgba(255, 23, 68, 0.52);
+  box-shadow: -2px 0 14px rgba(255, 23, 68, 0.28), 0 0 10px rgba(255, 23, 68, 0.12);
+}
+[data-theme='sin'] .glow-right {
+  border-color: rgba(255, 79, 179, 0.46);
+  box-shadow: 2px 0 14px rgba(255, 79, 179, 0.24), 0 0 10px rgba(255, 79, 179, 0.10);
+}
+
+/* Buttons — covert crimson command */
+[data-theme='sin'] .btn-hud {
+  background: rgba(14, 8, 10, 0.90);
+  border-color: rgba(255, 23, 68, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sin'] .btn-hud:hover {
+  border-color: rgba(255, 23, 68, 0.88);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.34), 0 0 20px rgba(255, 79, 179, 0.16);
+  color: #ff1744;
+}
+[data-theme='sin'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='sin'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='sin'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — underground operation command rail */
+[data-theme='sin'] .side-nav {
+  background: rgba(8, 4, 6, 0.97);
+  border-right-color: rgba(255, 23, 68, 0.28);
+  backdrop-filter: blur(8px);
+}
+[data-theme='sin'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 23, 68, 0.52) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='sin'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(255, 23, 68, 0.80), 0 0 22px rgba(255, 79, 179, 0.44);
+}
+[data-theme='sin'] .side-nav__item:hover {
+  background: rgba(255, 23, 68, 0.06);
+  border-color: rgba(255, 23, 68, 0.26);
+}
+[data-theme='sin'] .side-nav__item.active {
+  background: rgba(255, 23, 68, 0.09);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — dark assassin briefing modules */
+[data-theme='sin'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='sin'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #200008, #ff1744);
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.68);
+}
+[data-theme='sin'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #200010, #ff4fb3);
+  box-shadow: 0 0 8px rgba(255, 79, 179, 0.60);
+}
+[data-theme='sin'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(255, 224, 230, 0.70), 0 0 16px rgba(255, 23, 68, 0.72), 0 0 30px rgba(95, 111, 95, 0.24);
+  animation: sin-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='sin'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(255, 224, 230, 0.70), 0 0 16px rgba(255, 79, 179, 0.72), 0 0 30px rgba(255, 23, 68, 0.22);
+  animation: sin-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='sin'] .score-panel__btn {
+  background: rgba(14, 8, 10, 0.92);
+  border-color: rgba(255, 23, 68, 0.30);
+}
+[data-theme='sin'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — tense tactical countdown */
+[data-theme='sin'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.44);
+}
+[data-theme='sin'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 23, 68, 0.10), rgba(255, 79, 179, 0.05), transparent);
+}
+[data-theme='sin'] .timer-panel__display {
+  color: #ffe0e6;
+  text-shadow: 0 0 12px rgba(255, 23, 68, 0.64), 0 0 5px rgba(255, 79, 179, 0.36);
+}
+[data-theme='sin'] .timer-panel--critical {
+  border-color: rgba(255, 23, 68, 0.95) !important;
+  box-shadow: 0 0 20px rgba(255, 23, 68, 0.56), 0 0 40px rgba(255, 23, 68, 0.22) !important;
+}
+[data-theme='sin'] .timer-panel__display.critical {
+  color: #ff1744;
+  text-shadow: 0 0 12px rgba(255, 23, 68, 0.90);
+}
+[data-theme='sin'] .timer-panel__btn {
+  background: rgba(14, 8, 10, 0.92);
+  border-color: rgba(255, 23, 68, 0.28);
+  color: #b87a8a;
+}
+[data-theme='sin'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.46);
+}
+
+/* Round tracker — threat-level combat nodes */
+[data-theme='sin'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.26);
+}
+[data-theme='sin'] .round-tracker__pip {
+  background: rgba(255, 23, 68, 0.11);
+  border-color: rgba(255, 23, 68, 0.24);
+}
+[data-theme='sin'] .round-tracker__pip.active {
+  background: rgba(255, 23, 68, 0.70);
+  border-color: #ff1744;
+  box-shadow: 0 0 6px rgba(255, 23, 68, 0.62);
+}
+[data-theme='sin'] .round-tracker__pip.current {
+  background: #ff1744;
+  border-color: #ffe0e6;
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.80), 0 0 20px rgba(255, 79, 179, 0.32);
+  animation: sin-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with crimson/pink selection */
+[data-theme='sin'] .mission-slot {
+  background: rgba(14, 8, 10, 0.82);
+  border-color: rgba(255, 23, 68, 0.24);
+  backdrop-filter: blur(5px);
+}
+[data-theme='sin'] .mission-slot--selected {
+  border-color: rgba(255, 23, 68, 0.68);
+  box-shadow: 0 0 12px rgba(255, 23, 68, 0.26);
+}
+[data-theme='sin'] .mission-item {
+  background: rgba(14, 8, 10, 0.78);
+  border-color: rgba(255, 23, 68, 0.18);
+}
+[data-theme='sin'] .mission-item:hover {
+  border-color: rgba(255, 23, 68, 0.42);
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.14);
+}
+[data-theme='sin'] .mission-item--left.selected {
+  background: rgba(255, 23, 68, 0.10);
+  border-color: rgba(255, 23, 68, 0.60);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.26);
+}
+[data-theme='sin'] .mission-item--right.selected {
+  background: rgba(255, 79, 179, 0.09);
+  border-color: rgba(255, 79, 179, 0.58);
+  box-shadow: 0 0 10px rgba(255, 79, 179, 0.22);
+}
+
+/* Leader hex */
+[data-theme='sin'] .leader-hex__name {
+  background: rgba(8, 4, 6, 0.90);
+  border-color: rgba(255, 23, 68, 0.22);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='sin'] .leader-card {
+  background: rgba(14, 8, 10, 0.82);
+  border-color: rgba(255, 23, 68, 0.16);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sin'] .leader-card:hover {
+  border-color: rgba(255, 23, 68, 0.42);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.12);
+}
+[data-theme='sin'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='sin'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='sin'] .leaders-page__header,
+[data-theme='sin'] .missions-page__header {
+  background: rgba(8, 4, 6, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 23, 68, 0.20);
+}
+[data-theme='sin'] .leaders-page__search {
+  background: rgba(14, 8, 10, 0.88);
+  border-color: rgba(255, 23, 68, 0.26);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sin'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='sin'] .missions-page__body {
+  background: rgba(8, 4, 6, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='sin'] .leaders-page__assign-btn {
+  background: rgba(14, 8, 10, 0.86);
+  border-color: rgba(255, 23, 68, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='sin'] .leaders-page__assign-btn.active-left {
+  background: rgba(255, 23, 68, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='sin'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 79, 179, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='sin'] .affil-btn {
+  background: rgba(14, 8, 10, 0.82);
+  border-color: rgba(255, 23, 68, 0.20);
+}
+[data-theme='sin'] .affil-btn:hover { border-color: rgba(255, 23, 68, 0.40); }
+[data-theme='sin'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(255, 23, 68, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='sin'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 23, 68, 0.24);
+}
+[data-theme='sin'] .settings-section__title {
+  color: #ff1744;
+  background: rgba(8, 4, 6, 0.95);
+  border-bottom-color: rgba(255, 23, 68, 0.18);
+}
+[data-theme='sin'] .settings-preset-btn.active,
+[data-theme='sin'] .settings-theme-btn.active,
+[data-theme='sin'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 23, 68, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='sin'] .settings-slider {
+  background: rgba(255, 23, 68, 0.13);
+}
+[data-theme='sin'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='sin'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='sin'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.88); }
+[data-theme='sin'] .main-page__modal {
+  background: rgba(14, 8, 10, 0.97);
+  border-color: rgba(255, 23, 68, 0.52);
+  box-shadow: 0 0 30px rgba(255, 23, 68, 0.16), 0 0 50px rgba(255, 79, 179, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='sin'] .main-page__modal-title {
+  color: #ff1744;
+  text-shadow: 0 0 12px rgba(255, 23, 68, 0.68), 0 0 24px rgba(255, 79, 179, 0.28);
+}
+[data-theme='sin'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — crimson threat surge & hot-pink secondary */
+@keyframes sin-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(255, 224, 230, 0.68), 0 0 16px rgba(255, 23, 68, 0.70), 0 0 30px rgba(95, 111, 95, 0.22); }
+  50%       { text-shadow: 0 0 10px rgba(255, 224, 230, 0.88), 0 0 26px rgba(255, 23, 68, 0.94), 0 0 46px rgba(255, 79, 179, 0.32), 0 0 4px #ff1744; }
+}
+@keyframes sin-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(255, 224, 230, 0.68), 0 0 16px rgba(255, 79, 179, 0.70), 0 0 30px rgba(255, 23, 68, 0.22); }
+  50%       { text-shadow: 0 0 10px rgba(255, 224, 230, 0.88), 0 0 26px rgba(255, 79, 179, 0.94), 0 0 46px rgba(255, 23, 68, 0.28), 0 0 4px #ff4fb3; }
+}
+@keyframes sin-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 23, 68, 0.84), 0 0 20px rgba(255, 23, 68, 0.52); }
+  50%       { text-shadow: 0 0 14px rgba(255, 23, 68, 0.98), 0 0 32px rgba(255, 23, 68, 0.72), 0 0 6px #ff1744; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    NAMOR — Atlantean underwater king / throne-room HUD
    Primary: ocean teal #00d6c9 | Secondary: ancient gold #f5c542
    Accent: seafoam #7fffd4 | Mood: royal, aggressive, aquatic, ancient
