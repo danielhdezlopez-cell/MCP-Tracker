@@ -23846,6 +23846,395 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   NAMOR — Atlantean underwater king / throne-room HUD
+   Primary: ocean teal #00d6c9 | Secondary: ancient gold #f5c542
+   Accent: seafoam #7fffd4 | Mood: royal, aggressive, aquatic, ancient
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='namor'] {
+  --color-bg: transparent;
+  --color-panel: rgba(0, 18, 28, 0.76);
+  --color-panel-alt: rgba(0, 12, 20, 0.88);
+  --color-border: rgba(0, 214, 201, 0.52);
+  --color-accent-left: #00d6c9;
+  --color-accent-right: #f5c542;
+  --color-glow-left: rgba(0, 214, 201, 0.52);
+  --color-glow-right: rgba(245, 197, 66, 0.46);
+  --color-text: #d6f5f4;
+  --color-text-muted: #7ecfcb;
+  --color-warn: #7fffd4;
+  --color-critical: #ff2a2a;
+  --color-success: #d6f5f4;
+  --color-round-active: #00d6c9;
+  --color-round-inactive: rgba(0, 214, 201, 0.14);
+  --color-mission-secure: #00d6c9;
+  --color-glow-secure: rgba(0, 214, 201, 0.44);
+  --color-mission-extract: #f5c542;
+  --color-glow-extract: rgba(245, 197, 66, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='namor'] body { background: transparent; }
+[data-theme='namor'] .layout { background: transparent; }
+
+/* Underwater caustic shimmer overlay — faint wave-grid lines */
+[data-theme='namor'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 43px,
+      rgba(0, 214, 201, 0.016) 43px,
+      rgba(0, 214, 201, 0.016) 44px
+    ),
+    repeating-linear-gradient(
+      120deg,
+      transparent,
+      transparent 67px,
+      rgba(127, 255, 212, 0.012) 67px,
+      rgba(127, 255, 212, 0.012) 68px
+    );
+}
+
+/* Video overlay — deep ocean with teal & gold light shafts */
+[data-theme='namor'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(0, 214, 201, 0.16), transparent 42%),
+    radial-gradient(circle at 70% 75%, rgba(245, 197, 66, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 50%, rgba(0, 10, 18, 0.08), transparent 56%),
+    rgba(0, 10, 18, 0.48);
+}
+
+/* Panels — dark ocean-depths tactical modules */
+[data-theme='namor'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(0, 214, 201, 0.46);
+  box-shadow: 0 0 18px rgba(0, 214, 201, 0.08), inset 0 0 28px rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(6px);
+}
+[data-theme='namor'] .panel::before {
+  background: linear-gradient(90deg, rgba(0, 214, 201, 0.08), transparent, rgba(245, 197, 66, 0.05));
+}
+[data-theme='namor'] .glow-left {
+  border-color: rgba(0, 214, 201, 0.52);
+  box-shadow: -2px 0 14px rgba(0, 214, 201, 0.28), 0 0 10px rgba(0, 214, 201, 0.12);
+}
+[data-theme='namor'] .glow-right {
+  border-color: rgba(245, 197, 66, 0.46);
+  box-shadow: 2px 0 14px rgba(245, 197, 66, 0.24), 0 0 10px rgba(245, 197, 66, 0.10);
+}
+
+/* Buttons — aquatic royal command */
+[data-theme='namor'] .btn-hud {
+  background: rgba(0, 18, 28, 0.88);
+  border-color: rgba(0, 214, 201, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='namor'] .btn-hud:hover {
+  border-color: rgba(0, 214, 201, 0.88);
+  box-shadow: 0 0 10px rgba(0, 214, 201, 0.34), 0 0 20px rgba(127, 255, 212, 0.18);
+  color: #00d6c9;
+}
+[data-theme='namor'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='namor'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='namor'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — abyssal throne command rail */
+[data-theme='namor'] .side-nav {
+  background: rgba(0, 10, 18, 0.97);
+  border-right-color: rgba(0, 214, 201, 0.28);
+  backdrop-filter: blur(8px);
+}
+[data-theme='namor'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 214, 201, 0.52) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='namor'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(0, 214, 201, 0.80), 0 0 22px rgba(127, 255, 212, 0.44);
+}
+[data-theme='namor'] .side-nav__item:hover {
+  background: rgba(0, 214, 201, 0.06);
+  border-color: rgba(0, 214, 201, 0.26);
+}
+[data-theme='namor'] .side-nav__item.active {
+  background: rgba(0, 214, 201, 0.09);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — royal underwater combat HUD modules */
+[data-theme='namor'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='namor'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #001820, #00d6c9);
+  box-shadow: 0 0 8px rgba(0, 214, 201, 0.68);
+}
+[data-theme='namor'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #1a1200, #f5c542);
+  box-shadow: 0 0 8px rgba(245, 197, 66, 0.60);
+}
+[data-theme='namor'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(214, 245, 244, 0.72), 0 0 16px rgba(0, 214, 201, 0.72), 0 0 30px rgba(127, 255, 212, 0.32);
+  animation: namor-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='namor'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(214, 245, 244, 0.72), 0 0 16px rgba(245, 197, 66, 0.72), 0 0 30px rgba(0, 214, 201, 0.22);
+  animation: namor-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='namor'] .score-panel__btn {
+  background: rgba(0, 18, 28, 0.92);
+  border-color: rgba(0, 214, 201, 0.30);
+}
+[data-theme='namor'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — aquatic tactical countdown */
+[data-theme='namor'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 214, 201, 0.44);
+}
+[data-theme='namor'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(0, 214, 201, 0.10), rgba(127, 255, 212, 0.06), transparent);
+}
+[data-theme='namor'] .timer-panel__display {
+  color: #d6f5f4;
+  text-shadow: 0 0 12px rgba(0, 214, 201, 0.64), 0 0 5px rgba(127, 255, 212, 0.40);
+}
+[data-theme='namor'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='namor'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='namor'] .timer-panel__btn {
+  background: rgba(0, 18, 28, 0.92);
+  border-color: rgba(0, 214, 201, 0.28);
+  color: #7ecfcb;
+}
+[data-theme='namor'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(0, 214, 201, 0.46);
+}
+
+/* Round tracker — ocean-depth combat nodes */
+[data-theme='namor'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 214, 201, 0.28);
+}
+[data-theme='namor'] .round-tracker__pip {
+  background: rgba(0, 214, 201, 0.11);
+  border-color: rgba(0, 214, 201, 0.26);
+}
+[data-theme='namor'] .round-tracker__pip.active {
+  background: rgba(0, 214, 201, 0.70);
+  border-color: #00d6c9;
+  box-shadow: 0 0 6px rgba(0, 214, 201, 0.62);
+}
+[data-theme='namor'] .round-tracker__pip.current {
+  background: #00d6c9;
+  border-color: #d6f5f4;
+  box-shadow: 0 0 10px rgba(0, 214, 201, 0.78), 0 0 20px rgba(127, 255, 212, 0.36);
+  animation: namor-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with teal/gold selection highlights */
+[data-theme='namor'] .mission-slot {
+  background: rgba(0, 18, 28, 0.82);
+  border-color: rgba(0, 214, 201, 0.26);
+  backdrop-filter: blur(5px);
+}
+[data-theme='namor'] .mission-slot--selected {
+  border-color: rgba(0, 214, 201, 0.70);
+  box-shadow: 0 0 12px rgba(0, 214, 201, 0.26);
+}
+[data-theme='namor'] .mission-item {
+  background: rgba(0, 18, 28, 0.78);
+  border-color: rgba(0, 214, 201, 0.18);
+}
+[data-theme='namor'] .mission-item:hover {
+  border-color: rgba(0, 214, 201, 0.42);
+  box-shadow: 0 0 8px rgba(0, 214, 201, 0.14);
+}
+[data-theme='namor'] .mission-item--left.selected {
+  background: rgba(0, 214, 201, 0.10);
+  border-color: rgba(0, 214, 201, 0.60);
+  box-shadow: 0 0 10px rgba(0, 214, 201, 0.26);
+}
+[data-theme='namor'] .mission-item--right.selected {
+  background: rgba(245, 197, 66, 0.09);
+  border-color: rgba(245, 197, 66, 0.58);
+  box-shadow: 0 0 10px rgba(245, 197, 66, 0.22);
+}
+
+/* Leader hex */
+[data-theme='namor'] .leader-hex__name {
+  background: rgba(0, 10, 18, 0.90);
+  border-color: rgba(0, 214, 201, 0.24);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='namor'] .leader-card {
+  background: rgba(0, 18, 28, 0.82);
+  border-color: rgba(0, 214, 201, 0.18);
+  backdrop-filter: blur(4px);
+}
+[data-theme='namor'] .leader-card:hover {
+  border-color: rgba(0, 214, 201, 0.42);
+  box-shadow: 0 0 10px rgba(0, 214, 201, 0.14);
+}
+[data-theme='namor'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='namor'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='namor'] .leaders-page__header,
+[data-theme='namor'] .missions-page__header {
+  background: rgba(0, 10, 18, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(0, 214, 201, 0.20);
+}
+[data-theme='namor'] .leaders-page__search {
+  background: rgba(0, 18, 28, 0.88);
+  border-color: rgba(0, 214, 201, 0.26);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='namor'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='namor'] .missions-page__body {
+  background: rgba(0, 10, 18, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='namor'] .leaders-page__assign-btn {
+  background: rgba(0, 18, 28, 0.86);
+  border-color: rgba(0, 214, 201, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='namor'] .leaders-page__assign-btn.active-left {
+  background: rgba(0, 214, 201, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='namor'] .leaders-page__assign-btn.active-right {
+  background: rgba(245, 197, 66, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='namor'] .affil-btn {
+  background: rgba(0, 18, 28, 0.82);
+  border-color: rgba(0, 214, 201, 0.20);
+}
+[data-theme='namor'] .affil-btn:hover { border-color: rgba(0, 214, 201, 0.40); }
+[data-theme='namor'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(0, 214, 201, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='namor'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(0, 214, 201, 0.24);
+}
+[data-theme='namor'] .settings-section__title {
+  color: #00d6c9;
+  background: rgba(0, 10, 18, 0.95);
+  border-bottom-color: rgba(0, 214, 201, 0.18);
+}
+[data-theme='namor'] .settings-preset-btn.active,
+[data-theme='namor'] .settings-theme-btn.active,
+[data-theme='namor'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(0, 214, 201, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='namor'] .settings-slider {
+  background: rgba(0, 214, 201, 0.13);
+}
+[data-theme='namor'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='namor'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='namor'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.85); }
+[data-theme='namor'] .main-page__modal {
+  background: rgba(0, 18, 28, 0.97);
+  border-color: rgba(0, 214, 201, 0.52);
+  box-shadow: 0 0 30px rgba(0, 214, 201, 0.16), 0 0 50px rgba(127, 255, 212, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='namor'] .main-page__modal-title {
+  color: #00d6c9;
+  text-shadow: 0 0 12px rgba(0, 214, 201, 0.68), 0 0 24px rgba(127, 255, 212, 0.28);
+}
+[data-theme='namor'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — ocean teal surge & ancient gold secondary */
+@keyframes namor-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(214, 245, 244, 0.68), 0 0 16px rgba(0, 214, 201, 0.68), 0 0 30px rgba(127, 255, 212, 0.30); }
+  50%       { text-shadow: 0 0 10px rgba(214, 245, 244, 0.88), 0 0 26px rgba(0, 214, 201, 0.92), 0 0 46px rgba(127, 255, 212, 0.46), 0 0 4px #00d6c9; }
+}
+@keyframes namor-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(214, 245, 244, 0.68), 0 0 16px rgba(245, 197, 66, 0.70), 0 0 30px rgba(0, 214, 201, 0.22); }
+  50%       { text-shadow: 0 0 10px rgba(214, 245, 244, 0.88), 0 0 26px rgba(245, 197, 66, 0.92), 0 0 46px rgba(0, 214, 201, 0.28), 0 0 4px #f5c542; }
+}
+@keyframes namor-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    M'BAKU — Jabari mountain warrior / frozen war council HUD
    Primary: icy steel blue #8fd8ff | Secondary: bone white #f0eadc
    Accent: dark wood #6b4a2f | Mood: brutal, proud, cold, commanding

@@ -46,6 +46,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'miles-morales', label: 'Miles Morales', desc: 'Urban electric superhero comic-tech HUD'        },
   { value: 'modok',         label: 'M.O.D.O.K.',   desc: 'AIM laboratory mind supremacy — yellow scientific, psionic purple & cyan data HUD' },
   { value: 'mystique',     label: 'Mystique',      desc: 'Shapeshifting infiltrator — tactical blue, fire orange & stealth' },
+  { value: 'namor',        label: 'Namor',          desc: 'Atlantean underwater king — ocean teal, ancient gold & deep navy throne-room HUD' },
   { value: 'new-mutants',  label: 'New Mutants',   desc: 'Mutant academy squad — yellow uniform, psychic purple & cyan energy HUD' },
   { value: 'nick-fury',    label: 'Nick Fury',     desc: 'S.H.I.E.L.D. director tactical command — steel blue, carbon black & red alert HUD' },
   { value: 'onslaught',    label: 'Onslaught',     desc: 'Psionic doom — magenta mental energy & void HUD' },
