@@ -23846,6 +23846,397 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   KILL MONGER — Golden tactical warlord / Wakandan-tech combat HUD
+   Primary: metallic gold #f5b642 | Secondary: royal purple #7b3ff2
+   Accent: dark bronze #c16a1f | Mood: brutal, elite, ruthless
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='kill-monger'] {
+  --color-bg: transparent;
+  --color-panel: rgba(12, 8, 14, 0.76);
+  --color-panel-alt: rgba(8, 5, 10, 0.88);
+  --color-border: rgba(245, 182, 66, 0.55);
+  --color-accent-left: #f5b642;
+  --color-accent-right: #7b3ff2;
+  --color-glow-left: rgba(245, 182, 66, 0.55);
+  --color-glow-right: rgba(123, 63, 242, 0.50);
+  --color-text: #f5eed8;
+  --color-text-muted: #c8b87a;
+  --color-warn: #c16a1f;
+  --color-critical: #ff2a2a;
+  --color-success: #f5eed8;
+  --color-round-active: #f5b642;
+  --color-round-inactive: rgba(245, 182, 66, 0.14);
+  --color-mission-secure: #f5b642;
+  --color-glow-secure: rgba(245, 182, 66, 0.42);
+  --color-mission-extract: #7b3ff2;
+  --color-glow-extract: rgba(123, 63, 242, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='kill-monger'] body { background: transparent; }
+[data-theme='kill-monger'] .layout { background: transparent; }
+
+/* Tactical HUD grid overlay — faint gold circuit lines */
+[data-theme='kill-monger'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(245, 182, 66, 0.025) 39px,
+      rgba(245, 182, 66, 0.025) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 59px,
+      rgba(193, 106, 31, 0.020) 59px,
+      rgba(193, 106, 31, 0.020) 60px
+    );
+}
+
+/* Video overlay — dark throne with gold & purple war-light */
+[data-theme='kill-monger'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(193, 106, 31, 0.22), transparent 42%),
+    radial-gradient(circle at 80% 20%, rgba(123, 63, 242, 0.14), transparent 38%),
+    radial-gradient(circle at 50% 50%, rgba(6, 4, 8, 0.10), transparent 60%),
+    rgba(6, 4, 8, 0.50);
+}
+
+/* Panels — black gold royal combat modules */
+[data-theme='kill-monger'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(245, 182, 66, 0.50);
+  box-shadow: 0 0 18px rgba(245, 182, 66, 0.08), inset 0 0 28px rgba(0, 0, 0, 0.70);
+  backdrop-filter: blur(6px);
+}
+[data-theme='kill-monger'] .panel::before {
+  background: linear-gradient(90deg, rgba(245, 182, 66, 0.08), transparent, rgba(123, 63, 242, 0.05));
+}
+[data-theme='kill-monger'] .glow-left {
+  border-color: rgba(245, 182, 66, 0.55);
+  box-shadow: -2px 0 14px rgba(245, 182, 66, 0.30), 0 0 10px rgba(245, 182, 66, 0.12);
+}
+[data-theme='kill-monger'] .glow-right {
+  border-color: rgba(123, 63, 242, 0.50);
+  box-shadow: 2px 0 14px rgba(123, 63, 242, 0.24), 0 0 10px rgba(123, 63, 242, 0.10);
+}
+
+/* Buttons — gold-rimmed warlord command */
+[data-theme='kill-monger'] .btn-hud {
+  background: rgba(12, 8, 14, 0.88);
+  border-color: rgba(245, 182, 66, 0.40);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kill-monger'] .btn-hud:hover {
+  border-color: rgba(245, 182, 66, 0.90);
+  box-shadow: 0 0 10px rgba(245, 182, 66, 0.36), 0 0 20px rgba(193, 106, 31, 0.20);
+  color: #f5b642;
+}
+[data-theme='kill-monger'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='kill-monger'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='kill-monger'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — obsidian gold warlord command rail */
+[data-theme='kill-monger'] .side-nav {
+  background: rgba(6, 4, 8, 0.97);
+  border-right-color: rgba(245, 182, 66, 0.30);
+  backdrop-filter: blur(8px);
+}
+[data-theme='kill-monger'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(245, 182, 66, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='kill-monger'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(245, 182, 66, 0.80), 0 0 22px rgba(193, 106, 31, 0.50);
+}
+[data-theme='kill-monger'] .side-nav__item:hover {
+  background: rgba(245, 182, 66, 0.06);
+  border-color: rgba(245, 182, 66, 0.28);
+}
+[data-theme='kill-monger'] .side-nav__item.active {
+  background: rgba(245, 182, 66, 0.09);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — black-and-gold royal combat HUD modules */
+[data-theme='kill-monger'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='kill-monger'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #2a1800, #f5b642);
+  box-shadow: 0 0 8px rgba(245, 182, 66, 0.70);
+}
+[data-theme='kill-monger'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #1a0a30, #7b3ff2);
+  box-shadow: 0 0 8px rgba(123, 63, 242, 0.64);
+}
+[data-theme='kill-monger'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(245, 238, 210, 0.72), 0 0 16px rgba(245, 182, 66, 0.72), 0 0 30px rgba(193, 106, 31, 0.36);
+  animation: kill-monger-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='kill-monger'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(245, 238, 210, 0.72), 0 0 16px rgba(123, 63, 242, 0.72), 0 0 30px rgba(245, 182, 66, 0.22);
+  animation: kill-monger-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='kill-monger'] .score-panel__btn {
+  background: rgba(12, 8, 14, 0.92);
+  border-color: rgba(245, 182, 66, 0.30);
+}
+[data-theme='kill-monger'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — tactical sharp premium countdown */
+[data-theme='kill-monger'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 182, 66, 0.46);
+}
+[data-theme='kill-monger'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(245, 182, 66, 0.10), rgba(193, 106, 31, 0.06), transparent);
+}
+[data-theme='kill-monger'] .timer-panel__display {
+  color: #f5eed8;
+  text-shadow: 0 0 12px rgba(245, 182, 66, 0.64), 0 0 5px rgba(193, 106, 31, 0.44);
+}
+[data-theme='kill-monger'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='kill-monger'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='kill-monger'] .timer-panel__btn {
+  background: rgba(12, 8, 14, 0.92);
+  border-color: rgba(245, 182, 66, 0.30);
+  color: #c8b87a;
+}
+[data-theme='kill-monger'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(245, 182, 66, 0.48);
+}
+
+/* Round tracker — gold tactical combat nodes */
+[data-theme='kill-monger'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 182, 66, 0.30);
+}
+[data-theme='kill-monger'] .round-tracker__pip {
+  background: rgba(245, 182, 66, 0.12);
+  border-color: rgba(245, 182, 66, 0.28);
+}
+[data-theme='kill-monger'] .round-tracker__pip.active {
+  background: rgba(245, 182, 66, 0.72);
+  border-color: #f5b642;
+  box-shadow: 0 0 6px rgba(245, 182, 66, 0.64);
+}
+[data-theme='kill-monger'] .round-tracker__pip.current {
+  background: #f5b642;
+  border-color: #f5eed8;
+  box-shadow: 0 0 10px rgba(245, 182, 66, 0.80), 0 0 20px rgba(193, 106, 31, 0.40);
+  animation: kill-monger-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with gold/purple selection highlights */
+[data-theme='kill-monger'] .mission-slot {
+  background: rgba(12, 8, 14, 0.82);
+  border-color: rgba(245, 182, 66, 0.28);
+  backdrop-filter: blur(5px);
+}
+[data-theme='kill-monger'] .mission-slot--selected {
+  border-color: rgba(245, 182, 66, 0.72);
+  box-shadow: 0 0 12px rgba(245, 182, 66, 0.28);
+}
+
+/* Mission items */
+[data-theme='kill-monger'] .mission-item {
+  background: rgba(12, 8, 14, 0.78);
+  border-color: rgba(245, 182, 66, 0.18);
+}
+[data-theme='kill-monger'] .mission-item:hover {
+  border-color: rgba(245, 182, 66, 0.44);
+  box-shadow: 0 0 8px rgba(245, 182, 66, 0.14);
+}
+[data-theme='kill-monger'] .mission-item--left.selected {
+  background: rgba(245, 182, 66, 0.10);
+  border-color: rgba(245, 182, 66, 0.62);
+  box-shadow: 0 0 10px rgba(245, 182, 66, 0.26);
+}
+[data-theme='kill-monger'] .mission-item--right.selected {
+  background: rgba(123, 63, 242, 0.10);
+  border-color: rgba(123, 63, 242, 0.62);
+  box-shadow: 0 0 10px rgba(123, 63, 242, 0.24);
+}
+
+/* Leader hex (main screen) */
+[data-theme='kill-monger'] .leader-hex__name {
+  background: rgba(6, 4, 8, 0.90);
+  border-color: rgba(245, 182, 66, 0.24);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards — obsidian gold battle frame */
+[data-theme='kill-monger'] .leader-card {
+  background: rgba(12, 8, 14, 0.82);
+  border-color: rgba(245, 182, 66, 0.18);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kill-monger'] .leader-card:hover {
+  border-color: rgba(245, 182, 66, 0.44);
+  box-shadow: 0 0 10px rgba(245, 182, 66, 0.14);
+}
+[data-theme='kill-monger'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='kill-monger'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='kill-monger'] .leaders-page__header,
+[data-theme='kill-monger'] .missions-page__header {
+  background: rgba(6, 4, 8, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(245, 182, 66, 0.20);
+}
+[data-theme='kill-monger'] .leaders-page__search {
+  background: rgba(12, 8, 14, 0.88);
+  border-color: rgba(245, 182, 66, 0.28);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kill-monger'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='kill-monger'] .missions-page__body {
+  background: rgba(6, 4, 8, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='kill-monger'] .leaders-page__assign-btn {
+  background: rgba(12, 8, 14, 0.86);
+  border-color: rgba(245, 182, 66, 0.26);
+  backdrop-filter: blur(4px);
+}
+[data-theme='kill-monger'] .leaders-page__assign-btn.active-left {
+  background: rgba(245, 182, 66, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='kill-monger'] .leaders-page__assign-btn.active-right {
+  background: rgba(123, 63, 242, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='kill-monger'] .affil-btn {
+  background: rgba(12, 8, 14, 0.82);
+  border-color: rgba(245, 182, 66, 0.20);
+}
+[data-theme='kill-monger'] .affil-btn:hover { border-color: rgba(245, 182, 66, 0.40); }
+[data-theme='kill-monger'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(245, 182, 66, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='kill-monger'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(245, 182, 66, 0.26);
+}
+[data-theme='kill-monger'] .settings-section__title {
+  color: #f5b642;
+  background: rgba(6, 4, 8, 0.95);
+  border-bottom-color: rgba(245, 182, 66, 0.18);
+}
+[data-theme='kill-monger'] .settings-preset-btn.active,
+[data-theme='kill-monger'] .settings-theme-btn.active,
+[data-theme='kill-monger'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(245, 182, 66, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='kill-monger'] .settings-slider {
+  background: rgba(245, 182, 66, 0.14);
+}
+[data-theme='kill-monger'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='kill-monger'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='kill-monger'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.85); }
+[data-theme='kill-monger'] .main-page__modal {
+  background: rgba(12, 8, 14, 0.97);
+  border-color: rgba(245, 182, 66, 0.55);
+  box-shadow: 0 0 30px rgba(245, 182, 66, 0.16), 0 0 50px rgba(193, 106, 31, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='kill-monger'] .main-page__modal-title {
+  color: #f5b642;
+  text-shadow: 0 0 12px rgba(245, 182, 66, 0.68), 0 0 24px rgba(193, 106, 31, 0.30);
+}
+[data-theme='kill-monger'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — gold combat energy & purple selected surge */
+@keyframes kill-monger-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(245, 238, 210, 0.68), 0 0 16px rgba(245, 182, 66, 0.68), 0 0 30px rgba(193, 106, 31, 0.32); }
+  50%       { text-shadow: 0 0 10px rgba(245, 238, 210, 0.88), 0 0 26px rgba(245, 182, 66, 0.92), 0 0 46px rgba(193, 106, 31, 0.48), 0 0 4px #f5b642; }
+}
+@keyframes kill-monger-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(245, 238, 210, 0.68), 0 0 16px rgba(123, 63, 242, 0.70), 0 0 30px rgba(245, 182, 66, 0.22); }
+  50%       { text-shadow: 0 0 10px rgba(245, 238, 210, 0.88), 0 0 26px rgba(123, 63, 242, 0.92), 0 0 46px rgba(245, 182, 66, 0.28), 0 0 4px #7b3ff2; }
+}
+@keyframes kill-monger-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    GLOBAL — Fixed mission type identity colors
    SECURE is always blue (#3b82f6), EXTRACT is always red (#ff1744).
 
