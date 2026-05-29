@@ -24,6 +24,12 @@ interface McpState {
   selectedSecure: Mission | null;
   selectedExtract: Mission | null;
 
+  // Kang / Chronal Manipulation state
+  kangLeftPromptAnswered: boolean;
+  kangLeftTimestreamRound: number | null;
+  kangRightPromptAnswered: boolean;
+  kangRightTimestreamRound: number | null;
+
   // Timer
   timerDuration: number;
   timerRemaining: number;
@@ -48,6 +54,11 @@ interface McpState {
   setRound: (round: number) => void;
   setSelectedSecure: (mission: Mission | null) => void;
   setSelectedExtract: (mission: Mission | null) => void;
+
+  setKangLeftPromptAnswered: (answered: boolean) => void;
+  setKangLeftTimestreamRound: (round: number | null) => void;
+  setKangRightPromptAnswered: (answered: boolean) => void;
+  setKangRightTimestreamRound: (round: number | null) => void;
 
   setTimerDuration: (duration: number) => void;
   setTimerRemaining: (remaining: number) => void;
@@ -164,6 +175,11 @@ export const useMcpStore = create<McpState>()(
       selectedSecure: null,
       selectedExtract: null,
 
+      kangLeftPromptAnswered: false,
+      kangLeftTimestreamRound: null,
+      kangRightPromptAnswered: false,
+      kangRightTimestreamRound: null,
+
       timerDuration: 90 * 60,
       timerRemaining: 90 * 60,
       timerRunning: false,
@@ -182,16 +198,41 @@ export const useMcpStore = create<McpState>()(
       setScoreRight: (score) => set({ scoreRight: Math.max(0, Math.min(20, score)) }),
       setLeaderLeft: (leader) => {
         const autoTheme = leader ? getThemeFromLeader(leader) : null;
+        const kangReset = leader?.name !== 'Kang'
+          ? { kangLeftPromptAnswered: false, kangLeftTimestreamRound: null }
+          : {};
         if (autoTheme !== null) {
-          set({ leaderLeft: leader, theme: autoTheme, interactiveBg: autoTheme === 'neon-blue' ? 'tech-hex' : 'off' });
+          set({ leaderLeft: leader, theme: autoTheme, interactiveBg: autoTheme === 'neon-blue' ? 'tech-hex' : 'off', ...kangReset });
         } else {
-          set({ leaderLeft: leader });
+          set({ leaderLeft: leader, ...kangReset });
         }
       },
-      setLeaderRight: (leader) => set({ leaderRight: leader }),
+      setLeaderRight: (leader) => {
+        const kangReset = leader?.name !== 'Kang'
+          ? { kangRightPromptAnswered: false, kangRightTimestreamRound: null }
+          : {};
+        set({ leaderRight: leader, ...kangReset });
+      },
       setRound: (round) => set({ round: Math.max(1, Math.min(6, round)) }),
-      setSelectedSecure: (mission) => set({ selectedSecure: mission }),
-      setSelectedExtract: (mission) => set({ selectedExtract: mission }),
+      setSelectedSecure: (mission) => {
+        if (mission === null) {
+          set({ selectedSecure: null, kangLeftPromptAnswered: false, kangLeftTimestreamRound: null, kangRightPromptAnswered: false, kangRightTimestreamRound: null });
+        } else {
+          set({ selectedSecure: mission });
+        }
+      },
+      setSelectedExtract: (mission) => {
+        if (mission === null) {
+          set({ selectedExtract: null, kangLeftPromptAnswered: false, kangLeftTimestreamRound: null, kangRightPromptAnswered: false, kangRightTimestreamRound: null });
+        } else {
+          set({ selectedExtract: mission });
+        }
+      },
+
+      setKangLeftPromptAnswered: (answered) => set({ kangLeftPromptAnswered: answered }),
+      setKangLeftTimestreamRound: (round) => set({ kangLeftTimestreamRound: round }),
+      setKangRightPromptAnswered: (answered) => set({ kangRightPromptAnswered: answered }),
+      setKangRightTimestreamRound: (round) => set({ kangRightTimestreamRound: round }),
 
       setTimerDuration: (duration) => {
         const current = get();
@@ -226,6 +267,10 @@ export const useMcpStore = create<McpState>()(
           selectedExtract: null,
           timerRemaining: timerDuration,
           timerRunning: false,
+          kangLeftPromptAnswered: false,
+          kangLeftTimestreamRound: null,
+          kangRightPromptAnswered: false,
+          kangRightTimestreamRound: null,
         });
       },
     }),
