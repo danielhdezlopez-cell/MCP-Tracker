@@ -23846,6 +23846,395 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   M'BAKU — Jabari mountain warrior / frozen war council HUD
+   Primary: icy steel blue #8fd8ff | Secondary: bone white #f0eadc
+   Accent: dark wood #6b4a2f | Mood: brutal, proud, cold, commanding
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='mbaku'] {
+  --color-bg: transparent;
+  --color-panel: rgba(8, 14, 18, 0.76);
+  --color-panel-alt: rgba(5, 9, 12, 0.88);
+  --color-border: rgba(143, 216, 255, 0.48);
+  --color-accent-left: #8fd8ff;
+  --color-accent-right: #f0eadc;
+  --color-glow-left: rgba(143, 216, 255, 0.48);
+  --color-glow-right: rgba(240, 234, 220, 0.40);
+  --color-text: #e8f4ff;
+  --color-text-muted: #a8c4d8;
+  --color-warn: #6b4a2f;
+  --color-critical: #ff2a2a;
+  --color-success: #e8f4ff;
+  --color-round-active: #8fd8ff;
+  --color-round-inactive: rgba(143, 216, 255, 0.14);
+  --color-mission-secure: #8fd8ff;
+  --color-glow-secure: rgba(143, 216, 255, 0.42);
+  --color-mission-extract: #f0eadc;
+  --color-glow-extract: rgba(240, 234, 220, 0.38);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='mbaku'] body { background: transparent; }
+[data-theme='mbaku'] .layout { background: transparent; }
+
+/* Frost HUD overlay — subtle horizontal mountain-wind lines */
+[data-theme='mbaku'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 47px,
+      rgba(143, 216, 255, 0.018) 47px,
+      rgba(143, 216, 255, 0.018) 48px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 79px,
+      rgba(107, 74, 47, 0.014) 79px,
+      rgba(107, 74, 47, 0.014) 80px
+    );
+}
+
+/* Video overlay — frozen mountain dusk with cold blue highlights */
+[data-theme='mbaku'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 25% 15%, rgba(143, 216, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 75% 85%, rgba(107, 74, 47, 0.18), transparent 38%),
+    radial-gradient(circle at 50% 50%, rgba(4, 8, 12, 0.08), transparent 58%),
+    rgba(4, 8, 12, 0.52);
+}
+
+/* Panels — dark obsidian tribal war modules */
+[data-theme='mbaku'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(143, 216, 255, 0.42);
+  box-shadow: 0 0 18px rgba(143, 216, 255, 0.06), inset 0 0 28px rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+}
+[data-theme='mbaku'] .panel::before {
+  background: linear-gradient(90deg, rgba(143, 216, 255, 0.07), transparent, rgba(240, 234, 220, 0.04));
+}
+[data-theme='mbaku'] .glow-left {
+  border-color: rgba(143, 216, 255, 0.48);
+  box-shadow: -2px 0 14px rgba(143, 216, 255, 0.26), 0 0 10px rgba(143, 216, 255, 0.10);
+}
+[data-theme='mbaku'] .glow-right {
+  border-color: rgba(240, 234, 220, 0.40);
+  box-shadow: 2px 0 14px rgba(240, 234, 220, 0.20), 0 0 10px rgba(240, 234, 220, 0.08);
+}
+
+/* Buttons — cold iron command */
+[data-theme='mbaku'] .btn-hud {
+  background: rgba(8, 14, 18, 0.88);
+  border-color: rgba(143, 216, 255, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='mbaku'] .btn-hud:hover {
+  border-color: rgba(143, 216, 255, 0.85);
+  box-shadow: 0 0 10px rgba(143, 216, 255, 0.32), 0 0 20px rgba(107, 74, 47, 0.16);
+  color: #8fd8ff;
+}
+[data-theme='mbaku'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='mbaku'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='mbaku'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — mountain fortress command rail */
+[data-theme='mbaku'] .side-nav {
+  background: rgba(4, 8, 12, 0.97);
+  border-right-color: rgba(143, 216, 255, 0.26);
+  backdrop-filter: blur(8px);
+}
+[data-theme='mbaku'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(143, 216, 255, 0.50) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='mbaku'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(143, 216, 255, 0.75), 0 0 22px rgba(107, 74, 47, 0.40);
+}
+[data-theme='mbaku'] .side-nav__item:hover {
+  background: rgba(143, 216, 255, 0.05);
+  border-color: rgba(143, 216, 255, 0.24);
+}
+[data-theme='mbaku'] .side-nav__item.active {
+  background: rgba(143, 216, 255, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — rugged tribal war HUD modules */
+[data-theme='mbaku'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='mbaku'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #060c14, #8fd8ff);
+  box-shadow: 0 0 8px rgba(143, 216, 255, 0.66);
+}
+[data-theme='mbaku'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #1a1208, #f0eadc);
+  box-shadow: 0 0 8px rgba(240, 234, 220, 0.54);
+}
+[data-theme='mbaku'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(232, 244, 255, 0.70), 0 0 16px rgba(143, 216, 255, 0.70), 0 0 30px rgba(107, 74, 47, 0.28);
+  animation: mbaku-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='mbaku'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(232, 244, 255, 0.70), 0 0 16px rgba(240, 234, 220, 0.68), 0 0 30px rgba(143, 216, 255, 0.20);
+  animation: mbaku-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='mbaku'] .score-panel__btn {
+  background: rgba(8, 14, 18, 0.92);
+  border-color: rgba(143, 216, 255, 0.28);
+}
+[data-theme='mbaku'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — cold heavy tactical countdown */
+[data-theme='mbaku'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(143, 216, 255, 0.42);
+}
+[data-theme='mbaku'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(143, 216, 255, 0.09), rgba(107, 74, 47, 0.05), transparent);
+}
+[data-theme='mbaku'] .timer-panel__display {
+  color: #e8f4ff;
+  text-shadow: 0 0 12px rgba(143, 216, 255, 0.60), 0 0 5px rgba(107, 74, 47, 0.36);
+}
+[data-theme='mbaku'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='mbaku'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='mbaku'] .timer-panel__btn {
+  background: rgba(8, 14, 18, 0.92);
+  border-color: rgba(143, 216, 255, 0.26);
+  color: #a8c4d8;
+}
+[data-theme='mbaku'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(143, 216, 255, 0.44);
+}
+
+/* Round tracker — cold iron combat nodes */
+[data-theme='mbaku'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(143, 216, 255, 0.26);
+}
+[data-theme='mbaku'] .round-tracker__pip {
+  background: rgba(143, 216, 255, 0.10);
+  border-color: rgba(143, 216, 255, 0.24);
+}
+[data-theme='mbaku'] .round-tracker__pip.active {
+  background: rgba(143, 216, 255, 0.68);
+  border-color: #8fd8ff;
+  box-shadow: 0 0 6px rgba(143, 216, 255, 0.60);
+}
+[data-theme='mbaku'] .round-tracker__pip.current {
+  background: #8fd8ff;
+  border-color: #e8f4ff;
+  box-shadow: 0 0 10px rgba(143, 216, 255, 0.76), 0 0 20px rgba(107, 74, 47, 0.32);
+  animation: mbaku-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with icy/bone selection highlights */
+[data-theme='mbaku'] .mission-slot {
+  background: rgba(8, 14, 18, 0.82);
+  border-color: rgba(143, 216, 255, 0.24);
+  backdrop-filter: blur(5px);
+}
+[data-theme='mbaku'] .mission-slot--selected {
+  border-color: rgba(143, 216, 255, 0.68);
+  box-shadow: 0 0 12px rgba(143, 216, 255, 0.24);
+}
+[data-theme='mbaku'] .mission-item {
+  background: rgba(8, 14, 18, 0.78);
+  border-color: rgba(143, 216, 255, 0.16);
+}
+[data-theme='mbaku'] .mission-item:hover {
+  border-color: rgba(143, 216, 255, 0.40);
+  box-shadow: 0 0 8px rgba(143, 216, 255, 0.12);
+}
+[data-theme='mbaku'] .mission-item--left.selected {
+  background: rgba(143, 216, 255, 0.09);
+  border-color: rgba(143, 216, 255, 0.58);
+  box-shadow: 0 0 10px rgba(143, 216, 255, 0.24);
+}
+[data-theme='mbaku'] .mission-item--right.selected {
+  background: rgba(240, 234, 220, 0.08);
+  border-color: rgba(240, 234, 220, 0.56);
+  box-shadow: 0 0 10px rgba(240, 234, 220, 0.20);
+}
+
+/* Leader hex */
+[data-theme='mbaku'] .leader-hex__name {
+  background: rgba(4, 8, 12, 0.90);
+  border-color: rgba(143, 216, 255, 0.22);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='mbaku'] .leader-card {
+  background: rgba(8, 14, 18, 0.82);
+  border-color: rgba(143, 216, 255, 0.16);
+  backdrop-filter: blur(4px);
+}
+[data-theme='mbaku'] .leader-card:hover {
+  border-color: rgba(143, 216, 255, 0.40);
+  box-shadow: 0 0 10px rgba(143, 216, 255, 0.12);
+}
+[data-theme='mbaku'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='mbaku'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='mbaku'] .leaders-page__header,
+[data-theme='mbaku'] .missions-page__header {
+  background: rgba(4, 8, 12, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(143, 216, 255, 0.18);
+}
+[data-theme='mbaku'] .leaders-page__search {
+  background: rgba(8, 14, 18, 0.88);
+  border-color: rgba(143, 216, 255, 0.24);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='mbaku'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='mbaku'] .missions-page__body {
+  background: rgba(4, 8, 12, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='mbaku'] .leaders-page__assign-btn {
+  background: rgba(8, 14, 18, 0.86);
+  border-color: rgba(143, 216, 255, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='mbaku'] .leaders-page__assign-btn.active-left {
+  background: rgba(143, 216, 255, 0.07);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='mbaku'] .leaders-page__assign-btn.active-right {
+  background: rgba(240, 234, 220, 0.07);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='mbaku'] .affil-btn {
+  background: rgba(8, 14, 18, 0.82);
+  border-color: rgba(143, 216, 255, 0.18);
+}
+[data-theme='mbaku'] .affil-btn:hover { border-color: rgba(143, 216, 255, 0.38); }
+[data-theme='mbaku'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(143, 216, 255, 0.07);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='mbaku'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(143, 216, 255, 0.22);
+}
+[data-theme='mbaku'] .settings-section__title {
+  color: #8fd8ff;
+  background: rgba(4, 8, 12, 0.95);
+  border-bottom-color: rgba(143, 216, 255, 0.16);
+}
+[data-theme='mbaku'] .settings-preset-btn.active,
+[data-theme='mbaku'] .settings-theme-btn.active,
+[data-theme='mbaku'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(143, 216, 255, 0.07);
+  color: var(--color-accent-left);
+}
+[data-theme='mbaku'] .settings-slider {
+  background: rgba(143, 216, 255, 0.12);
+}
+[data-theme='mbaku'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='mbaku'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='mbaku'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.85); }
+[data-theme='mbaku'] .main-page__modal {
+  background: rgba(8, 14, 18, 0.97);
+  border-color: rgba(143, 216, 255, 0.48);
+  box-shadow: 0 0 30px rgba(143, 216, 255, 0.14), 0 0 50px rgba(107, 74, 47, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='mbaku'] .main-page__modal-title {
+  color: #8fd8ff;
+  text-shadow: 0 0 12px rgba(143, 216, 255, 0.64), 0 0 24px rgba(107, 74, 47, 0.24);
+}
+[data-theme='mbaku'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — icy mountain energy & bone-white secondary surge */
+@keyframes mbaku-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(232, 244, 255, 0.68), 0 0 16px rgba(143, 216, 255, 0.68), 0 0 30px rgba(107, 74, 47, 0.28); }
+  50%       { text-shadow: 0 0 10px rgba(232, 244, 255, 0.88), 0 0 26px rgba(143, 216, 255, 0.92), 0 0 46px rgba(107, 74, 47, 0.40), 0 0 4px #8fd8ff; }
+}
+@keyframes mbaku-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(232, 244, 255, 0.68), 0 0 16px rgba(240, 234, 220, 0.68), 0 0 30px rgba(143, 216, 255, 0.20); }
+  50%       { text-shadow: 0 0 10px rgba(232, 244, 255, 0.88), 0 0 26px rgba(240, 234, 220, 0.90), 0 0 46px rgba(143, 216, 255, 0.24), 0 0 4px #f0eadc; }
+}
+@keyframes mbaku-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    KILL MONGER — Golden tactical warlord / Wakandan-tech combat HUD
    Primary: metallic gold #f5b642 | Secondary: royal purple #7b3ff2
    Accent: dark bronze #c16a1f | Mood: brutal, elite, ruthless

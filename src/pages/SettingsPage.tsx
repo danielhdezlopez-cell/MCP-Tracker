@@ -39,6 +39,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'magik',       label: 'Magik',          desc: 'Limbo sorcerer — Soulsword yellow & void purple'  },
   { value: 'magneto',          label: 'Magneto',          desc: 'Magnetic supremacy — purple field & armour red'   },
   { value: 'maximus-the-mad',  label: 'Maximus The Mad',  desc: 'Mad genius Inhuman mastermind — cold silver, crimson menace & dark graphite HUD' },
+  { value: 'mbaku',            label: "M'Baku",          desc: "Jabari mountain warrior — icy steel blue, bone white & dark-wood frozen war council HUD" },
   { value: 'medusa',           label: 'Medusa',         desc: 'Inhuman queen — regal violet, copper rose-gold & dark throne-room HUD' },
   { value: 'mephisto',    label: 'Mephisto',      desc: 'Infernal demon lord — fire red & ember amber'     },
   { value: 'midnight-sons', label: 'Midnight Sons', desc: 'Occultist hunters — spectral cyan & blood fire'  },
