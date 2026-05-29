@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
+export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'namor' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -127,6 +127,7 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'The Leader':         'the-leader', // fallback alias for any persisted old data
   'Killmonger':         'kill-monger',
   "M'Baku":            'mbaku',
+  'Namor':             'namor',
 };
 
 function getThemeFromLeader(leader: Leader): Theme | null {
