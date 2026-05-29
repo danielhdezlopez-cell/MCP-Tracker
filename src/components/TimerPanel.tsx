@@ -22,6 +22,7 @@ export function TimerPanel() {
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (timerRemaining <= 0 && timerRunning) {
         setTimerRunning(false);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setExpired(true);
         if ('vibrate' in navigator) navigator.vibrate([300, 100, 300, 100, 300]);
       }

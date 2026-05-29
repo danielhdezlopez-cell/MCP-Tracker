@@ -53,6 +53,15 @@ public/assets/
   icons/        — PWA icons (192px, 512px)
 ```
 
+## Repository Safety
+
+- **Do not commit `.env` files** or any variant. Use GitHub Secrets for sensitive values.
+- **Do not commit tokens, API keys, or passwords** of any kind.
+- **Work on feature branches**, not directly on `main`.
+- **Open a Pull Request** before merging anything into `main`.
+- **Verify the GitHub Pages build** passes before considering a release complete.
+- See [SECURITY.md](./SECURITY.md) for the full security policy.
+
 ## Leaders Without Images (Placeholders)
 
 Add PNG files to `public/assets/leaders/` to replace placeholders for:

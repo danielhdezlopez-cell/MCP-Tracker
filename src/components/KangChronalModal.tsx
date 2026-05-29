@@ -23,22 +23,23 @@ export function KangChronalModal() {
   const leftNeeds = leaderLeft?.name === 'Kang' && bothMissions && !kangLeftSetupAnswered;
   const rightNeeds = leaderRight?.name === 'Kang' && bothMissions && !kangRightSetupAnswered;
 
-  useEffect(() => {
-    if (activePlayer !== null) return;
-    if (leftNeeds) {
-      open('left');
-    } else if (rightNeeds) {
-      open('right');
-    }
-  }, [leftNeeds, rightNeeds, activePlayer]);
-
-  function open(player: 'left' | 'right') {
+  const openPanel = (player: 'left' | 'right') => {
     setActivePlayer(player);
     setStep('cards');
     setChronalSelected(false);
     setTrustSelected(false);
     setChronalRound(null);
-  }
+  };
+
+  useEffect(() => {
+    if (activePlayer !== null) return;
+    if (leftNeeds) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      openPanel('left');
+    } else if (rightNeeds) {
+      openPanel('right');
+    }
+  }, [leftNeeds, rightNeeds, activePlayer]);
 
   function dismiss(player: 'left' | 'right', chronalPlayed: boolean, chronalRoundVal: number | null, trustPlayed: boolean, trustRoundVal: number | null) {
     const data = { answered: true, chronalPlayed, chronalRound: chronalRoundVal, trustPlayed, trustRound: trustRoundVal };
