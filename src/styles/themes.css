@@ -23846,6 +23846,395 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   MALEKITH — Dark elf warlord / cursed-realm command HUD
+   Primary: cold violet #9d6bff | Secondary: pale cyan #bfe8ff
+   Accent: deep magenta #ff4fd8 | Mood: sinister, regal, cold, mystical
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='malekith'] {
+  --color-bg: transparent;
+  --color-panel: rgba(10, 8, 18, 0.78);
+  --color-panel-alt: rgba(6, 5, 12, 0.90);
+  --color-border: rgba(157, 107, 255, 0.52);
+  --color-accent-left: #9d6bff;
+  --color-accent-right: #bfe8ff;
+  --color-glow-left: rgba(157, 107, 255, 0.52);
+  --color-glow-right: rgba(191, 232, 255, 0.44);
+  --color-text: #ece8ff;
+  --color-text-muted: #9a8ec0;
+  --color-warn: #ff4fd8;
+  --color-critical: #ff2a2a;
+  --color-success: #ece8ff;
+  --color-round-active: #9d6bff;
+  --color-round-inactive: rgba(157, 107, 255, 0.14);
+  --color-mission-secure: #9d6bff;
+  --color-glow-secure: rgba(157, 107, 255, 0.44);
+  --color-mission-extract: #bfe8ff;
+  --color-glow-extract: rgba(191, 232, 255, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='malekith'] body { background: transparent; }
+[data-theme='malekith'] .layout { background: transparent; }
+
+/* Cursed dark-energy sigil overlay — faint angled arcane lines */
+[data-theme='malekith'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 47px,
+      rgba(157, 107, 255, 0.016) 47px,
+      rgba(157, 107, 255, 0.016) 48px
+    ),
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 71px,
+      rgba(255, 79, 216, 0.012) 71px,
+      rgba(255, 79, 216, 0.012) 72px
+    );
+}
+
+/* Video overlay — void realm with violet & cyan cursed-light shafts */
+[data-theme='malekith'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(157, 107, 255, 0.18), transparent 44%),
+    radial-gradient(circle at 80% 70%, rgba(255, 79, 216, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 50%, rgba(6, 4, 12, 0.08), transparent 56%),
+    rgba(6, 4, 12, 0.54);
+}
+
+/* Panels — void-realm dark arcane modules */
+[data-theme='malekith'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(157, 107, 255, 0.46);
+  box-shadow: 0 0 18px rgba(157, 107, 255, 0.08), inset 0 0 28px rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+}
+[data-theme='malekith'] .panel::before {
+  background: linear-gradient(90deg, rgba(157, 107, 255, 0.08), transparent, rgba(191, 232, 255, 0.05));
+}
+[data-theme='malekith'] .glow-left {
+  border-color: rgba(157, 107, 255, 0.52);
+  box-shadow: -2px 0 14px rgba(157, 107, 255, 0.28), 0 0 10px rgba(157, 107, 255, 0.12);
+}
+[data-theme='malekith'] .glow-right {
+  border-color: rgba(191, 232, 255, 0.44);
+  box-shadow: 2px 0 14px rgba(191, 232, 255, 0.22), 0 0 10px rgba(191, 232, 255, 0.10);
+}
+
+/* Buttons — cold arcane command */
+[data-theme='malekith'] .btn-hud {
+  background: rgba(10, 8, 18, 0.90);
+  border-color: rgba(157, 107, 255, 0.36);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='malekith'] .btn-hud:hover {
+  border-color: rgba(157, 107, 255, 0.88);
+  box-shadow: 0 0 10px rgba(157, 107, 255, 0.34), 0 0 20px rgba(255, 79, 216, 0.18);
+  color: #9d6bff;
+}
+[data-theme='malekith'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='malekith'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='malekith'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — dark realm throne command rail */
+[data-theme='malekith'] .side-nav {
+  background: rgba(6, 4, 12, 0.97);
+  border-right-color: rgba(157, 107, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+[data-theme='malekith'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(157, 107, 255, 0.52) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='malekith'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(157, 107, 255, 0.80), 0 0 22px rgba(255, 79, 216, 0.44);
+}
+[data-theme='malekith'] .side-nav__item:hover {
+  background: rgba(157, 107, 255, 0.06);
+  border-color: rgba(157, 107, 255, 0.26);
+}
+[data-theme='malekith'] .side-nav__item.active {
+  background: rgba(157, 107, 255, 0.09);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — cold magical war-council modules */
+[data-theme='malekith'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='malekith'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #180830, #9d6bff);
+  box-shadow: 0 0 8px rgba(157, 107, 255, 0.68);
+}
+[data-theme='malekith'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #081420, #bfe8ff);
+  box-shadow: 0 0 8px rgba(191, 232, 255, 0.56);
+}
+[data-theme='malekith'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(236, 232, 255, 0.70), 0 0 16px rgba(157, 107, 255, 0.72), 0 0 30px rgba(255, 79, 216, 0.28);
+  animation: malekith-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='malekith'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(236, 232, 255, 0.70), 0 0 16px rgba(191, 232, 255, 0.70), 0 0 30px rgba(157, 107, 255, 0.22);
+  animation: malekith-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='malekith'] .score-panel__btn {
+  background: rgba(10, 8, 18, 0.92);
+  border-color: rgba(157, 107, 255, 0.30);
+}
+[data-theme='malekith'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — arcane ominous countdown */
+[data-theme='malekith'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(157, 107, 255, 0.44);
+}
+[data-theme='malekith'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(157, 107, 255, 0.10), rgba(255, 79, 216, 0.05), transparent);
+}
+[data-theme='malekith'] .timer-panel__display {
+  color: #ece8ff;
+  text-shadow: 0 0 12px rgba(157, 107, 255, 0.64), 0 0 5px rgba(255, 79, 216, 0.38);
+}
+[data-theme='malekith'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='malekith'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='malekith'] .timer-panel__btn {
+  background: rgba(10, 8, 18, 0.92);
+  border-color: rgba(157, 107, 255, 0.28);
+  color: #9a8ec0;
+}
+[data-theme='malekith'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(157, 107, 255, 0.46);
+}
+
+/* Round tracker — void-energy combat nodes */
+[data-theme='malekith'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(157, 107, 255, 0.26);
+}
+[data-theme='malekith'] .round-tracker__pip {
+  background: rgba(157, 107, 255, 0.11);
+  border-color: rgba(157, 107, 255, 0.24);
+}
+[data-theme='malekith'] .round-tracker__pip.active {
+  background: rgba(157, 107, 255, 0.70);
+  border-color: #9d6bff;
+  box-shadow: 0 0 6px rgba(157, 107, 255, 0.62);
+}
+[data-theme='malekith'] .round-tracker__pip.current {
+  background: #9d6bff;
+  border-color: #ece8ff;
+  box-shadow: 0 0 10px rgba(157, 107, 255, 0.80), 0 0 20px rgba(255, 79, 216, 0.34);
+  animation: malekith-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with violet/cyan selection */
+[data-theme='malekith'] .mission-slot {
+  background: rgba(10, 8, 18, 0.82);
+  border-color: rgba(157, 107, 255, 0.24);
+  backdrop-filter: blur(5px);
+}
+[data-theme='malekith'] .mission-slot--selected {
+  border-color: rgba(157, 107, 255, 0.68);
+  box-shadow: 0 0 12px rgba(157, 107, 255, 0.26);
+}
+[data-theme='malekith'] .mission-item {
+  background: rgba(10, 8, 18, 0.78);
+  border-color: rgba(157, 107, 255, 0.18);
+}
+[data-theme='malekith'] .mission-item:hover {
+  border-color: rgba(157, 107, 255, 0.42);
+  box-shadow: 0 0 8px rgba(157, 107, 255, 0.14);
+}
+[data-theme='malekith'] .mission-item--left.selected {
+  background: rgba(157, 107, 255, 0.10);
+  border-color: rgba(157, 107, 255, 0.60);
+  box-shadow: 0 0 10px rgba(157, 107, 255, 0.26);
+}
+[data-theme='malekith'] .mission-item--right.selected {
+  background: rgba(191, 232, 255, 0.08);
+  border-color: rgba(191, 232, 255, 0.56);
+  box-shadow: 0 0 10px rgba(191, 232, 255, 0.20);
+}
+
+/* Leader hex */
+[data-theme='malekith'] .leader-hex__name {
+  background: rgba(6, 4, 12, 0.90);
+  border-color: rgba(157, 107, 255, 0.22);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='malekith'] .leader-card {
+  background: rgba(10, 8, 18, 0.82);
+  border-color: rgba(157, 107, 255, 0.16);
+  backdrop-filter: blur(4px);
+}
+[data-theme='malekith'] .leader-card:hover {
+  border-color: rgba(157, 107, 255, 0.42);
+  box-shadow: 0 0 10px rgba(157, 107, 255, 0.12);
+}
+[data-theme='malekith'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='malekith'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='malekith'] .leaders-page__header,
+[data-theme='malekith'] .missions-page__header {
+  background: rgba(6, 4, 12, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(157, 107, 255, 0.20);
+}
+[data-theme='malekith'] .leaders-page__search {
+  background: rgba(10, 8, 18, 0.88);
+  border-color: rgba(157, 107, 255, 0.26);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='malekith'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='malekith'] .missions-page__body {
+  background: rgba(6, 4, 12, 0.70);
+}
+
+/* Assign buttons */
+[data-theme='malekith'] .leaders-page__assign-btn {
+  background: rgba(10, 8, 18, 0.86);
+  border-color: rgba(157, 107, 255, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='malekith'] .leaders-page__assign-btn.active-left {
+  background: rgba(157, 107, 255, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='malekith'] .leaders-page__assign-btn.active-right {
+  background: rgba(191, 232, 255, 0.07);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='malekith'] .affil-btn {
+  background: rgba(10, 8, 18, 0.82);
+  border-color: rgba(157, 107, 255, 0.20);
+}
+[data-theme='malekith'] .affil-btn:hover { border-color: rgba(157, 107, 255, 0.40); }
+[data-theme='malekith'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(157, 107, 255, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='malekith'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(157, 107, 255, 0.24);
+}
+[data-theme='malekith'] .settings-section__title {
+  color: #9d6bff;
+  background: rgba(6, 4, 12, 0.95);
+  border-bottom-color: rgba(157, 107, 255, 0.18);
+}
+[data-theme='malekith'] .settings-preset-btn.active,
+[data-theme='malekith'] .settings-theme-btn.active,
+[data-theme='malekith'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(157, 107, 255, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='malekith'] .settings-slider {
+  background: rgba(157, 107, 255, 0.13);
+}
+[data-theme='malekith'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='malekith'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='malekith'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.88); }
+[data-theme='malekith'] .main-page__modal {
+  background: rgba(10, 8, 18, 0.97);
+  border-color: rgba(157, 107, 255, 0.52);
+  box-shadow: 0 0 30px rgba(157, 107, 255, 0.16), 0 0 50px rgba(255, 79, 216, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='malekith'] .main-page__modal-title {
+  color: #9d6bff;
+  text-shadow: 0 0 12px rgba(157, 107, 255, 0.68), 0 0 24px rgba(255, 79, 216, 0.28);
+}
+[data-theme='malekith'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — void violet surge & pale cyan secondary */
+@keyframes malekith-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(236, 232, 255, 0.68), 0 0 16px rgba(157, 107, 255, 0.70), 0 0 30px rgba(255, 79, 216, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(236, 232, 255, 0.88), 0 0 26px rgba(157, 107, 255, 0.94), 0 0 46px rgba(255, 79, 216, 0.40), 0 0 4px #9d6bff; }
+}
+@keyframes malekith-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(236, 232, 255, 0.68), 0 0 16px rgba(191, 232, 255, 0.70), 0 0 30px rgba(157, 107, 255, 0.20); }
+  50%       { text-shadow: 0 0 10px rgba(236, 232, 255, 0.88), 0 0 26px rgba(191, 232, 255, 0.92), 0 0 46px rgba(157, 107, 255, 0.26), 0 0 4px #bfe8ff; }
+}
+@keyframes malekith-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    SIN — Crimson assassin / covert villain safehouse HUD
    Primary: crimson red #ff1744 | Secondary: hot pink #ff4fb3
    Accent: gunmetal green #5f6f5f | Mood: dangerous, covert, violent

@@ -45,6 +45,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   klaw:   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Klaw.mp4`,        modifier: 'anim-theme-bg--klaw', smoothLoop: true },
   loki:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Loki.mp4`,     modifier: 'anim-theme-bg--loki', smoothLoop: true },
   magik:   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Magik.mp4`,    modifier: 'anim-theme-bg--magik', smoothLoop: true },
+  malekith: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Malekith.mp4`, modifier: 'anim-theme-bg--malekith', smoothLoop: true },
   magneto: { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Magneto.mp4`, modifier: 'anim-theme-bg--magneto', smoothLoop: true },
   'maximus-the-mad': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_MaximusTheMad.mp4`, modifier: 'anim-theme-bg--maximus-the-mad', smoothLoop: true },
   mbaku:             { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_MBaku.mp4`,          modifier: 'anim-theme-bg--mbaku',          smoothLoop: true },

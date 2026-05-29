@@ -37,6 +37,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'klaw',         label: 'Klaw',            desc: 'Sonic energy weapon — blood red, psionic magenta & vibranium cyan HUD' },
   { value: 'loki',         label: 'Loki',            desc: 'God of Mischief — arcane green magic, asgardian gold & shadow purple HUD' },
   { value: 'magik',       label: 'Magik',          desc: 'Limbo sorcerer — Soulsword yellow & void purple'  },
+  { value: 'malekith',   label: 'Malekith',        desc: 'Dark elf warlord — cold violet, pale cyan & cursed magenta arcane command HUD' },
   { value: 'magneto',          label: 'Magneto',          desc: 'Magnetic supremacy — purple field & armour red'   },
   { value: 'maximus-the-mad',  label: 'Maximus The Mad',  desc: 'Mad genius Inhuman mastermind — cold silver, crimson menace & dark graphite HUD' },
   { value: 'mbaku',            label: "M'Baku",          desc: "Jabari mountain warrior — icy steel blue, bone white & dark-wood frozen war council HUD" },
