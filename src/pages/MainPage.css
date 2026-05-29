@@ -55,10 +55,11 @@
 }
 
 .main-page__fullscreen-btn {
-  padding: 4px 7px;
+  padding: 6px 10px;
   border-color: var(--color-border);
   color: var(--color-text-muted);
-  min-height: 28px;
+  min-height: 44px;
+  min-width: 44px;
   flex-shrink: 0;
   opacity: 0.5;
   transition: all var(--transition);
@@ -86,8 +87,8 @@
 /* ── Control buttons (Reset / Config) in top bar ─────────────────── */
 .main-page__corner-btn {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,8 +103,8 @@
 }
 
 .main-page__corner-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
 }
 
 .main-page__corner-btn--reset {
@@ -335,23 +336,23 @@
     align-self: center !important;
   }
 
-  /* Left score panel nudges toward center (rightward) and 45px lower */
+  /* Left score panel nudges toward center (rightward) and 15px lower */
   .main-page__side-area--left .score-panel {
-    transform: translateX(14px) translateY(45px);
+    transform: translateX(14px) translateY(15px);
   }
 
-  /* Right score panel nudges toward center (leftward) and 45px lower */
+  /* Right score panel nudges toward center (leftward) and 15px lower */
   .main-page__side-area--right .score-panel {
-    transform: translateX(-14px) translateY(45px);
+    transform: translateX(-14px) translateY(15px);
   }
 
-  /* Mission panels — taller, lifted, narrower */
+  /* Mission panels — taller, lifted, wider */
   .main-page__side-stack .mission-slot {
     flex: 0 0 clamp(120px, 23vh, 160px) !important;
     height: clamp(120px, 23vh, 160px);
     margin-bottom: 12px;
     align-self: center;
-    width: clamp(190px, 22vw, 270px) !important;
+    width: clamp(220px, 22vw, 300px) !important;
   }
 
   /* Leaders spread toward their respective score panels */
