@@ -100,6 +100,9 @@
 .anim-theme-bg--maximus-the-mad.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #06080c 0%, #0e1018 40%, #1a0608 70%, #06080c 100%);
 }
+.anim-theme-bg--mbaku.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #04080c 0%, #080e14 40%, #0c1420 70%, #04080c 100%);
+}
 .anim-theme-bg--medusa.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #140618 0%, #280830 40%, #3a0a44 70%, #140618 100%);
 }
