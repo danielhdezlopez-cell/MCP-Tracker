@@ -23846,6 +23846,395 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SPECTRUM — Photon-powered aerial hero / luminous flight HUD
+   Primary: photon yellow #ffd84d | Secondary: electric blue #5edcff
+   Accent: clean white #ffffff | Mood: radiant, heroic, fast, powerful
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='spectrum'] {
+  --color-bg: transparent;
+  --color-panel: rgba(4, 16, 28, 0.72);
+  --color-panel-alt: rgba(2, 10, 20, 0.84);
+  --color-border: rgba(255, 216, 77, 0.55);
+  --color-accent-left: #ffd84d;
+  --color-accent-right: #5edcff;
+  --color-glow-left: rgba(255, 216, 77, 0.55);
+  --color-glow-right: rgba(94, 220, 255, 0.50);
+  --color-text: #f0f8ff;
+  --color-text-muted: #9ac8e0;
+  --color-warn: #ffffff;
+  --color-critical: #ff2a2a;
+  --color-success: #f0f8ff;
+  --color-round-active: #ffd84d;
+  --color-round-inactive: rgba(255, 216, 77, 0.14);
+  --color-mission-secure: #ffd84d;
+  --color-glow-secure: rgba(255, 216, 77, 0.44);
+  --color-mission-extract: #5edcff;
+  --color-glow-extract: rgba(94, 220, 255, 0.42);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='spectrum'] body { background: transparent; }
+[data-theme='spectrum'] .layout { background: transparent; }
+
+/* Light-wave aerial HUD overlay — faint photon scan lines */
+[data-theme='spectrum'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 216, 77, 0.010) 3px,
+      rgba(255, 216, 77, 0.010) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 79px,
+      rgba(94, 220, 255, 0.012) 79px,
+      rgba(94, 220, 255, 0.012) 80px
+    );
+}
+
+/* Video overlay — bright sky with photon-yellow & cyan radiance */
+[data-theme='spectrum'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255, 216, 77, 0.12), transparent 44%),
+    radial-gradient(circle at 80% 60%, rgba(94, 220, 255, 0.10), transparent 38%),
+    radial-gradient(circle at 20% 80%, rgba(0, 12, 24, 0.14), transparent 42%),
+    rgba(0, 12, 24, 0.38);
+}
+
+/* Panels — deep navy translucent flight modules */
+[data-theme='spectrum'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(255, 216, 77, 0.50);
+  box-shadow: 0 0 18px rgba(255, 216, 77, 0.08), inset 0 0 28px rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(6px);
+}
+[data-theme='spectrum'] .panel::before {
+  background: linear-gradient(90deg, rgba(255, 216, 77, 0.08), transparent, rgba(94, 220, 255, 0.06));
+}
+[data-theme='spectrum'] .glow-left {
+  border-color: rgba(255, 216, 77, 0.55);
+  box-shadow: -2px 0 14px rgba(255, 216, 77, 0.30), 0 0 10px rgba(255, 216, 77, 0.12);
+}
+[data-theme='spectrum'] .glow-right {
+  border-color: rgba(94, 220, 255, 0.50);
+  box-shadow: 2px 0 14px rgba(94, 220, 255, 0.26), 0 0 10px rgba(94, 220, 255, 0.10);
+}
+
+/* Buttons — luminous aerial command */
+[data-theme='spectrum'] .btn-hud {
+  background: rgba(4, 16, 28, 0.86);
+  border-color: rgba(255, 216, 77, 0.38);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='spectrum'] .btn-hud:hover {
+  border-color: rgba(255, 216, 77, 0.90);
+  box-shadow: 0 0 10px rgba(255, 216, 77, 0.36), 0 0 20px rgba(94, 220, 255, 0.20);
+  color: #ffd84d;
+}
+[data-theme='spectrum'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='spectrum'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='spectrum'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — aerial photon command rail */
+[data-theme='spectrum'] .side-nav {
+  background: rgba(0, 10, 20, 0.97);
+  border-right-color: rgba(255, 216, 77, 0.28);
+  backdrop-filter: blur(8px);
+}
+[data-theme='spectrum'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 216, 77, 0.54) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='spectrum'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(255, 216, 77, 0.80), 0 0 22px rgba(94, 220, 255, 0.46);
+}
+[data-theme='spectrum'] .side-nav__item:hover {
+  background: rgba(255, 216, 77, 0.06);
+  border-color: rgba(255, 216, 77, 0.26);
+}
+[data-theme='spectrum'] .side-nav__item.active {
+  background: rgba(255, 216, 77, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — bright tactical photon HUD modules */
+[data-theme='spectrum'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='spectrum'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #0a1820, #ffd84d);
+  box-shadow: 0 0 8px rgba(255, 216, 77, 0.68);
+}
+[data-theme='spectrum'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #041828, #5edcff);
+  box-shadow: 0 0 8px rgba(94, 220, 255, 0.62);
+}
+[data-theme='spectrum'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(240, 248, 255, 0.72), 0 0 16px rgba(255, 216, 77, 0.72), 0 0 30px rgba(94, 220, 255, 0.28);
+  animation: spectrum-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='spectrum'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(240, 248, 255, 0.72), 0 0 16px rgba(94, 220, 255, 0.72), 0 0 30px rgba(255, 216, 77, 0.22);
+  animation: spectrum-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='spectrum'] .score-panel__btn {
+  background: rgba(4, 16, 28, 0.90);
+  border-color: rgba(255, 216, 77, 0.30);
+}
+[data-theme='spectrum'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — clean fast luminous countdown */
+[data-theme='spectrum'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 216, 77, 0.46);
+}
+[data-theme='spectrum'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(255, 216, 77, 0.10), rgba(94, 220, 255, 0.06), transparent);
+}
+[data-theme='spectrum'] .timer-panel__display {
+  color: #f0f8ff;
+  text-shadow: 0 0 12px rgba(255, 216, 77, 0.64), 0 0 5px rgba(94, 220, 255, 0.40);
+}
+[data-theme='spectrum'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='spectrum'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='spectrum'] .timer-panel__btn {
+  background: rgba(4, 16, 28, 0.90);
+  border-color: rgba(255, 216, 77, 0.28);
+  color: #9ac8e0;
+}
+[data-theme='spectrum'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(255, 216, 77, 0.46);
+}
+
+/* Round tracker — photon energy nodes */
+[data-theme='spectrum'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 216, 77, 0.28);
+}
+[data-theme='spectrum'] .round-tracker__pip {
+  background: rgba(255, 216, 77, 0.11);
+  border-color: rgba(255, 216, 77, 0.26);
+}
+[data-theme='spectrum'] .round-tracker__pip.active {
+  background: rgba(255, 216, 77, 0.70);
+  border-color: #ffd84d;
+  box-shadow: 0 0 6px rgba(255, 216, 77, 0.64);
+}
+[data-theme='spectrum'] .round-tracker__pip.current {
+  background: #ffd84d;
+  border-color: #f0f8ff;
+  box-shadow: 0 0 10px rgba(255, 216, 77, 0.80), 0 0 20px rgba(94, 220, 255, 0.36);
+  animation: spectrum-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with yellow/cyan selection */
+[data-theme='spectrum'] .mission-slot {
+  background: rgba(4, 16, 28, 0.80);
+  border-color: rgba(255, 216, 77, 0.26);
+  backdrop-filter: blur(5px);
+}
+[data-theme='spectrum'] .mission-slot--selected {
+  border-color: rgba(255, 216, 77, 0.68);
+  box-shadow: 0 0 12px rgba(255, 216, 77, 0.26);
+}
+[data-theme='spectrum'] .mission-item {
+  background: rgba(4, 16, 28, 0.76);
+  border-color: rgba(255, 216, 77, 0.18);
+}
+[data-theme='spectrum'] .mission-item:hover {
+  border-color: rgba(255, 216, 77, 0.42);
+  box-shadow: 0 0 8px rgba(255, 216, 77, 0.14);
+}
+[data-theme='spectrum'] .mission-item--left.selected {
+  background: rgba(255, 216, 77, 0.10);
+  border-color: rgba(255, 216, 77, 0.60);
+  box-shadow: 0 0 10px rgba(255, 216, 77, 0.26);
+}
+[data-theme='spectrum'] .mission-item--right.selected {
+  background: rgba(94, 220, 255, 0.09);
+  border-color: rgba(94, 220, 255, 0.58);
+  box-shadow: 0 0 10px rgba(94, 220, 255, 0.22);
+}
+
+/* Leader hex */
+[data-theme='spectrum'] .leader-hex__name {
+  background: rgba(0, 10, 20, 0.88);
+  border-color: rgba(255, 216, 77, 0.24);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='spectrum'] .leader-card {
+  background: rgba(4, 16, 28, 0.80);
+  border-color: rgba(255, 216, 77, 0.16);
+  backdrop-filter: blur(4px);
+}
+[data-theme='spectrum'] .leader-card:hover {
+  border-color: rgba(255, 216, 77, 0.42);
+  box-shadow: 0 0 10px rgba(255, 216, 77, 0.12);
+}
+[data-theme='spectrum'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='spectrum'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='spectrum'] .leaders-page__header,
+[data-theme='spectrum'] .missions-page__header {
+  background: rgba(0, 10, 20, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(255, 216, 77, 0.20);
+}
+[data-theme='spectrum'] .leaders-page__search {
+  background: rgba(4, 16, 28, 0.86);
+  border-color: rgba(255, 216, 77, 0.26);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='spectrum'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='spectrum'] .missions-page__body {
+  background: rgba(0, 10, 20, 0.68);
+}
+
+/* Assign buttons */
+[data-theme='spectrum'] .leaders-page__assign-btn {
+  background: rgba(4, 16, 28, 0.84);
+  border-color: rgba(255, 216, 77, 0.24);
+  backdrop-filter: blur(4px);
+}
+[data-theme='spectrum'] .leaders-page__assign-btn.active-left {
+  background: rgba(255, 216, 77, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='spectrum'] .leaders-page__assign-btn.active-right {
+  background: rgba(94, 220, 255, 0.08);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='spectrum'] .affil-btn {
+  background: rgba(4, 16, 28, 0.80);
+  border-color: rgba(255, 216, 77, 0.20);
+}
+[data-theme='spectrum'] .affil-btn:hover { border-color: rgba(255, 216, 77, 0.40); }
+[data-theme='spectrum'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(255, 216, 77, 0.08);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='spectrum'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 216, 77, 0.24);
+}
+[data-theme='spectrum'] .settings-section__title {
+  color: #ffd84d;
+  background: rgba(0, 10, 20, 0.94);
+  border-bottom-color: rgba(255, 216, 77, 0.18);
+}
+[data-theme='spectrum'] .settings-preset-btn.active,
+[data-theme='spectrum'] .settings-theme-btn.active,
+[data-theme='spectrum'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(255, 216, 77, 0.08);
+  color: var(--color-accent-left);
+}
+[data-theme='spectrum'] .settings-slider {
+  background: rgba(255, 216, 77, 0.13);
+}
+[data-theme='spectrum'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='spectrum'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='spectrum'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.84); }
+[data-theme='spectrum'] .main-page__modal {
+  background: rgba(4, 16, 28, 0.97);
+  border-color: rgba(255, 216, 77, 0.55);
+  box-shadow: 0 0 30px rgba(255, 216, 77, 0.16), 0 0 50px rgba(94, 220, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+[data-theme='spectrum'] .main-page__modal-title {
+  color: #ffd84d;
+  text-shadow: 0 0 12px rgba(255, 216, 77, 0.68), 0 0 24px rgba(94, 220, 255, 0.30);
+}
+[data-theme='spectrum'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — photon yellow burst & electric blue secondary */
+@keyframes spectrum-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(240, 248, 255, 0.70), 0 0 16px rgba(255, 216, 77, 0.70), 0 0 30px rgba(94, 220, 255, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(240, 248, 255, 0.90), 0 0 26px rgba(255, 216, 77, 0.94), 0 0 46px rgba(94, 220, 255, 0.38), 0 0 4px #ffd84d; }
+}
+@keyframes spectrum-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(240, 248, 255, 0.70), 0 0 16px rgba(94, 220, 255, 0.72), 0 0 30px rgba(255, 216, 77, 0.22); }
+  50%       { text-shadow: 0 0 10px rgba(240, 248, 255, 0.90), 0 0 26px rgba(94, 220, 255, 0.94), 0 0 46px rgba(255, 216, 77, 0.28), 0 0 4px #5edcff; }
+}
+@keyframes spectrum-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    MALEKITH — Dark elf warlord / cursed-realm command HUD
    Primary: cold violet #9d6bff | Secondary: pale cyan #bfe8ff
    Accent: deep magenta #ff4fd8 | Mood: sinister, regal, cold, mystical

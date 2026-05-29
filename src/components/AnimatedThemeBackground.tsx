@@ -54,6 +54,7 @@ const VIDEO_THEMES: Partial<Record<Theme, { src: string; modifier: string; smoot
   sin:    { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Sin.mp4`,          modifier: 'anim-theme-bg--sin',         smoothLoop: true },
   asgard:       { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Asgard.mp4`,      modifier: 'anim-theme-bg--asgard'     },
   'spider-man': { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_WebWarriors.mp4`, modifier: 'anim-theme-bg--spider-man' },
+  spectrum:     { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Spectrum.mp4`,    modifier: 'anim-theme-bg--spectrum',  smoothLoop: true },
   starlord:     { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Starlord.mp4`,   modifier: 'anim-theme-bg--starlord', smoothLoop: true },
   'she-hulk':   { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_SheHulk.mp4`,   modifier: 'anim-theme-bg--she-hulk', smoothLoop: true },
   storm:        { src: `${import.meta.env.BASE_URL}assets/backgrounds/BG_Storm.mp4`,      modifier: 'anim-theme-bg--storm', smoothLoop: true },
