@@ -59,6 +59,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'shadowland-daredevil', label: 'Shadowland Daredevil', desc: 'Rooftop noir vigilante — black leather, neon red & storm-lit city HUD' },
   { value: 'she-hulk',           label: 'She-Hulk',            desc: 'Gamma-powered attorney — neon green & purple suit HUD' },
   { value: 'shield',        label: 'S.H.I.E.L.D.', desc: 'Elite tactical command interface'           },
+  { value: 'sin',           label: 'Sin',           desc: 'Crimson assassin safehouse — dark red, hot pink & gunmetal covert briefing HUD' },
   { value: 'starlord',     label: 'Starlord',      desc: 'Space outlaw retro-futurist HUD — cosmic orange, neon blue & galaxy purple' },
   { value: 'storm',        label: 'Storm',         desc: 'Elemental storm goddess HUD — electric cyan, white lightning & violet energy' },
   { value: 'spider-man', label: 'Spider-Man',   desc: 'Urban hero comic-tech dark city HUD'    },
