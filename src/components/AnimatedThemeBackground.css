@@ -61,6 +61,9 @@
 .anim-theme-bg--elsa-bloodstone.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #05090e 0%, #0a1014 40%, #1a0a04 70%, #05090e 100%);
 }
+.anim-theme-bg--emma-frost.anim-theme-bg--fallback {
+  background: linear-gradient(135deg, #080810 0%, #12101c 40%, #1a0e24 70%, #080810 100%);
+}
 .anim-theme-bg--green-goblin.anim-theme-bg--fallback {
   background: linear-gradient(135deg, #020408 0%, #0a1c0e 40%, #1a1008 70%, #020408 100%);
 }

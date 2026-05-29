@@ -25,6 +25,7 @@ const THEMES: { value: Theme; label: string; desc: string }[] = [
   { value: 'dr-strange',       label: 'Dr. Strange',     desc: 'Sorcerer Supreme — arcane gold & dimensional violet' },
   { value: 'dracula',          label: 'Dracula',         desc: 'Gothic vampire castle — blood red & aged silver'  },
   { value: 'elsa-bloodstone',  label: 'Elsa Bloodstone', desc: 'Supernatural hunter — blood orange, cold blue & dark leather HUD' },
+  { value: 'emma-frost',       label: 'Emma Frost',       desc: 'Diamond queen psychic — white crystal, soft pink & cold violet telepathic HUD' },
   { value: 'green-goblin',     label: 'Green Goblin',   desc: 'Glider villain — toxic green & explosion orange'  },
   { value: 'hellfire-club',    label: 'Hellfire Club',   desc: 'Secret aristocratic society — velvet red & gold'  },
   { value: 'hulkbuster',       label: 'Hulkbuster',      desc: 'Heavy armor power interface — red & gold'        },

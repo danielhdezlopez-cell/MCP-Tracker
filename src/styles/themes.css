@@ -23846,6 +23846,395 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   EMMA FROST — Diamond queen / psychic telepathic HUD
+   Primary: crystal white #f0f0ff | Secondary: soft pink #ffb3d6
+   Accent: cold violet #c084fc | Mood: elegant, cold, regal, psychic
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme='emma-frost'] {
+  --color-bg: transparent;
+  --color-panel: rgba(10, 8, 18, 0.76);
+  --color-panel-alt: rgba(6, 5, 12, 0.88);
+  --color-border: rgba(240, 240, 255, 0.50);
+  --color-accent-left: #f0f0ff;
+  --color-accent-right: #ffb3d6;
+  --color-glow-left: rgba(240, 240, 255, 0.50);
+  --color-glow-right: rgba(255, 179, 214, 0.44);
+  --color-text: #f8f4ff;
+  --color-text-muted: #c0aed4;
+  --color-warn: #c084fc;
+  --color-critical: #ff2a2a;
+  --color-success: #f8f4ff;
+  --color-round-active: #f0f0ff;
+  --color-round-inactive: rgba(240, 240, 255, 0.14);
+  --color-mission-secure: #f0f0ff;
+  --color-glow-secure: rgba(240, 240, 255, 0.44);
+  --color-mission-extract: #ffb3d6;
+  --color-glow-extract: rgba(255, 179, 214, 0.40);
+  --font-main: 'Rajdhani', 'Share Tech Mono', system-ui, sans-serif;
+  --font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --border-radius: 2px;
+}
+
+[data-theme='emma-frost'] body { background: transparent; }
+[data-theme='emma-frost'] .layout { background: transparent; }
+
+/* Diamond lattice overlay — faint crystal refraction grid */
+[data-theme='emma-frost'] .layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 43px,
+      rgba(240, 240, 255, 0.014) 43px,
+      rgba(240, 240, 255, 0.014) 44px
+    ),
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 67px,
+      rgba(192, 132, 252, 0.010) 67px,
+      rgba(192, 132, 252, 0.010) 68px
+    );
+}
+
+/* Video overlay — cold psychic void with white & pink crystal light */
+[data-theme='emma-frost'] .anim-theme-bg__overlay {
+  background:
+    radial-gradient(circle at 40% 20%, rgba(240, 240, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 70% 75%, rgba(255, 179, 214, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 50%, rgba(8, 6, 16, 0.08), transparent 56%),
+    rgba(6, 4, 14, 0.52);
+}
+
+/* Panels — dark crystal telepathic war modules */
+[data-theme='emma-frost'] .panel {
+  background: var(--color-panel);
+  border-color: rgba(240, 240, 255, 0.44);
+  box-shadow: 0 0 18px rgba(240, 240, 255, 0.06), inset 0 0 28px rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(6px);
+}
+[data-theme='emma-frost'] .panel::before {
+  background: linear-gradient(90deg, rgba(240, 240, 255, 0.07), transparent, rgba(255, 179, 214, 0.05));
+}
+[data-theme='emma-frost'] .glow-left {
+  border-color: rgba(240, 240, 255, 0.50);
+  box-shadow: -2px 0 14px rgba(240, 240, 255, 0.24), 0 0 10px rgba(240, 240, 255, 0.10);
+}
+[data-theme='emma-frost'] .glow-right {
+  border-color: rgba(255, 179, 214, 0.44);
+  box-shadow: 2px 0 14px rgba(255, 179, 214, 0.22), 0 0 10px rgba(255, 179, 214, 0.10);
+}
+
+/* Buttons — cold diamond command */
+[data-theme='emma-frost'] .btn-hud {
+  background: rgba(10, 8, 18, 0.88);
+  border-color: rgba(240, 240, 255, 0.34);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='emma-frost'] .btn-hud:hover {
+  border-color: rgba(240, 240, 255, 0.86);
+  box-shadow: 0 0 10px rgba(240, 240, 255, 0.30), 0 0 20px rgba(192, 132, 252, 0.18);
+  color: #f0f0ff;
+}
+[data-theme='emma-frost'] .btn-hud.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='emma-frost'] .btn-accent-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+}
+[data-theme='emma-frost'] .btn-accent-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 10px var(--color-glow-right);
+}
+
+/* Side nav — psychic throne command rail */
+[data-theme='emma-frost'] .side-nav {
+  background: rgba(6, 4, 14, 0.97);
+  border-right-color: rgba(240, 240, 255, 0.24);
+  backdrop-filter: blur(8px);
+}
+[data-theme='emma-frost'] .side-nav::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(240, 240, 255, 0.48) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 1;
+}
+[data-theme='emma-frost'] .side-nav__logo-text {
+  text-shadow: 0 0 10px rgba(240, 240, 255, 0.76), 0 0 22px rgba(192, 132, 252, 0.44);
+}
+[data-theme='emma-frost'] .side-nav__item:hover {
+  background: rgba(240, 240, 255, 0.05);
+  border-color: rgba(240, 240, 255, 0.22);
+}
+[data-theme='emma-frost'] .side-nav__item.active {
+  background: rgba(240, 240, 255, 0.08);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Score panels — cold psychic crystal HUD modules */
+[data-theme='emma-frost'] .score-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+}
+[data-theme='emma-frost'] .score-panel__bar-fill--left {
+  background: linear-gradient(90deg, #14102a, #f0f0ff);
+  box-shadow: 0 0 8px rgba(240, 240, 255, 0.64);
+}
+[data-theme='emma-frost'] .score-panel__bar-fill--right {
+  background: linear-gradient(90deg, #200a18, #ffb3d6);
+  box-shadow: 0 0 8px rgba(255, 179, 214, 0.58);
+}
+[data-theme='emma-frost'] .score-panel__value {
+  text-shadow: 0 0 6px rgba(248, 244, 255, 0.72), 0 0 16px rgba(240, 240, 255, 0.72), 0 0 30px rgba(192, 132, 252, 0.28);
+  animation: emma-frost-pulse-left 3s ease-in-out infinite;
+}
+[data-theme='emma-frost'] .glow-right .score-panel__value {
+  text-shadow: 0 0 6px rgba(248, 244, 255, 0.72), 0 0 16px rgba(255, 179, 214, 0.70), 0 0 30px rgba(240, 240, 255, 0.22);
+  animation: emma-frost-pulse-right 3s ease-in-out infinite;
+}
+[data-theme='emma-frost'] .score-panel__btn {
+  background: rgba(10, 8, 18, 0.92);
+  border-color: rgba(240, 240, 255, 0.28);
+}
+[data-theme='emma-frost'] .score-panel__btn:hover {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Timer panel — arcane elegant countdown */
+[data-theme='emma-frost'] .timer-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(240, 240, 255, 0.42);
+}
+[data-theme='emma-frost'] .timer-panel::before {
+  background: linear-gradient(90deg, rgba(240, 240, 255, 0.09), rgba(192, 132, 252, 0.05), transparent);
+}
+[data-theme='emma-frost'] .timer-panel__display {
+  color: #f8f4ff;
+  text-shadow: 0 0 12px rgba(240, 240, 255, 0.60), 0 0 5px rgba(192, 132, 252, 0.36);
+}
+[data-theme='emma-frost'] .timer-panel--critical {
+  border-color: rgba(255, 42, 42, 0.85) !important;
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.44), 0 0 40px rgba(255, 42, 42, 0.18) !important;
+}
+[data-theme='emma-frost'] .timer-panel__display.critical {
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+}
+[data-theme='emma-frost'] .timer-panel__btn {
+  background: rgba(10, 8, 18, 0.92);
+  border-color: rgba(240, 240, 255, 0.26);
+  color: #c0aed4;
+}
+[data-theme='emma-frost'] .timer-panel__btn:hover {
+  box-shadow: 0 0 8px rgba(240, 240, 255, 0.42);
+}
+
+/* Round tracker — crystal psychic combat nodes */
+[data-theme='emma-frost'] .round-tracker {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(240, 240, 255, 0.24);
+}
+[data-theme='emma-frost'] .round-tracker__pip {
+  background: rgba(240, 240, 255, 0.10);
+  border-color: rgba(240, 240, 255, 0.22);
+}
+[data-theme='emma-frost'] .round-tracker__pip.active {
+  background: rgba(240, 240, 255, 0.68);
+  border-color: #f0f0ff;
+  box-shadow: 0 0 6px rgba(240, 240, 255, 0.60);
+}
+[data-theme='emma-frost'] .round-tracker__pip.current {
+  background: #f0f0ff;
+  border-color: #f8f4ff;
+  box-shadow: 0 0 10px rgba(240, 240, 255, 0.76), 0 0 20px rgba(192, 132, 252, 0.34);
+  animation: emma-frost-pulse-left 2s ease-in-out infinite;
+}
+
+/* Missions — clean readable panels with white/pink selection */
+[data-theme='emma-frost'] .mission-slot {
+  background: rgba(10, 8, 18, 0.80);
+  border-color: rgba(240, 240, 255, 0.22);
+  backdrop-filter: blur(5px);
+}
+[data-theme='emma-frost'] .mission-slot--selected {
+  border-color: rgba(240, 240, 255, 0.66);
+  box-shadow: 0 0 12px rgba(240, 240, 255, 0.24);
+}
+[data-theme='emma-frost'] .mission-item {
+  background: rgba(10, 8, 18, 0.76);
+  border-color: rgba(240, 240, 255, 0.16);
+}
+[data-theme='emma-frost'] .mission-item:hover {
+  border-color: rgba(240, 240, 255, 0.40);
+  box-shadow: 0 0 8px rgba(240, 240, 255, 0.12);
+}
+[data-theme='emma-frost'] .mission-item--left.selected {
+  background: rgba(240, 240, 255, 0.09);
+  border-color: rgba(240, 240, 255, 0.58);
+  box-shadow: 0 0 10px rgba(240, 240, 255, 0.24);
+}
+[data-theme='emma-frost'] .mission-item--right.selected {
+  background: rgba(255, 179, 214, 0.09);
+  border-color: rgba(255, 179, 214, 0.56);
+  box-shadow: 0 0 10px rgba(255, 179, 214, 0.20);
+}
+
+/* Leader hex */
+[data-theme='emma-frost'] .leader-hex__name {
+  background: rgba(6, 4, 14, 0.90);
+  border-color: rgba(240, 240, 255, 0.20);
+  backdrop-filter: blur(4px);
+}
+
+/* Leader cards */
+[data-theme='emma-frost'] .leader-card {
+  background: rgba(10, 8, 18, 0.80);
+  border-color: rgba(240, 240, 255, 0.14);
+  backdrop-filter: blur(4px);
+}
+[data-theme='emma-frost'] .leader-card:hover {
+  border-color: rgba(240, 240, 255, 0.38);
+  box-shadow: 0 0 10px rgba(240, 240, 255, 0.10);
+}
+[data-theme='emma-frost'] .leader-card.selected-left {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 14px var(--color-glow-left);
+}
+[data-theme='emma-frost'] .leader-card.selected-right {
+  border-color: var(--color-accent-right);
+  box-shadow: 0 0 14px var(--color-glow-right);
+}
+
+/* Page headers */
+[data-theme='emma-frost'] .leaders-page__header,
+[data-theme='emma-frost'] .missions-page__header {
+  background: rgba(6, 4, 14, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom-color: rgba(240, 240, 255, 0.18);
+}
+[data-theme='emma-frost'] .leaders-page__search {
+  background: rgba(10, 8, 18, 0.86);
+  border-color: rgba(240, 240, 255, 0.24);
+  color: var(--color-text);
+  backdrop-filter: blur(4px);
+}
+[data-theme='emma-frost'] .leaders-page__search:focus {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='emma-frost'] .missions-page__body {
+  background: rgba(6, 4, 14, 0.68);
+}
+
+/* Assign buttons */
+[data-theme='emma-frost'] .leaders-page__assign-btn {
+  background: rgba(10, 8, 18, 0.84);
+  border-color: rgba(240, 240, 255, 0.22);
+  backdrop-filter: blur(4px);
+}
+[data-theme='emma-frost'] .leaders-page__assign-btn.active-left {
+  background: rgba(240, 240, 255, 0.07);
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='emma-frost'] .leaders-page__assign-btn.active-right {
+  background: rgba(255, 179, 214, 0.07);
+  border-color: var(--color-accent-right);
+  color: var(--color-accent-right);
+  box-shadow: 0 0 8px var(--color-glow-right);
+}
+
+/* Affiliation filter buttons */
+[data-theme='emma-frost'] .affil-btn {
+  background: rgba(10, 8, 18, 0.80);
+  border-color: rgba(240, 240, 255, 0.18);
+}
+[data-theme='emma-frost'] .affil-btn:hover { border-color: rgba(240, 240, 255, 0.38); }
+[data-theme='emma-frost'] .affil-btn.active {
+  border-color: var(--color-accent-left);
+  color: var(--color-accent-left);
+  background: rgba(240, 240, 255, 0.07);
+  box-shadow: 0 0 6px var(--color-glow-left);
+}
+
+/* Settings */
+[data-theme='emma-frost'] .settings-section {
+  background: var(--color-panel);
+  backdrop-filter: blur(6px);
+  border-color: rgba(240, 240, 255, 0.22);
+}
+[data-theme='emma-frost'] .settings-section__title {
+  color: #f0f0ff;
+  background: rgba(6, 4, 14, 0.95);
+  border-bottom-color: rgba(240, 240, 255, 0.16);
+}
+[data-theme='emma-frost'] .settings-preset-btn.active,
+[data-theme='emma-frost'] .settings-theme-btn.active,
+[data-theme='emma-frost'] .settings-ibg-btn.active {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px var(--color-glow-left);
+  background: rgba(240, 240, 255, 0.07);
+  color: var(--color-accent-left);
+}
+[data-theme='emma-frost'] .settings-slider {
+  background: rgba(240, 240, 255, 0.12);
+}
+[data-theme='emma-frost'] .settings-slider::-webkit-slider-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+[data-theme='emma-frost'] .settings-slider::-moz-range-thumb {
+  background: var(--color-accent-left);
+  box-shadow: 0 0 8px var(--color-glow-left);
+}
+
+/* Reset modal */
+[data-theme='emma-frost'] .main-page__modal-overlay { background: rgba(0, 0, 0, 0.86); }
+[data-theme='emma-frost'] .main-page__modal {
+  background: rgba(10, 8, 18, 0.97);
+  border-color: rgba(240, 240, 255, 0.50);
+  box-shadow: 0 0 30px rgba(240, 240, 255, 0.14), 0 0 50px rgba(192, 132, 252, 0.06);
+  backdrop-filter: blur(12px);
+}
+[data-theme='emma-frost'] .main-page__modal-title {
+  color: #f0f0ff;
+  text-shadow: 0 0 12px rgba(240, 240, 255, 0.64), 0 0 24px rgba(192, 132, 252, 0.28);
+}
+[data-theme='emma-frost'] .main-page__modal-body { color: var(--color-text-muted); }
+
+/* Pulse keyframes — crystal white surge & soft pink secondary */
+@keyframes emma-frost-pulse-left {
+  0%, 100% { text-shadow: 0 0 6px rgba(248, 244, 255, 0.68), 0 0 16px rgba(240, 240, 255, 0.70), 0 0 30px rgba(192, 132, 252, 0.26); }
+  50%       { text-shadow: 0 0 10px rgba(248, 244, 255, 0.90), 0 0 26px rgba(240, 240, 255, 0.92), 0 0 46px rgba(192, 132, 252, 0.38), 0 0 4px #f0f0ff; }
+}
+@keyframes emma-frost-pulse-right {
+  0%, 100% { text-shadow: 0 0 6px rgba(248, 244, 255, 0.68), 0 0 16px rgba(255, 179, 214, 0.70), 0 0 30px rgba(240, 240, 255, 0.20); }
+  50%       { text-shadow: 0 0 10px rgba(248, 244, 255, 0.90), 0 0 26px rgba(255, 179, 214, 0.92), 0 0 46px rgba(240, 240, 255, 0.26), 0 0 4px #ffb3d6; }
+}
+@keyframes emma-frost-critical-pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 42, 42, 0.82), 0 0 20px rgba(255, 42, 42, 0.48); }
+  50%       { text-shadow: 0 0 14px rgba(255, 42, 42, 0.96), 0 0 32px rgba(255, 42, 42, 0.68), 0 0 6px #ff2a2a; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    SPECTRUM — Photon-powered aerial hero / luminous flight HUD
    Primary: photon yellow #ffd84d | Secondary: electric blue #5edcff
    Accent: clean white #ffffff | Mood: radiant, heroic, fast, powerful
