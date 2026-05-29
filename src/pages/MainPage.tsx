@@ -114,9 +114,8 @@ export function MainPage() {
       {/* BODY: 3-column — [banner | score+mission] | leaders+round | [score+mission | banner] */}
       <div className="main-page__body">
 
-        {/* LEFT: banner flush against score panel + Secure mission */}
+        {/* LEFT: score panel + Secure mission */}
         <div className="main-page__side-area main-page__side-area--left">
-          <div className="main-page__banner main-page__banner--left">BANNER</div>
           <div className="main-page__side-stack">
             <ScorePanel side="left" />
             <MissionSlot type="Secure" />
@@ -134,13 +133,12 @@ export function MainPage() {
           </div>
         </div>
 
-        {/* RIGHT: score panel + Extract mission, banner flush on right */}
+        {/* RIGHT: score panel + Extract mission */}
         <div className="main-page__side-area main-page__side-area--right">
           <div className="main-page__side-stack">
             <ScorePanel side="right" />
             <MissionSlot type="Extract" />
           </div>
-          <div className="main-page__banner main-page__banner--right">BANNER</div>
         </div>
 
       </div>

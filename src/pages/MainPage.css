@@ -77,10 +77,10 @@
   transform: translateY(10px);
 }
 
-/* iPad Mini 6 landscape: push timer further down */
+/* iPad Mini 6 landscape: push timer up 20px from original position */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .main-page__timer-wrap {
-    transform: translateY(33px);
+    transform: translateY(13px);
   }
 }
 
@@ -165,8 +165,9 @@
   padding-block: 6px;
 }
 
-/* Affiliation banner strip */
+/* Affiliation banner strip — hidden; space reclaimed by mission panels */
 .main-page__banner {
+  display: none;
   width: clamp(18px, 2.2vw, 28px);
   display: flex;
   align-items: center;
@@ -319,12 +320,8 @@
     gap: 4px;
   }
 
-  .main-page__banner {
-    width: clamp(14px, 1.6vw, 20px);
-  }
-
   .main-page__side-stack {
-    width: clamp(210px, 30vw, 440px);
+    width: calc(clamp(210px, 30vw, 440px) + 50px);
     gap: 4px;
   }
 
@@ -345,19 +342,23 @@
     transform: translateX(-14px) translateY(15px);
   }
 
-  /* Mission panels — taller, lifted, wider */
+  /* Mission panels — taller, lifted, stretch to full side-stack width */
   .main-page__side-stack .mission-slot {
     flex: 0 0 clamp(120px, 23vh, 160px) !important;
     height: clamp(120px, 23vh, 160px);
     margin-bottom: 12px;
-    align-self: center;
-    width: clamp(220px, 22vw, 300px) !important;
+    align-self: stretch;
+    width: 100% !important;
   }
 
   /* Leaders spread toward their respective score panels */
   .main-page__leaders {
     justify-content: space-between;
   }
+
+  /* Nudge leaders 20px outward */
+  .main-page__leaders .leader-hex--left  { margin-left:  -20px; }
+  .main-page__leaders .leader-hex--right { margin-right: -20px; }
 
   /* Round tracker — lifted ~30 px from bottom */
   .main-page__round {

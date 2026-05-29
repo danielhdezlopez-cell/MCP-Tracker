@@ -55,7 +55,7 @@ export function LeaderHex({ side }: LeaderHexProps) {
             image={leader?.image ?? null}
             name={leader?.name ?? ''}
             variant={side}
-            cssSize="clamp(100px, 14vw, 160px)"
+            cssSize="clamp(130px, 18.2vw, 208px)"
             empty={!leader}
           />
         </div>
