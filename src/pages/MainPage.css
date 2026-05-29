@@ -332,23 +332,24 @@
     align-self: center !important;
   }
 
-  /* Left score panel nudges toward center (rightward) and 15px lower */
+  /* Left (P1) score panel — shifted 40px further left */
   .main-page__side-area--left .score-panel {
-    transform: translateX(44px) translateY(15px);
+    transform: translateX(4px) translateY(15px);
   }
 
-  /* Right score panel nudges toward center (leftward) and 15px lower */
+  /* Right (P2) score panel — shifted 40px further right */
   .main-page__side-area--right .score-panel {
-    transform: translateX(-44px) translateY(15px);
+    transform: translateX(-4px) translateY(15px);
   }
 
-  /* Mission panels — taller, stretch to full side-stack width, 10px lower */
+  /* Mission panels — taller, stretch to full side-stack width, nudged 15px down */
   .main-page__side-stack .mission-slot {
     flex: 0 0 clamp(120px, 23vh, 160px) !important;
     height: clamp(120px, 23vh, 160px);
     margin-bottom: 2px;
     align-self: stretch;
     width: 100% !important;
+    transform: translateY(15px);
   }
 
   /* Center column: group leaders + round tracker together */
@@ -363,9 +364,9 @@
     flex: 0 0 auto;
   }
 
-  /* Nudge leaders 20px outward */
-  .main-page__leaders .leader-hex--left  { margin-left:  -20px; }
-  .main-page__leaders .leader-hex--right { margin-right: -20px; }
+  /* Nudge leaders outward (P1 40px further left, P2 40px further right) */
+  .main-page__leaders .leader-hex--left  { margin-left:  -60px; }
+  .main-page__leaders .leader-hex--right { margin-right: -60px; }
 
   /* Round tracker sits directly below leaders, no extra bottom margin */
   .main-page__round {
