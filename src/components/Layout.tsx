@@ -28,7 +28,8 @@ export function Layout() {
 
   return (
     <div className="layout" ref={layoutRef}>
-      <AnimatedThemeBackground theme={theme} />
+      {/* VS overlay handles its own split backgrounds on the main page */}
+      {currentPage !== 'main' && <AnimatedThemeBackground theme={theme} />}
       {currentPage !== 'main' && <PageBar />}
       <main className="layout__content">
         <div key={currentPage} className="layout__page-anim">

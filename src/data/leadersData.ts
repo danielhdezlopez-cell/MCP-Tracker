@@ -5,8 +5,10 @@ export interface Leader {
   image: string | null;
 }
 
-const base = import.meta.env.BASE_URL; // '/MCP-Tracker/' in prod, '/' in dev
-const img = (file: string) => `${base}assets/leaders/${file}`;
+// Assets are loaded from the original MCP-Tracker GitHub Pages deployment.
+// For local development, copy public/assets from the original MCP-Tracker repo.
+const ASSETS_BASE = import.meta.env.VITE_ASSETS_BASE ?? 'https://danielhdezlopez-cell.github.io/MCP-Tracker/';
+const img = (file: string) => `${ASSETS_BASE}assets/leaders/${file}`;
 
 export const LEADERS: Leader[] = [
   { id: 'adam-warlock', name: 'Adam Warlock', affiliations: ['Galaxy Guardians'], image: img('AdamWarlock.png') },

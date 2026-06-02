@@ -8,9 +8,9 @@ export interface Mission {
   image?: string;
 }
 
-const base = import.meta.env.BASE_URL;
+const ASSETS_BASE = import.meta.env.VITE_ASSETS_BASE ?? 'https://danielhdezlopez-cell.github.io/MCP-Tracker/';
 const card = (file: string) =>
-  `${base}assets/mission-cards/${encodeURIComponent(file)}`;
+  `${ASSETS_BASE}assets/mission-cards/${encodeURIComponent(file)}`;
 
 export const MISSIONS: Mission[] = [
   // EXTRACT

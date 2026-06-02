@@ -1,22 +1,111 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useMcpStore } from '../store/useMcpStore';
-import { ScorePanel } from '../components/ScorePanel';
-import { LeaderHex } from '../components/LeaderHex';
+import { useMcpStore, getThemeFromLeader } from '../store/useMcpStore';
 import { RoundTracker } from '../components/RoundTracker';
 import { MissionSlot } from '../components/MissionSlot';
 import { TimerPanel } from '../components/TimerPanel';
-import { AnimatedBackground } from '../components/AnimatedBackground';
-import { AffiliationBackdrop } from '../components/AffiliationBackdrop';
-import { NavIconSettings } from '../components/icons';
-import { McpLogo } from '../components/McpLogo';
+import { VSBackground } from '../components/VSBackground';
 import { KangChronalModal } from '../components/KangChronalModal';
+import { NavIconSettings } from '../components/icons';
 import './MainPage.css';
 
+const MAX_SCORE = 20;
+const VICTORY_THRESHOLD = 16;
+
+function tierOf(s: number): 0 | 1 | 2 | 3 | 4 {
+  if (s >= 16) return 4;
+  if (s >= 12) return 3;
+  if (s >= 8)  return 2;
+  if (s >= 4)  return 1;
+  return 0;
+}
+
+function HudScore({ side }: { side: 'left' | 'right' }) {
+  const { scoreLeft, scoreRight, setScoreLeft, setScoreRight, leaderLeft, leaderRight } = useMcpStore();
+  const score    = side === 'left' ? scoreLeft  : scoreRight;
+  const setScore = side === 'left' ? setScoreLeft : setScoreRight;
+  const leader   = side === 'left' ? leaderLeft  : leaderRight;
+  const isVictory = score >= VICTORY_THRESHOLD;
+  const tier      = tierOf(score);
+  const [delta, setDelta] = useState<{ val: number; key: number } | null>(null);
+  const prevScore = useRef(score);
+
+  useEffect(() => {
+    if (score !== prevScore.current) {
+      const d = score - prevScore.current;
+      prevScore.current = score;
+      setDelta({ val: d, key: Date.now() });
+      const t = setTimeout(() => setDelta(null), 750);
+      return () => clearTimeout(t);
+    }
+  }, [score]);
+
+  const playerLabel = leader ? leader.name.toUpperCase() : (side === 'left' ? 'PLAYER 1' : 'PLAYER 2');
+  const inc = () => setScore(Math.min(score + 1, MAX_SCORE));
+  const dec = () => setScore(Math.max(score - 1, 0));
+
+  return (
+    <div className={`hud-score hud-score--${side}`} data-tier={tier} data-victory={isVictory ? '1' : '0'}>
+      {side === 'left' && (
+        <div className="hud-score__name hud-score__name--left" title={playerLabel}>{playerLabel}</div>
+      )}
+      <div className="hud-score__controls">
+        <button className={`hud-score__btn hud-score__btn--dec hud-score__btn--${side}`} onClick={dec} disabled={score <= 0} aria-label="Decrease score">−</button>
+        <div className="hud-score__val-wrap">
+          <span className={`hud-score__val hud-score__val--${side}`}>{score}</span>
+          {delta !== null && (
+            <span key={delta.key} className={`hud-score__delta hud-score__delta--${side}`}>
+              {delta.val > 0 ? `+${delta.val}` : delta.val}
+            </span>
+          )}
+          {isVictory && <div className="hud-score__victory">VICTORY</div>}
+        </div>
+        <button className={`hud-score__btn hud-score__btn--inc hud-score__btn--${side}`} onClick={inc} disabled={score >= MAX_SCORE} aria-label="Increase score">+</button>
+      </div>
+      {side === 'right' && (
+        <div className="hud-score__name hud-score__name--right" title={playerLabel}>{playerLabel}</div>
+      )}
+    </div>
+  );
+}
+
+function VSPortrait({ side }: { side: 'left' | 'right' }) {
+  const { leaderLeft, leaderRight, setCurrentPage, setPendingLeaderAssign } = useMcpStore();
+  const leader = side === 'left' ? leaderLeft : leaderRight;
+
+  const handleClick = () => {
+    setPendingLeaderAssign(side);
+    setCurrentPage('leaders');
+  };
+
+  return (
+    <div
+      className={`vs-portrait vs-portrait--${side}${!leader ? ' vs-portrait--empty' : ''}`}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
+      aria-label={leader ? `Change leader: ${leader.name}` : `Assign ${side === 'left' ? 'Player 1' : 'Player 2'} leader`}
+    >
+      {leader ? (
+        <>
+          <img src={leader.image ?? ''} alt={leader.name} className="vs-portrait__img" draggable={false} />
+          <div className={`vs-portrait__name vs-portrait__name--${side}`}>{leader.name.toUpperCase()}</div>
+        </>
+      ) : (
+        <div className="vs-portrait__empty">
+          <div className="vs-portrait__plus">+</div>
+          <div className="vs-portrait__hint">TAP · ASSIGN</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function MainPage() {
-  const { selectedBackground, interactiveBg, videoBg, resetGame, setCurrentPage } = useMcpStore();
+  const { leaderLeft, leaderRight, resetGame, setCurrentPage } = useMcpStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showReset, setShowReset] = useState(false);
 
   useEffect(() => {
     const onChange = () => setIsFullscreen(!!document.fullscreenElement);
@@ -26,84 +115,48 @@ export function MainPage() {
 
   const toggleFullscreen = async () => {
     try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-      } else {
-        await document.exitFullscreen();
-      }
-    } catch {
-      // fullscreen not supported or denied — silent fallback
-    }
+      if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+      else await document.exitFullscreen();
+    } catch { /* silent */ }
   };
 
-  const handleReset = () => {
-    resetGame();
-    setShowResetConfirm(false);
-  };
+  const handleReset = () => { resetGame(); setShowReset(false); };
+
+  const themeLeft  = leaderLeft  ? getThemeFromLeader(leaderLeft)  : null;
+  const themeRight = leaderRight ? getThemeFromLeader(leaderRight) : null;
 
   return (
-    <div
-      className="main-page"
-      style={selectedBackground ? {
-        backgroundImage: `url(${selectedBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      } : undefined}
-    >
-      {videoBg === 'hydra' && (
-        <video
-          className="main-page__video-bg"
-          src="/assets/videos/hydra.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-      )}
-      {(selectedBackground || videoBg !== 'none') && <div className="main-page__bg-overlay" />}
-      <AnimatedBackground mode={interactiveBg} />
-      <AffiliationBackdrop />
-
-      {/* TOP ROW: logo | timer | reset + config + fullscreen */}
-      <div className="main-page__top">
-        <div className="main-page__top-left">
-          <McpLogo />
+    <div className="vs-main">
+      {/* ── TOP HUD ── */}
+      <div className="vs-hud">
+        <div className="vs-hud__side vs-hud__side--left">
+          <div className="vs-hud__edge vs-hud__edge--left" />
+          <HudScore side="left" />
         </div>
-        <div className="main-page__timer-wrap">
+        <div className="vs-hud__center">
           <TimerPanel />
+          <RoundTracker />
         </div>
-        <div className="main-page__top-right">
-          <button
-            className="main-page__corner-btn main-page__corner-btn--reset"
-            onClick={() => setShowResetConfirm(true)}
-            title="Reset Game"
-            aria-label="Reset Game"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" width="20" height="20">
-              <path d="M18.5 8.25 A7.5 7.5 0 1 1 12 4.5"/>
-              <path d="M9 2.5 L12 4.5 L9 6.5"/>
+        <div className="vs-hud__side vs-hud__side--right">
+          <HudScore side="right" />
+          <div className="vs-hud__edge vs-hud__edge--right" />
+        </div>
+        <div className="vs-hud__ctrl-strip">
+          <button className="vs-ctrl" onClick={() => setShowReset(true)} title="Reset Game" aria-label="Reset Game">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+              <path d="M18.5 8.25 A7.5 7.5 0 1 1 12 4.5"/><path d="M9 2.5 L12 4.5 L9 6.5"/>
             </svg>
           </button>
-          <button
-            className="main-page__corner-btn main-page__corner-btn--config"
-            onClick={() => setCurrentPage('settings')}
-            title="Config"
-            aria-label="Config"
-          >
-            <NavIconSettings width="20" height="20" />
+          <button className="vs-ctrl" onClick={() => setCurrentPage('settings')} title="Settings" aria-label="Settings">
+            <NavIconSettings width="15" height="15" />
           </button>
-          <button
-            className="btn-hud main-page__fullscreen-btn"
-            onClick={toggleFullscreen}
-            title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-            aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-          >
+          <button className="vs-ctrl" onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
             {isFullscreen ? (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
                 <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
               </svg>
             ) : (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
                 <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
               </svg>
             )}
@@ -111,54 +164,40 @@ export function MainPage() {
         </div>
       </div>
 
-      {/* BODY: 3-column — [banner | score+mission] | leaders+round | [score+mission | banner] */}
-      <div className="main-page__body">
-
-        {/* LEFT: score panel + Secure mission */}
-        <div className="main-page__side-area main-page__side-area--left">
-          <div className="main-page__side-stack">
-            <ScorePanel side="left" />
-            <MissionSlot type="Secure" />
-          </div>
+      {/* ── BATTLE AREA ── */}
+      <div className="vs-battle">
+        <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
+        <div className="vs-battle__side vs-battle__side--left">
+          <VSPortrait side="left" />
         </div>
-
-        {/* CENTER: leaders + round tracker */}
-        <div className="main-page__center">
-          <div className="main-page__leaders">
-            <LeaderHex side="left" />
-            <LeaderHex side="right" />
+        <div className="vs-battle__sep" aria-hidden="true">
+          <div className="vs-sep__vbeam vs-sep__vbeam--top" />
+          <div className="vs-sep__circle">
+            <span className="vs-sep__text">VS</span>
           </div>
-          <div className="main-page__round">
-            <RoundTracker />
-          </div>
+          <div className="vs-sep__vbeam vs-sep__vbeam--bot" />
         </div>
-
-        {/* RIGHT: score panel + Extract mission */}
-        <div className="main-page__side-area main-page__side-area--right">
-          <div className="main-page__side-stack">
-            <ScorePanel side="right" />
-            <MissionSlot type="Extract" />
-          </div>
+        <div className="vs-battle__side vs-battle__side--right">
+          <VSPortrait side="right" />
         </div>
+      </div>
 
+      {/* ── MISSION BAR ── */}
+      <div className="vs-missions">
+        <MissionSlot type="Secure" />
+        <MissionSlot type="Extract" />
       </div>
 
       <KangChronalModal />
 
-      {showResetConfirm && createPortal(
-        <div className="side-nav__modal-overlay" onClick={() => setShowResetConfirm(false)}>
-          <div className="side-nav__modal panel clip-panel" onClick={e => e.stopPropagation()}>
-            <div className="side-nav__modal-title">RESET GAME?</div>
-            <div className="side-nav__modal-body">
-              This will reset all scores, leaders, missions and timer.
-            </div>
-            <div className="side-nav__modal-actions">
-              <button className="btn-hud btn-accent-right" onClick={handleReset}>
-                CONFIRM RESET
-              </button>
-              <button className="btn-hud" onClick={() => setShowResetConfirm(false)}>
-                CANCEL
-              </button>
+      {showReset && createPortal(
+        <div className="vs-modal-overlay" onClick={() => setShowReset(false)}>
+          <div className="vs-modal panel clip-panel" onClick={e => e.stopPropagation()}>
+            <div className="vs-modal__title">RESET GAME?</div>
+            <div className="vs-modal__body">All scores, leaders, missions and the timer will be cleared.</div>
+            <div className="vs-modal__actions">
+              <button className="btn-hud btn-accent-right" onClick={handleReset}>CONFIRM RESET</button>
+              <button className="btn-hud" onClick={() => setShowReset(false)}>CANCEL</button>
             </div>
           </div>
         </div>,
