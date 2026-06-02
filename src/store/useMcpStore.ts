@@ -134,7 +134,7 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Spectrum':          'spectrum',
 };
 
-function getThemeFromLeader(leader: Leader): Theme | null {
+export function getThemeFromLeader(leader: Leader): Theme | null {
   const { name, affiliations } = leader;
 
   // Name-based rules take priority over affiliation rules
