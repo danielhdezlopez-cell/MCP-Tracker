@@ -210,18 +210,26 @@
     gap: 8px;
   }
 
+  /* Header label (SECURE / EXTRACT) — nudged 10px up */
   .mission-slot__type {
     font-size: var(--fs-13);
     letter-spacing: 0.2em;
+    transform: translateY(-10px);
   }
 
-  /* Keep single-line on tablet — panel is wide enough */
+  /* Mission name — +2px, wraps to a 2nd line so full name is always visible */
   .mission-slot__name {
-    font-size: var(--fs-14);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: var(--fs-16);
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: break-word;
     letter-spacing: -0.03em;
+  }
+
+  /* Threat label + number — nudged 10px down */
+  .mission-slot__threat {
+    transform: translateY(10px);
   }
 
   .mission-slot__threat-val {
