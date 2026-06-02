@@ -102,14 +102,23 @@ function VSPortrait({ side }: { side: 'left' | 'right' }) {
   );
 }
 
+interface WebkitDocument extends Document {
+  webkitFullscreenElement?: Element | null;
+  webkitExitFullscreen?: () => void;
+}
+interface WebkitElement extends HTMLElement {
+  webkitRequestFullscreen?: () => void;
+}
+
 export function MainPage() {
   const { leaderLeft, leaderRight, resetGame, setCurrentPage } = useMcpStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
   useEffect(() => {
+    const wkDoc = document as WebkitDocument;
     const onChange = () => setIsFullscreen(
-      !!(document.fullscreenElement || (document as any).webkitFullscreenElement)
+      !!(document.fullscreenElement || wkDoc.webkitFullscreenElement)
     );
     document.addEventListener('fullscreenchange', onChange);
     document.addEventListener('webkitfullscreenchange', onChange);
@@ -121,14 +130,15 @@ export function MainPage() {
 
   const toggleFullscreen = async () => {
     try {
-      const el = document.documentElement;
-      const isFs = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
+      const el = document.documentElement as WebkitElement;
+      const wkDoc = document as WebkitDocument;
+      const isFs = !!(document.fullscreenElement || wkDoc.webkitFullscreenElement);
       if (!isFs) {
         if (el.requestFullscreen) await el.requestFullscreen();
-        else if ((el as any).webkitRequestFullscreen) (el as any).webkitRequestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
       } else {
         if (document.exitFullscreen) await document.exitFullscreen();
-        else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
+        else if (wkDoc.webkitExitFullscreen) wkDoc.webkitExitFullscreen();
       }
     } catch { /* silent */ }
   };
