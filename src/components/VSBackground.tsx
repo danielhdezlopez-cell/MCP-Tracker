@@ -1,5 +1,5 @@
 import { type Theme } from '../store/useMcpStore';
-import { getThemeVideoSrc } from './AnimatedThemeBackground';
+import { getThemeVideoSrc } from '../data/themeVideoMap';
 import './VSBackground.css';
 
 interface VSBackgroundProps {
