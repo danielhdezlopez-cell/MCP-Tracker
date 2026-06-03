@@ -111,7 +111,9 @@ interface WebkitElement extends HTMLElement {
 }
 
 export function MainPage() {
-  const { leaderLeft, leaderRight, resetGame, setCurrentPage } = useMcpStore();
+  const { leaderLeft, leaderRight, scoreLeft, scoreRight, resetGame, setCurrentPage } = useMcpStore();
+  const topScore = Math.max(scoreLeft, scoreRight);
+  const vsGlowTier = topScore >= 16 ? 3 : topScore >= 13 ? 2 : topScore >= 8 ? 1 : 0;
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
@@ -194,6 +196,7 @@ export function MainPage() {
           <div className="vs-sep__vbeam vs-sep__vbeam--top" aria-hidden="true" />
           <button
             className="vs-sep__circle"
+            data-glow={vsGlowTier}
             onClick={() => setShowReset(true)}
             title="Reset match"
             aria-label="Reset match"

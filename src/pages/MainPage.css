@@ -11,7 +11,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: var(--vs-hud-h, 96px) 1fr var(--vs-mission-h, 160px);
+  grid-template-rows: var(--vs-hud-h, 96px) 1fr var(--vs-mission-h, 150px);
   overflow: hidden;
   background: #030508;
 }
@@ -424,6 +424,70 @@
   outline-offset: 4px;
 }
 
+/* ── VS glow tiers (driven by highest player score) ──────────── */
+.vs-sep__circle[data-glow="1"] {
+  border-color: rgba(255,200,80,0.4);
+  box-shadow:
+    0 0 0 3px rgba(255,200,80,0.08),
+    0 0 20px rgba(255,180,40,0.35),
+    0 0 40px rgba(255,140,0,0.15),
+    inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.vs-sep__circle[data-glow="2"] {
+  border-color: rgba(255,150,30,0.55);
+  box-shadow:
+    0 0 0 3px rgba(255,150,30,0.1),
+    0 0 28px rgba(255,140,20,0.55),
+    0 0 56px rgba(255,100,0,0.25),
+    inset 0 0 10px rgba(0,0,0,0.5);
+  animation: vs-glow-high 1.6s ease-in-out infinite;
+}
+
+.vs-sep__circle[data-glow="3"] {
+  border-color: rgba(255,210,0,0.75);
+  box-shadow:
+    0 0 0 4px rgba(255,210,0,0.12),
+    0 0 36px rgba(255,200,0,0.75),
+    0 0 70px rgba(255,160,0,0.35),
+    inset 0 0 12px rgba(0,0,0,0.4);
+  animation: vs-glow-danger 0.9s ease-in-out infinite;
+}
+
+@keyframes vs-glow-high {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px rgba(255,150,30,0.1),
+      0 0 28px rgba(255,140,20,0.55),
+      0 0 56px rgba(255,100,0,0.25),
+      inset 0 0 10px rgba(0,0,0,0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px rgba(255,150,30,0.16),
+      0 0 42px rgba(255,140,20,0.8),
+      0 0 80px rgba(255,100,0,0.4),
+      inset 0 0 10px rgba(0,0,0,0.5);
+  }
+}
+
+@keyframes vs-glow-danger {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(255,210,0,0.12),
+      0 0 36px rgba(255,200,0,0.75),
+      0 0 70px rgba(255,160,0,0.35),
+      inset 0 0 12px rgba(0,0,0,0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 0 5px rgba(255,215,0,0.2),
+      0 0 52px rgba(255,215,0,1.0),
+      0 0 100px rgba(255,170,0,0.55),
+      inset 0 0 12px rgba(0,0,0,0.3);
+  }
+}
+
 .vs-sep__circle::before {
   content: '';
   position: absolute;
@@ -632,7 +696,7 @@
    RESPONSIVE — very small landscape (800×480 dashboards)
 ═══════════════════════════════════════════════════════════════ */
 @media (max-height: 520px) and (orientation: landscape) {
-  :root { --vs-hud-h: 72px; --vs-mission-h: 100px; }
+  :root { --vs-hud-h: 72px; --vs-mission-h: 90px; }
 
   .vs-hud__center { gap: 3px; padding: 3px 10px; }
   .vs-hud .timer-panel { padding: 3px 8px; }
@@ -667,7 +731,7 @@
 /* ── Tablet landscape — iPad Mini 6 / Air / Pro (1000–1440px) ── */
 @media (min-width: 1000px) and (max-width: 1440px) and (orientation: landscape) {
   /* HUD height reduced now that timer lives in the battle area */
-  :root { --vs-hud-h: 128px; --vs-mission-h: 200px; }
+  :root { --vs-hud-h: 128px; --vs-mission-h: 190px; }
 
   /* Stacked center: tighter padding so both elements fit comfortably */
   .vs-hud__center { gap: 6px; padding: 5px 16px; }
@@ -713,4 +777,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hud-score__delta,
   .vs-score-pulse { animation: none !important; }
+  .vs-sep__circle[data-glow="2"],
+  .vs-sep__circle[data-glow="3"] { animation: none !important; }
 }
