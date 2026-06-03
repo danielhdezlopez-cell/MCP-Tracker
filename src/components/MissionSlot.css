@@ -206,18 +206,18 @@
 /* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .mission-slot {
-    padding: 12px 14px;
-    gap: 8px;
+    padding: 10px 14px;
+    gap: 6px;
+    justify-content: space-between;
   }
 
-  /* Header label (SECURE / EXTRACT) — nudged 10px up */
   .mission-slot__type {
     font-size: var(--fs-13);
     letter-spacing: 0.2em;
-    transform: translateY(-10px);
+    /* no translateY — rely on space-between for natural spread */
   }
 
-  /* Mission name — +2px, wraps to a 2nd line so full name is always visible */
+  /* Mission name — wraps to a 2nd line so full name is always visible */
   .mission-slot__name {
     font-size: var(--fs-16);
     white-space: normal;
@@ -225,11 +225,12 @@
     text-overflow: clip;
     overflow-wrap: break-word;
     letter-spacing: -0.03em;
+    flex: 1;
   }
 
-  /* Threat label + number — nudged 10px down */
   .mission-slot__threat {
-    transform: translateY(10px);
+    /* no translateY — natural position */
+    margin-top: 0;
   }
 
   .mission-slot__threat-val {
