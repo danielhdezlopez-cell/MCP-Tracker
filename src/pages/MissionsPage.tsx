@@ -12,11 +12,19 @@ export function MissionsPage() {
     setCurrentPage('main');
   };
 
+  const handleMissionSelected = () => {
+    const state = useMcpStore.getState();
+    if (state.selectedSecure && state.selectedExtract && state.pendingMissionType) {
+      state.setPendingMissionType(null);
+      state.setCurrentPage('main');
+    }
+  };
+
   return (
     <div className="missions-page">
       <AnimatedBackground mode={interactiveBg} />
       <div className="missions-page__header">
-        <span className="label-hud">MISSION CARDS</span>
+        <span className="label-hud">CRISIS CARDS</span>
         {pendingMissionType && (
           <button className="btn-hud missions-page__back-btn" onClick={handleBack}>
             ← BACK TO MAIN
@@ -48,7 +56,7 @@ export function MissionsPage() {
             )}
           </div>
           <div className="missions-page__list scroll-area">
-            <MissionList missions={SECURE_MISSIONS} type="Secure" />
+            <MissionList missions={SECURE_MISSIONS} type="Secure" onSelect={handleMissionSelected} />
           </div>
         </div>
 
@@ -63,7 +71,7 @@ export function MissionsPage() {
             )}
           </div>
           <div className="missions-page__list scroll-area">
-            <MissionList missions={EXTRACT_MISSIONS} type="Extract" />
+            <MissionList missions={EXTRACT_MISSIONS} type="Extract" onSelect={handleMissionSelected} />
           </div>
         </div>
       </div>

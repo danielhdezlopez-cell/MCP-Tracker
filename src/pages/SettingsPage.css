@@ -969,3 +969,13 @@
   letter-spacing: 0.04em;
   text-align: center;
 }
+
+/* ── STYLES placeholder ──────────────────────────────────────── */
+.settings-styles-placeholder {
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: var(--fs-13);
+  letter-spacing: 0.08em;
+  padding: 16px 14px;
+  opacity: 0.65;
+}

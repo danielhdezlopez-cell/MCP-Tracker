@@ -7,9 +7,10 @@ import './MissionList.css';
 interface MissionListProps {
   missions: Mission[];
   type: 'Secure' | 'Extract';
+  onSelect?: () => void;
 }
 
-export function MissionList({ missions, type }: MissionListProps) {
+export function MissionList({ missions, type, onSelect }: MissionListProps) {
   const { selectedSecure, selectedExtract, setSelectedSecure, setSelectedExtract } = useMcpStore();
   const [viewing, setViewing] = useState<Mission | null>(null);
 
@@ -24,7 +25,11 @@ export function MissionList({ missions, type }: MissionListProps) {
           <button
             key={mission.id}
             className={`mission-item mission-item--${accent} ${selected?.id === mission.id ? 'selected' : ''}`}
-            onClick={() => setSelected(selected?.id === mission.id ? null : mission)}
+            onClick={() => {
+                const next = selected?.id === mission.id ? null : mission;
+                setSelected(next);
+                if (next !== null) onSelect?.();
+              }}
           >
             <div className="mission-item__check">
               {selected?.id === mission.id ? '✓' : '○'}

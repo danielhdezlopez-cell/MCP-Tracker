@@ -69,15 +69,14 @@
 
 .mission-item__name {
   font-family: var(--font-display);
-  font-size: var(--fs-13);
+  font-size: 17px;
   font-weight: 600;
   color: var(--color-text);
   letter-spacing: 0.02em;
-  line-height: 1.2;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.25;
+  white-space: normal;
+  overflow-wrap: break-word;
+  overflow: visible;
 }
 
 .mission-item__meta {

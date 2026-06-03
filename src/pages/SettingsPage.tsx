@@ -158,6 +158,13 @@ export function SettingsPage() {
         </div>
 
         <div className="settings-section">
+          <div className="settings-section__title">🖌 STYLES</div>
+          <div className="settings-styles-placeholder">
+            Style options coming soon.
+          </div>
+        </div>
+
+        <div className="settings-section" style={{ display: 'none' }}>
           <div className="settings-section__title">🎨 THEMES</div>
           <div className="settings-themes">
             {THEMES.map(t => (
