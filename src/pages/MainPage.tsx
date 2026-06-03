@@ -165,14 +165,6 @@ export function MainPage() {
           <div className="vs-hud__edge vs-hud__edge--right" />
         </div>
         <div className="vs-hud__ctrl-strip">
-          <button className="vs-ctrl" onClick={() => setShowReset(true)} title="Reset Game" aria-label="Reset Game">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
-              <path d="M18.5 8.25 A7.5 7.5 0 1 1 12 4.5"/><path d="M9 2.5 L12 4.5 L9 6.5"/>
-            </svg>
-          </button>
-          <button className="vs-ctrl" onClick={() => setCurrentPage('settings')} title="Settings" aria-label="Settings">
-            <NavIconSettings width="15" height="15" />
-          </button>
           <button className="vs-ctrl vs-ctrl--fullscreen" onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>
             {isFullscreen ? (
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
@@ -184,6 +176,9 @@ export function MainPage() {
               </svg>
             )}
           </button>
+          <button className="vs-ctrl" onClick={() => setCurrentPage('settings')} title="Settings" aria-label="Settings">
+            <NavIconSettings width="15" height="15" />
+          </button>
         </div>
       </div>
 
@@ -193,12 +188,17 @@ export function MainPage() {
         <div className="vs-battle__side vs-battle__side--left">
           <VSPortrait side="left" />
         </div>
-        <div className="vs-battle__sep" aria-hidden="true">
-          <div className="vs-sep__vbeam vs-sep__vbeam--top" />
-          <div className="vs-sep__circle">
-            <span className="vs-sep__text">VS</span>
-          </div>
-          <div className="vs-sep__vbeam vs-sep__vbeam--bot" />
+        <div className="vs-battle__sep">
+          <div className="vs-sep__vbeam vs-sep__vbeam--top" aria-hidden="true" />
+          <button
+            className="vs-sep__circle"
+            onClick={() => setShowReset(true)}
+            title="Reset match"
+            aria-label="Reset match"
+          >
+            <span className="vs-sep__text" aria-hidden="true">VS</span>
+          </button>
+          <div className="vs-sep__vbeam vs-sep__vbeam--bot" aria-hidden="true" />
         </div>
         <div className="vs-battle__side vs-battle__side--right">
           <VSPortrait side="right" />

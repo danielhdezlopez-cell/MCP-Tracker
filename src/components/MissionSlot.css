@@ -112,7 +112,7 @@
 /* ── Mission name ───────────────────────────────────────────────── */
 .mission-slot__name {
   font-family: var(--font-display);
-  font-size: var(--fs-11);
+  font-size: var(--fs-13);
   font-weight: 600;
   line-height: 1.25;
   color: var(--color-text);
@@ -217,9 +217,9 @@
     /* no translateY — rely on space-between for natural spread */
   }
 
-  /* Mission name — wraps to a 2nd line so full name is always visible */
+  /* Mission name — +2px vs default, wraps to 2nd line if needed */
   .mission-slot__name {
-    font-size: var(--fs-16);
+    font-size: 18px;
     white-space: normal;
     overflow: visible;
     text-overflow: clip;

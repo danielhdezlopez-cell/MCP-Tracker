@@ -144,13 +144,14 @@
   font-size: clamp(0.78rem, 1.4vw, 1.05rem);
 }
 
-/* ── Broadcast controls ────────────────────────────────── */
+/* ── Broadcast controls — vertical column, right edge ─── */
 .vs-hud__ctrl-strip {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
+  flex-direction: column;
   gap: 6px;
   z-index: 20;
 }
@@ -340,6 +341,10 @@
   align-items: center;
   position: relative;
   z-index: 5;
+}
+
+/* vbeams are decorative only */
+.vs-sep__vbeam {
   pointer-events: none;
 }
 
@@ -358,7 +363,7 @@
 .vs-sep__vbeam--top { --dir: bottom; }
 .vs-sep__vbeam--bot { --dir: top; }
 
-/* Outer glow ring — 50% larger than original */
+/* Outer glow ring — 50% larger than original, doubles as reset button */
 .vs-sep__circle {
   width: clamp(82px, 9.75vw, 120px);
   height: clamp(82px, 9.75vw, 120px);
@@ -374,6 +379,29 @@
   justify-content: center;
   flex-shrink: 0;
   position: relative;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.vs-sep__circle:hover {
+  border-color: rgba(255,255,255,0.32);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.07),
+    0 0 28px rgba(0,0,0,0.7),
+    0 0 18px rgba(231,76,60,0.18),
+    inset 0 0 12px rgba(0,0,0,0.4);
+}
+.vs-sep__circle:active {
+  transform: scale(0.91);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.05),
+    0 0 12px rgba(0,0,0,0.9),
+    inset 0 0 14px rgba(0,0,0,0.6);
+}
+.vs-sep__circle:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.4);
+  outline-offset: 4px;
 }
 
 .vs-sep__circle::before {
