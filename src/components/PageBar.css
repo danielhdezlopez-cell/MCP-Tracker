@@ -1,7 +1,7 @@
 .page-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 4px 10px;
   height: 42px;
   background: var(--color-panel);
@@ -28,6 +28,10 @@
   display: flex;
   gap: 4px;
   align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 .page-bar__btn {
