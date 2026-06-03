@@ -11,7 +11,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: var(--vs-hud-h, 120px) 1fr var(--vs-mission-h, 112px);
+  grid-template-rows: var(--vs-hud-h, 120px) 1fr var(--vs-mission-h, 160px);
   overflow: hidden;
   background: #030508;
 }
@@ -612,7 +612,7 @@
    RESPONSIVE — very small landscape (800×480 dashboards)
 ═══════════════════════════════════════════════════════════════ */
 @media (max-height: 520px) and (orientation: landscape) {
-  :root { --vs-hud-h: 88px; --vs-mission-h: 80px; }
+  :root { --vs-hud-h: 88px; --vs-mission-h: 100px; }
 
   .vs-hud__center { gap: 3px; padding: 3px 10px; }
   .vs-hud .timer-panel { padding: 3px 8px; }
@@ -647,7 +647,7 @@
 /* ── Tablet landscape — iPad Mini 6 / Air / Pro (1000–1440px) ── */
 @media (min-width: 1000px) and (max-width: 1440px) and (orientation: landscape) {
   /* HUD height kept at 148px — score grows via font-size only, not strip height */
-  :root { --vs-hud-h: 148px; --vs-mission-h: 150px; }
+  :root { --vs-hud-h: 148px; --vs-mission-h: 200px; }
 
   /* Stacked center: tighter padding so both elements fit comfortably */
   .vs-hud__center { gap: 6px; padding: 5px 16px; }
