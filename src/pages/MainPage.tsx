@@ -70,10 +70,8 @@ function HudScore({ side }: { side: 'left' | 'right' }) {
 }
 
 function VSPortrait({ side }: { side: 'left' | 'right' }) {
-  const { leaderLeft, leaderRight, scoreLeft, scoreRight, setCurrentPage, setPendingLeaderAssign } = useMcpStore();
+  const { leaderLeft, leaderRight, setCurrentPage, setPendingLeaderAssign } = useMcpStore();
   const leader = side === 'left' ? leaderLeft : leaderRight;
-  const score  = side === 'left' ? scoreLeft  : scoreRight;
-  const glowTier = score >= 16 ? 4 : score >= 11 ? 3 : score >= 6 ? 2 : score >= 1 ? 1 : 0;
 
   const handleClick = () => {
     setPendingLeaderAssign(side);
@@ -83,7 +81,6 @@ function VSPortrait({ side }: { side: 'left' | 'right' }) {
   return (
     <div
       className={`vs-portrait vs-portrait--${side}${!leader ? ' vs-portrait--empty' : ''}`}
-      data-glow={glowTier}
       onClick={handleClick}
       role="button"
       tabIndex={0}
