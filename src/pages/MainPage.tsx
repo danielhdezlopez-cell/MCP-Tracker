@@ -113,7 +113,7 @@ interface WebkitElement extends HTMLElement {
 export function MainPage() {
   const { leaderLeft, leaderRight, scoreLeft, scoreRight, resetGame, setCurrentPage } = useMcpStore();
   const topScore = Math.max(scoreLeft, scoreRight);
-  const vsGlowTier = topScore >= 16 ? 3 : topScore >= 13 ? 2 : topScore >= 8 ? 1 : 0;
+  const vsGlowTier = topScore >= 16 ? 4 : topScore >= 11 ? 3 : topScore >= 6 ? 2 : topScore >= 1 ? 1 : 0;
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
