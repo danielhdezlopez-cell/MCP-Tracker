@@ -112,7 +112,7 @@
 /* ── Mission name ───────────────────────────────────────────────── */
 .mission-slot__name {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.25;
   color: var(--color-text);
@@ -219,7 +219,7 @@
 
   /* Mission name — wraps to 2nd/3rd line if needed */
   .mission-slot__name {
-    font-size: 20px;
+    font-size: 23px;
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
