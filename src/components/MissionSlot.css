@@ -114,12 +114,12 @@
   font-family: var(--font-display);
   font-size: var(--fs-11);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--color-text);
   letter-spacing: -0.04em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
+  overflow: visible;
 }
 
 /* ── Threat row ─────────────────────────────────────────────────── */
