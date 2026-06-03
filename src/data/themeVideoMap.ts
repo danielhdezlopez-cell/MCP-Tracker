@@ -24,7 +24,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   cyclops:             { src: `${ASSETS_BASE}assets/backgrounds/BG_Cyclops.mp4`,                    modifier: 'anim-theme-bg--cyclops', smoothLoop: true },
   'dark-dimension':    { src: `${ASSETS_BASE}assets/backgrounds/BG_Dormammu.mp4`,                   modifier: 'anim-theme-bg--dark-dimension'    },
   daredevil:           { src: `${ASSETS_BASE}assets/backgrounds/BG_Daredevil.mp4`,                  modifier: 'anim-theme-bg--daredevil', smoothLoop: true },
-  'doc-ock':           { src: `${ASSETS_BASE}assets/backgrounds/BG_DocOck.mp4`,                     modifier: 'anim-theme-bg--doc-ock', objectPositionY: '40%' },
+  'doc-ock':           { src: `${ASSETS_BASE}assets/backgrounds/BG_DocOck.mp4`,                     modifier: 'anim-theme-bg--doc-ock', objectPositionY: '60%' },
   'dr-strange':        { src: `${ASSETS_BASE}assets/backgrounds/BG_DrStrange.mp4`,                  modifier: 'anim-theme-bg--dr-strange'        },
   dracula:             { src: `${ASSETS_BASE}assets/backgrounds/BG_Dracula.mp4`,                    modifier: 'anim-theme-bg--dracula'           },
   'elsa-bloodstone':   { src: `${ASSETS_BASE}assets/backgrounds/BG_ElsaBloodstone.mp4`,           modifier: 'anim-theme-bg--elsa-bloodstone',   smoothLoop: true },
@@ -35,7 +35,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   'midnight-sons':     { src: `${ASSETS_BASE}assets/backgrounds/BG_MidnightSons.mp4`,             modifier: 'anim-theme-bg--midnight-sons'     },
   modok:               { src: `${ASSETS_BASE}assets/backgrounds/BG_MODOK.mp4`,                    modifier: 'anim-theme-bg--modok', smoothLoop: true },
   mystique:            { src: `${ASSETS_BASE}assets/backgrounds/BG_Mystique.mp4`,                 modifier: 'anim-theme-bg--mystique'          },
-  namor:               { src: `${ASSETS_BASE}assets/backgrounds/BG_Namor.mp4`,                   modifier: 'anim-theme-bg--namor',             smoothLoop: true, objectPositionY: '10%' },
+  namor:               { src: `${ASSETS_BASE}assets/backgrounds/BG_Namor.mp4`,                   modifier: 'anim-theme-bg--namor',             smoothLoop: true, objectPositionY: '20%' },
   hulkbuster: { src: `${ASSETS_BASE}assets/backgrounds/BG_Avengers_Hulkbuster.mp4`, modifier: 'anim-theme-bg--hulkbuster' },
   hydra:  { src: `${ASSETS_BASE}assets/backgrounds/BG_HYDRA.mp4`,       modifier: 'anim-theme-bg--hydra'      },
   'invincible-ironman': { src: `${ASSETS_BASE}assets/backgrounds/BG_InvincibleIronman.mp4`, modifier: 'anim-theme-bg--invincible-ironman', smoothLoop: true },
@@ -79,7 +79,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   'baron-zemo':           { src: `${ASSETS_BASE}assets/backgrounds/BG_BaronZemo.mp4`,           modifier: 'anim-theme-bg--baron-zemo', smoothLoop: true },
   'bastion':              { src: `${ASSETS_BASE}assets/backgrounds/BG_Bastion.mp4`,             modifier: 'anim-theme-bg--bastion' },
   'blade':                { src: `${ASSETS_BASE}assets/backgrounds/BG_Blade.mp4`,               modifier: 'anim-theme-bg--blade', smoothLoop: true },
-  'nick-fury':            { src: `${ASSETS_BASE}assets/backgrounds/BG_NickFury.mp4`,            modifier: 'anim-theme-bg--nick-fury', smoothLoop: true, objectPositionY: '10%' },
+  'nick-fury':            { src: `${ASSETS_BASE}assets/backgrounds/BG_NickFury.mp4`,            modifier: 'anim-theme-bg--nick-fury', smoothLoop: true, objectPositionY: '20%' },
   'shadowland-daredevil': { src: `${ASSETS_BASE}assets/backgrounds/BG_ShadowlandDaredevil.mp4`, modifier: 'anim-theme-bg--shadowland-daredevil', smoothLoop: true },
 };
 
