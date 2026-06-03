@@ -158,7 +158,6 @@ export function MainPage() {
         </div>
         <div className="vs-hud__center">
           <RoundTracker />
-          <TimerPanel />
         </div>
         <div className="vs-hud__side vs-hud__side--right">
           <HudScore side="right" />
@@ -185,6 +184,9 @@ export function MainPage() {
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
+        <div className="vs-battle__timer">
+          <TimerPanel />
+        </div>
         <div className="vs-battle__side vs-battle__side--left">
           <VSPortrait side="left" />
         </div>
