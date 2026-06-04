@@ -31,14 +31,9 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
                 image={leader.image}
                 name={leader.name}
                 variant={variant}
-                cssSize="100px"
+                cssSize="120px"
                 selected={selected}
               />
-              {(isLeft || isRight) && (
-                <div className={`leader-card__badge leader-card__badge--${isLeft ? 'left' : 'right'}`}>
-                  {isLeft ? 'P1' : 'P2'}
-                </div>
-              )}
             </div>
             <div className="leader-card__name">{leader.name}</div>
             <div className="leader-card__affils">

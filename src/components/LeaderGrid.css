@@ -1,8 +1,8 @@
 .leader-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 8px;
-  padding: 8px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 
 .leader-card {
@@ -13,7 +13,7 @@
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: 8px 6px;
+  padding: 10px 8px;
   cursor: pointer;
   transition: all var(--transition);
   position: relative;
@@ -28,15 +28,15 @@
 }
 
 .leader-card.selected-left {
-  border-color: var(--color-accent-left);
+  border: 3px solid var(--color-accent-left);
   background: var(--color-panel-alt);
-  box-shadow: 0 0 10px var(--color-glow-left);
+  box-shadow: 0 0 12px var(--color-glow-left);
 }
 
 .leader-card.selected-right {
-  border-color: var(--color-accent-right);
+  border: 3px solid var(--color-accent-right);
   background: var(--color-panel-alt);
-  box-shadow: 0 0 10px var(--color-glow-right);
+  box-shadow: 0 0 12px var(--color-glow-right);
 }
 
 /* hex portrait wrapper + badge positioning */
@@ -70,7 +70,7 @@
 
 .leader-card__name {
   font-family: var(--font-display);
-  font-size: var(--fs-11);
+  font-size: var(--fs-13);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-text);
@@ -85,7 +85,7 @@
 }
 
 .leader-card__affil {
-  font-size: var(--fs-9);
+  font-size: var(--fs-10);
   color: var(--color-text-muted);
   background: var(--color-panel-alt);
   border: 1px solid var(--color-border);
