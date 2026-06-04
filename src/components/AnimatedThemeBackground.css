@@ -245,7 +245,7 @@
   object-position: center 15%;
 }
 .anim-theme-bg--dr-strange video {
-  object-position: center 60%;
+  object-position: center 45%;
 }
 .anim-theme-bg--magik video {
   object-position: center 25%;
@@ -259,4 +259,30 @@
 .anim-theme-bg--elsa-bloodstone video {
   object-fit: cover;
   object-position: center center;
+}
+.anim-theme-bg--adam-warlock video {
+  object-position: center 60%;
+}
+.anim-theme-bg--baron-strucker video {
+  object-position: center 60%;
+}
+.anim-theme-bg--black-bolt video {
+  transform: scale(1.2);
+  transform-origin: center center;
+}
+.anim-theme-bg--winter-guard video {
+  object-position: center 40%;
+}
+.anim-theme-bg--green-goblin video {
+  object-position: center 35%;
+}
+.anim-theme-bg--doc-ock video {
+  object-position: center 40%;
+}
+.anim-theme-bg--namor video {
+  object-position: center 40%;
+}
+.anim-theme-bg--red-skull-master-of-hydra video {
+  transform: scale(1.2);
+  transform-origin: center center;
 }
