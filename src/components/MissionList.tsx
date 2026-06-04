@@ -31,13 +31,16 @@ export function MissionList({ missions, type, onSelect }: MissionListProps) {
                 if (next !== null) onSelect?.();
               }}
           >
+            <div className={`mission-item__threat-strip mission-item__threat-strip--${accent}`}>
+              <span className="mission-item__threat">{mission.threat}</span>
+            </div>
             {mission.image && (
               <button
                 className={`mission-item__view-btn mission-item__view-btn--${accent}`}
                 onClick={e => { e.stopPropagation(); setViewing(mission); }}
                 aria-label={`View card: ${mission.name}`}
               >
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                   <circle cx="12" cy="12" r="3"/>
                 </svg>
@@ -48,10 +51,6 @@ export function MissionList({ missions, type, onSelect }: MissionListProps) {
             </div>
             <div className="mission-item__info">
               <div className="mission-item__name">{mission.name}</div>
-            </div>
-            <div className="mission-item__threat-corner">
-              <span className="mission-item__threat-label">THREAT</span>
-              <span className="mission-item__threat">{mission.threat}</span>
             </div>
           </button>
         ))}

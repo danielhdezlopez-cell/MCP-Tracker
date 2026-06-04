@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 52px 10px 12px;
+  padding: 10px 52px 10px 50px;
   min-height: 76px;
   background: var(--color-panel);
   border: 1px solid var(--color-border);
@@ -22,10 +22,6 @@
   overflow: hidden;
 }
 
-/* Micro left accent bar */
-.mission-item--left  { border-left: 2px solid rgba(26, 143, 255, 0.35); }
-.mission-item--right { border-left: 2px solid rgba(255, 47, 47, 0.35); }
-
 .mission-item:hover {
   background: var(--color-panel-alt);
 }
@@ -34,7 +30,6 @@
 .mission-item--left:hover,
 .mission-item--left.selected {
   border-color: var(--color-mission-secure);
-  border-left-width: 2px;
   box-shadow: 0 0 8px var(--color-glow-secure);
 }
 
@@ -42,7 +37,6 @@
 .mission-item--right:hover,
 .mission-item--right.selected {
   border-color: var(--color-mission-extract);
-  border-left-width: 2px;
   box-shadow: 0 0 8px var(--color-glow-extract);
 }
 
@@ -116,26 +110,42 @@
   letter-spacing: 0.1em;
 }
 
-.mission-item__threat {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-}
-
-.mission-item--left  .mission-item__threat { color: var(--color-mission-secure); }
-.mission-item--right .mission-item__threat { color: var(--color-mission-extract); }
-
-/* ── View card button — absolute top-right ───────────────────────── */
-.mission-item__view-btn {
+/* ── Threat strip — absolute left, full card height ─────────────── */
+.mission-item__threat-strip {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  flex-shrink: 0;
+}
+
+.mission-item__threat-strip--left  { background: var(--color-mission-secure); }
+.mission-item__threat-strip--right { background: var(--color-mission-extract); }
+
+.mission-item__threat {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  line-height: 1;
+}
+
+/* ── View card button — absolute right, full card height ────────── */
+.mission-item__view-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  bottom: 4px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--border-radius);
   border: 1px solid var(--color-border);
   background: transparent;
@@ -146,14 +156,11 @@
   padding: 0;
 }
 
-/* ── Threat corner — absolute bottom-right ───────────────────────── */
-.mission-item__threat-corner {
-  position: absolute;
-  bottom: 6px;
-  right: 8px;
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
+.mission-item__view-btn svg {
+  width: 62%;
+  height: 62%;
+  max-width: 30px;
+  max-height: 30px;
 }
 
 .mission-item__view-btn--left  { border-color: rgba(26, 143, 255, 0.25); }
