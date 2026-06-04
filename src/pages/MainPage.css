@@ -221,7 +221,7 @@
 
 .hud-score__val {
   font-family: 'Orbitron', var(--font-display, sans-serif);
-  font-size: clamp(3.0rem, 5.5vw, 4.3rem);
+  font-size: clamp(3.4rem, 6.2vw, 4.7rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -342,16 +342,50 @@
   transform: translateX(-50%);
   z-index: 6;
   pointer-events: auto;
+  overflow: visible;
 }
 
 .vs-battle__timer .timer-panel {
   padding: 5px 14px;
   gap: 2px;
-  min-width: clamp(145px, 18.5vw, 218px);
+  min-width: clamp(160px, 20.4vw, 240px);
+  position: relative;
+  z-index: 2;
 }
 
 .vs-battle__timer .timer-panel__display {
-  font-size: clamp(1.85rem, 3.43vw, 2.64rem);
+  font-size: clamp(2.22rem, 4.12vw, 3.17rem);
+}
+
+/* ── Timer progress ring ────────────────────────────────────── */
+.timer-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(190px, 23vw, 280px);
+  height: clamp(190px, 23vw, 280px);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.timer-ring__track {
+  fill: none;
+  stroke: rgba(0, 195, 255, 0.15);
+  stroke-width: 7;
+}
+
+.timer-ring__fill {
+  fill: none;
+  stroke: rgba(0, 195, 255, 0.88);
+  stroke-width: 7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.9s linear, stroke 0.5s ease;
+}
+
+.timer-ring--critical .timer-ring__fill {
+  stroke: var(--color-critical);
 }
 
 /* ── VS Separator ─────────────────────────────────────────── */
@@ -699,7 +733,7 @@
   z-index: 10;
   display: flex;
   gap: 8px;
-  padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+  padding: 16px 12px calc(6px + env(safe-area-inset-bottom, 0px));
   background: linear-gradient(to top, rgba(2,4,10,0.99) 0%, rgba(2,4,10,0.92) 100%);
   border-top: 1px solid rgba(255,255,255,0.07);
   box-shadow: 0 -3px 16px rgba(0,0,0,0.6), 0 -1px 0 rgba(255,255,255,0.03);
