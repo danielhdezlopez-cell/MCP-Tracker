@@ -58,12 +58,14 @@
 }
 
 .vs-hud__side--left {
-  padding: 0 12px 0 16px;
+  justify-content: flex-end;
+  padding: 0 24px 0 16px;
   background: linear-gradient(to right, rgba(180,0,20,0.12), rgba(140,0,20,0.04) 80%, transparent);
 }
 
 .vs-hud__side--right {
-  padding: 0 16px 0 12px;
+  justify-content: flex-start;
+  padding: 0 16px 0 24px;
   background: linear-gradient(to left, rgba(0,60,180,0.12), rgba(0,40,160,0.04) 80%, transparent);
 }
 
@@ -219,7 +221,7 @@
 
 .hud-score__val {
   font-family: 'Orbitron', var(--font-display, sans-serif);
-  font-size: clamp(2.6rem, 5.0vw, 4.0rem);
+  font-size: clamp(3.0rem, 5.5vw, 4.3rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -345,11 +347,11 @@
 .vs-battle__timer .timer-panel {
   padding: 5px 14px;
   gap: 2px;
-  min-width: clamp(121px, 15.4vw, 182px);
+  min-width: clamp(145px, 18.5vw, 218px);
 }
 
 .vs-battle__timer .timer-panel__display {
-  font-size: clamp(1.54rem, 2.86vw, 2.2rem);
+  font-size: clamp(1.85rem, 3.43vw, 2.64rem);
 }
 
 /* ── VS Separator ─────────────────────────────────────────── */
