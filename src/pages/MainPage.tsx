@@ -69,6 +69,36 @@ function HudScore({ side }: { side: 'left' | 'right' }) {
   );
 }
 
+function BattleTimer() {
+  const timerRemaining = useMcpStore(s => s.timerRemaining);
+  const timerDuration = useMcpStore(s => s.timerDuration);
+  const isCritical = timerRemaining <= 15 * 60;
+  const progress = timerDuration > 0 ? Math.max(0, Math.min(1, timerRemaining / timerDuration)) : 1;
+  const R = 92;
+  const circ = 2 * Math.PI * R;
+  const offset = circ * (1 - progress);
+
+  return (
+    <div className="vs-battle__timer">
+      <svg
+        className={`timer-ring${isCritical ? ' timer-ring--critical' : ''}`}
+        viewBox="0 0 200 200"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle className="timer-ring__track" cx="100" cy="100" r={R} />
+        <circle
+          className="timer-ring__fill"
+          cx="100" cy="100" r={R}
+          transform="rotate(-90 100 100)"
+          style={{ strokeDasharray: circ, strokeDashoffset: offset }}
+        />
+      </svg>
+      <TimerPanel />
+    </div>
+  );
+}
+
 function VSPortrait({ side }: { side: 'left' | 'right' }) {
   const { leaderLeft, leaderRight, setCurrentPage, setPendingLeaderAssign } = useMcpStore();
   const leader = side === 'left' ? leaderLeft : leaderRight;
@@ -186,9 +216,7 @@ export function MainPage() {
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
-        <div className="vs-battle__timer">
-          <TimerPanel />
-        </div>
+        <BattleTimer />
         <div className="vs-battle__side vs-battle__side--left">
           <VSPortrait side="left" />
         </div>
