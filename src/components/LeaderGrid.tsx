@@ -31,11 +31,10 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
                 image={leader.image}
                 name={leader.name}
                 variant={variant}
-                cssSize="120px"
+                cssSize="130px"
                 selected={selected}
               />
             </div>
-            <div className="leader-card__name">{leader.name}</div>
             <div className="leader-card__affils">
               {leader.affiliations.slice(0, 2).map(a => (
                 <span key={a} className="leader-card__affil">{getAffilDisplay(a)}</span>
