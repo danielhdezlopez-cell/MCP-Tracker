@@ -342,50 +342,16 @@
   transform: translateX(-50%);
   z-index: 6;
   pointer-events: auto;
-  overflow: visible;
 }
 
 .vs-battle__timer .timer-panel {
   padding: 5px 14px;
   gap: 2px;
   min-width: clamp(160px, 20.4vw, 240px);
-  position: relative;
-  z-index: 2;
 }
 
 .vs-battle__timer .timer-panel__display {
   font-size: clamp(2.22rem, 4.12vw, 3.17rem);
-}
-
-/* ── Timer progress ring ────────────────────────────────────── */
-.timer-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(190px, 23vw, 280px);
-  height: clamp(190px, 23vw, 280px);
-  pointer-events: none;
-  z-index: 1;
-  overflow: visible;
-}
-
-.timer-ring__track {
-  fill: none;
-  stroke: rgba(0, 195, 255, 0.15);
-  stroke-width: 7;
-}
-
-.timer-ring__fill {
-  fill: none;
-  stroke: rgba(0, 195, 255, 0.88);
-  stroke-width: 7;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.9s linear, stroke 0.5s ease;
-}
-
-.timer-ring--critical .timer-ring__fill {
-  stroke: var(--color-critical);
 }
 
 /* ── VS Separator ─────────────────────────────────────────── */
