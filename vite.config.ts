@@ -9,15 +9,15 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['assets/**/*'],
       manifest: {
-        name: 'MCP Tracker VS Overlay',
-        short_name: 'MCP VS',
-        description: 'Marvel Crisis Protocol – Tournament VS Overlay (experimental)',
-        theme_color: '#07010f',
-        background_color: '#07010f',
-        display: 'fullscreen',
+        name: 'MCP Tracker',
+        short_name: 'MCP Tracker',
+        description: 'Marvel Crisis Protocol – Tournament Tracker',
+        theme_color: '#000000',
+        background_color: '#000000',
+        display: 'standalone',
         orientation: 'landscape',
         start_url: base,
         scope: base,
@@ -41,26 +41,50 @@ export default defineConfig({
         ],
       },
       workbox: {
-        skipWaiting: true,
         clientsClaim: true,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // Pre-cache all static assets (JS, CSS, HTML, images, fonts)
+        globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff,woff2}'],
+        // 15 MB max per pre-cached file (for large portrait PNGs/webps)
+        maximumFileSizeToCacheInBytes: 15 * 1024 * 1024,
         runtimeCaching: [
+          // Google Fonts — stylesheet (revalidate in background)
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'google-fonts-cache',
+              cacheName: 'google-fonts-stylesheets',
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },
+          // Google Fonts — actual font files (cache forever)
           {
-            // Cache assets loaded from the original MCP-Tracker GitHub Pages
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          // Theme background videos — cached on first play, served offline after
+          {
+            urlPattern: /\/assets\/backgrounds\/.*\.mp4$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'theme-videos',
+              rangeRequests: true,
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 60 },
+              cacheableResponse: { statuses: [0, 200, 206] },
+            },
+          },
+          // GitHub Pages hosted assets catch-all (handles same-origin assets
+          // not matched by pre-cache, e.g. mission cards, leader portraits)
+          {
             urlPattern: /^https:\/\/danielhdezlopez-cell\.github\.io\/MCP-Tracker\/assets\/.*/i,
             handler: 'CacheFirst',
             options: {
               cacheName: 'mcp-tracker-assets',
-              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 30 },
             },
           },
         ],

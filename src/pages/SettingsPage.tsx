@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMcpStore, type Theme } from '../store/useMcpStore';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import './SettingsPage.css';
@@ -86,6 +86,15 @@ export function SettingsPage() {
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
   const [isCustom, setIsCustom] = useState(timerDuration !== 90 * 60 && timerDuration !== 120 * 60);
+  const [offlineReady, setOfflineReady] = useState(false);
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then(reg => {
+        setOfflineReady(reg?.active != null);
+      }).catch(() => setOfflineReady(false));
+    }
+  }, []);
 
   const selectPreset = (mins: number) => {
     setCustomMins(mins);
@@ -141,6 +150,14 @@ export function SettingsPage() {
 
         <div className="settings-section">
           <div className="settings-section__title">⚙ GENERAL</div>
+          <div className="settings-item">
+            <label className="settings-item__label">OFFLINE READY</label>
+            <div className="settings-item__control">
+              <span className={`settings-offline-badge${offlineReady ? ' settings-offline-badge--ready' : ''}`}>
+                {offlineReady ? 'YES' : 'NO'}
+              </span>
+            </div>
+          </div>
           <div className="settings-item">
             <label className="settings-item__label">BRIGHTNESS</label>
             <div className="settings-item__control">
