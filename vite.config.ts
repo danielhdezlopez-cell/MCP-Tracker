@@ -41,6 +41,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        skipWaiting: true,
         clientsClaim: true,
         // Pre-cache all static assets (JS, CSS, HTML, images, fonts)
         globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff,woff2}'],
@@ -66,16 +67,11 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
-          // Theme background videos — cached on first play, served offline after
+          // Theme background videos — bypass SW entirely so Safari's native
+          // HTTP range requests (206 Partial Content) work without stalling.
           {
-            urlPattern: /\/assets\/backgrounds\/.*\.mp4$/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'theme-videos',
-              rangeRequests: true,
-              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 60 },
-              cacheableResponse: { statuses: [0, 200, 206] },
-            },
+            urlPattern: /\.mp4$/i,
+            handler: 'NetworkOnly',
           },
           // GitHub Pages hosted assets catch-all (handles same-origin assets
           // not matched by pre-cache, e.g. mission cards, leader portraits)
