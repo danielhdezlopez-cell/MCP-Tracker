@@ -154,6 +154,25 @@
   box-shadow: 0 0 6px var(--color-glow-left);
 }
 
+/* Offline ready badge */
+.settings-offline-badge {
+  font-family: var(--font-display);
+  font-size: var(--fs-10);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 60, 60, 0.12);
+  color: rgba(255, 80, 80, 0.9);
+}
+
+.settings-offline-badge--ready {
+  background: rgba(0, 195, 100, 0.12);
+  border-color: rgba(0, 195, 100, 0.4);
+  color: rgba(0, 220, 110, 0.9);
+}
+
 /* Toggle switch */
 .settings-toggle {
   position: relative;
