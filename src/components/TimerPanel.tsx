@@ -10,9 +10,8 @@ function formatTime(seconds: number): string {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
-export function TimerPanel() {
+export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) {
   const { timerRemaining, timerRunning, timerDuration, setTimerRemaining, setTimerRunning } = useMcpStore();
-  const resetGame = useMcpStore((s) => s.resetGame);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const longPressRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const longFiredRef = useRef(false);
@@ -77,7 +76,7 @@ export function TimerPanel() {
       longFiredRef.current = true;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       setResetProgress(0);
-      resetGame();
+      onResetRequest?.();
       if ('vibrate' in navigator) navigator.vibrate(40);
     }, LONG_PRESS_MS);
   };

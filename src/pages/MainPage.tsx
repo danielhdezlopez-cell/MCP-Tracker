@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useMcpStore, getThemeFromLeader } from '../store/useMcpStore';
 import { RoundMedallion } from '../components/RoundMedallion';
 import { MissionSlot } from '../components/MissionSlot';
@@ -111,8 +112,9 @@ interface WebkitElement extends HTMLElement {
 }
 
 export function MainPage() {
-  const { leaderLeft, leaderRight, setCurrentPage } = useMcpStore();
+  const { leaderLeft, leaderRight, resetGame, setCurrentPage } = useMcpStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showReset, setShowReset] = useState(false);
 
   useEffect(() => {
     const wkDoc = document as WebkitDocument;
@@ -181,7 +183,7 @@ export function MainPage() {
       <div className="vs-battle">
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
         <div className="vs-battle__timer">
-          <TimerPanel />
+          <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
         <div className="vs-battle__side vs-battle__side--left">
           <VSPortrait side="left" />
@@ -201,6 +203,20 @@ export function MainPage() {
       </div>
 
       <KangChronalModal />
+
+      {showReset && createPortal(
+        <div className="vs-modal-overlay" onClick={() => setShowReset(false)}>
+          <div className="vs-modal panel clip-panel" onClick={e => e.stopPropagation()}>
+            <div className="vs-modal__title">RESET GAME?</div>
+            <div className="vs-modal__body">All scores, leaders, missions and the timer will be cleared.</div>
+            <div className="vs-modal__actions">
+              <button className="btn-hud btn-accent-right" onClick={() => { resetGame(); setShowReset(false); }}>CONFIRM RESET</button>
+              <button className="btn-hud" onClick={() => setShowReset(false)}>CANCEL</button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
