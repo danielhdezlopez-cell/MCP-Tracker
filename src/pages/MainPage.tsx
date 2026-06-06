@@ -7,6 +7,7 @@ import { TimerPanel } from '../components/TimerPanel';
 import { VSBackground } from '../components/VSBackground';
 import { KangChronalModal } from '../components/KangChronalModal';
 import { NavIconSettings } from '../components/icons';
+import { AffiliationBanner } from '../components/AffiliationBanner';
 import './MainPage.css';
 
 const MAX_SCORE = 20;
@@ -191,6 +192,7 @@ export function MainPage() {
         </div>
         <div className="vs-battle__side vs-battle__side--left">
           <VSPortrait side="left" />
+          <AffiliationBanner side="left" />
         </div>
         <div className="vs-battle__sep">
           <div className="vs-sep__vbeam vs-sep__vbeam--top" aria-hidden="true" />
@@ -207,6 +209,7 @@ export function MainPage() {
         </div>
         <div className="vs-battle__side vs-battle__side--right">
           <VSPortrait side="right" />
+          <AffiliationBanner side="right" />
         </div>
       </div>
 

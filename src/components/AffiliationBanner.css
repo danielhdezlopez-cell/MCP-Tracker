@@ -1,0 +1,127 @@
+.aff-banner {
+  --fac: #00c3ff;
+  position: absolute;
+  bottom: 14px;
+  z-index: 6;
+  width: 86%;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 22px;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--fac) 26%, transparent) 0%, rgba(10,14,24,0.92) 58%),
+    rgba(8,11,20,0.9);
+  border-top: 1px solid color-mix(in srgb, var(--fac) 65%, transparent);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.6),
+    0 0 30px color-mix(in srgb, var(--fac) 22%, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+/* solid faction accent rail along the bottom */
+.aff-banner::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: var(--fac);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--fac) 80%, transparent);
+}
+/* oversized faction sigil watermark bleeding off the outer edge */
+.aff-banner__watermark {
+  position: absolute;
+  bottom: -22px;
+  width: 124px;
+  height: 124px;
+  color: var(--fac);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* LEFT side — anchored left, inner (right) edge sliced */
+.aff-banner--left {
+  left: 0;
+  flex-direction: row;
+  text-align: left;
+  padding-left: 24px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.aff-banner--left .aff-banner__watermark { right: 16px; }
+
+/* RIGHT side — mirrored: anchored right, inner (left) edge sliced */
+.aff-banner--right {
+  right: 0;
+  flex-direction: row-reverse;
+  text-align: right;
+  padding-right: 24px;
+  background:
+    linear-gradient(270deg, color-mix(in srgb, var(--fac) 26%, transparent) 0%, rgba(10,14,24,0.92) 58%),
+    rgba(8,11,20,0.9);
+  clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%);
+}
+.aff-banner--right .aff-banner__watermark { left: 16px; }
+
+.aff-banner__emblem {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: 9px;
+  border-radius: 50%;
+  color: var(--fac);
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--fac) 34%, transparent), rgba(0,0,0,0.5));
+  border: 1.5px solid color-mix(in srgb, var(--fac) 70%, transparent);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--fac) 45%, transparent),
+    inset 0 0 12px rgba(0,0,0,0.5);
+}
+/* letter-glyph fallback when a faction has no custom SVG sigil */
+.aff-banner__glyph {
+  font: 900 24px/1 'Orbitron', sans-serif;
+  color: var(--fac);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--fac) 60%, transparent);
+}
+
+.aff-banner__text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  line-height: 1;
+  min-width: 0;
+}
+.aff-banner__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 700 9px/1 'Orbitron', sans-serif;
+  letter-spacing: 0.3em;
+  color: color-mix(in srgb, var(--fac) 70%, white 30%);
+  text-transform: uppercase;
+}
+.aff-banner--right .aff-banner__eyebrow { flex-direction: row-reverse; }
+.aff-banner__eyebrow::before {
+  content: '';
+  width: 16px;
+  height: 1.5px;
+  background: var(--fac);
+  box-shadow: 0 0 6px var(--fac);
+}
+.aff-banner__name {
+  font: 800 26px/0.95 'Orbitron', sans-serif;
+  letter-spacing: 0.03em;
+  color: #f3f7ff;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+/* shared sigil sizing */
+.aff-sigil { width: 100%; height: 100%; display: block; color: var(--fac); }

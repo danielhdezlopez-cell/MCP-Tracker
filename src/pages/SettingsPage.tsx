@@ -84,6 +84,7 @@ export function SettingsPage() {
     brightness, setBrightness,
     theme, setTheme,
     interactiveBg,
+    showAffiliationBanner, setShowAffiliationBanner,
   } = useMcpStore();
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
@@ -203,6 +204,21 @@ export function SettingsPage() {
                 className="settings-slider"
               />
               <span className="settings-item__val">{brightness}%</span>
+            </div>
+          </div>
+          <div className="settings-item">
+            <label className="settings-item__label">AFFILIATION BANNER</label>
+            <div className="settings-item__control">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={showAffiliationBanner}
+                aria-label="Toggle affiliation banner"
+                className={`settings-toggle ${showAffiliationBanner ? 'on' : ''}`}
+                onClick={() => setShowAffiliationBanner(!showAffiliationBanner)}
+              >
+                <span className="settings-toggle__knob" />
+              </button>
             </div>
           </div>
           <div className="settings-item settings-item--preload">
