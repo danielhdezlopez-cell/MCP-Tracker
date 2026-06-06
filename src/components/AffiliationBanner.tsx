@@ -12,6 +12,8 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
 
   const fx = getAffiliationFx(leader.affiliations);
   const hasSigil = !!fx.customGlyph;
+  const nameLen = fx.name.length;
+  const nameSizeClass = nameLen > 18 ? 'aff-banner__name--lg' : nameLen > 12 ? 'aff-banner__name--md' : '';
 
   return (
     <div
@@ -41,7 +43,7 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
       </div>
       <div className="aff-banner__text">
         <span className="aff-banner__eyebrow">Affiliation</span>
-        <span className="aff-banner__name">{fx.name}</span>
+        <span className={`aff-banner__name${nameSizeClass ? ` ${nameSizeClass}` : ''}`}>{fx.name}</span>
       </div>
     </div>
   );

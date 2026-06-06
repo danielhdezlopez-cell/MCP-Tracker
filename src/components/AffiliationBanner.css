@@ -115,13 +115,20 @@
   box-shadow: 0 0 6px var(--fac);
 }
 .aff-banner__name {
-  font: 800 26px/0.95 'Orbitron', sans-serif;
+  font: 800 22px/1.1 'Orbitron', sans-serif;
   letter-spacing: 0.03em;
   color: #f3f7ff;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  max-height: 52px;
+  overflow: hidden;
 }
+/* Medium names (13-18 chars) — drop to 17px */
+.aff-banner__name--md { font-size: 17px; }
+/* Long names (>18 chars) — drop to 13px */
+.aff-banner__name--lg { font-size: 13px; letter-spacing: 0.02em; }
 
 /* shared sigil sizing */
 .aff-sigil { width: 100%; height: 100%; display: block; color: var(--fac); }
