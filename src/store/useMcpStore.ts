@@ -47,6 +47,7 @@ interface McpState {
   selectedBackground: string;
   interactiveBg: InteractiveBg;
   videoBg: VideoBg;
+  showAffiliationBanner: boolean;
 
   // Actions
   setCurrentPage: (page: AppPage) => void;
@@ -73,6 +74,7 @@ interface McpState {
   setSelectedBackground: (bg: string) => void;
   setInteractiveBg: (bg: InteractiveBg) => void;
   setVideoBg: (bg: VideoBg) => void;
+  setShowAffiliationBanner: (show: boolean) => void;
 
   resetGame: () => void;
 }
@@ -222,6 +224,7 @@ export const useMcpStore = create<McpState>()(
       selectedBackground: '',
       interactiveBg: 'off',
       videoBg: 'none',
+      showAffiliationBanner: true,
 
       setCurrentPage: (page) => set({ currentPage: page }),
       setPendingLeaderAssign: (side) => set({ pendingLeaderAssign: side }),
@@ -293,6 +296,7 @@ export const useMcpStore = create<McpState>()(
         set({ interactiveBg: bg });
       },
       setVideoBg: (bg) => set({ videoBg: bg }),
+      setShowAffiliationBanner: (show) => set({ showAffiliationBanner: show }),
 
       resetGame: () => {
         const { timerDuration } = get();
