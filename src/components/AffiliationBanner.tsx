@@ -42,7 +42,6 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
         )}
       </div>
       <div className="aff-banner__text">
-        <span className="aff-banner__eyebrow">Affiliation</span>
         <span className={`aff-banner__name${nameSizeClass ? ` ${nameSizeClass}` : ''}`}>{fx.name}</span>
       </div>
     </div>
