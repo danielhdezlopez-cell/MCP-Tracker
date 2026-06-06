@@ -194,6 +194,23 @@
   visibility: hidden;
 }
 
+/* ── Long-press reset ring ───────────────────────────────────────── */
+.timer-panel__reset-ring {
+  position: absolute;
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.timer-panel--pressing {
+  box-shadow:
+    0 0 28px rgba(255, 70, 50, 0.55),
+    inset 0 0 18px rgba(255, 60, 40, 0.1) !important;
+  border-color: rgba(255, 80, 60, 0.7) !important;
+}
+
 /* ── Time's up overlay ───────────────────────────────────────────── */
 .timer-expired-overlay {
   position: fixed;
