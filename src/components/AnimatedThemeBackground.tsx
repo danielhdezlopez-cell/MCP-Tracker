@@ -107,10 +107,9 @@ export function AnimatedThemeBackground({ theme }: Props) {
   const imageConfig = IMAGE_THEMES[theme];
 
   // Reset states when theme switches so the new theme retries
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
-    setBgError(false);
-    setVideoVisible(false);
+    setBgError(false);       // eslint-disable-line react-hooks/set-state-in-effect
+    setVideoVisible(false);  // eslint-disable-line react-hooks/set-state-in-effect
   }, [theme]);
 
   // Preload assets for this theme

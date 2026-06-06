@@ -37,7 +37,7 @@ function HalfVideo({ themeId, side }: HalfVideoProps) {
 
   // Reset visibility on theme change
   useEffect(() => {
-    setVisible(false);
+    setVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
   }, [themeId]);
 
   if (!config) {

@@ -115,7 +115,7 @@ export function SettingsPage() {
   useEffect(() => {
     if (!preloadStarted) return;
     const unsubs = allVideoThemes.map(id => subscribeToTheme(id, updateProgress));
-    updateProgress();
+    updateProgress(); // eslint-disable-line react-hooks/set-state-in-effect
     return () => unsubs.forEach(u => u());
   }, [preloadStarted, allVideoThemes, updateProgress]);
 
