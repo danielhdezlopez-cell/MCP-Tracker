@@ -66,14 +66,24 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+          // Theme poster images — cached immediately on preload
+          {
+            urlPattern: /\/assets\/backgrounds\/.*_poster\.webp$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'mcp-theme-assets-v1',
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           // Theme background videos — cached on first play, served offline after
           {
             urlPattern: /\/assets\/backgrounds\/.*\.mp4$/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'theme-videos',
+              cacheName: 'mcp-theme-assets-v1',
               rangeRequests: true,
-              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 60 },
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 60 },
               cacheableResponse: { statuses: [0, 200, 206] },
             },
           },

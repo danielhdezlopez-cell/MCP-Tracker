@@ -1,6 +1,7 @@
-import type { CSSProperties } from 'react';
+import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import { type Theme } from '../store/useMcpStore';
 import { getThemeVideoConfig } from '../data/themeVideoMap';
+import { getPosterUrl, preloadTheme } from '../utils/themeAssetCache';
 import './VSBackground.css';
 
 interface VSBackgroundProps {
@@ -19,24 +20,65 @@ function buildVideoStyle(objectPositionY?: string, scale?: number): CSSPropertie
   return style;
 }
 
-export function VSBackground({ themeLeft, themeRight }: VSBackgroundProps) {
-  const leftConfig  = themeLeft  ? getThemeVideoConfig(themeLeft)  : null;
-  const rightConfig = themeRight ? getThemeVideoConfig(themeRight) : null;
+interface HalfVideoProps {
+  themeId: Theme;
+  side: 'left' | 'right';
+}
 
+function HalfVideo({ themeId, side }: HalfVideoProps) {
+  const config = getThemeVideoConfig(themeId);
+  const [visible, setVisible] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Preload this theme's assets as soon as we know we need them
+  useEffect(() => {
+    preloadTheme(themeId, true);
+  }, [themeId]);
+
+  // Reset visibility on theme change
+  useEffect(() => {
+    setVisible(false);
+  }, [themeId]);
+
+  if (!config) {
+    return <div className={`vs-bg__fallback vs-bg__fallback--${side}`} />;
+  }
+
+  const poster = getPosterUrl(config.src);
+
+  return (
+    <>
+      {/* Gradient fallback always present — visible through transparent video */}
+      <div className={`vs-bg__fallback vs-bg__fallback--${side}`} />
+      <video
+        ref={videoRef}
+        key={config.src}
+        src={config.src}
+        poster={poster}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="vs-bg__video"
+        style={{
+          ...buildVideoStyle(config.objectPositionY, config.scale),
+          opacity: visible ? 1 : 0,
+          transition: visible ? 'opacity 0.5s ease-in' : 'none',
+        }}
+        onCanPlay={() => setVisible(true)}
+        onLoadedData={() => setVisible(true)}
+      />
+    </>
+  );
+}
+
+export function VSBackground({ themeLeft, themeRight }: VSBackgroundProps) {
   return (
     <div className="vs-bg" aria-hidden="true">
       <div className="vs-bg__half vs-bg__half--left">
-        {leftConfig ? (
-          <video
-            key={leftConfig.src}
-            src={leftConfig.src}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="vs-bg__video"
-            style={buildVideoStyle(leftConfig.objectPositionY, leftConfig.scale)}
-          />
+        {themeLeft ? (
+          <HalfVideo themeId={themeLeft} side="left" />
         ) : (
           <div className="vs-bg__fallback vs-bg__fallback--left" />
         )}
@@ -44,17 +86,8 @@ export function VSBackground({ themeLeft, themeRight }: VSBackgroundProps) {
       </div>
 
       <div className="vs-bg__half vs-bg__half--right">
-        {rightConfig ? (
-          <video
-            key={rightConfig.src}
-            src={rightConfig.src}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="vs-bg__video"
-            style={buildVideoStyle(rightConfig.objectPositionY, rightConfig.scale)}
-          />
+        {themeRight ? (
+          <HalfVideo themeId={themeRight} side="right" />
         ) : (
           <div className="vs-bg__fallback vs-bg__fallback--right" />
         )}

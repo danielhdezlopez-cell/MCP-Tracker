@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useMcpStore, type AssignSide } from '../store/useMcpStore';
+import { useMcpStore, type AssignSide, getThemeFromLeader } from '../store/useMcpStore';
 import { LEADERS, type Leader } from '../data/leadersData';
 import { LeaderGrid } from '../components/LeaderGrid';
 import { AffiliationFilter } from '../components/AffiliationFilter';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { preloadTheme } from '../utils/themeAssetCache';
 import './LeadersPage.css';
 
 export function LeadersPage() {
@@ -25,6 +26,10 @@ export function LeadersPage() {
   });
 
   const handleSelect = (leader: Leader) => {
+    // Kick off theme preload immediately — before the page transition
+    const autoTheme = getThemeFromLeader(leader);
+    if (autoTheme) preloadTheme(autoTheme, true);
+
     if (assignSide === 'left') {
       setLeaderLeft(leader);
     } else {
