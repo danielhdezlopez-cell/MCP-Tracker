@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { type Theme } from '../store/useMcpStore';
 import { VIDEO_THEMES } from '../data/themeVideoMap';
+import { getPosterUrl, preloadTheme } from '../utils/themeAssetCache';
 import './AnimatedThemeBackground.css';
 
 interface Props {
@@ -18,7 +19,7 @@ const IMAGE_THEMES: Partial<Record<Theme, { src: string; modifier: string }>> = 
 /* Crossfade between two video elements so the loop has no visible cut.
    Video A plays; ~CROSSFADE_S seconds before it ends, Video B starts and
    they fade through each other. Then roles swap and the cycle repeats. */
-function SmoothLoopVideo({ src, onError }: { src: string; onError: () => void }) {
+function SmoothLoopVideo({ src, poster, onError, onReady }: { src: string; poster: string; onError: () => void; onReady: () => void }) {
   const refA = useRef<HTMLVideoElement>(null);
   const refB = useRef<HTMLVideoElement>(null);
 
@@ -38,25 +39,20 @@ function SmoothLoopVideo({ src, onError }: { src: string; onError: () => void })
     setOp(a, 1, false);
     setOp(b, 0, false);
 
-    // Schedule the crossfade CROSSFADE_S seconds before `from` reaches its end.
-    // Using setTimeout avoids the ~250 ms polling gap of timeupdate.
     const schedule = (from: HTMLVideoElement, to: HTMLVideoElement) => {
       if (dead) return;
       if (timer) clearTimeout(timer);
       const delay = Math.max(0, (from.duration - from.currentTime - CROSSFADE_S) * 1000);
       timer = setTimeout(() => {
         if (dead) return;
-        // Kick off standby video — preload="auto" means it buffers immediately
         to.currentTime = 0;
         to.play().catch(() => {});
         setOp(from, 0, true);
         setOp(to, 1, true);
-        // After fade completes, retire the old active and schedule next cycle
         timer = setTimeout(() => {
           if (dead) return;
           from.pause();
           from.currentTime = 0;
-          // `to` has been playing for ~(CROSSFADE_S + 0.1)s from its start
           if (to.duration) {
             schedule(to, from);
           } else {
@@ -86,22 +82,40 @@ function SmoothLoopVideo({ src, onError }: { src: string; onError: () => void })
     display: 'block',
   };
 
+  const [ready, setReady] = useState(false);
+  const handleReady = () => { setReady(true); onReady(); };
+
+  const wrapStyle: React.CSSProperties = {
+    position: 'absolute',
+    inset: 0,
+    opacity: ready ? 1 : 0,
+    transition: ready ? 'opacity 0.6s ease-in' : 'none',
+  };
+
   return (
-    <>
-      <video ref={refA} src={src} autoPlay muted playsInline preload="auto" style={vs} onError={onError} />
-      <video ref={refB} src={src} muted playsInline preload="auto" style={vs} onError={onError} />
-    </>
+    <div style={wrapStyle}>
+      <video ref={refA} src={src} poster={poster} autoPlay muted playsInline preload="auto" style={vs} onError={onError} onCanPlay={handleReady} />
+      <video ref={refB} src={src} muted playsInline preload="auto" style={{ ...vs, opacity: 0 }} onError={onError} />
+    </div>
   );
 }
 
 export function AnimatedThemeBackground({ theme }: Props) {
   const [bgError, setBgError] = useState(false);
+  const [videoVisible, setVideoVisible] = useState(false);
   const videoConfig = VIDEO_THEMES[theme];
   const imageConfig = IMAGE_THEMES[theme];
 
-  // Reset error state when theme switches so the new theme's bg retries
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setBgError(false); }, [theme]);
+  // Reset states when theme switches so the new theme retries
+  useEffect(() => {
+    setBgError(false);       // eslint-disable-line react-hooks/set-state-in-effect
+    setVideoVisible(false);  // eslint-disable-line react-hooks/set-state-in-effect
+  }, [theme]);
+
+  // Preload assets for this theme
+  useEffect(() => {
+    preloadTheme(theme, true);
+  }, [theme]);
 
   if (imageConfig) {
     const imgStyle: React.CSSProperties = {
@@ -125,12 +139,47 @@ export function AnimatedThemeBackground({ theme }: Props) {
 
   if (!videoConfig) return null;
 
+  const poster = getPosterUrl(videoConfig.src);
+
   return (
     <div className={`anim-theme-bg ${videoConfig.modifier}${bgError ? ' anim-theme-bg--fallback' : ''}`}>
+      {/* Gradient fallback always rendered — visible while video loads */}
+      <div className="anim-theme-bg__gradient-fallback" />
       {!bgError && (
         videoConfig.smoothLoop
-          ? <SmoothLoopVideo src={videoConfig.src} onError={() => setBgError(true)} />
-          : <video src={videoConfig.src} autoPlay loop muted playsInline onError={() => setBgError(true)} />
+          ? (
+            <SmoothLoopVideo
+              src={videoConfig.src}
+              poster={poster}
+              onError={() => setBgError(true)}
+              onReady={() => setVideoVisible(true)}
+            />
+          )
+          : (
+            <video
+              key={videoConfig.src}
+              src={videoConfig.src}
+              poster={poster}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block',
+                opacity: videoVisible ? 1 : 0,
+                transition: videoVisible ? 'opacity 0.6s ease-in' : 'none',
+              }}
+              onCanPlay={() => setVideoVisible(true)}
+              onLoadedData={() => setVideoVisible(true)}
+              onError={() => setBgError(true)}
+            />
+          )
       )}
       <div className="anim-theme-bg__overlay" />
     </div>

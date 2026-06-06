@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useMcpStore, type Theme } from '../store/useMcpStore';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { VIDEO_THEMES } from '../data/themeVideoMap';
+import { preloadTheme, getAssetStatus, subscribeToTheme } from '../utils/themeAssetCache';
 import './SettingsPage.css';
 
 const THEMES: { value: Theme; label: string; desc: string }[] = [
@@ -88,6 +90,12 @@ export function SettingsPage() {
   const [isCustom, setIsCustom] = useState(timerDuration !== 90 * 60 && timerDuration !== 120 * 60);
   const [offlineReady, setOfflineReady] = useState(false);
 
+  // Offline preload state
+  const allVideoThemes = Object.keys(VIDEO_THEMES) as Theme[];
+  const [preloadStarted, setPreloadStarted] = useState(false);
+  const [preloadProgress, setPreloadProgress] = useState(0);
+  const [preloadDone, setPreloadDone] = useState(false);
+
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistration().then(reg => {
@@ -95,6 +103,31 @@ export function SettingsPage() {
       }).catch(() => setOfflineReady(false));
     }
   }, []);
+
+  // Track progress of preloading when started
+  const updateProgress = useCallback(() => {
+    const ready = allVideoThemes.filter(id => getAssetStatus(id) === 'ready').length;
+    const pct = Math.round((ready / allVideoThemes.length) * 100);
+    setPreloadProgress(pct);
+    if (pct >= 100) setPreloadDone(true);
+  }, [allVideoThemes]);
+
+  useEffect(() => {
+    if (!preloadStarted) return;
+    const unsubs = allVideoThemes.map(id => subscribeToTheme(id, updateProgress));
+    updateProgress(); // eslint-disable-line react-hooks/set-state-in-effect
+    return () => unsubs.forEach(u => u());
+  }, [preloadStarted, allVideoThemes, updateProgress]);
+
+  const handlePreloadAll = () => {
+    setPreloadStarted(true);
+    setPreloadDone(false);
+    // Preload current theme first with video, then the rest
+    if (theme) preloadTheme(theme, true);
+    allVideoThemes
+      .filter(id => id !== theme)
+      .forEach(id => preloadTheme(id, true));
+  };
 
   const selectPreset = (mins: number) => {
     setCustomMins(mins);
@@ -170,6 +203,33 @@ export function SettingsPage() {
                 className="settings-slider"
               />
               <span className="settings-item__val">{brightness}%</span>
+            </div>
+          </div>
+          <div className="settings-item settings-item--preload">
+            <label className="settings-item__label">PRELOAD THEMES</label>
+            <div className="settings-item__control settings-preload-ctrl">
+              {!preloadStarted ? (
+                <button
+                  className="btn-hud settings-preset-btn"
+                  onClick={handlePreloadAll}
+                >
+                  CACHE FOR OFFLINE USE
+                </button>
+              ) : preloadDone ? (
+                <span className="settings-preload-status settings-preload-status--done">
+                  ✓ ALL THEMES CACHED
+                </span>
+              ) : (
+                <div className="settings-preload-progress">
+                  <div
+                    className="settings-preload-progress__bar"
+                    style={{ width: `${preloadProgress}%` }}
+                  />
+                  <span className="settings-preload-progress__label">
+                    {preloadProgress}%
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
