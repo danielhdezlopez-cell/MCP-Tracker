@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMcpStore, getThemeFromLeader } from '../store/useMcpStore';
-import { RoundTracker } from '../components/RoundTracker';
+import { RoundMedallion } from '../components/RoundMedallion';
 import { MissionSlot } from '../components/MissionSlot';
 import { TimerPanel } from '../components/TimerPanel';
 import { VSBackground } from '../components/VSBackground';
@@ -160,7 +160,6 @@ export function MainPage() {
           <HudScore side="left" />
         </div>
         <div className="vs-hud__center">
-          <RoundTracker />
         </div>
         <div className="vs-hud__side vs-hud__side--right">
           <HudScore side="right" />
@@ -211,6 +210,7 @@ export function MainPage() {
           <VSPortrait side="right" />
           <AffiliationBanner side="right" />
         </div>
+        <RoundMedallion />
       </div>
 
       {/* ── MISSION BAR ── */}
