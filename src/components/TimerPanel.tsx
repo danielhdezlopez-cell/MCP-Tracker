@@ -59,7 +59,7 @@ export function TimerPanel() {
   };
 
   const tickProgress = () => {
-    const elapsed = Date.now() - pressStartRef.current;
+    const elapsed = Date.now() - pressStartRef.current; // eslint-disable-line react-hooks/purity
     const p = Math.min(elapsed / LONG_PRESS_MS, 1);
     setResetProgress(p);
     if (p < 1) {

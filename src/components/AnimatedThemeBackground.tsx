@@ -109,7 +109,7 @@ export function AnimatedThemeBackground({ theme }: Props) {
   // Reset states when theme switches so the new theme retries
   useEffect(() => {
     setBgError(false);       // eslint-disable-line react-hooks/set-state-in-effect
-    setVideoVisible(false);  // eslint-disable-line react-hooks/set-state-in-effect
+    setVideoVisible(false);
   }, [theme]);
 
   // Preload assets for this theme
