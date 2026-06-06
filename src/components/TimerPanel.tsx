@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
 import './TimerPanel.css';
 
+const LONG_PRESS_MS = 500;
+
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
@@ -10,8 +12,14 @@ function formatTime(seconds: number): string {
 
 export function TimerPanel() {
   const { timerRemaining, timerRunning, timerDuration, setTimerRemaining, setTimerRunning } = useMcpStore();
+  const resetGame = useMcpStore((s) => s.resetGame);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const longPressRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longFiredRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+  const pressStartRef = useRef<number>(0);
   const [expired, setExpired] = useState(false);
+  const [resetProgress, setResetProgress] = useState(0); // 0..1
 
   useEffect(() => {
     if (timerRunning && timerRemaining > 0) {
@@ -43,9 +51,58 @@ export function TimerPanel() {
     return () => { delete document.body.dataset.timerState; };
   }, [isCritical, timerRunning]);
 
-  const handleToggle = () => {
-    if (timerRemaining > 0) setTimerRunning(!timerRunning);
+  const cancelLongPress = () => {
+    if (longPressRef.current) clearTimeout(longPressRef.current);
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    longFiredRef.current = false;
+    setResetProgress(0);
   };
+
+  const tickProgress = () => {
+    const elapsed = Date.now() - pressStartRef.current; // eslint-disable-line react-hooks/purity
+    const p = Math.min(elapsed / LONG_PRESS_MS, 1);
+    setResetProgress(p);
+    if (p < 1) {
+      rafRef.current = requestAnimationFrame(tickProgress);
+    }
+  };
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    // Only left button / primary touch
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    longFiredRef.current = false;
+    pressStartRef.current = Date.now();
+    rafRef.current = requestAnimationFrame(tickProgress);
+    longPressRef.current = setTimeout(() => {
+      longFiredRef.current = true;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      setResetProgress(0);
+      resetGame();
+      if ('vibrate' in navigator) navigator.vibrate(40);
+    }, LONG_PRESS_MS);
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    const wasFired = longFiredRef.current;
+    cancelLongPress();
+    if (!wasFired) {
+      // Short tap — toggle timer
+      if (timerRemaining > 0) setTimerRunning(!timerRunning);
+    }
+    e.preventDefault();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (timerRemaining > 0) setTimerRunning(!timerRunning);
+    }
+  };
+
+  // SVG ring progress
+  const R = 46;
+  const CIRC = 2 * Math.PI * R;
+  const dash = CIRC * resetProgress;
 
   return (
     <>
@@ -54,15 +111,39 @@ export function TimerPanel() {
           'timer-panel panel clip-panel-sm',
           isCritical ? 'timer-panel--critical' : '',
           isPaused ? 'timer-panel--paused' : '',
+          resetProgress > 0 ? 'timer-panel--pressing' : '',
         ].filter(Boolean).join(' ')}
-        onClick={handleToggle}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleToggle(); } }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerLeave={cancelLongPress}
+        onPointerCancel={cancelLongPress}
+        onKeyDown={onKeyDown}
         role="button"
         tabIndex={0}
         aria-label={timerRunning ? 'Pause timer' : 'Start or pause timer'}
         aria-pressed={timerRunning}
       >
         <div className="timer-panel__deco" />
+        {resetProgress > 0 && (
+          <svg className="timer-panel__reset-ring" viewBox="0 0 100 100" aria-hidden="true">
+            <circle
+              cx="50" cy="50" r={R}
+              fill="none"
+              stroke="rgba(255,80,60,0.25)"
+              strokeWidth="4"
+            />
+            <circle
+              cx="50" cy="50" r={R}
+              fill="none"
+              stroke="#ff4c3b"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeDasharray={`${dash} ${CIRC}`}
+              strokeDashoffset={CIRC / 4}
+              style={{ filter: 'drop-shadow(0 0 6px rgba(255,70,50,0.9))' }}
+            />
+          </svg>
+        )}
         <div className="timer-panel__display-wrap">
           <div className={`timer-panel__display ${stateClass}`}>
             {formatTime(timerRemaining)}
