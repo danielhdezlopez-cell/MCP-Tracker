@@ -19,7 +19,7 @@ export interface AffiliationFx {
 
 const DEFAULT_FX: AffiliationFx = {
   color: '#00c3ff',
-  name: 'UNALIGNED',
+  name: 'UNAFFILIATED',
   glyph: '◆',
 };
 
@@ -75,7 +75,7 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
   },
   'Uncanny X-Men': {
     color: '#fbbf24',
-    name: 'X-MEN',
+    name: 'UNCANNY X-MEN',
     glyph: 'X',
     customGlyph: `
       <path d="M62 52 L88 100 L62 148 L80 148 L100 112 L120 148 L138 148 L112 100 L138 52 L120 52 L100 88 L80 52 Z"
@@ -155,27 +155,27 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
   },
 
   // ── Color-only entries (use letter fallback) ────────────────────────
-  'Apocalypse':         { color: '#8b5cf6', name: 'SERVANTS',           glyph: 'A' },
-  'Cabal':              { color: '#6d28d9', name: 'CABAL',             glyph: 'C' },
-  'Convocation':        { color: '#06b6d4', name: 'CONVOCATION',       glyph: '✺' },
-  'Criminal Syndicate': { color: '#9ca3af', name: 'CRIM. SYNDICATE',   glyph: 'CS' },
-  'Dark Dimension':     { color: '#db2777', name: 'DARK DIM.',         glyph: 'D' },
-  'Dracula':            { color: '#991b1b', name: 'THRALLS',            glyph: 'D' },
-  'Galaxy Guardians':   { color: '#84cc16', name: 'GUARDIANS',         glyph: 'G' },
-  'Hellfire Club':      { color: '#dc2626', name: 'HELLFIRE',          glyph: 'H' },
-  'Inhumans':           { color: '#14b8a6', name: 'INHUMANS',          glyph: 'I' },
-  'Intelligencia':      { color: '#facc15', name: 'INTELLIGENCIA',     glyph: '!' },
-  'Mephisto':           { color: '#ef4444', name: 'LEGION LOST',        glyph: 'M' },
-  'Midnight Sons':      { color: '#7c3aed', name: 'MIDNIGHT SONS',     glyph: '☾' },
-  'Mighty Avengers':    { color: '#f97316', name: 'MIGHTY AVENGERS',   glyph: 'M' },
-  'New Mutants':        { color: '#a78bfa', name: 'NEW MUTANTS',       glyph: 'N' },
-  "Onslaught's Grip":   { color: '#4c1d95', name: 'ONSLAUGHT',         glyph: 'O' },
-  'Sentinels':          { color: '#94a3b8', name: 'SENTINELS',         glyph: 'S' },
-  'Spider Foes':        { color: '#16a34a', name: 'SPIDER FOES',       glyph: 'S' },
-  'Thunderbolts':       { color: '#fbbf24', name: 'THUNDERBOLTS',      glyph: 'T' },
-  'Weapon X':           { color: '#65a30d', name: 'WEAPON X',          glyph: 'X' },
-  'Winter Guard':       { color: '#38bdf8', name: 'WINTER GUARD',      glyph: 'W' },
-  'A-Force':            { color: '#ec4899', name: 'A-FORCE',           glyph: 'A' },
+  'Apocalypse':         { color: '#8b5cf6', name: 'SERVANTS OF THE APOCALYPSE', glyph: 'A' },
+  'Cabal':              { color: '#6d28d9', name: 'CABAL',                       glyph: 'C' },
+  'Convocation':        { color: '#06b6d4', name: 'CONVOCATION',                 glyph: '✺' },
+  'Criminal Syndicate': { color: '#9ca3af', name: 'CRIMINAL SYNDICATE',          glyph: 'CS' },
+  'Dark Dimension':     { color: '#db2777', name: 'DARK DIMENSION',              glyph: 'D' },
+  'Dracula':            { color: '#991b1b', name: 'THRALLS OF DRACULA',           glyph: 'D' },
+  'Galaxy Guardians':   { color: '#84cc16', name: 'GALAXY GUARDIANS',            glyph: 'G' },
+  'Hellfire Club':      { color: '#dc2626', name: 'HELLFIRE CLUB',               glyph: 'H' },
+  'Inhumans':           { color: '#14b8a6', name: 'INHUMANS',                    glyph: 'I' },
+  'Intelligencia':      { color: '#facc15', name: 'INTELLIGENCIA',               glyph: '!' },
+  'Mephisto':           { color: '#ef4444', name: 'LEGION OF THE LOST',           glyph: 'M' },
+  'Midnight Sons':      { color: '#7c3aed', name: 'MIDNIGHT SONS',               glyph: '☾' },
+  'Mighty Avengers':    { color: '#f97316', name: 'MIGHTY AVENGERS',             glyph: 'M' },
+  'New Mutants':        { color: '#a78bfa', name: 'NEW MUTANTS',                 glyph: 'N' },
+  "Onslaught's Grip":   { color: '#4c1d95', name: "ONSLAUGHT'S GRIP",            glyph: 'O' },
+  'Sentinels':          { color: '#94a3b8', name: 'SENTINELS',                   glyph: 'S' },
+  'Spider Foes':        { color: '#16a34a', name: 'SPIDER FOES',                 glyph: 'S' },
+  'Thunderbolts':       { color: '#fbbf24', name: 'THUNDERBOLTS',                glyph: 'T' },
+  'Weapon X':           { color: '#65a30d', name: 'WEAPON X',                    glyph: 'X' },
+  'Winter Guard':       { color: '#38bdf8', name: 'WINTER GUARD',                glyph: 'W' },
+  'A-Force':            { color: '#ec4899', name: 'A-FORCE',                     glyph: 'A' },
 };
 
 export function getAffiliationFx(affiliations: string[] | undefined): AffiliationFx {
