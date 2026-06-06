@@ -17,6 +17,48 @@ export interface AffiliationFx {
   customGlyph?: string;
 }
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+const ICON_BASE = `${BASE}/icons/affiliations`;
+
+/** Maps affiliation key → PNG icon path (served from /public) */
+export const AFFILIATION_ICONS: Record<string, string> = {
+  'Avengers':              `${ICON_BASE}/avengers.png`,
+  'S.H.I.E.L.D.':         `${ICON_BASE}/shield.png`,
+  'Hydra':                 `${ICON_BASE}/hydra.png`,
+  'Wakanda':               `${ICON_BASE}/wakanda.png`,
+  'Uncanny X-Men':         `${ICON_BASE}/UncannyXmen.png`,
+  'X-Force':               `${ICON_BASE}/xforce.png`,
+  'Web Warriors':          `${ICON_BASE}/webwarriors.png`,
+  'Asgard':                `${ICON_BASE}/asgard.png`,
+  'Black Order':           `${ICON_BASE}/blackorder.png`,
+  'Defenders':             `${ICON_BASE}/defenders.png`,
+  'Brotherhood':           `${ICON_BASE}/brotherhood.png`,
+  'Apocalypse':            `${ICON_BASE}/servantsapocalypse.png`,
+  'Cabal':                 `${ICON_BASE}/cabal.png`,
+  'Convocation':           `${ICON_BASE}/convocation.png`,
+  'Criminal Syndicate':    `${ICON_BASE}/criminalsyndicate.png`,
+  'Dark Dimension':        `${ICON_BASE}/darkdimension.png`,
+  'Dracula':               `${ICON_BASE}/thrallsofdracula.png`,
+  'Galaxy Guardians':      `${ICON_BASE}/guardians.png`,
+  'Hellfire Club':         `${ICON_BASE}/hellfireclub.png`,
+  'Inhumans':              `${ICON_BASE}/inhumans.png`,
+  'Mephisto':              `${ICON_BASE}/legionlost.png`,
+  'Midnight Sons':         `${ICON_BASE}/midnightsons.png`,
+  'Mighty Avengers':       `${ICON_BASE}/mightyavengers.png`,
+  'New Mutants':           `${ICON_BASE}/newmutants.png`,
+  'Sentinels':             `${ICON_BASE}/sentinels.png`,
+  'Spider Foes':           `${ICON_BASE}/spiderfoes.png`,
+  'Weapon X':              `${ICON_BASE}/weaponx.png`,
+  'Winter Guard':          `${ICON_BASE}/winterguard.png`,
+};
+
+const FALLBACK_ICON = `${ICON_BASE}/zunaffiliated.png`;
+
+export function getAffiliationIcon(affiliations: string[] | undefined): string {
+  if (!affiliations || affiliations.length === 0) return FALLBACK_ICON;
+  return AFFILIATION_ICONS[affiliations[0]] ?? FALLBACK_ICON;
+}
+
 const DEFAULT_FX: AffiliationFx = {
   color: '#00c3ff',
   name: 'UNAFFILIATED',
