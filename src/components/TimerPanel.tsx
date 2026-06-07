@@ -11,7 +11,11 @@ function formatTime(seconds: number): string {
 }
 
 export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) {
-  const { timerRemaining, timerRunning, timerDuration, setTimerRemaining, setTimerRunning } = useMcpStore();
+  const timerRemaining  = useMcpStore(s => s.timerRemaining);
+  const timerRunning    = useMcpStore(s => s.timerRunning);
+  const timerDuration   = useMcpStore(s => s.timerDuration);
+  const setTimerRemaining = useMcpStore(s => s.setTimerRemaining);
+  const setTimerRunning   = useMcpStore(s => s.setTimerRunning);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const longPressRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const longFiredRef = useRef(false);

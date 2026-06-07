@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMcpStore, getThemeFromLeader } from '../store/useMcpStore';
 import { RoundMedallion } from '../components/RoundMedallion';
@@ -8,6 +8,8 @@ import { VSBackground } from '../components/VSBackground';
 import { KangChronalModal } from '../components/KangChronalModal';
 import { NavIconSettings } from '../components/icons';
 import { AffiliationBanner } from '../components/AffiliationBanner';
+import { useIdleDetection } from '../hooks/useIdleDetection';
+import { usePageVisibility } from '../hooks/usePageVisibility';
 import './MainPage.css';
 
 const MAX_SCORE = 20;
@@ -21,11 +23,10 @@ function tierOf(s: number): 0 | 1 | 2 | 3 | 4 {
   return 0;
 }
 
-function HudScore({ side }: { side: 'left' | 'right' }) {
-  const { scoreLeft, scoreRight, setScoreLeft, setScoreRight, leaderLeft, leaderRight } = useMcpStore();
-  const score    = side === 'left' ? scoreLeft  : scoreRight;
-  const setScore = side === 'left' ? setScoreLeft : setScoreRight;
-  const leader   = side === 'left' ? leaderLeft  : leaderRight;
+const HudScore = memo(function HudScore({ side }: { side: 'left' | 'right' }) {
+  const score    = useMcpStore(s => side === 'left' ? s.scoreLeft  : s.scoreRight);
+  const setScore = useMcpStore(s => side === 'left' ? s.setScoreLeft : s.setScoreRight);
+  const leader   = useMcpStore(s => side === 'left' ? s.leaderLeft  : s.leaderRight);
   const isVictory = score >= VICTORY_THRESHOLD;
   const tier      = tierOf(score);
   const [delta, setDelta] = useState<{ val: number; key: number } | null>(null);
@@ -68,11 +69,12 @@ function HudScore({ side }: { side: 'left' | 'right' }) {
       )}
     </div>
   );
-}
+});
 
-function VSPortrait({ side }: { side: 'left' | 'right' }) {
-  const { leaderLeft, leaderRight, setCurrentPage, setPendingLeaderAssign } = useMcpStore();
-  const leader = side === 'left' ? leaderLeft : leaderRight;
+const VSPortrait = memo(function VSPortrait({ side }: { side: 'left' | 'right' }) {
+  const leader                 = useMcpStore(s => side === 'left' ? s.leaderLeft : s.leaderRight);
+  const setCurrentPage         = useMcpStore(s => s.setCurrentPage);
+  const setPendingLeaderAssign = useMcpStore(s => s.setPendingLeaderAssign);
 
   const handleClick = () => {
     setPendingLeaderAssign(side);
@@ -101,7 +103,7 @@ function VSPortrait({ side }: { side: 'left' | 'right' }) {
       )}
     </div>
   );
-}
+});
 
 interface WebkitDocument extends Document {
   webkitFullscreenElement?: Element | null;
@@ -112,9 +114,15 @@ interface WebkitElement extends HTMLElement {
 }
 
 export function MainPage() {
-  const { leaderLeft, leaderRight, resetGame, setCurrentPage } = useMcpStore();
+  const leaderLeft    = useMcpStore(s => s.leaderLeft);
+  const leaderRight   = useMcpStore(s => s.leaderRight);
+  const resetGame     = useMcpStore(s => s.resetGame);
+  const setCurrentPage = useMcpStore(s => s.setCurrentPage);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showReset, setShowReset] = useState(false);
+
+  useIdleDetection();
+  usePageVisibility();
 
   useEffect(() => {
     const wkDoc = document as WebkitDocument;
