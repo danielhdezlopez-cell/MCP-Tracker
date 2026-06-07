@@ -1,0 +1,76 @@
+/* ═══════════════════════════════════════════════════════════════
+   ScoreHalo — thin victory-progress ring around the score numeral
+   Additive only. Does not modify any existing HUD rule.
+   ─────────────────────────────────────────────────────────────
+   P1 (left)  = crimson  #e74c3c   →  rgb 231,76,60
+   P2 (right) = cobalt   #3b9ff0   →  rgb 59,159,240
+   Victory    = gold     #ffd700   (matches the app's VICTORY state)
+═══════════════════════════════════════════════════════════════ */
+
+/* Shrink-wraps the numeral so the ring can size relative to it.
+   inline-flex keeps the number perfectly centred; no layout shift. */
+.hud-score__halo-cell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keep the number above the ring and fully legible. */
+.hud-score__halo-cell > .hud-score__val {
+  position: relative;
+  z-index: 1;
+}
+
+/* The ring. height:148% + aspect-ratio:1 makes it a circle that scales
+   with the numeral's rendered size — tracks the responsive font automatically. */
+.score-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 148%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.score-halo--left  { --halo-rgb: 231, 76, 60; }
+.score-halo--right { --halo-rgb: 59, 159, 240; }
+
+.score-halo__track {
+  fill: none;
+  stroke: rgba(var(--halo-rgb), 0.14);
+  stroke-width: 3.5;
+}
+
+.score-halo__prog {
+  fill: none;
+  stroke: rgb(var(--halo-rgb));
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(var(--halo-rgb), 0.6));
+  transition: stroke-dashoffset 0.45s cubic-bezier(0.5, 0, 0.1, 1), stroke 0.3s ease;
+}
+
+/* Victory (score >= goal): ring locks full and turns gold. */
+.score-halo.is-win .score-halo__track {
+  stroke: rgba(255, 215, 0, 0.22);
+}
+.score-halo.is-win .score-halo__prog {
+  stroke: #ffd700;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.85));
+}
+.score-halo.is-win {
+  animation: score-halo-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes score-halo-breathe {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.35)); }
+  50%      { filter: drop-shadow(0 0 9px rgba(255, 215, 0, 0.60)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-halo.is-win { animation: none; }
+  .score-halo__prog  { transition: none; }
+}
