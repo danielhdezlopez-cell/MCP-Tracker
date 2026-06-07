@@ -26,7 +26,7 @@
 }
 
 .round-medallion__spin {
-  animation: round-medallion-spin 14s linear infinite;
+  animation: round-medallion-spin 40s linear infinite;
   transform-origin: center;
 }
 @keyframes round-medallion-spin { to { transform: rotate(360deg); } }
@@ -118,4 +118,9 @@
 @media (prefers-reduced-motion: reduce) {
   .round-medallion__spin,
   .round-medallion__core.pulse { animation: none !important; }
+}
+
+body.mcp-idle .round-medallion__spin,
+body.mcp-page-hidden .round-medallion__spin {
+  animation-play-state: paused;
 }

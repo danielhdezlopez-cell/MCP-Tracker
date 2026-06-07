@@ -86,8 +86,8 @@
 
 .timer-panel--critical {
   border-color: var(--color-critical) !important;
-  box-shadow: 0 0 20px rgba(255, 42, 42, 0.6), inset 0 0 20px rgba(255,42,42,0.05) !important;
-  animation: critical-pulse 1s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(255, 42, 42, 0.55), inset 0 0 16px rgba(255,42,42,0.04) !important;
+  animation: critical-pulse 2s ease-in-out infinite;
 }
 
 .timer-panel--critical::before {
@@ -107,8 +107,8 @@
 }
 
 @keyframes critical-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(255, 42, 42, 0.6); }
-  50% { box-shadow: 0 0 32px rgba(255, 42, 42, 0.9), inset 0 0 12px rgba(255,42,42,0.08); }
+  0%, 100% { box-shadow: 0 0 16px rgba(255, 42, 42, 0.55); }
+  50% { box-shadow: 0 0 26px rgba(255, 42, 42, 0.8), inset 0 0 10px rgba(255,42,42,0.06); }
 }
 
 /* Display area with scanline */
@@ -127,7 +127,7 @@
   top: 50%;
   background: linear-gradient(90deg, transparent, rgba(0,195,255,0.12), transparent);
   pointer-events: none;
-  animation: scan-line 4s ease-in-out infinite;
+  animation: scan-line 8s ease-in-out infinite;
 }
 
 @keyframes scan-line {
@@ -281,6 +281,12 @@
   border-style: dashed;
 }
 [data-theme='comic-ink'] .timer-panel__paused-label { color: var(--color-accent-right); }
+
+/* ── Idle / hidden: pause non-critical decorative animations ──────── */
+body.mcp-idle .timer-panel__display-wrap::after,
+body.mcp-page-hidden .timer-panel__display-wrap::after {
+  animation-play-state: paused;
+}
 
 /* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {

@@ -12,15 +12,14 @@
   overflow: hidden;
   pointer-events: none;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--fac) 26%, transparent) 0%, rgba(10,14,24,0.92) 58%),
-    rgba(8,11,20,0.9);
+    linear-gradient(90deg, color-mix(in srgb, var(--fac) 26%, transparent) 0%, rgba(10,14,24,0.97) 58%),
+    rgba(8,11,20,0.97);
   border-top: 1px solid color-mix(in srgb, var(--fac) 65%, transparent);
   box-shadow:
     0 14px 34px rgba(0,0,0,0.6),
     0 0 30px color-mix(in srgb, var(--fac) 22%, transparent),
     inset 0 1px 0 rgba(255,255,255,0.08);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  /* backdrop-filter removed — replaced by opaque gradient for iPad battery savings */
 }
 /* solid faction accent rail along the bottom */
 .aff-banner::after {
@@ -47,8 +46,8 @@
   text-align: right;
   padding-right: 16px;
   background:
-    linear-gradient(270deg, color-mix(in srgb, var(--fac) 26%, transparent) 0%, rgba(10,14,24,0.92) 58%),
-    rgba(8,11,20,0.9);
+    linear-gradient(270deg, color-mix(in srgb, var(--fac) 26%, transparent) 0%, rgba(10,14,24,0.97) 58%),
+    rgba(8,11,20,0.97);
   clip-path: polygon(20px 0, 100% 0, 100% 100%, 0 100%);
 }
 

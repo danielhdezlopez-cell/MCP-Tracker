@@ -6,14 +6,29 @@ interface Props {
 }
 
 // ─── tech-hex: hex grid with animated scan line ───────────────────────────────
+// Target ~20 FPS for this decorative canvas to reduce GPU/CPU load on iPad.
+const TARGET_FPS = 20;
+const FRAME_MS   = 1000 / TARGET_FPS;
+
 function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
   const ctx = canvas.getContext('2d')!;
+
+  // Sync canvas size once and on resize, not every frame.
+  const syncSize = () => {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+  syncSize();
+  const resizeObs = new ResizeObserver(syncSize);
+  resizeObs.observe(document.documentElement);
+
   const W = () => canvas.width;
   const H = () => canvas.height;
 
   const SIZE = 30;
   let scanY = 0;
   let t = 0;
+  let lastFrameTime = 0;
 
   interface DataBit { x: number; y: number; val: string; life: number; maxLife: number; }
   const dataBits: DataBit[] = [];
@@ -61,10 +76,17 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
     }
   };
 
-  const tick = () => {
-    if (signal.aborted) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  const tick = (now: number) => {
+    if (signal.aborted) { resizeObs.disconnect(); return; }
+    requestAnimationFrame(tick);
+
+    // Pause canvas work when page is hidden or user is idle.
+    if (document.hidden || document.body.classList.contains('mcp-idle')) return;
+
+    // Skip frame if we haven't reached the target interval yet.
+    if (now - lastFrameTime < FRAME_MS) return;
+    lastFrameTime = now;
+
     ctx.clearRect(0, 0, W(), H());
     t += 0.05;
     scanY = (scanY + 1.8) % H();
@@ -99,9 +121,8 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
       if (d.life >= d.maxLife) { dataBits.splice(i, 1); spawnBit(); }
     });
 
-    requestAnimationFrame(tick);
   };
-  tick();
+  requestAnimationFrame(tick);
 }
 
 export function AnimatedBackground({ mode }: Props) {

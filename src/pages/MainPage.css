@@ -240,11 +240,11 @@
 .hud-score[data-victory="1"] .hud-score__val--right {
   color: #ffd700;
   text-shadow: 0 0 18px rgba(255,215,0,0.9), 0 0 36px rgba(255,200,0,0.45);
-  animation: vs-score-pulse 1s ease-in-out infinite;
+  animation: vs-score-pulse 2.5s ease-in-out infinite;
 }
 @keyframes vs-score-pulse {
   0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.05); }
+  50%       { transform: scale(1.04); }
 }
 
 .hud-score__victory {
@@ -446,7 +446,7 @@
     0 0 18px 4px rgba(180,200,255,0.32),
     0 0 42px 8px rgba(140,165,240,0.14),
     inset 0 0 10px rgba(0,0,0,0.45);
-  animation: vs-glow-1 3.5s ease-in-out infinite;
+  animation: vs-glow-1 7s ease-in-out infinite;
 }
 
 /* Tier 2: 6–10pts — medium blue-white bloom, inner ring tinted */
@@ -458,7 +458,7 @@
     0 0 55px 14px rgba(50,110,230,0.22),
     0 0 90px rgba(30,80,200,0.1),
     inset 0 0 12px rgba(0,0,0,0.4);
-  animation: vs-glow-2 2.2s ease-in-out infinite;
+  animation: vs-glow-2 5s ease-in-out infinite;
 }
 .vs-sep__circle[data-glow="2"]::before {
   border-color: rgba(80,150,255,0.2);
@@ -473,7 +473,7 @@
     0 0 65px 18px rgba(100,140,255,0.32),
     0 0 110px rgba(60,100,255,0.15),
     inset 0 0 16px rgba(80,60,255,0.1);
-  animation: vs-glow-3 1.2s ease-in-out infinite;
+  animation: vs-glow-3 3s ease-in-out infinite;
 }
 .vs-sep__circle[data-glow="3"]::before {
   border-color: rgba(180,190,255,0.32);
@@ -496,7 +496,7 @@
     0 0 75px 22px rgba(255,170,0,0.48),
     0 0 130px rgba(255,130,0,0.2),
     inset 0 0 20px rgba(255,200,0,0.08);
-  animation: vs-glow-4 0.7s ease-in-out infinite;
+  animation: vs-glow-4 2s ease-in-out infinite;
 }
 .vs-sep__circle[data-glow="4"]::before {
   border-color: rgba(255,230,60,0.55);
@@ -877,4 +877,14 @@
   .vs-sep__circle[data-glow="2"],
   .vs-sep__circle[data-glow="3"],
   .vs-sep__circle[data-glow="4"] { animation: none !important; }
+}
+
+/* ── Idle / hidden state: pause decorative glow animations ──────── */
+body.mcp-idle .vs-sep__circle[data-glow],
+body.mcp-page-hidden .vs-sep__circle[data-glow],
+body.mcp-idle .hud-score[data-victory="1"] .hud-score__val--left,
+body.mcp-idle .hud-score[data-victory="1"] .hud-score__val--right,
+body.mcp-page-hidden .hud-score[data-victory="1"] .hud-score__val--left,
+body.mcp-page-hidden .hud-score[data-victory="1"] .hud-score__val--right {
+  animation-play-state: paused;
 }

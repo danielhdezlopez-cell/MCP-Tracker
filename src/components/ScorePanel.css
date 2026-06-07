@@ -175,12 +175,12 @@
 [data-tier="4"] .score-panel__value {
   color: #fffaea;
   text-shadow: 0 0 16px #ff4444, 0 0 32px #ff0000, 0 0 48px rgba(255,0,0,0.40);
-  animation: sp-victory-value 1.4s ease-in-out infinite;
+  animation: sp-victory-value 3s ease-in-out infinite;
 }
 
 @keyframes sp-victory-value {
   0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.05); }
+  50%       { transform: scale(1.04); }
 }
 
 /* ── Delta overlay (+1 / −1) ──────────────────────────────────────── */
@@ -219,7 +219,7 @@
   text-shadow: 0 0 8px #ff2a2a, 0 0 16px #ff2a2a;
   line-height: 1;
   margin: -2px 0 2px;
-  animation: sp-victory-text 1.4s ease-in-out infinite;
+  animation: sp-victory-text 3s ease-in-out infinite;
 }
 
 @keyframes sp-victory-text {
@@ -242,7 +242,7 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
-  animation: bar-shimmer 3s ease-in-out infinite;
+  animation: bar-shimmer 6s ease-in-out infinite;
   pointer-events: none;
 }
 
@@ -287,7 +287,7 @@
 
 [data-tier="4"].score-panel {
   border-color: #ff2a2a;
-  animation: sp-victory-panel 1.4s ease-in-out infinite;
+  animation: sp-victory-panel 3s ease-in-out infinite;
 }
 
 @keyframes sp-victory-panel {
@@ -314,6 +314,18 @@
   opacity: 0.3;
   cursor: not-allowed;
   transform: none;
+}
+
+/* ── Idle / hidden: pause decorative animations ──────────────────── */
+body.mcp-idle .score-panel__bar::after,
+body.mcp-page-hidden .score-panel__bar::after,
+body.mcp-idle [data-tier="4"].score-panel,
+body.mcp-page-hidden [data-tier="4"].score-panel,
+body.mcp-idle [data-tier="4"] .score-panel__value,
+body.mcp-page-hidden [data-tier="4"] .score-panel__value,
+body.mcp-idle .score-panel__victory,
+body.mcp-page-hidden .score-panel__victory {
+  animation-play-state: paused;
 }
 
 /* ── Reduced motion ───────────────────────────────────────────────── */
