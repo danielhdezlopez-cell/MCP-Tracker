@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'emma-frost' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'malekith' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'namor' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'sin' | 'spectrum' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
+export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'emma-frost' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'jane-foster' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'malekith' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'namor' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'sin' | 'spectrum' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -111,6 +111,7 @@ const P1_NAME_THEME_MAP: Partial<Record<string, Theme>> = {
   'Kang':               'kang',
   'Klaw':               'klaw',
   'Invincible Iron Man': 'invincible-ironman',
+  'Jane Foster':        'jane-foster',
   "King T'Challa":      'king-tchalla',
   'Kingpin':            'kingpin',
   'Adam Warlock':       'adam-warlock',
@@ -322,7 +323,7 @@ export const useMcpStore = create<McpState>()(
           state.interactiveBg = 'tech-hex';
         }
         // Migrate removed/unknown themes → shield
-        if (state && !(['adam-warlock', 'apocalypse', 'asgard', 'baron-strucker', 'baron-zemo', 'bastion', 'black-bolt', 'black-panther', 'blade', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'corbus', 'dark-dimension', 'daredevil', 'doc-ock', 'dr-strange', 'dracula', 'elsa-bloodstone', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'invincible-ironman', 'kang', 'king-tchalla', 'kingpin', 'klaw', 'loki', 'magik', 'magneto', 'maximus-the-mad', 'medusa', 'mephisto', 'midnight-sons', 'modok', 'mystique', 'new-mutants', 'nick-fury', 'onslaught', 'professor-x', 'red-skull', 'red-skull-master-of-hydra', 'red-skull-master-of-the-world', 'sam-wilson', 'sentinels', 'shadowland-daredevil', 'she-hulk', 'shield', 'miles-morales', 'spider-man', 'starlord', 'storm', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
+        if (state && !(['adam-warlock', 'apocalypse', 'asgard', 'baron-strucker', 'baron-zemo', 'bastion', 'black-bolt', 'black-panther', 'blade', 'cable', 'captain-america', 'cap-first-avenger', 'convocation', 'corbus', 'dark-dimension', 'daredevil', 'doc-ock', 'dr-strange', 'dracula', 'elsa-bloodstone', 'green-goblin', 'hellfire-club', 'hulkbuster', 'hydra', 'invincible-ironman', 'jane-foster', 'kang', 'king-tchalla', 'kingpin', 'klaw', 'loki', 'magik', 'magneto', 'maximus-the-mad', 'medusa', 'mephisto', 'midnight-sons', 'modok', 'mystique', 'new-mutants', 'nick-fury', 'onslaught', 'professor-x', 'red-skull', 'red-skull-master-of-hydra', 'red-skull-master-of-the-world', 'sam-wilson', 'sentinels', 'shadowland-daredevil', 'she-hulk', 'shield', 'miles-morales', 'spider-man', 'starlord', 'storm', 'thanos', 'thor', 'the-leader', 'thunderbolts', 'ultron', 'weapon-x', 'winter-guard'] as string[]).includes(state.theme)) {
           state.theme = 'shield';
         }
         // Tech Hex Grid disabled (no neon-blue theme in active set)
