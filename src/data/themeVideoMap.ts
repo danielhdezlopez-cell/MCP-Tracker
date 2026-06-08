@@ -54,7 +54,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   shield: { src: `${ASSETS_BASE}assets/backgrounds/BG_SHIELD.mp4`,      modifier: 'anim-theme-bg--shield'     },
   sin:    { src: `${ASSETS_BASE}assets/backgrounds/BG_Sin.mp4`,          modifier: 'anim-theme-bg--sin',         smoothLoop: true },
   asgard:       { src: `${ASSETS_BASE}assets/backgrounds/BG_Asgard.mp4`,      modifier: 'anim-theme-bg--asgard'     },
-  'spider-man': { src: `${ASSETS_BASE}assets/backgrounds/BG_WebWarriors.mp4`, modifier: 'anim-theme-bg--spider-man' },
+  'spider-man': { src: `${ASSETS_BASE}assets/backgrounds/BG_SpiderMan.mp4`, modifier: 'anim-theme-bg--spider-man', smoothLoop: true },
   spectrum:     { src: `${ASSETS_BASE}assets/backgrounds/BG_Spectrum.mp4`,    modifier: 'anim-theme-bg--spectrum',  smoothLoop: true },
   starlord:     { src: `${ASSETS_BASE}assets/backgrounds/BG_Starlord.mp4`,   modifier: 'anim-theme-bg--starlord', smoothLoop: true },
   'she-hulk':   { src: `${ASSETS_BASE}assets/backgrounds/BG_SheHulk.mp4`,   modifier: 'anim-theme-bg--she-hulk', smoothLoop: true },
