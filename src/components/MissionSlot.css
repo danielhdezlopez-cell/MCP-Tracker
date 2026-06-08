@@ -399,3 +399,32 @@
   .mission-slot[data-ring='b'] .mission-ring { width: 80px; height: 80px; }
   .mission-slot[data-ring='b'] .mission-ring__num { font-size: 26px; }
 }
+
+/* ── iPhone 15 Max / Pro Max (≤ 480px) — anillo y textos compactos ── */
+@media (max-width: 480px) {
+  .mission-slot {
+    padding: 6px 6px;
+    gap: 2px;
+  }
+  .mission-slot__type { font-size: 9px; letter-spacing: 0.12em; }
+  .mission-slot__name {
+    font-size: 13px;
+    padding-right: 66px;
+    line-height: 1.2;
+  }
+
+  /* Anillo versión A más pequeño */
+  .mission-slot[data-ring='a'] .mission-ring {
+    width: 58px; height: 58px;
+    right: 6px;
+    top: 50%; transform: translateY(-50%);
+  }
+  .mission-slot[data-ring='a'] .mission-ring__num { font-size: 20px; }
+  .mission-slot[data-ring='a'] .mission-slot__name { padding-right: 66px; }
+
+  /* Texto circular SVG más pequeño */
+  .mission-ring__txt      { font-size: 9px; }
+  .mission-ring__txt--type { font-size: 12px; }
+  .mission-ring__txt--long { font-size: 8px; }
+  .mission-ring__txt--type.mission-ring__txt--long { font-size: 10px; }
+}

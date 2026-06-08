@@ -140,3 +140,10 @@
   flex: 1;
   min-height: 0;
 }
+
+/* ── iPhone 15 Max / Pro Max (≤ 480px) ─────────────────────────── */
+@media (max-width: 480px) {
+  .missions-page__header   { padding: 4px 8px; min-height: 38px; gap: 6px; }
+  .missions-page__back-btn { font-size: 10px; padding: 4px 8px; min-height: 30px; }
+  .missions-page__selected { font-size: 10px; padding: 3px 6px; }
+}

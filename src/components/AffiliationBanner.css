@@ -102,3 +102,21 @@
 
 /* shared sigil sizing */
 .aff-sigil { width: 100%; height: 100%; display: block; color: var(--fac); }
+
+/* ── iPhone 15 Max / Pro Max — banner compacto ────────────── */
+@media (max-width: 480px) {
+  .aff-banner {
+    height: 34px;
+    bottom: 8px;
+    padding: 0 10px;
+    gap: 6px;
+  }
+  .aff-banner__emblem {
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+  }
+  .aff-banner__name      { font-size: 11px; }
+  .aff-banner__name--md  { font-size: 10px; }
+  .aff-banner__name--lg  { font-size:  8px; }
+}
