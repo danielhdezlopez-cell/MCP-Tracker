@@ -11,7 +11,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: var(--vs-hud-h, 96px) 1fr var(--vs-mission-h, 150px);
+  grid-template-rows: var(--vs-hud-h, 96px) 1fr var(--vs-mission-h, 128px);
   overflow: hidden;
   background: #030508;
 }
@@ -938,7 +938,7 @@
 /* ── Tablet landscape — iPad Mini 6 / Air / Pro (1000–1440px) ── */
 @media (min-width: 1000px) and (max-width: 1440px) and (orientation: landscape) {
   /* HUD height reduced now that timer lives in the battle area */
-  :root { --vs-hud-h: 128px; --vs-mission-h: 190px; }
+  :root { --vs-hud-h: 128px; --vs-mission-h: 165px; }
 
   /* Stacked center: tighter padding so both elements fit comfortably */
   .vs-hud__center { gap: 6px; padding: 5px 16px; }

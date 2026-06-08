@@ -206,9 +206,9 @@
 /* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .mission-slot {
-    padding: 10px 14px;
-    gap: 6px;
-    justify-content: space-between;
+    padding: 8px 14px;
+    gap: 4px;
+    justify-content: center;
   }
 
   .mission-slot__type {
@@ -325,14 +325,19 @@
 .mission-ring:focus-visible .mission-ring__edge { stroke-width: 2.6; }
 
 /* ── VERSION A — Integrated Corner Ring (active) ────────────────── */
-.mission-slot[data-ring='a'] .mission-ring { width: 84px; height: 84px; right: 10px; bottom: 8px; }
+.mission-slot[data-ring='a'] .mission-ring {
+  width: 84px; height: 84px;
+  right: 10px;
+  top: 50%; transform: translateY(-50%);
+}
 .mission-slot[data-ring='a'] .mission-ring__num { font-size: 30px; }
 .mission-slot--left[data-ring='a']  .mission-ring { filter: drop-shadow(0 0 5px var(--color-glow-secure)); }
 .mission-slot--right[data-ring='a'] .mission-ring { filter: drop-shadow(0 0 5px var(--color-glow-extract)); }
 .mission-slot--left[data-ring='a']  .mission-ring__num { text-shadow: 0 0 9px var(--color-glow-secure), 0 0 3px rgba(26, 143, 255, 0.75); }
 .mission-slot--right[data-ring='a'] .mission-ring__num { text-shadow: 0 0 9px var(--color-glow-extract), 0 0 3px rgba(255, 47, 47, 0.75); }
-.mission-slot[data-ring='a']:hover .mission-ring { transform: scale(1.04); }
-.mission-slot[data-ring='a'] .mission-ring:hover { transform: scale(1.07); }
+/* preserve translateY in hover transforms so the ring stays vertically centred */
+.mission-slot[data-ring='a']:hover .mission-ring { transform: translateY(-50%) scale(1.04); }
+.mission-slot[data-ring='a'] .mission-ring:hover { transform: translateY(-50%) scale(1.07); }
 
 /* ── VERSION B — Floating Mission Badge (optional, set RING_VARIANT='b') ── */
 .mission-slot[data-ring='b'] { clip-path: none; overflow: visible; }
@@ -370,7 +375,11 @@
 
 /* ── iPad mini 6 / tablet landscape — premium sizing ────────────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
-  .mission-slot[data-ring='a'] .mission-ring { width: 100px; height: 100px; right: 12px; bottom: 10px; }
+  .mission-slot[data-ring='a'] .mission-ring {
+    width: 100px; height: 100px;
+    right: 12px;
+    top: 50%; transform: translateY(-50%);
+  }
   .mission-slot[data-ring='a'] .mission-ring__num { font-size: 34px; }
   .mission-slot[data-ring='a'] .mission-slot__name { padding-right: 118px; }
   .mission-slot[data-ring='b'] .mission-ring { width: 112px; height: 112px; }
@@ -380,7 +389,11 @@
 
 /* ── Phones — keep it legible but a touch smaller ───────────────── */
 @media (max-width: 720px) {
-  .mission-slot[data-ring='a'] .mission-ring { width: 72px; height: 72px; right: 8px; bottom: 8px; }
+  .mission-slot[data-ring='a'] .mission-ring {
+    width: 72px; height: 72px;
+    right: 8px;
+    top: 50%; transform: translateY(-50%);
+  }
   .mission-slot[data-ring='a'] .mission-ring__num { font-size: 24px; }
   .mission-slot[data-ring='a'] .mission-slot__name { padding-right: 80px; }
   .mission-slot[data-ring='b'] .mission-ring { width: 80px; height: 80px; }
