@@ -61,7 +61,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   storm:        { src: `${ASSETS_BASE}assets/backgrounds/BG_Storm.mp4`,      modifier: 'anim-theme-bg--storm', smoothLoop: true },
   'miles-morales': { src: `${ASSETS_BASE}assets/backgrounds/BG_MilesMorales.mp4`, modifier: 'anim-theme-bg--miles-morales', smoothLoop: true },
   thanos:          { src: `${ASSETS_BASE}assets/backgrounds/BG_Thanos.mp4`,        modifier: 'anim-theme-bg--thanos', smoothLoop: true },
-  thor:            { src: `${ASSETS_BASE}assets/backgrounds/BG_Thor.mp4`,          modifier: 'anim-theme-bg--thor'          },
+  thor:            { src: `${ASSETS_BASE}assets/backgrounds/BG_Thor.mp4`,          modifier: 'anim-theme-bg--thor', smoothLoop: true },
   onslaught:       { src: `${ASSETS_BASE}assets/backgrounds/BG_Onslaught.mp4`,   modifier: 'anim-theme-bg--onslaught', smoothLoop: true, scale: 1.2 },
   'professor-x':   { src: `${ASSETS_BASE}assets/backgrounds/BG_ProfessorX2.mp4`, modifier: 'anim-theme-bg--professor-x', smoothLoop: true },
   'the-leader':    { src: `${ASSETS_BASE}assets/backgrounds/BG_TheLeader.mp4`,    modifier: 'anim-theme-bg--the-leader', smoothLoop: true },
