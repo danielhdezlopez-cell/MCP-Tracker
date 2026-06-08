@@ -140,3 +140,10 @@
   padding: 40px;
   font-size: var(--fs-13);
 }
+
+/* ── iPhone 15 Max / Pro Max (≤ 480px) ─────────────────────────── */
+@media (max-width: 480px) {
+  .leaders-page__header { padding: 4px 8px; min-height: 38px; }
+  .leaders-page__title  { font-size: 10px; }
+  .leaders-page__assign-btn { font-size: 10px; padding: 4px 8px; min-height: 30px; max-width: 140px; }
+}

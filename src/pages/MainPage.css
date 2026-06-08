@@ -839,6 +839,45 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — iPhone 15 Max / Pro Max (≤ 480px portrait)
+   Solo ajustes adicionales sobre el breakpoint ≤600px ya existente.
+   NO modifica timer, iPad mini 6 ni escritorio.
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  /* Indicador central de ronda — más compacto */
+  .vs-hud .round-tracker { padding: 2px 3px; }
+  .vs-hud .round-tracker__pips { gap: 2px; }
+  .vs-hud .round-tracker__pip {
+    width: clamp(18px, 4.2vw, 24px);
+    height: clamp(18px, 4.2vw, 24px);
+  }
+  .vs-hud .round-tracker__pips::before {
+    left: calc(clamp(18px, 4.2vw, 24px) / 2);
+    right: calc(clamp(18px, 4.2vw, 24px) / 2);
+  }
+  .vs-hud .round-tracker__pip-num { font-size: 0.58rem; }
+
+  /* Score — ligeramente más compacto para iPhone Max */
+  .hud-score__val { font-size: clamp(1.9rem, 7.8vw, 2.6rem); }
+  .hud-score__controls { gap: 2px; }
+  .hud-score__btn {
+    width: clamp(30px, 7vw, 40px);
+    height: clamp(34px, 6.5vh, 48px);
+    font-size: clamp(0.95rem, 3.5vw, 1.4rem);
+  }
+
+  /* Paneles de misión — reducir altura mínima y texto */
+  :root { --vs-mission-h: 100px; }
+  .vs-missions { padding: 10px 8px calc(4px + env(safe-area-inset-bottom, 0px)); gap: 6px; }
+  .vs-missions .mission-slot { min-height: 50px; }
+}
+
+/* ── iPhone 15 Max landscape (480px max-height ~430px) ─────── */
+@media (max-width: 480px) and (orientation: landscape) {
+  :root { --vs-mission-h: 80px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — tablet portrait / móvil grande (601–999px)
 ═══════════════════════════════════════════════════════════════ */
 @media (min-width: 601px) and (max-width: 999px) {
