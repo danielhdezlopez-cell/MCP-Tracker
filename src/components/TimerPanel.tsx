@@ -21,7 +21,6 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
   const longFiredRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   const pressStartRef = useRef<number>(0);
-  const [expired, setExpired] = useState(false);
   const [resetProgress, setResetProgress] = useState(0); // 0..1
 
   useEffect(() => {
@@ -33,17 +32,15 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (timerRemaining <= 0 && timerRunning) {
         setTimerRunning(false);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setExpired(true);
-        if ('vibrate' in navigator) navigator.vibrate([300, 100, 300, 100, 300]);
       }
     }
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [timerRunning, timerRemaining]);
 
+  const isExpired = timerRemaining <= 0;
   const isCritical = timerRemaining <= 15 * 60;
   const isPaused = !timerRunning && timerRemaining > 0 && timerRemaining < timerDuration;
-  const stateClass = isCritical ? 'critical' : '';
+  const stateClass = isExpired ? 'expired' : isCritical ? 'critical' : '';
 
   useEffect(() => {
     if (isCritical && timerRunning) {
@@ -158,20 +155,6 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
         >PAUSED</div>
       </div>
 
-      {expired && (
-        <div className="timer-expired-overlay" onClick={() => setExpired(false)}>
-          <div className="timer-expired-box panel clip-panel" onClick={e => e.stopPropagation()}>
-            <div className="timer-expired-title">TIME'S UP!</div>
-            <div className="timer-expired-body">The game clock has expired.</div>
-            <button
-              className="btn-hud btn-accent-right timer-expired-dismiss"
-              onClick={() => setExpired(false)}
-            >
-              DISMISS
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
 }

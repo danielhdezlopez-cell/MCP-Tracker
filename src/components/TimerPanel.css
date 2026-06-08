@@ -163,6 +163,12 @@
   50% { opacity: 0.55; }
 }
 
+/* ── Expired state (00:00) — static red, no overlay, no sound ──── */
+.timer-panel__display.expired {
+  color: var(--color-critical);
+  text-shadow: 0 0 16px var(--color-critical), 0 0 32px rgba(255,42,42,0.3);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .timer-panel__display-wrap::after,
   .timer-panel--critical { animation: none !important; }
