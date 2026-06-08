@@ -1,11 +1,20 @@
 import { useState } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
 import { MissionCardViewer } from './MissionCardViewer';
+import { MissionRing } from './MissionRing';
 import './MissionSlot.css';
 
 interface MissionSlotProps {
   type: 'Secure' | 'Extract';
 }
+
+/**
+ * Mission ring style:
+ *   'a' — Integrated Corner Ring (clean, sits inside the bottom-right corner)
+ *   'b' — Floating Mission Badge (overflows the corner, stronger glow + float)
+ * Flip this single constant to switch the whole MAIN screen between versions.
+ */
+const RING_VARIANT: 'a' | 'b' = 'a';
 
 export function MissionSlot({ type }: MissionSlotProps) {
   const { selectedSecure, selectedExtract, setCurrentPage, setPendingMissionType } = useMcpStore();
@@ -13,41 +22,41 @@ export function MissionSlot({ type }: MissionSlotProps) {
 
   const mission = type === 'Secure' ? selectedSecure : selectedExtract;
   const accent = type === 'Secure' ? 'left' : 'right';
+  const ringWord = type === 'Secure' ? 'SECURE' : 'EXTRACTION';
 
   const handleClick = () => {
     setPendingMissionType(type);
     setCurrentPage('missions');
   };
 
-  const handleViewCard = (e: React.MouseEvent) => {
+  // Ring keeps the old eye behaviour: open the mission card detail when there is
+  // a card image; otherwise fall through to the mission picker.
+  const handleRingClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setViewing(true);
+    if (mission?.image) setViewing(true);
+    else handleClick();
   };
 
   return (
     <>
-      <div className={`mission-slot panel clip-panel-sm mission-slot--${accent}`} onClick={handleClick}>
+      <div
+        className={`mission-slot panel clip-panel-sm mission-slot--${accent}`}
+        data-ring={RING_VARIANT}
+        onClick={handleClick}
+      >
         <div className="mission-slot__stripe" />
         <div className="mission-slot__type label-hud">{type}</div>
         {mission ? (
           <>
             <div className="mission-slot__name">{mission.name}</div>
-            <div className="mission-slot__threat">
-              <span className="label-hud">THREAT</span>
-              <span className="mission-slot__threat-val">{mission.threat}</span>
-              {mission.image && (
-                <button
-                  className={`mission-slot__view-btn mission-slot__view-btn--${accent}`}
-                  onClick={handleViewCard}
-                  aria-label="View mission card"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                  </svg>
-                </button>
-              )}
-            </div>
+            <button
+              className={`mission-ring mission-ring--${accent}`}
+              onClick={handleRingClick}
+              aria-label={`THREAT ${mission.threat} — open ${type} mission detail`}
+            >
+              <MissionRing side={accent} word={ringWord} />
+              <span className="mission-ring__num">{mission.threat}</span>
+            </button>
           </>
         ) : (
           <div className="mission-slot__empty">

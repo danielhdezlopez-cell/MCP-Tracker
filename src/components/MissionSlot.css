@@ -249,3 +249,140 @@
     height: 30px;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   MISSION RING — append this whole block to the END of
+   src/components/MissionSlot.css
+   (replaces the old "THREAT" text row + eye icon, MAIN screen only).
+   Nothing above in MissionSlot.css needs to change.
+   ════════════════════════════════════════════════════════════════ */
+
+/* keep the mission name clear of the ring in the bottom-right corner */
+.mission-slot__name {
+  padding-right: 96px;
+}
+
+.mission-ring {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease;
+}
+
+.mission-ring__svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.mission-ring__band { fill: none; stroke: #05080d; stroke-width: 21; }
+.mission-ring__edge { fill: none; }
+.mission-ring__txt {
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  dominant-baseline: central;
+}
+/* SECURE / EXTRACTION stand out above THREAT */
+.mission-ring__txt--type { font-size: 15px; letter-spacing: 1.6px; }
+.mission-ring__txt--long { font-size: 10px; letter-spacing: 0.3px; }
+.mission-ring__txt--type.mission-ring__txt--long { font-size: 12px; letter-spacing: 0; }
+
+/* slow, subtle HUD rotation of the circular text only */
+.mission-ring__rot {
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+  animation: mission-ring-spin 46s linear infinite;
+}
+@keyframes mission-ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.mission-ring__num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* colour per side */
+.mission-slot--left  .mission-ring__edge { stroke: var(--color-mission-secure); }
+.mission-slot--left  .mission-ring__txt  { fill: var(--color-mission-secure); }
+.mission-slot--left  .mission-ring__num  { color: var(--color-mission-secure); }
+.mission-slot--right .mission-ring__edge { stroke: var(--color-mission-extract); }
+.mission-slot--right .mission-ring__txt  { fill: var(--color-mission-extract); }
+.mission-slot--right .mission-ring__num  { color: var(--color-mission-extract); }
+
+.mission-ring:focus-visible { outline: none; }
+.mission-ring:focus-visible .mission-ring__edge { stroke-width: 2.6; }
+
+/* ── VERSION A — Integrated Corner Ring (active) ────────────────── */
+.mission-slot[data-ring='a'] .mission-ring { width: 84px; height: 84px; right: 10px; bottom: 8px; }
+.mission-slot[data-ring='a'] .mission-ring__num { font-size: 30px; }
+.mission-slot--left[data-ring='a']  .mission-ring { filter: drop-shadow(0 0 5px var(--color-glow-secure)); }
+.mission-slot--right[data-ring='a'] .mission-ring { filter: drop-shadow(0 0 5px var(--color-glow-extract)); }
+.mission-slot--left[data-ring='a']  .mission-ring__num { text-shadow: 0 0 9px var(--color-glow-secure), 0 0 3px rgba(26, 143, 255, 0.75); }
+.mission-slot--right[data-ring='a'] .mission-ring__num { text-shadow: 0 0 9px var(--color-glow-extract), 0 0 3px rgba(255, 47, 47, 0.75); }
+.mission-slot[data-ring='a']:hover .mission-ring { transform: scale(1.04); }
+.mission-slot[data-ring='a'] .mission-ring:hover { transform: scale(1.07); }
+
+/* ── VERSION B — Floating Mission Badge (optional, set RING_VARIANT='b') ── */
+.mission-slot[data-ring='b'] { clip-path: none; overflow: visible; }
+.mission-slot[data-ring='b'] .mission-slot__name { padding-right: 84px; }
+.mission-slot[data-ring='b'] .mission-ring {
+  width: 96px; height: 96px; right: -12px; bottom: -14px;
+  animation: mission-ring-float 4.5s ease-in-out infinite;
+}
+.mission-slot[data-ring='b'] .mission-ring__num { font-size: 32px; }
+.mission-slot[data-ring='b'] .mission-ring::after {
+  content: '';
+  position: absolute;
+  inset: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5, 8, 13, 0.92) 60%, rgba(5, 8, 13, 0.4) 100%);
+  z-index: -1;
+}
+.mission-slot--left[data-ring='b']  .mission-ring { filter: drop-shadow(0 0 10px var(--color-glow-secure)); }
+.mission-slot--right[data-ring='b'] .mission-ring { filter: drop-shadow(0 0 10px var(--color-glow-extract)); }
+.mission-slot--left[data-ring='b']  .mission-ring__num { text-shadow: 0 0 14px var(--color-glow-secure), 0 0 6px rgba(26, 143, 255, 0.8); }
+.mission-slot--right[data-ring='b'] .mission-ring__num { text-shadow: 0 0 14px var(--color-glow-extract), 0 0 6px rgba(255, 47, 47, 0.8); }
+.mission-slot[data-ring='b'] .mission-ring:hover { transform: scale(1.1) rotate(-2deg); animation: none; }
+.mission-slot[data-ring='b'] .mission-ring:active { transform: scale(0.96); }
+
+@keyframes mission-ring-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-slot[data-ring='b'] .mission-ring { animation: none; }
+  .mission-ring__rot { animation: none; }
+  .mission-ring { transition: none; }
+}
+
+/* ── iPad mini 6 / tablet landscape — premium sizing ────────────── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .mission-slot[data-ring='a'] .mission-ring { width: 100px; height: 100px; right: 12px; bottom: 10px; }
+  .mission-slot[data-ring='a'] .mission-ring__num { font-size: 34px; }
+  .mission-slot[data-ring='a'] .mission-slot__name { padding-right: 118px; }
+  .mission-slot[data-ring='b'] .mission-ring { width: 112px; height: 112px; }
+  .mission-slot[data-ring='b'] .mission-ring__num { font-size: 38px; }
+  .mission-slot[data-ring='b'] .mission-slot__name { padding-right: 100px; }
+}
+
+/* ── Phones — keep it legible but a touch smaller ───────────────── */
+@media (max-width: 720px) {
+  .mission-slot[data-ring='a'] .mission-ring { width: 72px; height: 72px; right: 8px; bottom: 8px; }
+  .mission-slot[data-ring='a'] .mission-ring__num { font-size: 24px; }
+  .mission-slot[data-ring='a'] .mission-slot__name { padding-right: 80px; }
+  .mission-slot[data-ring='b'] .mission-ring { width: 80px; height: 80px; }
+  .mission-slot[data-ring='b'] .mission-ring__num { font-size: 26px; }
+}
