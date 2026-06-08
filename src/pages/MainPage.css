@@ -789,6 +789,117 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — móvil portrait (≤ 600px)
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  :root { --vs-hud-h: 80px; --vs-mission-h: 110px; }
+
+  /* Lados: quitar padding lateral excesivo */
+  .vs-hud__side--left  { padding: 0 6px 0 6px; }
+  .vs-hud__side--right { padding: 0 44px 0 6px; } /* 44px = espacio para ctrl-strip */
+
+  /* Centro más compacto */
+  .vs-hud__center { gap: 2px; padding: 3px 6px; }
+
+  /* Timer pequeño */
+  .vs-hud .timer-panel { min-width: clamp(68px, 18vw, 96px); padding: 2px 5px; }
+  .vs-hud .timer-panel__display { font-size: clamp(1.0rem, 3.8vw, 1.35rem); }
+  .vs-hud .timer-panel__paused-label { font-size: 0.42rem; }
+
+  /* Pips del round tracker reducidos */
+  .vs-hud .round-tracker { padding: 3px 4px; }
+  .vs-hud .round-tracker__pips { gap: 2px; }
+  .vs-hud .round-tracker__pip {
+    width: clamp(20px, 4.8vw, 28px);
+    height: clamp(20px, 4.8vw, 28px);
+  }
+  .vs-hud .round-tracker__pips::before {
+    left: calc(clamp(20px, 4.8vw, 28px) / 2);
+    right: calc(clamp(20px, 4.8vw, 28px) / 2);
+  }
+  .vs-hud .round-tracker__pip-num { font-size: 0.65rem; }
+
+  /* Score: escala fluida, legible sin cortarse */
+  .hud-score__val { font-size: clamp(2.0rem, 8.5vw, 2.8rem); }
+  .hud-score__controls { gap: 3px; }
+  .hud-score__btn {
+    width: clamp(32px, 7.5vw, 42px);
+    height: clamp(38px, 7vh, 52px);
+    font-size: clamp(1.0rem, 3.8vw, 1.5rem);
+  }
+
+  /* Ctrl strip compacto, sin solapar el score derecho */
+  .vs-hud__ctrl-strip { right: 5px; gap: 3px; }
+  .vs-ctrl           { width: 30px; height: 30px; }
+  .vs-ctrl svg       { width: 13px; height: 13px; }
+  .vs-ctrl--fullscreen { width: 30px; height: 30px; }
+
+  /* Misiones */
+  .vs-missions .mission-slot { min-height: 58px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — tablet portrait / móvil grande (601–999px)
+═══════════════════════════════════════════════════════════════ */
+@media (min-width: 601px) and (max-width: 999px) {
+  :root { --vs-hud-h: 88px; }
+
+  .vs-hud__side--left  { padding: 0 16px 0 12px; }
+  .vs-hud__side--right { padding: 0 12px 0 16px; }
+
+  .vs-hud .round-tracker__pip {
+    width: clamp(30px, 3.8vw, 40px);
+    height: clamp(30px, 3.8vw, 40px);
+  }
+  .vs-hud .round-tracker__pips::before {
+    left: calc(clamp(30px, 3.8vw, 40px) / 2);
+    right: calc(clamp(30px, 3.8vw, 40px) / 2);
+  }
+  .vs-hud .round-tracker__pip-num { font-size: 0.82rem; }
+
+  .hud-score__val { font-size: clamp(2.6rem, 5.5vw, 3.8rem); }
+  .hud-score__btn {
+    width: clamp(40px, 5vw, 56px);
+    height: clamp(44px, 7vh, 68px);
+    font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  }
+
+  .vs-ctrl { width: 38px; height: 38px; }
+  .vs-ctrl--fullscreen { width: 38px; height: 38px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — desktop grande (≥ 1441px)
+   No afecta al rango del iPad mini 6 (1000–1440px landscape)
+═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1441px) {
+  /* Limitar la expansión lateral del HUD para que los scores
+     no queden excesivamente separados del centro */
+  .vs-hud__side {
+    max-width: clamp(340px, 28vw, 520px);
+  }
+
+  /* Ajuste fino del score para pantallas muy anchas */
+  .hud-score__val { font-size: clamp(3.6rem, 4.5vw, 5.2rem); }
+  .hud-score__btn {
+    width: clamp(52px, 4.5vw, 72px);
+    height: clamp(52px, 6vh, 76px);
+    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  }
+
+  /* Pips del round tracker a escala de pantalla grande */
+  .vs-hud .round-tracker__pip {
+    width: clamp(44px, 4.2vw, 58px);
+    height: clamp(44px, 4.2vw, 58px);
+  }
+  .vs-hud .round-tracker__pips::before {
+    left: calc(clamp(44px, 4.2vw, 58px) / 2);
+    right: calc(clamp(44px, 4.2vw, 58px) / 2);
+  }
+  .vs-hud .timer-panel__display { font-size: clamp(1.6rem, 2.2vw, 2.2rem); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — very small landscape (800×480 dashboards)
 ═══════════════════════════════════════════════════════════════ */
 @media (max-height: 520px) and (orientation: landscape) {
