@@ -39,6 +39,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   hulkbuster: { src: `${ASSETS_BASE}assets/backgrounds/BG_Avengers_Hulkbuster.mp4`, modifier: 'anim-theme-bg--hulkbuster' },
   hydra:  { src: `${ASSETS_BASE}assets/backgrounds/BG_HYDRA.mp4`,       modifier: 'anim-theme-bg--hydra'      },
   'invincible-ironman': { src: `${ASSETS_BASE}assets/backgrounds/BG_InvincibleIronman.mp4`, modifier: 'anim-theme-bg--invincible-ironman', smoothLoop: true },
+  'jane-foster':        { src: `${ASSETS_BASE}assets/backgrounds/BG_JaneFoster.mp4`,        modifier: 'anim-theme-bg--jane-foster',        smoothLoop: true },
   kang:                 { src: `${ASSETS_BASE}assets/backgrounds/BG_Kang.mp4`,              modifier: 'anim-theme-bg--kang',              smoothLoop: true },
   'kill-monger':  { src: `${ASSETS_BASE}assets/backgrounds/BG_KillMonger.mp4`,  modifier: 'anim-theme-bg--kill-monger',  smoothLoop: true },
   'king-tchalla': { src: `${ASSETS_BASE}assets/backgrounds/BG_KingTChalla.mp4`, modifier: 'anim-theme-bg--king-tchalla', smoothLoop: true },
