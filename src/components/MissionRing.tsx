@@ -18,7 +18,7 @@ export function MissionRing({ side, word }: MissionRingProps) {
   // continuous circular text path — starts at 225° (upper-left) so no word
   // sits on the seam; clockwise. Cardinal offsets: top 12.5%, right 37.5%,
   // bottom 62.5%, left 87.5%.
-  const rt = 44, cx = 60, cy = 60, a = (225 * Math.PI) / 180;
+  const rt = 40, cx = 60, cy = 60, a = (225 * Math.PI) / 180;
   const sx = (cx + rt * Math.cos(a)).toFixed(2);
   const sy = (cy + rt * Math.sin(a)).toFixed(2);
   const ex = (cx - rt * Math.cos(a)).toFixed(2);
