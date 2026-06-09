@@ -220,18 +220,18 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
   'Galaxy Guardians':   { color: '#84cc16', name: 'GALAXY GUARDIANS',            glyph: 'G',  iconSrc: `${ICON_BASE}/guardians.png` },
   'Hellfire Club':      { color: '#dc2626', name: 'HELLFIRE CLUB',               glyph: 'H',  iconSrc: `${ICON_BASE}/hellfireclub.png` },
   'Inhumans':           { color: '#14b8a6', name: 'INHUMANS',                    glyph: 'I',  iconSrc: `${ICON_BASE}/inhumans.png` },
-  'Intelligencia':      { color: '#facc15', name: 'INTELLIGENCIA',               glyph: '!' },
+  'Intelligencia':      { color: '#facc15', name: 'INTELLIGENCIA',               glyph: '!', iconSrc: `${ICON_BASE}/intelligencia.svg` },
   'Mephisto':           { color: '#ef4444', name: 'LEGION OF THE LOST',           glyph: 'M',  iconSrc: `${ICON_BASE}/legionlost.png` },
   'Midnight Sons':      { color: '#7c3aed', name: 'MIDNIGHT SONS',               glyph: '☾', iconSrc: `${ICON_BASE}/midnightsons.png` },
   'Mighty Avengers':    { color: '#f97316', name: 'MIGHTY AVENGERS',             glyph: 'M',  iconSrc: `${ICON_BASE}/mightyavengers.png` },
   'New Mutants':        { color: '#a78bfa', name: 'NEW MUTANTS',                 glyph: 'N',  iconSrc: `${ICON_BASE}/newmutants.png` },
-  "Onslaught's Grip":   { color: '#4c1d95', name: "ONSLAUGHT'S GRIP",            glyph: 'O' },
+  "Onslaught's Grip":   { color: '#4c1d95', name: "ONSLAUGHT'S GRIP",            glyph: 'O', iconSrc: `${ICON_BASE}/onslaughtgrip.svg` },
   'Sentinels':          { color: '#94a3b8', name: 'SENTINELS',                   glyph: 'S',  iconSrc: `${ICON_BASE}/sentinels.png` },
   'Spider Foes':        { color: '#16a34a', name: 'SPIDER FOES',                 glyph: 'S',  iconSrc: `${ICON_BASE}/spiderfoes.png` },
   'Thunderbolts':       { color: '#fbbf24', name: 'THUNDERBOLTS',                glyph: 'T',  iconSrc: `${ICON_BASE}/thunderbolts.png`, iconScale: 1.4 },
   'Weapon X':           { color: '#65a30d', name: 'WEAPON X',                    glyph: 'X',  iconSrc: `${ICON_BASE}/weaponx.png` },
   'Winter Guard':       { color: '#38bdf8', name: 'WINTER GUARD',                glyph: 'W',  iconSrc: `${ICON_BASE}/winterguard.png` },
-  'A-Force':            { color: '#ec4899', name: 'A-FORCE',                     glyph: 'A' },
+  'A-Force':            { color: '#ec4899', name: 'A-FORCE',                     glyph: 'A', iconSrc: `${ICON_BASE}/aforce.svg` },
 };
 
 export function getAffiliationFx(affiliations: string[] | undefined): AffiliationFx {

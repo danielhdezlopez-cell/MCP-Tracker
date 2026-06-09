@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#facc15" stroke-width="5" opacity="0.6"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#facc15" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Brain outline -->
+  <path d="M100 44
+    C118 44 134 52 140 66
+    C150 66 160 74 160 86
+    C160 96 154 104 144 108
+    C144 120 136 130 124 134
+    L124 152 L76 152 L76 134
+    C64 130 56 120 56 108
+    C46 104 40 96 40 86
+    C40 74 50 66 60 66
+    C66 52 82 44 100 44 Z"
+        fill="#facc15" opacity="0.85"/>
+
+  <!-- Brain groove top -->
+  <path d="M100 48 C100 80 100 80 100 108" fill="none" stroke="#0a0e1a" stroke-width="4" opacity="0.6"/>
+  <!-- Brain grooves left -->
+  <path d="M68 72 C72 82 70 92 66 100" fill="none" stroke="#0a0e1a" stroke-width="3" opacity="0.5"/>
+  <path d="M78 62 C80 74 78 86 74 96" fill="none" stroke="#0a0e1a" stroke-width="2.5" opacity="0.4"/>
+  <!-- Brain grooves right -->
+  <path d="M132 72 C128 82 130 92 134 100" fill="none" stroke="#0a0e1a" stroke-width="3" opacity="0.5"/>
+  <path d="M122 62 C120 74 122 86 126 96" fill="none" stroke="#0a0e1a" stroke-width="2.5" opacity="0.4"/>
+
+  <!-- Circuit nodes on the base -->
+  <rect x="82" y="150" width="36" height="8" rx="3" fill="#facc15" opacity="0.7"/>
+
+  <!-- Glow dots / circuit nodes -->
+  <circle cx="70" cy="86" r="4" fill="#fde68a"/>
+  <circle cx="130" cy="86" r="4" fill="#fde68a"/>
+  <circle cx="100" cy="70" r="3" fill="#fde68a"/>
+
+  <!-- "I" for Intelligencia at bottom accent -->
+  <rect x="94" y="158" width="12" height="20" rx="3" fill="#facc15" opacity="0.6"/>
+</svg>
