@@ -179,6 +179,16 @@
 }
 .vs-ctrl:active { transform: scale(0.92); }
 
+/* Inactive state — dimmed, eye-off tint */
+.vs-ctrl--inactive {
+  color: rgba(255,255,255,0.35);
+  border-color: rgba(255,255,255,0.10);
+}
+.vs-ctrl--inactive:hover {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.24);
+}
+
 /* Fullscreen button — icon only, square */
 .vs-ctrl--fullscreen {
   width: 44px;

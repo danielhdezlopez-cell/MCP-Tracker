@@ -121,6 +121,8 @@ export function MainPage() {
   const leaderRight   = useMcpStore(s => s.leaderRight);
   const resetGame     = useMcpStore(s => s.resetGame);
   const setCurrentPage = useMcpStore(s => s.setCurrentPage);
+  const showMainLeaderPortraits    = useMcpStore(s => s.showMainLeaderPortraits);
+  const setShowMainLeaderPortraits = useMcpStore(s => s.setShowMainLeaderPortraits);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
@@ -184,6 +186,24 @@ export function MainPage() {
               </svg>
             )}
           </button>
+          <button
+            className={`vs-ctrl${showMainLeaderPortraits ? '' : ' vs-ctrl--inactive'}`}
+            onClick={() => setShowMainLeaderPortraits(!showMainLeaderPortraits)}
+            title={showMainLeaderPortraits ? 'Hide portraits' : 'Show portraits'}
+            aria-label={showMainLeaderPortraits ? 'Hide leader portraits' : 'Show leader portraits'}
+          >
+            {showMainLeaderPortraits ? (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            ) : (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            )}
+          </button>
           <button className="vs-ctrl" onClick={() => setCurrentPage('settings')} title="Settings" aria-label="Settings">
             <NavIconSettings width="15" height="15" />
           </button>
@@ -197,11 +217,11 @@ export function MainPage() {
           <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
         <div className="vs-battle__side vs-battle__side--left">
-          <VSPortrait side="left" />
+          {showMainLeaderPortraits && <VSPortrait side="left" />}
           <AffiliationBanner side="left" />
         </div>
         <div className="vs-battle__side vs-battle__side--right">
-          <VSPortrait side="right" />
+          {showMainLeaderPortraits && <VSPortrait side="right" />}
           <AffiliationBanner side="right" />
         </div>
         <RoundMedallion />
