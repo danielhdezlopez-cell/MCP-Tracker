@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════════════════════════
+   ScoreProgressIndicator — central HUD points reference (1–16)
+   Non-interactive. P1 = red · P2 = blue · tie = split red/blue.
+   Sits in the top HUD between the P1 and P2 controls.
+═══════════════════════════════════════════════════════════════ */
+.score-progress {
+  /* Local accent tokens — fixed red/blue identity, independent of theme
+     left/right accents (which vary per leader affiliation). */
+  --sp-p1: #e74c3c;
+  --sp-p1-soft: rgba(231, 76, 60, 0.16);
+  --sp-p1-glow: rgba(231, 76, 60, 0.55);
+  --sp-p2: #3b9ff0;
+  --sp-p2-soft: rgba(59, 159, 240, 0.16);
+  --sp-p2-glow: rgba(59, 159, 240, 0.55);
+  --sp-cell: clamp(22px, 2.5vw, 30px);
+  --sp-gap: 4px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  pointer-events: none;            /* never interactive */
+  user-select: none;
+  position: relative;
+
+  background: rgba(8, 13, 24, 0.42);
+  border: 1px solid rgba(120, 150, 200, 0.1);
+  border-radius: 7px;
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  /* clipped lower corners for the broadcast-panel feel */
+  clip-path: polygon(
+    10px 0%, calc(100% - 10px) 0%, 100% 10px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0% calc(100% - 12px), 0% 10px
+  );
+}
+
+/* faint inner top sheen */
+.score-progress::before {
+  content: '';
+  position: absolute;
+  inset: 1px 1px auto 1px;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+  pointer-events: none;
+}
+
+/* ── Grid: two rows of 8 ────────────────────────────────── */
+.score-progress__grid {
+  display: grid;
+  grid-template-columns: repeat(8, var(--sp-cell));
+  grid-auto-rows: var(--sp-cell);
+  gap: var(--sp-gap);
+}
+
+.score-progress__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid rgba(120, 148, 190, 0.12);
+  background: rgba(255, 255, 255, 0.015);
+  position: relative;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.score-progress__num {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: clamp(10px, 1.15vw, 13px);
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(120, 140, 170, 0.4);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* ── P1 (red) highlight ─────────────────────────────────── */
+.score-progress__cell[data-fill='p1'] {
+  border-color: rgba(231, 76, 60, 0.7);
+  background: var(--sp-p1-soft);
+  box-shadow: 0 0 6px var(--sp-p1-glow), inset 0 0 6px rgba(231, 76, 60, 0.18);
+}
+.score-progress__cell[data-fill='p1'] .score-progress__num {
+  color: #ffd9d3;
+  text-shadow: 0 0 6px var(--sp-p1-glow);
+}
+
+/* ── P2 (blue) highlight ────────────────────────────────── */
+.score-progress__cell[data-fill='p2'] {
+  border-color: rgba(59, 159, 240, 0.7);
+  background: var(--sp-p2-soft);
+  box-shadow: 0 0 6px var(--sp-p2-glow), inset 0 0 6px rgba(59, 159, 240, 0.18);
+}
+.score-progress__cell[data-fill='p2'] .score-progress__num {
+  color: #d6ecff;
+  text-shadow: 0 0 8px var(--sp-p2-glow);
+}
+
+/* ── Tie (both): split red/blue border + double glow ────── */
+.score-progress__cell[data-fill='both'] {
+  border-color: transparent;
+  background:
+    linear-gradient(135deg, var(--sp-p1-soft) 0% 50%, var(--sp-p2-soft) 50% 100%);
+  box-shadow: 0 0 6px var(--sp-p1-glow), 0 0 6px var(--sp-p2-glow);
+}
+/* split outline via layered borders */
+.score-progress__cell[data-fill='both']::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 4px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--sp-p1) 0% 48%, var(--sp-p2) 52% 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.score-progress__cell[data-fill='both'] .score-progress__num {
+  color: #fff;
+  text-shadow: 0 0 6px var(--sp-p1-glow), 0 0 6px var(--sp-p2-glow);
+}
+
+/* ── Compact: tablet landscape (iPad mini 6 in HUD) ─────── */
+@media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+  .score-progress { --sp-cell: clamp(24px, 2.4vw, 28px); }
+}
+
+/* ── Short landscape handhelds (800×480 etc.) ───────────── */
+@media (max-height: 540px) and (orientation: landscape) {
+  .score-progress {
+    --sp-cell: 19px;
+    --sp-gap: 3px;
+    padding: 4px 9px 6px;
+    gap: 3px;
+  }
+  .score-progress__title { letter-spacing: 0.22em; text-indent: 0.22em; }
+}
+
+/* ── Mobile portrait: shrink before hiding ──────────────── */
+@media (max-width: 640px) {
+  .score-progress {
+    --sp-cell: 20px;
+    --sp-gap: 3px;
+    padding: 5px 10px 7px;
+  }
+}
+
+@media (max-width: 380px) {
+  .score-progress { --sp-cell: 17px; }
+  .score-progress__num { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-progress__cell,
+  .score-progress__num { transition: none; }
+}
