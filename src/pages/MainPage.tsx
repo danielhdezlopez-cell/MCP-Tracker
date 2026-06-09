@@ -122,14 +122,6 @@ const VSPortrait = memo(function VSPortrait({ side, showPortrait }: { side: 'lef
   );
 });
 
-interface WebkitDocument extends Document {
-  webkitFullscreenElement?: Element | null;
-  webkitExitFullscreen?: () => void;
-}
-interface WebkitElement extends HTMLElement {
-  webkitRequestFullscreen?: () => void;
-}
-
 export function MainPage() {
   const scoreLeft     = useMcpStore(s => s.scoreLeft);
   const scoreRight    = useMcpStore(s => s.scoreRight);
@@ -139,39 +131,10 @@ export function MainPage() {
   const setCurrentPage = useMcpStore(s => s.setCurrentPage);
   const showMainLeaderPortraits    = useMcpStore(s => s.showMainLeaderPortraits);
   const setShowMainLeaderPortraits = useMcpStore(s => s.setShowMainLeaderPortraits);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
   useIdleDetection();
   usePageVisibility();
-
-  useEffect(() => {
-    const wkDoc = document as WebkitDocument;
-    const onChange = () => setIsFullscreen(
-      !!(document.fullscreenElement || wkDoc.webkitFullscreenElement)
-    );
-    document.addEventListener('fullscreenchange', onChange);
-    document.addEventListener('webkitfullscreenchange', onChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', onChange);
-      document.removeEventListener('webkitfullscreenchange', onChange);
-    };
-  }, []);
-
-  const toggleFullscreen = async () => {
-    try {
-      const el = document.documentElement as WebkitElement;
-      const wkDoc = document as WebkitDocument;
-      const isFs = !!(document.fullscreenElement || wkDoc.webkitFullscreenElement);
-      if (!isFs) {
-        if (el.requestFullscreen) await el.requestFullscreen();
-        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-      } else {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (wkDoc.webkitExitFullscreen) wkDoc.webkitExitFullscreen();
-      }
-    } catch { /* silent */ }
-  };
 
   const themeLeft  = leaderLeft  ? getThemeFromLeader(leaderLeft)  : null;
   const themeRight = leaderRight ? getThemeFromLeader(leaderRight) : null;
@@ -192,17 +155,6 @@ export function MainPage() {
           <div className="vs-hud__edge vs-hud__edge--right" />
         </div>
         <div className="vs-hud__ctrl-strip">
-          <button className="vs-ctrl vs-ctrl--fullscreen" onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>
-            {isFullscreen ? (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
-              </svg>
-            ) : (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-              </svg>
-            )}
-          </button>
           <button
             className={`vs-ctrl${showMainLeaderPortraits ? '' : ' vs-ctrl--inactive'}`}
             onClick={() => setShowMainLeaderPortraits(!showMainLeaderPortraits)}
