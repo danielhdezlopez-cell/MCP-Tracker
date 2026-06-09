@@ -120,3 +120,97 @@
   .aff-banner__name--md  { font-size: 10px; }
   .aff-banner__name--lg  { font-size:  8px; }
 }
+/* ════════════════════════════════════════════════════════════════════
+   AFFILIATION BANNER — Version A (refined)  ·  append after AffiliationBanner.css
+
+   Changes vs. the original banner:
+   • icon is a raster image, clipped to the circular badge (no plate/box behind)
+   • no "AFFILIATION" eyebrow — name only
+   • the top edge sits at ~66% of the icon height and DIPS in a rounded arc
+     around the badge (straight → arc → straight). That outline is computed
+     from the live icon size by layoutAffiliationBanner() (see .ts file), so it
+     holds at every breakpoint.
+
+   Markup the component must output (see INTEGRATION.md):
+     <div class="aff-banner aff-banner--left aff-banner--vA" style="--fac:…">
+       <div class="aff-banner__bg"><img class="aff-banner__wm" …></div>
+       <svg class="aff-banner__edge"><path class="glow"/><path class="line"/></svg>
+       <span class="aff-banner__emblem"><img class="aff-banner__icon-img" …></span>
+       <span class="aff-banner__text"><span class="aff-banner__name">…</span></span>
+     </div>
+   ════════════════════════════════════════════════════════════════════ */
+
+.aff-banner--vA{
+  --icon:clamp(72px,7.4vw,88px);          /* badge diameter (tune per layout) */
+  position:absolute;bottom:14px;z-index:6;width:86%;
+  display:flex;align-items:center;gap:clamp(12px,1.6vw,18px);
+  padding:0 clamp(18px,2.4vw,26px);
+  /* NOTE: no background / border / clip-path / overflow here — the bg layer owns them */
+}
+.aff-banner--left.aff-banner--vA { left:0;  flex-direction:row; text-align:left; }
+.aff-banner--right.aff-banner--vA{ right:0; flex-direction:row-reverse; text-align:right; }
+
+/* gradient + rail; height + dipped clip-path set by JS */
+.aff-banner__bg{
+  position:absolute;left:0;right:0;bottom:0;z-index:0;
+  background:
+    linear-gradient(90deg,color-mix(in srgb,var(--fac) 26%,transparent) 0%,rgba(10,14,24,0.92) 58%),
+    rgba(8,11,20,0.9);
+  box-shadow:0 14px 34px rgba(0,0,0,0.6),0 0 30px color-mix(in srgb,var(--fac) 22%,transparent);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.aff-banner--right .aff-banner__bg{
+  background:
+    linear-gradient(270deg,color-mix(in srgb,var(--fac) 26%,transparent) 0%,rgba(10,14,24,0.92) 58%),
+    rgba(8,11,20,0.9);
+}
+.aff-banner__bg::after{                    /* bright faction rail along the bottom */
+  content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:var(--fac);box-shadow:0 0 14px color-mix(in srgb,var(--fac) 80%,transparent);
+}
+.aff-banner__wm{                           /* oversized watermark bleeding off the edge */
+  position:absolute;bottom:-14%;width:clamp(96px,12vw,150px);aspect-ratio:1;
+  opacity:0.09;pointer-events:none;object-fit:contain;z-index:0;
+}
+.aff-banner--left  .aff-banner__wm{ right:6%; }
+.aff-banner--right .aff-banner__wm{ left:6%; }
+
+/* the dipped top line (path `d` set by JS) */
+.aff-banner__edge{position:absolute;left:0;bottom:0;z-index:1;pointer-events:none;overflow:visible;}
+.aff-banner__edge .glow{fill:none;stroke:var(--fac);stroke-width:5;opacity:0.30;filter:blur(2px);stroke-linecap:round;}
+.aff-banner__edge .line{fill:none;stroke-width:1.6;stroke-linecap:round;
+  stroke:color-mix(in srgb,var(--fac) 78%,#ffffff 22%);}
+
+/* circular medallion — clean, image clipped to the circle, no backing plate */
+.aff-banner--vA .aff-banner__emblem{
+  flex-shrink:0;position:relative;z-index:3;align-self:flex-end;
+  width:var(--icon);height:var(--icon);border-radius:50%;overflow:hidden;
+  display:grid;place-items:center;padding:0;
+  background:radial-gradient(circle at 50% 42%,#111726 0%,#090d16 78%);
+  border:1.5px solid color-mix(in srgb,var(--fac) 50%,rgba(150,170,200,0.32));
+  box-shadow:
+    0 0 22px color-mix(in srgb,var(--fac) 32%,transparent),
+    0 8px 18px rgba(0,0,0,0.5),
+    inset 0 0 16px rgba(0,0,0,0.55),
+    inset 0 1.5px 0 rgba(255,255,255,0.10);
+}
+.aff-banner--vA .aff-banner__emblem::before{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--fac) 28%,transparent);opacity:0.7;pointer-events:none;
+}
+.aff-banner--vA .aff-banner__icon-img{ width:86%;height:86%;object-fit:contain;position:relative; }
+
+/* name only (eyebrow removed) */
+.aff-banner--vA .aff-banner__text{position:relative;z-index:3;display:flex;flex-direction:column;
+  line-height:1;min-width:0;}
+.aff-banner--vA .aff-banner__eyebrow{display:none;}
+.aff-banner--vA .aff-banner__name{
+  font:800 clamp(19px,2.3vw,28px)/0.95 'Orbitron',sans-serif;
+  letter-spacing:0.03em;color:#f3f7ff;text-transform:uppercase;white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,0.6);
+}
+
+/* phones: keep the icon controlled so the dip + name never collide */
+@media (max-width:480px){
+  .aff-banner--vA{ --icon:clamp(60px,16vw,72px); }
+}

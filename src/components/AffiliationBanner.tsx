@@ -1,5 +1,7 @@
+import { useLayoutEffect, useRef } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
-import { getAffiliationFx, getAffiliationIcon } from '../data/affiliationsFx';
+import { getAffiliationFx } from '../data/affiliationsFx';
+import { layoutAffiliationBanner } from './AffiliationBanner.layout';
 import './AffiliationBanner.css';
 
 export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
@@ -7,31 +9,59 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
   const leaderRight = useMcpStore((s) => s.leaderRight);
   const showAffiliationBanner = useMcpStore((s) => s.showAffiliationBanner);
   const leader = side === 'left' ? leaderLeft : leaderRight;
+  const ref = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const run = () => layoutAffiliationBanner(el);
+    run();
+    const ro = new ResizeObserver(run);
+    ro.observe(el);
+    document.fonts?.ready.then(run);
+    return () => ro.disconnect();
+  }, [leader]);
 
   if (!showAffiliationBanner || !leader) return null;
 
   const fx = getAffiliationFx(leader.affiliations);
-  const iconSrc = getAffiliationIcon(leader.affiliations);
-  const nameLen = fx.name.length;
-  const nameSizeClass = nameLen > 18 ? 'aff-banner__name--lg' : nameLen > 12 ? 'aff-banner__name--md' : '';
+  const hasSigil = Boolean(fx.customGlyph);
 
   return (
     <div
-      className={`aff-banner aff-banner--${side}`}
+      ref={ref}
+      className={`aff-banner aff-banner--${side} aff-banner--vA`}
       style={{ ['--fac' as string]: fx.color } as React.CSSProperties}
       aria-label={`Affiliation: ${fx.name}`}
     >
-      <div className="aff-banner__emblem">
-        <img
-          className="aff-banner__icon"
-          src={iconSrc}
-          alt={fx.name}
-          draggable={false}
-        />
+      <div className="aff-banner__bg">
+        {fx.iconSrc && (
+          <img className="aff-banner__wm" src={fx.iconSrc} alt="" aria-hidden />
+        )}
       </div>
-      <div className="aff-banner__text">
-        <span className={`aff-banner__name${nameSizeClass ? ` ${nameSizeClass}` : ''}`}>{fx.name}</span>
-      </div>
+      <svg className="aff-banner__edge" aria-hidden>
+        <path className="glow" />
+        <path className="line" />
+      </svg>
+
+      <span className="aff-banner__emblem">
+        {fx.iconSrc ? (
+          <img className="aff-banner__icon-img" src={fx.iconSrc} alt="" aria-hidden />
+        ) : hasSigil ? (
+          <svg
+            className="aff-sigil"
+            viewBox="0 0 200 200"
+            xmlns="http://www.w3.org/2000/svg"
+            dangerouslySetInnerHTML={{ __html: fx.customGlyph! }}
+          />
+        ) : (
+          <span className="aff-banner__glyph">{fx.glyph}</span>
+        )}
+      </span>
+
+      <span className="aff-banner__text">
+        <span className="aff-banner__name">{fx.name}</span>
+      </span>
     </div>
   );
 }
