@@ -93,17 +93,7 @@ const VSPortrait = memo(function VSPortrait({ side, showPortrait }: { side: 'lef
         tabIndex={0}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
         aria-label={leader ? `Change leader: ${leader.name}` : `Assign ${side === 'left' ? 'Player 1' : 'Player 2'} leader`}
-      >
-        <div className="vs-portrait__ghost">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span className="vs-portrait__ghost-label">
-            {leader ? leader.name.toUpperCase() : (side === 'left' ? 'P1' : 'P2')}
-          </span>
-        </div>
-      </div>
+      />
     );
   }
 
