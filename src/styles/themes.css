@@ -7110,13 +7110,6 @@
 }
 [data-theme='apocalypse'] .main-page__modal-body { color: var(--color-text-muted); }
 
-/* Portrait — remove frame appearance */
-[data-theme='apocalypse'] .vs-portrait__img {
-  filter: none;
-  outline: none;
-  border: none;
-}
-
 /* Affiliation banner — tighter text so it never overlaps the faction icon */
 [data-theme='apocalypse'] .aff-banner--vA .aff-banner__name {
   font-size: clamp(11px, 1.3vw, 16px);

@@ -655,7 +655,7 @@
   max-width: 35.2%;
   object-fit: contain;
   object-position: top center;
-  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.65));
+  filter: none;
   transition: transform 0.25s ease, filter 0.25s ease;
   pointer-events: none;
 }
@@ -664,7 +664,7 @@
 
 .vs-portrait:hover .vs-portrait__img {
   transform: scale(1.03) translateY(3px);
-  filter: drop-shadow(0 10px 28px rgba(0,0,0,0.75));
+  filter: none;
 }
 
 /* Name plate hidden — leader name is shown in the top HUD instead */
