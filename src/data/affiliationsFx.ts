@@ -15,6 +15,7 @@ export interface AffiliationFx {
   name: string;
   glyph: string;
   customGlyph?: string;
+  iconSrc?: string;
 }
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -71,6 +72,7 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
     color: '#d62828',
     name: 'AVENGERS',
     glyph: 'A',
+    iconSrc: `${ICON_BASE}/avengers.png`,
     customGlyph: `
       <polygon points="100,42 113,84 156,84 122,108 135,150 100,124 65,150 78,108 44,84 87,84" fill="currentColor" opacity="0.9"/>
       <circle cx="100" cy="100" r="46" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -155,6 +157,7 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
     color: '#ffb800',
     name: 'ASGARD',
     glyph: 'A',
+    iconSrc: `${ICON_BASE}/asgard.png`,
     customGlyph: `
       <rect x="74" y="56" width="52" height="34" fill="currentColor" opacity="0.9" rx="3"/>
       <rect x="96" y="86" width="8" height="62" fill="currentColor"/>
