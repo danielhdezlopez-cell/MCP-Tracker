@@ -31,7 +31,7 @@ export function LeaderGrid({ leaders, selectedLeftId, selectedRightId, onSelect 
                 image={leader.image}
                 name={leader.name}
                 variant={variant}
-                cssSize="130px"
+                cssSize="160px"
                 selected={selected}
               />
             </div>
