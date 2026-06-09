@@ -16,6 +16,7 @@ export interface AffiliationFx {
   glyph: string;
   customGlyph?: string;
   iconSrc?: string;
+  iconScale?: number;
 }
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -226,7 +227,7 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
   "Onslaught's Grip":   { color: '#4c1d95', name: "ONSLAUGHT'S GRIP",            glyph: 'O' },
   'Sentinels':          { color: '#94a3b8', name: 'SENTINELS',                   glyph: 'S',  iconSrc: `${ICON_BASE}/sentinels.png` },
   'Spider Foes':        { color: '#16a34a', name: 'SPIDER FOES',                 glyph: 'S',  iconSrc: `${ICON_BASE}/spiderfoes.png` },
-  'Thunderbolts':       { color: '#fbbf24', name: 'THUNDERBOLTS',                glyph: 'T',  iconSrc: `${ICON_BASE}/thunderbolts.png` },
+  'Thunderbolts':       { color: '#fbbf24', name: 'THUNDERBOLTS',                glyph: 'T',  iconSrc: `${ICON_BASE}/thunderbolts.png`, iconScale: 1.4 },
   'Weapon X':           { color: '#65a30d', name: 'WEAPON X',                    glyph: 'X',  iconSrc: `${ICON_BASE}/weaponx.png` },
   'Winter Guard':       { color: '#38bdf8', name: 'WINTER GUARD',                glyph: 'W',  iconSrc: `${ICON_BASE}/winterguard.png` },
   'A-Force':            { color: '#ec4899', name: 'A-FORCE',                     glyph: 'A' },
