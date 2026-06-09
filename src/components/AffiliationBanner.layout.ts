@@ -48,7 +48,7 @@ export function layoutAffiliationBanner(aff: HTMLElement) {
     : `${top} L ${W - AFF_SLICE} ${D} L 0 ${D} Z`;
 
   bg.style.clipPath = `path('${fill}')`;
-  (bg.style as any).webkitClipPath = `path('${fill}')`;
+  (bg.style as CSSStyleDeclaration & { webkitClipPath: string }).webkitClipPath = `path('${fill}')`;
   edge.querySelector('.glow')!.setAttribute('d', top);
   edge.querySelector('.line')!.setAttribute('d', top);
 }
