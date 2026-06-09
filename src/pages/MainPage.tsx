@@ -74,7 +74,7 @@ const HudScore = memo(function HudScore({ side }: { side: 'left' | 'right' }) {
   );
 });
 
-const VSPortrait = memo(function VSPortrait({ side }: { side: 'left' | 'right' }) {
+const VSPortrait = memo(function VSPortrait({ side, showPortrait }: { side: 'left' | 'right'; showPortrait: boolean }) {
   const leader                 = useMcpStore(s => side === 'left' ? s.leaderLeft : s.leaderRight);
   const setCurrentPage         = useMcpStore(s => s.setCurrentPage);
   const setPendingLeaderAssign = useMcpStore(s => s.setPendingLeaderAssign);
@@ -83,6 +83,29 @@ const VSPortrait = memo(function VSPortrait({ side }: { side: 'left' | 'right' }
     setPendingLeaderAssign(side);
     setCurrentPage('leaders');
   };
+
+  if (!showPortrait) {
+    return (
+      <div
+        className={`vs-portrait vs-portrait--${side} vs-portrait--hidden`}
+        onClick={handleClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
+        aria-label={leader ? `Change leader: ${leader.name}` : `Assign ${side === 'left' ? 'Player 1' : 'Player 2'} leader`}
+      >
+        <div className="vs-portrait__ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span className="vs-portrait__ghost-label">
+            {leader ? leader.name.toUpperCase() : (side === 'left' ? 'P1' : 'P2')}
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -217,11 +240,11 @@ export function MainPage() {
           <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
         <div className="vs-battle__side vs-battle__side--left">
-          {showMainLeaderPortraits && <VSPortrait side="left" />}
+          <VSPortrait side="left" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="left" />
         </div>
         <div className="vs-battle__side vs-battle__side--right">
-          {showMainLeaderPortraits && <VSPortrait side="right" />}
+          <VSPortrait side="right" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="right" />
         </div>
         <RoundMedallion />
