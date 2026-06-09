@@ -165,6 +165,7 @@ export const AFFILIATION_FX: Record<string, AffiliationFx> = {
     name: 'ASGARD',
     glyph: 'A',
     iconSrc: `${ICON_BASE}/asgard.png`,
+    iconScale: 1.4,
     customGlyph: `
       <rect x="74" y="56" width="52" height="34" fill="currentColor" opacity="0.9" rx="3"/>
       <rect x="96" y="86" width="8" height="62" fill="currentColor"/>
