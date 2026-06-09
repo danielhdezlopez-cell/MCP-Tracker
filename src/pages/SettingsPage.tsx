@@ -85,6 +85,7 @@ export function SettingsPage() {
     theme, setTheme,
     interactiveBg,
     showAffiliationBanner, setShowAffiliationBanner,
+    showMainLeaderPortraits, setShowMainLeaderPortraits,
   } = useMcpStore();
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
@@ -216,6 +217,21 @@ export function SettingsPage() {
                 aria-label="Toggle affiliation banner"
                 className={`settings-toggle ${showAffiliationBanner ? 'on' : ''}`}
                 onClick={() => setShowAffiliationBanner(!showAffiliationBanner)}
+              >
+                <span className="settings-toggle__knob" />
+              </button>
+            </div>
+          </div>
+          <div className="settings-item">
+            <label className="settings-item__label">LEADER PORTRAITS</label>
+            <div className="settings-item__control">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={showMainLeaderPortraits}
+                aria-label="Toggle leader portraits"
+                className={`settings-toggle ${showMainLeaderPortraits ? 'on' : ''}`}
+                onClick={() => setShowMainLeaderPortraits(!showMainLeaderPortraits)}
               >
                 <span className="settings-toggle__knob" />
               </button>
