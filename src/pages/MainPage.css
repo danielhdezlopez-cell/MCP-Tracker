@@ -702,43 +702,10 @@
   color: rgba(255,255,255,0.32);
 }
 
-/* Hidden-portraits ghost button */
+/* Hidden-portraits — invisible transparent tap area, no content */
 .vs-portrait--hidden {
   background: transparent;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 10px 8px;
-}
-.vs-portrait__ghost {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 10px;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 8px;
-  background: rgba(255,255,255,0.05);
-  color: rgba(255,255,255,0.55);
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-  min-width: 52px;
-}
-.vs-portrait--hidden:hover .vs-portrait__ghost,
-.vs-portrait--hidden:focus-visible .vs-portrait__ghost {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.28);
-  color: rgba(255,255,255,0.85);
-}
-.vs-portrait__ghost-label {
-  font: 700 clamp(8px, 1vw, 11px)/1 'Orbitron', sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 80px;
-}
-.vs-portrait--right.vs-portrait--hidden {
-  align-items: flex-end;
+  pointer-events: auto;
 }
 
 /* ═══════════════════════════════════════════════════════════════
