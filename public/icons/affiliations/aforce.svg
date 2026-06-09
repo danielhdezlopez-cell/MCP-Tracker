@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#ec4899" stroke-width="5" opacity="0.6"/>
+  <!-- Inner glow ring -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Stylized A -->
+  <path d="M100 28 L152 158 L134 158 L120 118 L80 118 L66 158 L48 158 Z"
+        fill="#ec4899" opacity="0.95"/>
+  <!-- A crossbar fill -->
+  <path d="M86 103 L114 103 L107 80 L93 80 Z" fill="#0a0e1a"/>
+
+  <!-- Star top-left -->
+  <polygon points="44,52 47,62 57,62 49,68 52,78 44,72 36,78 39,68 31,62 41,62"
+           fill="#ec4899" opacity="0.75" transform="scale(0.7) translate(20,20)"/>
+  <!-- Star top-right -->
+  <polygon points="156,38 159,48 169,48 161,54 164,64 156,58 148,64 151,54 143,48 153,48"
+           fill="#ec4899" opacity="0.75" transform="scale(0.7) translate(-45,12)"/>
+  <!-- Star bottom accent -->
+  <polygon points="100,166 102,172 108,172 104,176 106,182 100,178 94,182 96,176 92,172 98,172"
+           fill="#ec4899" opacity="0.55"/>
+</svg>

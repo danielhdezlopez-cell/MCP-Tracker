@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Outer psionic ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#7c3aed" stroke-width="5" opacity="0.7"/>
+  <circle cx="100" cy="100" r="74" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Helmet silhouette (Onslaught's iconic helmet) -->
+  <!-- Main helmet body -->
+  <path d="M100 22 C60 22 36 54 36 88 L36 108 C36 120 44 130 56 134 L56 148 L80 148 L80 136 L120 136 L120 148 L144 148 L144 134 C156 130 164 120 164 108 L164 88 C164 54 140 22 100 22 Z"
+        fill="#4c1d95" opacity="0.9"/>
+  <!-- Helmet visor -->
+  <path d="M62 82 L62 102 C62 108 68 114 80 116 L120 116 C132 114 138 108 138 102 L138 82 C138 74 130 68 100 68 C70 68 62 74 62 82 Z"
+        fill="#1e0a4a"/>
+  <!-- Glowing X eyes -->
+  <line x1="78" y1="88" x2="90" y2="100" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="88" x2="78" y2="100" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+  <line x1="110" y1="88" x2="122" y2="100" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+  <line x1="122" y1="88" x2="110" y2="100" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+  <!-- Helmet crest -->
+  <path d="M76 68 L76 48 C76 40 84 34 100 32 C116 34 124 40 124 48 L124 68"
+        fill="#6d28d9" opacity="0.8"/>
+  <!-- Psionic energy lines -->
+  <path d="M36 88 C20 80 14 62 26 50" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M164 88 C180 80 186 62 174 50" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+</svg>
