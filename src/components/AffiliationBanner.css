@@ -145,10 +145,23 @@
   position:absolute;bottom:14px;z-index:6;width:86%;
   display:flex;align-items:center;gap:clamp(12px,1.6vw,18px);
   padding:0 clamp(18px,2.4vw,26px);
-  /* NOTE: no background / border / clip-path / overflow here — the bg layer owns them */
+  /* reset base styles — the layered __bg/__edge own these */
+  overflow:visible;
+  border-top:none;
+  background:transparent;
+  box-shadow:none;
 }
-.aff-banner--left.aff-banner--vA { left:0;  flex-direction:row; text-align:left; }
-.aff-banner--right.aff-banner--vA{ right:0; flex-direction:row-reverse; text-align:right; }
+/* kill the base ::after rail — __bg::after owns it in --vA */
+.aff-banner--vA::after{ display:none; }
+.aff-banner--left.aff-banner--vA {
+  left:0; flex-direction:row; text-align:left;
+  clip-path:none; /* JS sets clip-path on __bg */
+}
+.aff-banner--right.aff-banner--vA{
+  right:0; flex-direction:row-reverse; text-align:right;
+  clip-path:none; /* JS sets clip-path on __bg */
+  background:transparent; /* reset --right background override */
+}
 
 /* gradient + rail; height + dipped clip-path set by JS */
 .aff-banner__bg{
