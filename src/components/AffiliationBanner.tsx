@@ -31,7 +31,7 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
     <div
       ref={ref}
       className={`aff-banner aff-banner--${side} aff-banner--vA`}
-      style={{ ['--fac' as string]: fx.color } as React.CSSProperties}
+      style={{ ['--fac' as string]: fx.color, ['--icon-scale' as string]: fx.iconScale ?? 1 } as React.CSSProperties}
       aria-label={`Affiliation: ${fx.name}`}
     >
       <div className="aff-banner__bg">
