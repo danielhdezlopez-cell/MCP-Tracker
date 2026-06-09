@@ -218,7 +218,7 @@
 .hud-score__controls {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 2vw, 28px);
+  gap: clamp(22px, 3vw, 44px);
 }
 
 .hud-score__val-wrap {
@@ -226,7 +226,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: clamp(56px, 7vw, 90px);
+  min-width: clamp(88px, 11vw, 130px);
   flex-shrink: 0;
 }
 
@@ -838,7 +838,7 @@
 
   /* Score: escala fluida, legible sin cortarse */
   .hud-score__val { font-size: clamp(2.0rem, 8.5vw, 2.8rem); }
-  .hud-score__controls { gap: 3px; }
+  .hud-score__controls { gap: 8px; }
   .hud-score__btn {
     width: clamp(32px, 7.5vw, 42px);
     height: clamp(38px, 7vh, 52px);
@@ -876,7 +876,7 @@
 
   /* Score — ligeramente más compacto para iPhone Max */
   .hud-score__val { font-size: clamp(1.9rem, 7.8vw, 2.6rem); }
-  .hud-score__controls { gap: 2px; }
+  .hud-score__controls { gap: 6px; }
   .hud-score__btn {
     width: clamp(30px, 7vw, 40px);
     height: clamp(34px, 6.5vh, 48px);
