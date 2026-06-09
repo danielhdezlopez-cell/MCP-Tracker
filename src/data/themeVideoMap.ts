@@ -28,7 +28,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   'dr-strange':        { src: `${ASSETS_BASE}assets/backgrounds/BG_DrStrange.mp4`,                  modifier: 'anim-theme-bg--dr-strange', objectPositionY: '30%' },
   dracula:             { src: `${ASSETS_BASE}assets/backgrounds/BG_Dracula.mp4`,                    modifier: 'anim-theme-bg--dracula'           },
   'elsa-bloodstone':   { src: `${ASSETS_BASE}assets/backgrounds/BG_ElsaBloodstone.mp4`,           modifier: 'anim-theme-bg--elsa-bloodstone',   smoothLoop: true },
-  'emma-frost':        { src: `${ASSETS_BASE}assets/backgrounds/BG_EmmaFrost2.mp4`,               modifier: 'anim-theme-bg--emma-frost',         smoothLoop: true, scale: 0.9 },
+  'emma-frost':        { src: `${ASSETS_BASE}assets/backgrounds/BG_EmmaFrost2.mp4`,               modifier: 'anim-theme-bg--emma-frost',         smoothLoop: true, scale: 1.1 },
   'green-goblin':      { src: `${ASSETS_BASE}assets/backgrounds/BG_GreenGoblin.mp4`,              modifier: 'anim-theme-bg--green-goblin', smoothLoop: true, objectPositionY: '30%' },
   'hellfire-club':     { src: `${ASSETS_BASE}assets/backgrounds/BG_Hellfireclub.mp4`,              modifier: 'anim-theme-bg--hellfire-club'     },
   mephisto:            { src: `${ASSETS_BASE}assets/backgrounds/BG_Mephisto.mp4`,                  modifier: 'anim-theme-bg--mephisto'          },
