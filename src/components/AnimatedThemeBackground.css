@@ -253,7 +253,7 @@
   object-position: center 15%;
 }
 .anim-theme-bg--dr-strange video {
-  object-position: center 45%;
+  object-position: center 30%;
 }
 .anim-theme-bg--magik video {
   object-position: center 25%;
@@ -272,23 +272,39 @@
   object-position: center 60%;
 }
 .anim-theme-bg--baron-strucker video {
-  object-position: center 60%;
+  object-position: center 65%;
 }
 .anim-theme-bg--black-bolt video {
-  transform: scale(1.2);
+  transform: scale(1.25);
   transform-origin: center center;
 }
 .anim-theme-bg--winter-guard video {
   object-position: center 40%;
 }
 .anim-theme-bg--green-goblin video {
-  object-position: center 35%;
+  object-position: center 30%;
 }
 .anim-theme-bg--doc-ock video {
-  object-position: center 40%;
+  object-position: center 30%;
 }
 .anim-theme-bg--namor video {
-  object-position: center 40%;
+  object-position: center 35%;
+}
+.anim-theme-bg--cyclops video {
+  transform: scale(1.25);
+  transform-origin: center center;
+}
+.anim-theme-bg--daredevil video {
+  transform: scale(1.25);
+  transform-origin: center center;
+}
+.anim-theme-bg--emma-frost video {
+  transform: scale(0.9);
+  transform-origin: center center;
+}
+.anim-theme-bg--miles-morales video {
+  transform: scale(1.25);
+  transform-origin: center center;
 }
 .anim-theme-bg--red-skull-master-of-hydra video {
   transform: scale(1.2);
