@@ -285,7 +285,9 @@
   object-position: center 15%;
 }
 .anim-theme-bg--doc-ock video {
-  object-position: center -10%;
+  object-position: center 40%;
+  transform: scale(1.1);
+  transform-origin: center center;
 }
 .anim-theme-bg--namor video {
   object-position: center 20%;
