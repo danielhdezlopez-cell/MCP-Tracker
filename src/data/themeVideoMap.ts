@@ -14,7 +14,7 @@ interface VideoThemeEntry {
 
 export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   apocalypse:          { src: `${ASSETS_BASE}assets/backgrounds/BG_Apocalypse2.mp4`,                  modifier: 'anim-theme-bg--apocalypse', smoothLoop: true },
-  'black-bolt':    { src: `${ASSETS_BASE}assets/backgrounds/BG_BlackBolt.mp4`,    modifier: 'anim-theme-bg--black-bolt',    smoothLoop: true, scale: 1.25 },
+  'black-bolt':    { src: `${ASSETS_BASE}assets/backgrounds/BG_BlackBolt.mp4`,    modifier: 'anim-theme-bg--black-bolt',    smoothLoop: true, scale: 1.7 },
   'black-panther': { src: `${ASSETS_BASE}assets/backgrounds/BG_BlackPanther.mp4`, modifier: 'anim-theme-bg--black-panther', smoothLoop: true },
   cable:               { src: `${ASSETS_BASE}assets/backgrounds/BG_Cable.mp4`,                    modifier: 'anim-theme-bg--cable', smoothLoop: true },
   'captain-america':   { src: `${ASSETS_BASE}assets/backgrounds/BG_CaptainAmerica.mp4`,            modifier: 'anim-theme-bg--captain-america', objectPositionY: '20%' },
