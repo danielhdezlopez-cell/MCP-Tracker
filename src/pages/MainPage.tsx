@@ -10,7 +10,6 @@ import { NavIconSettings } from '../components/icons';
 import { AffiliationBanner } from '../components/AffiliationBanner';
 import { useIdleDetection } from '../hooks/useIdleDetection';
 import { usePageVisibility } from '../hooks/usePageVisibility';
-import { ScoreHalo } from '../components/ScoreHalo';
 import { ScoreProgressIndicator } from '../components/ScoreProgressIndicator';
 import './MainPage.css';
 
@@ -56,9 +55,7 @@ const HudScore = memo(function HudScore({ side }: { side: 'left' | 'right' }) {
       <div className="hud-score__controls">
         <button className={`hud-score__btn hud-score__btn--dec hud-score__btn--${side}`} onClick={dec} disabled={score <= 0} aria-label="Decrease score">−</button>
         <div className="hud-score__val-wrap">
-          <ScoreHalo score={score} side={side} goal={VICTORY_THRESHOLD}>
-            <span className={`hud-score__val hud-score__val--${side}`}>{score}</span>
-          </ScoreHalo>
+          <span className={`hud-score__val hud-score__val--${side}`}>{score}</span>
           {delta !== null && (
             <span key={delta.key} className={`hud-score__delta hud-score__delta--${side}`}>
               {delta.val > 0 ? `+${delta.val}` : delta.val}
