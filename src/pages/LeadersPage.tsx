@@ -48,8 +48,8 @@ export function LeadersPage() {
     }
     if (pendingLeaderAssign !== null) {
       setPendingLeaderAssign(null);
-      setCurrentPage('main');
     }
+    setCurrentPage('main');
   }, [assignSide, pendingLeaderAssign, setLeaderLeft, setLeaderRight, setPendingLeaderAssign, setCurrentPage]);
 
   return (
