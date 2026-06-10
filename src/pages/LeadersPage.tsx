@@ -12,11 +12,18 @@ export function LeadersPage() {
     leaderLeft, leaderRight,
     setLeaderLeft, setLeaderRight,
     pendingLeaderAssign, setPendingLeaderAssign,
+    pendingAffilFilter, setPendingAffilFilter,
     setCurrentPage, interactiveBg,
   } = useMcpStore();
 
   const [assignSide, setAssignSide] = useState<AssignSide>(pendingLeaderAssign ?? 'left');
-  const [filterAffil, setFilterAffil] = useState<string | null>(null);
+  const [filterAffil, setFilterAffil] = useState<string | null>(() => {
+    if (pendingAffilFilter) {
+      setPendingAffilFilter(null);
+      return pendingAffilFilter;
+    }
+    return null;
+  });
   const [search, setSearch] = useState('');
 
   const searchLower = search.toLowerCase();

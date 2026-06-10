@@ -8,6 +8,8 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
   const leaderLeft = useMcpStore((s) => s.leaderLeft);
   const leaderRight = useMcpStore((s) => s.leaderRight);
   const showAffiliationBanner = useMcpStore((s) => s.showAffiliationBanner);
+  const setCurrentPage = useMcpStore((s) => s.setCurrentPage);
+  const setPendingAffilFilter = useMcpStore((s) => s.setPendingAffilFilter);
   const leader = side === 'left' ? leaderLeft : leaderRight;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -26,13 +28,23 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
 
   const fx = getAffiliationFx(leader.affiliations);
   const hasSigil = Boolean(fx.customGlyph);
+  const primaryAffil = leader.affiliations[0] ?? null;
+
+  const handleClick = () => {
+    if (primaryAffil) setPendingAffilFilter(primaryAffil);
+    setCurrentPage('leaders');
+  };
 
   return (
     <div
       ref={ref}
-      className={`aff-banner aff-banner--${side} aff-banner--vA`}
+      role="button"
+      tabIndex={0}
+      className={`aff-banner aff-banner--${side} aff-banner--vA aff-banner--clickable`}
       style={{ ['--fac' as string]: fx.color, ['--icon-scale' as string]: fx.iconScale ?? 1 } as React.CSSProperties}
-      aria-label={`Affiliation: ${fx.name}`}
+      aria-label={`Ver líderes de ${fx.name}`}
+      onClick={handleClick}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
     >
       <div className="aff-banner__bg">
         {fx.iconSrc && (
