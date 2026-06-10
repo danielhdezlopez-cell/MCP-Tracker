@@ -282,13 +282,13 @@
   object-position: center 40%;
 }
 .anim-theme-bg--green-goblin video {
-  object-position: center 30%;
+  object-position: center 15%;
 }
 .anim-theme-bg--doc-ock video {
-  object-position: center 30%;
+  object-position: center -10%;
 }
 .anim-theme-bg--namor video {
-  object-position: center 35%;
+  object-position: center 20%;
 }
 .anim-theme-bg--cyclops video {
   transform: scale(1.25);
