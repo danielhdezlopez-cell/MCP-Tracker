@@ -24,7 +24,7 @@ export const VIDEO_THEMES: Partial<Record<Theme, VideoThemeEntry>> = {
   cyclops:             { src: `${ASSETS_BASE}assets/backgrounds/BG_Cyclops.mp4`,                    modifier: 'anim-theme-bg--cyclops', smoothLoop: true, scale: 1.25 },
   'dark-dimension':    { src: `${ASSETS_BASE}assets/backgrounds/BG_Dormammu.mp4`,                   modifier: 'anim-theme-bg--dark-dimension'    },
   daredevil:           { src: `${ASSETS_BASE}assets/backgrounds/BG_Daredevil.mp4`,                  modifier: 'anim-theme-bg--daredevil', smoothLoop: true, scale: 1.25 },
-  'doc-ock':           { src: `${ASSETS_BASE}assets/backgrounds/BG_DocOck.mp4`,                     modifier: 'anim-theme-bg--doc-ock', objectPositionY: '-10%' },
+  'doc-ock':           { src: `${ASSETS_BASE}assets/backgrounds/BG_DocOck.mp4`,                     modifier: 'anim-theme-bg--doc-ock', objectPositionY: '40%', scale: 1.1 },
   'dr-strange':        { src: `${ASSETS_BASE}assets/backgrounds/BG_DrStrange.mp4`,                  modifier: 'anim-theme-bg--dr-strange', objectPositionY: '30%' },
   dracula:             { src: `${ASSETS_BASE}assets/backgrounds/BG_Dracula.mp4`,                    modifier: 'anim-theme-bg--dracula'           },
   'elsa-bloodstone':   { src: `${ASSETS_BASE}assets/backgrounds/BG_ElsaBloodstone.mp4`,           modifier: 'anim-theme-bg--elsa-bloodstone',   smoothLoop: true },
