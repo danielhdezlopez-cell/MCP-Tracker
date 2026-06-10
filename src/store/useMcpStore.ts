@@ -14,6 +14,7 @@ interface McpState {
   currentPage: AppPage;
   pendingLeaderAssign: AssignSide | null;
   pendingMissionType: 'Secure' | 'Extract' | null;
+  pendingAffilFilter: string | null;
 
   // Game state
   scoreLeft: number;
@@ -54,6 +55,7 @@ interface McpState {
   setCurrentPage: (page: AppPage) => void;
   setPendingLeaderAssign: (side: AssignSide | null) => void;
   setPendingMissionType: (type: 'Secure' | 'Extract' | null) => void;
+  setPendingAffilFilter: (affil: string | null) => void;
 
   setScoreLeft: (score: number) => void;
   setScoreRight: (score: number) => void;
@@ -198,6 +200,7 @@ export const useMcpStore = create<McpState>()(
       currentPage: 'main',
       pendingLeaderAssign: null,
       pendingMissionType: null,
+      pendingAffilFilter: null,
 
       scoreLeft: 0,
       scoreRight: 0,
@@ -233,6 +236,7 @@ export const useMcpStore = create<McpState>()(
       setCurrentPage: (page) => set({ currentPage: page }),
       setPendingLeaderAssign: (side) => set({ pendingLeaderAssign: side }),
       setPendingMissionType: (type) => set({ pendingMissionType: type }),
+      setPendingAffilFilter: (affil) => set({ pendingAffilFilter: affil }),
 
       setScoreLeft: (score) => set({ scoreLeft: Math.max(0, Math.min(20, score)) }),
       setScoreRight: (score) => set({ scoreRight: Math.max(0, Math.min(20, score)) }),
