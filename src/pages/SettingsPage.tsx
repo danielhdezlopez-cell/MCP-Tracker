@@ -153,7 +153,7 @@ export function SettingsPage() {
       <AnimatedBackground mode={interactiveBg} />
       <div className="settings-page__inner">
         <div className="settings-section">
-          <div className="settings-section__title">⏱ TIMER OPTIONS</div>
+          <div className="settings-section__title">⏱ TIMER</div>
           <div className="settings-row">
             <button
               className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 90 * 60 ? 'active' : ''}`}
@@ -185,7 +185,7 @@ export function SettingsPage() {
 
         <div className="settings-section">
           <div className="settings-section__title">⚙ GENERAL</div>
-          <div className="settings-item">
+          <div className="settings-item" style={{ display: 'none' }}>
             <label className="settings-item__label">OFFLINE READY</label>
             <div className="settings-item__control">
               <span className={`settings-offline-badge${offlineReady ? ' settings-offline-badge--ready' : ''}`}>
@@ -237,7 +237,7 @@ export function SettingsPage() {
               </button>
             </div>
           </div>
-          <div className="settings-item settings-item--preload">
+          <div className="settings-item settings-item--preload" style={{ display: 'none' }}>
             <label className="settings-item__label">PRELOAD THEMES</label>
             <div className="settings-item__control settings-preload-ctrl">
               {!preloadStarted ? (
