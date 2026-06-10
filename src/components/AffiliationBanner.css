@@ -142,10 +142,10 @@
    ════════════════════════════════════════════════════════════════════ */
 
 .aff-banner--vA{
-  --icon:clamp(72px,7.4vw,88px);          /* badge diameter (tune per layout) */
+  --icon:clamp(61px,6.3vw,75px);          /* badge diameter −15% vs original */
   position:absolute;bottom:14px;z-index:6;width:86%;
-  display:flex;align-items:center;gap:clamp(12px,1.6vw,18px);
-  padding:0 clamp(18px,2.4vw,26px);
+  display:flex;align-items:center;gap:clamp(10px,1.4vw,15px);
+  padding:0 clamp(15px,2.0vw,22px);
   /* reset base styles — the layered __bg/__edge own these */
   overflow:visible;
   border-top:none;
@@ -183,7 +183,7 @@
   background:var(--fac);box-shadow:0 0 14px color-mix(in srgb,var(--fac) 80%,transparent);
 }
 .aff-banner__wm{                           /* oversized watermark bleeding off the edge */
-  position:absolute;bottom:-14%;width:clamp(96px,12vw,150px);aspect-ratio:1;
+  position:absolute;bottom:-14%;width:clamp(82px,10.2vw,128px);aspect-ratio:1;
   opacity:0.09;pointer-events:none;object-fit:contain;z-index:0;
 }
 .aff-banner--left  .aff-banner__wm{ right:6%; }
@@ -219,14 +219,14 @@
   line-height:1;min-width:0;}
 .aff-banner--vA .aff-banner__eyebrow{display:none;}
 .aff-banner--vA .aff-banner__name{
-  font:800 clamp(19px,2.3vw,28px)/0.95 'Orbitron',sans-serif;
+  font:800 clamp(16px,1.96vw,24px)/0.95 'Orbitron',sans-serif;
   letter-spacing:0.03em;color:#f3f7ff;text-transform:uppercase;white-space:nowrap;
   text-shadow:0 2px 10px rgba(0,0,0,0.6);
 }
 
 /* phones: keep the icon controlled so the dip + name never collide */
 @media (max-width:480px){
-  .aff-banner--vA{ --icon:clamp(60px,16vw,72px); }
+  .aff-banner--vA{ --icon:clamp(51px,13.6vw,61px); }
 }
 
 /* ── Clickable banner ─────────────────────────────────────────── */
