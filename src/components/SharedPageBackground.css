@@ -19,5 +19,5 @@
 .shared-page-bg__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(4, 6, 14, 0.72);
+  background: rgba(4, 6, 14, 0.35);
 }
