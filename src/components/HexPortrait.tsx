@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './HexPortrait.css';
 
 export type HexVariant = 'left' | 'right' | 'neutral';
@@ -12,7 +13,7 @@ interface HexPortraitProps {
   empty?: boolean;
 }
 
-export function HexPortrait({
+export const HexPortrait = memo(function HexPortrait({
   image,
   name,
   variant = 'neutral',
@@ -44,11 +45,11 @@ export function HexPortrait({
             <span className="hex-portrait__plus">+</span>
           </div>
         ) : image ? (
-          <img src={image} alt={name} className="hex-portrait__img" draggable={false} />
+          <img src={image} alt={name} className="hex-portrait__img" draggable={false} loading="lazy" />
         ) : (
           <div className="hex-portrait__placeholder">{initials}</div>
         )}
       </div>
     </div>
   );
-}
+});

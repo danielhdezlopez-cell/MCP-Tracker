@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useMcpStore, type AssignSide, getThemeFromLeader } from '../store/useMcpStore';
 import { LEADERS, type Leader } from '../data/leadersData';
 import { LeaderGrid } from '../components/LeaderGrid';
@@ -19,13 +19,17 @@ export function LeadersPage() {
   const [filterAffil, setFilterAffil] = useState<string | null>(null);
   const [search, setSearch] = useState('');
 
-  const filtered = LEADERS.filter(l => {
-    const matchSearch = l.name.toLowerCase().includes(search.toLowerCase());
-    const matchAffil = filterAffil === null || l.affiliations.includes(filterAffil);
-    return matchSearch && matchAffil;
-  });
+  const searchLower = search.toLowerCase();
+  const filtered = useMemo(
+    () => LEADERS.filter(l => {
+      const matchSearch = l.name.toLowerCase().includes(searchLower);
+      const matchAffil = filterAffil === null || l.affiliations.includes(filterAffil);
+      return matchSearch && matchAffil;
+    }),
+    [searchLower, filterAffil],
+  );
 
-  const handleSelect = (leader: Leader) => {
+  const handleSelect = useCallback((leader: Leader) => {
     // Kick off theme preload immediately — before the page transition
     const autoTheme = getThemeFromLeader(leader);
     if (autoTheme) preloadTheme(autoTheme, true);
@@ -39,7 +43,7 @@ export function LeadersPage() {
       setPendingLeaderAssign(null);
       setCurrentPage('main');
     }
-  };
+  }, [assignSide, pendingLeaderAssign, setLeaderLeft, setLeaderRight, setPendingLeaderAssign, setCurrentPage]);
 
   return (
     <div className="leaders-page">
