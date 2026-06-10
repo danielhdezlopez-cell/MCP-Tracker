@@ -1,0 +1,23 @@
+.shared-page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shared-page-bg__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.shared-page-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 14, 0.72);
+}

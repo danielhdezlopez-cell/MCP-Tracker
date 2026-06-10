@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useMcpStore } from '../store/useMcpStore';
 import { PageBar } from './PageBar';
-import { AnimatedThemeBackground } from './AnimatedThemeBackground';
+import { SharedPageBackground } from './SharedPageBackground';
 import { MainPage } from '../pages/MainPage';
 import { LeadersPage } from '../pages/LeadersPage';
 import { MissionsPage } from '../pages/MissionsPage';
@@ -29,7 +29,7 @@ export function Layout() {
   return (
     <div className="layout" ref={layoutRef}>
       {/* VS overlay handles its own split backgrounds on the main page */}
-      {currentPage !== 'main' && <AnimatedThemeBackground theme={theme} />}
+      {currentPage !== 'main' && <SharedPageBackground />}
       {currentPage !== 'main' && <PageBar />}
       <main className="layout__content">
         <div key={currentPage} className="layout__page-anim">
