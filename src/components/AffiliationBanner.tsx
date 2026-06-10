@@ -10,6 +10,7 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
   const showAffiliationBanner = useMcpStore((s) => s.showAffiliationBanner);
   const setCurrentPage = useMcpStore((s) => s.setCurrentPage);
   const setPendingAffilFilter = useMcpStore((s) => s.setPendingAffilFilter);
+  const setPendingLeaderAssign = useMcpStore((s) => s.setPendingLeaderAssign);
   const leader = side === 'left' ? leaderLeft : leaderRight;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -31,6 +32,7 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
   const primaryAffil = leader.affiliations[0] ?? null;
 
   const handleClick = () => {
+    setPendingLeaderAssign(side);
     if (primaryAffil) setPendingAffilFilter(primaryAffil);
     setCurrentPage('leaders');
   };
