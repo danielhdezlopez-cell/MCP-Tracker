@@ -12,6 +12,7 @@ import { useIdleDetection } from '../hooks/useIdleDetection';
 import { usePageVisibility } from '../hooks/usePageVisibility';
 import { useWakeLock } from '../hooks/useWakeLock';
 import { ScoreProgressIndicator } from '../components/ScoreProgressIndicator';
+import RoundBackground from '../components/RoundBackground';
 import './MainPage.css';
 
 const MAX_SCORE = 20;
@@ -129,6 +130,7 @@ export function MainPage() {
   const setCurrentPage = useMcpStore(s => s.setCurrentPage);
   const showMainLeaderPortraits    = useMcpStore(s => s.showMainLeaderPortraits);
   const setShowMainLeaderPortraits = useMcpStore(s => s.setShowMainLeaderPortraits);
+  const round = useMcpStore(s => s.round);
   const [showReset, setShowReset] = useState(false);
 
   useIdleDetection();
@@ -180,6 +182,7 @@ export function MainPage() {
 
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
+        <RoundBackground round={round} />
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
         <div className="vs-battle__timer">
           <TimerPanel onResetRequest={() => setShowReset(true)} />

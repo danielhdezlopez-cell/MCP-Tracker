@@ -44,6 +44,8 @@ export default defineConfig({
         clientsClaim: true,
         // Pre-cache all static assets (JS, CSS, HTML, images, fonts)
         globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff,woff2}'],
+        // Round backgrounds are fetched on demand — exclude from precache (8 MB)
+        globIgnores: ['backgrounds/**'],
         // 15 MB max per pre-cached file (for large portrait PNGs/webps)
         maximumFileSizeToCacheInBytes: 15 * 1024 * 1024,
         runtimeCaching: [
@@ -85,6 +87,16 @@ export default defineConfig({
               rangeRequests: true,
               expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 60 },
               cacheableResponse: { statuses: [0, 200, 206] },
+            },
+          },
+          // Round background JPEGs — cache on first use, serve offline after
+          {
+            urlPattern: /\/backgrounds\/.*\.jpg$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'mcp-round-backgrounds-v1',
+              expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 90 },
+              cacheableResponse: { statuses: [0, 200] },
             },
           },
           // GitHub Pages hosted assets catch-all (handles same-origin assets
