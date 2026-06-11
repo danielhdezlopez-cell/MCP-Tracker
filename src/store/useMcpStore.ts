@@ -37,10 +37,11 @@ interface McpState {
   kangRightTrustPlayed: boolean;
   kangRightTrustRound: number | null;
 
-  // Timer
-  timerDuration: number;
-  timerRemaining: number;
-  timerRunning: boolean;
+  // Timer (timestamp-based: no per-second writes, no drift, survives app kills)
+  timerDuration: number;          // total seconds
+  timerEndsAt: number | null;     // epoch-ms deadline while running; null = paused/stopped
+  timerRemainingPaused: number;   // seconds left while paused (= duration when untouched)
+  timerCritical: boolean;         // ≤15 min flag — written on threshold crossing, not per tick
 
   // Settings
   theme: Theme;
@@ -69,8 +70,10 @@ interface McpState {
   setKangRightSetup: (data: { answered: boolean; chronalPlayed: boolean; chronalRound: number | null; trustPlayed: boolean; trustRound: number | null }) => void;
 
   setTimerDuration: (duration: number) => void;
-  setTimerRemaining: (remaining: number) => void;
-  setTimerRunning: (running: boolean) => void;
+  startTimer: () => void;
+  pauseTimer: (remaining?: number) => void;
+  toggleTimer: () => void;
+  setTimerCritical: (critical: boolean) => void;
 
   setTheme: (theme: Theme) => void;
   setBrightness: (brightness: number) => void;
@@ -178,6 +181,19 @@ export function getThemeFromLeader(leader: Leader): Theme | null {
   return null;
 }
 
+/** Seconds remaining, derived from the deadline timestamp (running) or the paused snapshot. */
+export function getTimerRemaining(
+  s: Pick<McpState, 'timerEndsAt' | 'timerRemainingPaused'>,
+  now: number = Date.now(),
+): number {
+  if (s.timerEndsAt !== null) return Math.max(0, Math.ceil((s.timerEndsAt - now) / 1000));
+  return s.timerRemainingPaused;
+}
+
+export function isTimerRunning(s: Pick<McpState, 'timerEndsAt'>): boolean {
+  return s.timerEndsAt !== null;
+}
+
 const KANG_LEFT_RESET = {
   kangLeftSetupAnswered: false,
   kangLeftChronalPlayed: false,
@@ -222,8 +238,9 @@ export const useMcpStore = create<McpState>()(
       kangRightTrustRound: null,
 
       timerDuration: 90 * 60,
-      timerRemaining: 90 * 60,
-      timerRunning: false,
+      timerEndsAt: null,
+      timerRemainingPaused: 90 * 60,
+      timerCritical: false,
 
       theme: 'shield',
       brightness: 80,
@@ -284,13 +301,33 @@ export const useMcpStore = create<McpState>()(
         kangRightTrustRound: data.trustRound,
       }),
 
-      setTimerDuration: (duration) => {
-        const current = get();
-        set({ timerDuration: duration, timerRemaining: duration, timerRunning: false });
-        void current;
+      setTimerDuration: (duration) => set({
+        timerDuration: duration,
+        timerRemainingPaused: duration,
+        timerEndsAt: null,
+        timerCritical: false,
+      }),
+      startTimer: () => {
+        const { timerEndsAt, timerRemainingPaused } = get();
+        if (timerEndsAt !== null || timerRemainingPaused <= 0) return;
+        set({ timerEndsAt: Date.now() + timerRemainingPaused * 1000 });
       },
-      setTimerRemaining: (remaining) => set({ timerRemaining: Math.max(0, remaining) }),
-      setTimerRunning: (running) => set({ timerRunning: running }),
+      pauseTimer: (remaining) => {
+        const state = get();
+        if (state.timerEndsAt === null && remaining === undefined) return;
+        set({
+          timerEndsAt: null,
+          timerRemainingPaused: Math.max(0, remaining ?? getTimerRemaining(state)),
+        });
+      },
+      toggleTimer: () => {
+        const { timerEndsAt, startTimer, pauseTimer } = get();
+        if (timerEndsAt !== null) pauseTimer();
+        else startTimer();
+      },
+      setTimerCritical: (critical) => {
+        if (get().timerCritical !== critical) set({ timerCritical: critical });
+      },
 
       setTheme: (theme) => {
         // Tech Hex Grid auto-enables with neon-blue, auto-disables otherwise
@@ -317,8 +354,9 @@ export const useMcpStore = create<McpState>()(
           round: 1,
           selectedSecure: null,
           selectedExtract: null,
-          timerRemaining: timerDuration,
-          timerRunning: false,
+          timerRemainingPaused: timerDuration,
+          timerEndsAt: null,
+          timerCritical: false,
           ...KANG_LEFT_RESET,
           ...KANG_RIGHT_RESET,
         });
@@ -327,6 +365,22 @@ export const useMcpStore = create<McpState>()(
     {
       name: 'mcp-tracker-store',
       onRehydrateStorage: () => (state) => {
+        // ── Timer migration: legacy timerRemaining/timerRunning → timestamp model ──
+        if (state) {
+          const legacy = state as unknown as { timerRemaining?: number; timerRunning?: boolean };
+          if (typeof legacy.timerRemaining === 'number') {
+            state.timerRemainingPaused = Math.max(0, legacy.timerRemaining);
+            state.timerEndsAt = null;
+            delete legacy.timerRemaining;
+            delete legacy.timerRunning;
+          }
+          // A deadline persisted from a killed session that already passed → expired, paused at 0
+          if (state.timerEndsAt !== null && state.timerEndsAt <= Date.now()) {
+            state.timerEndsAt = null;
+            state.timerRemainingPaused = 0;
+          }
+          if (typeof state.timerCritical !== 'boolean') state.timerCritical = false;
+        }
         if (state && !(['off', 'tech-hex'] as string[]).includes(state.interactiveBg)) {
           state.interactiveBg = 'tech-hex';
         }

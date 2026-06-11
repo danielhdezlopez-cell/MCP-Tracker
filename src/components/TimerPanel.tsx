@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { useMcpStore } from '../store/useMcpStore';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useMcpStore, getTimerRemaining } from '../store/useMcpStore';
 import './TimerPanel.css';
 
 const LONG_PRESS_MS = 500;
+const CRITICAL_S = 15 * 60;
+const TICK_MS = 250; // sampling rate; re-render only happens when the displayed second changes
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -10,46 +12,61 @@ function formatTime(seconds: number): string {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
+/**
+ * Remaining seconds, derived from the store's deadline timestamp.
+ * While running, an interval samples the clock every TICK_MS; React only
+ * re-renders when the integer second actually changes. The store itself is
+ * only written on start/pause/expire — never per second.
+ */
+function useTimerRemaining(running: boolean): number {
+  const subscribe = useCallback((onTick: () => void) => {
+    if (!running) return () => {};
+    const id = setInterval(onTick, TICK_MS);
+    return () => clearInterval(id);
+  }, [running]);
+
+  return useSyncExternalStore(
+    subscribe,
+    () => getTimerRemaining(useMcpStore.getState()),
+  );
+}
+
 export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) {
-  const timerRemaining  = useMcpStore(s => s.timerRemaining);
-  const timerRunning    = useMcpStore(s => s.timerRunning);
-  const timerDuration   = useMcpStore(s => s.timerDuration);
-  const setTimerRemaining = useMcpStore(s => s.setTimerRemaining);
-  const setTimerRunning   = useMcpStore(s => s.setTimerRunning);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timerEndsAt      = useMcpStore(s => s.timerEndsAt);
+  const timerDuration    = useMcpStore(s => s.timerDuration);
+  const toggleTimer      = useMcpStore(s => s.toggleTimer);
+  const pauseTimer       = useMcpStore(s => s.pauseTimer);
+  const setTimerCritical = useMcpStore(s => s.setTimerCritical);
+
+  const timerRunning = timerEndsAt !== null;
+  const remaining = useTimerRemaining(timerRunning);
+
   const longPressRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const longFiredRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   const pressStartRef = useRef<number>(0);
   const [resetProgress, setResetProgress] = useState(0); // 0..1
 
+  // Deadline reached → settle the store into "expired, paused at 0"
   useEffect(() => {
-    if (timerRunning && timerRemaining > 0) {
-      intervalRef.current = setInterval(() => {
-        setTimerRemaining(useMcpStore.getState().timerRemaining - 1);
-      }, 1000);
-    } else {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      if (timerRemaining <= 0 && timerRunning) {
-        setTimerRunning(false);
-      }
-    }
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [timerRunning, timerRemaining]);
+    if (timerRunning && remaining <= 0) pauseTimer(0);
+  }, [timerRunning, remaining, pauseTimer]);
 
-  const isExpired = timerRemaining <= 0;
-  const isCritical = timerRemaining <= 15 * 60;
-  const isPaused = !timerRunning && timerRemaining > 0 && timerRemaining < timerDuration;
+  const isExpired = remaining <= 0;
+  const isCritical = remaining <= CRITICAL_S;
+  const isPaused = !timerRunning && remaining > 0 && remaining < timerDuration;
   const stateClass = isExpired ? 'expired' : isCritical ? 'critical' : '';
 
   useEffect(() => {
-    if (isCritical && timerRunning) {
+    const critical = isCritical && timerRunning;
+    setTimerCritical(critical);
+    if (critical) {
       document.body.dataset.timerState = 'critical';
     } else {
       delete document.body.dataset.timerState;
     }
     return () => { delete document.body.dataset.timerState; };
-  }, [isCritical, timerRunning]);
+  }, [isCritical, timerRunning, setTimerCritical]);
 
   const cancelLongPress = () => {
     if (longPressRef.current) clearTimeout(longPressRef.current);
@@ -87,7 +104,7 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
     cancelLongPress();
     if (!wasFired) {
       // Short tap — toggle timer
-      if (timerRemaining > 0) setTimerRunning(!timerRunning);
+      if (remaining > 0) toggleTimer();
     }
     e.preventDefault();
   };
@@ -95,7 +112,7 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      if (timerRemaining > 0) setTimerRunning(!timerRunning);
+      if (remaining > 0) toggleTimer();
     }
   };
 
@@ -146,7 +163,7 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
         )}
         <div className="timer-panel__display-wrap">
           <div className={`timer-panel__display ${stateClass}`}>
-            {formatTime(timerRemaining)}
+            {formatTime(remaining)}
           </div>
         </div>
         <div

@@ -10,6 +10,7 @@ import { NavIconSettings } from '../components/icons';
 import { AffiliationBanner } from '../components/AffiliationBanner';
 import { useIdleDetection } from '../hooks/useIdleDetection';
 import { usePageVisibility } from '../hooks/usePageVisibility';
+import { useWakeLock } from '../hooks/useWakeLock';
 import { ScoreProgressIndicator } from '../components/ScoreProgressIndicator';
 import './MainPage.css';
 
@@ -132,6 +133,7 @@ export function MainPage() {
 
   useIdleDetection();
   usePageVisibility();
+  useWakeLock();
 
   const themeLeft  = leaderLeft  ? getThemeFromLeader(leaderLeft)  : null;
   const themeRight = leaderRight ? getThemeFromLeader(leaderRight) : null;

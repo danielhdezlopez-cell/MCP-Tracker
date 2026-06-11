@@ -9,7 +9,12 @@ import { SettingsPage } from '../pages/SettingsPage';
 import './Layout.css';
 
 export function Layout() {
-  const { currentPage, theme, brightness } = useMcpStore();
+  // Per-field selectors: subscribing to the whole store re-rendered the
+  // entire app on every store write. With these, Layout only re-renders
+  // when one of these three values actually changes.
+  const currentPage = useMcpStore(s => s.currentPage);
+  const theme       = useMcpStore(s => s.theme);
+  const brightness  = useMcpStore(s => s.brightness);
   const layoutRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

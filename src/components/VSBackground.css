@@ -23,6 +23,21 @@
   display: block;
 }
 
+/* Static poster behind the video — shown while the video is suspended
+   (deep idle / page hidden) to cut video-decode battery cost. */
+.vs-bg__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* Dark gradient fallbacks when no leader video */
 .vs-bg__fallback--left {
   position: absolute;

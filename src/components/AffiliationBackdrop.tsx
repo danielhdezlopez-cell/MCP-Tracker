@@ -4,12 +4,14 @@ import { getAffiliationFx, type AffiliationFx } from '../data/affiliationsFx';
 import './AffiliationBackdrop.css';
 
 export function AffiliationBackdrop() {
-  const { theme, leaderLeft, leaderRight, timerRemaining, timerRunning } = useMcpStore();
+  const theme       = useMcpStore(s => s.theme);
+  const leaderLeft  = useMcpStore(s => s.leaderLeft);
+  const leaderRight = useMcpStore(s => s.leaderRight);
+  const critical    = useMcpStore(s => s.timerCritical);
 
   if (theme !== 'neon-blue') return null;
   if (!leaderLeft && !leaderRight) return null;
 
-  const critical = timerRunning && timerRemaining <= 15 * 60;
   const fxLeft  = leaderLeft  ? getAffiliationFx(leaderLeft.affiliations)  : null;
   const fxRight = leaderRight ? getAffiliationFx(leaderRight.affiliations) : null;
 
