@@ -189,10 +189,12 @@ export function MainPage() {
           <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
         <div className="vs-battle__side vs-battle__side--left">
+          <RoundBackground round={round} />
           <VSPortrait side="left" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="left" />
         </div>
         <div className="vs-battle__side vs-battle__side--right">
+          <RoundBackground round={round} />
           <VSPortrait side="right" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="right" />
         </div>
