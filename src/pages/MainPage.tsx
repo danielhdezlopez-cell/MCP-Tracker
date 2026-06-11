@@ -182,19 +182,17 @@ export function MainPage() {
 
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
-        <RoundBackground round={round} />
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
-        <RoundBackground round={round} />
         <div className="vs-battle__timer">
           <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
         <div className="vs-battle__side vs-battle__side--left">
-          <RoundBackground round={round} />
+          <RoundBackground round={round} leaderId={leaderLeft?.id} />
           <VSPortrait side="left" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="left" />
         </div>
         <div className="vs-battle__side vs-battle__side--right">
-          <RoundBackground round={round} />
+          <RoundBackground round={round} leaderId={leaderRight?.id} />
           <VSPortrait side="right" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="right" />
         </div>

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { BACKGROUNDS } from '../data/backgroundsManifest';
+import { LEADER_BACKGROUNDS } from '../data/leaderBackgroundsMap';
 import './RoundBackground.css';
 
 const BASE = `${import.meta.env.BASE_URL}backgrounds/`;
 
-/** Baraja Fisher-Yates (copia) */
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -14,66 +14,81 @@ function shuffle(arr) {
   return a;
 }
 
-/**
- * Background alternativo por ronda.
- *
- * - round <= 1  → no renderiza nada (se ve el wallpaper interactivo actual).
- * - round >= 2  → muestra una imagen aleatoria del mazo (sin repetir hasta
- *   agotarlo) con transición crossfade + zoom + barrido de escaneo.
- * - Si la ronda vuelve a 1 (nueva partida), se rebaraja el mazo.
- *
- * Uso: <RoundBackground round={round} />
- * Colocar como PRIMER hijo del contenedor de la pantalla MAIN
- * (el contenedor debe tener position: relative u overflow propio).
- */
-export default function RoundBackground({ round }) {
-  // Mazo barajado de imágenes para la partida en curso
-  const deckRef = useRef(shuffle(BACKGROUNDS));
-  const deckIdxRef = useRef(0);
-  const lastRoundRef = useRef(round);
+function getPool(leaderId) {
+  if (!leaderId) return BACKGROUNDS;
+  return LEADER_BACKGROUNDS[leaderId] ?? BACKGROUNDS;
+}
 
-  // Dos capas para el crossfade: [src capa A, src capa B]
+/**
+ * Per-player round background.
+ *
+ * - round <= 1 or no leaderId → renders nothing (theme wallpaper shows through).
+ * - round >= 2 + leaderId → crossfade through images specific to that leader.
+ *   Leaders with no curated images fall back to the global shuffled deck.
+ * - Leader change mid-game → deck resets immediately to the new leader's pool.
+ *
+ * Mount inside each vs-battle__side (position:relative / overflow:hidden).
+ */
+export default function RoundBackground({ round, leaderId }) {
+  const deckRef       = useRef(shuffle(getPool(leaderId)));
+  const deckIdxRef    = useRef(0);
+  const prevRoundRef  = useRef(round);
+  const prevLeaderRef = useRef(leaderId);
+  const activeRef     = useRef(0); // mirrors `active` — always current in async callbacks
+
   const [layers, setLayers] = useState([null, null]);
-  // Capa activa (la visible): 0 ó 1
-  const [active, setActive] = useState(0);
-  const [sweep, setSweep] = useState(false);
+  const [active,  setActive]  = useState(0);
+  const [sweep,   setSweep]   = useState(false);
 
   useEffect(() => {
-    const prev = lastRoundRef.current;
-    lastRoundRef.current = round;
+    const prevRound  = prevRoundRef.current;
+    const prevLeader = prevLeaderRef.current;
+    prevRoundRef.current  = round;
+    prevLeaderRef.current = leaderId;
 
-    // Nueva partida: ronda baja a 1 → rebarajar y limpiar
-    if (round <= 1) {
-      if (prev > 1) {
-        deckRef.current = shuffle(BACKGROUNDS);
-        deckIdxRef.current = 0;
+    const leaderChanged = leaderId !== prevLeader;
+
+    // Reset deck and clear layers when the leader changes.
+    if (leaderChanged) {
+      deckRef.current    = shuffle(getPool(leaderId));
+      deckIdxRef.current = 0;
+      activeRef.current  = 0;
+      setLayers([null, null]);
+      setActive(0);
+    }
+
+    // Nothing to show: round 1 or no leader.
+    if (round <= 1 || !leaderId) {
+      if (!leaderChanged && (prevRound > 1 || prevLeader)) {
         setLayers([null, null]);
+        activeRef.current = 0;
+        setActive(0);
       }
       return;
     }
 
-    // Ronda 2+ y la ronda ha cambiado (o primera vez que entramos en 2+)
-    if (round === prev && layers[active]) return;
+    // Skip if neither round nor leader changed.
+    if (!leaderChanged && round === prevRound) return;
 
-    // Sacar siguiente carta del mazo (rebarajar si se agota)
+    // Advance the deck (reshuffle when exhausted).
     if (deckIdxRef.current >= deckRef.current.length) {
-      deckRef.current = shuffle(BACKGROUNDS);
+      deckRef.current    = shuffle(getPool(leaderId));
       deckIdxRef.current = 0;
     }
     const next = BASE + deckRef.current[deckIdxRef.current++];
 
-    // Precargar y, al estar lista, hacer el crossfade en la capa oculta
     const img = new Image();
     img.onload = () => {
-      const hidden = active === 0 ? 1 : 0;
+      const hidden = activeRef.current === 0 ? 1 : 0;
       setLayers((l) => {
         const copy = [...l];
         copy[hidden] = next;
         return copy;
       });
-      // Doble rAF para garantizar que la capa monta con opacity 0 antes de animar
+      // Double-rAF: new element mounts at opacity:0, then is-active triggers the transition.
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
+          activeRef.current = hidden;
           setActive(hidden);
           setSweep(true);
           setTimeout(() => setSweep(false), 900);
@@ -81,11 +96,9 @@ export default function RoundBackground({ round }) {
       );
     };
     img.src = next;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [round]);
+  }, [round, leaderId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Ronda 1: dejar ver el background interactivo actual
-  if (round <= 1 || (!layers[0] && !layers[1])) return null;
+  if (round <= 1 || !leaderId || (!layers[0] && !layers[1])) return null;
 
   return (
     <div className={`round-bg${sweep ? ' round-bg--sweep' : ''}`} aria-hidden="true">
