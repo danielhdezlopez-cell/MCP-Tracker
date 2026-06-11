@@ -183,7 +183,6 @@ export function MainPage() {
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
-        <RoundBackground round={round} />
         <div className="vs-battle__timer">
           <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
