@@ -1,39 +1,17 @@
-import { useEffect, useRef } from 'react';
-import { useMcpStore } from '../store/useMcpStore';
+import { useEffect } from 'react';
 
 /**
- * Pauses the game timer when the page becomes hidden (tab switch / screen lock).
- * On return, calculates elapsed real time and deducts it from timerRemaining,
- * then restores timerRunning so the interval resumes from the correct value.
+ * Sets `mcp-page-hidden` on <body> while the page is hidden so CSS can pause
+ * decorative animations.
  *
- * Also sets `mcp-page-hidden` on body to let CSS pause decorative animations.
+ * The game timer needs no handling here anymore: it is timestamp-based
+ * (`timerEndsAt`), so real time keeps flowing while the app is hidden and the
+ * correct remaining value is derived automatically on return.
  */
 export function usePageVisibility() {
-  const pausedByHiddenRef = useRef(false);
-  const hiddenAtRef = useRef<number | null>(null);
-
   useEffect(() => {
     const onVisibility = () => {
-      if (document.hidden) {
-        document.body.classList.add('mcp-page-hidden');
-        hiddenAtRef.current = Date.now();
-        const { timerRunning, setTimerRunning } = useMcpStore.getState();
-        if (timerRunning) {
-          pausedByHiddenRef.current = true;
-          setTimerRunning(false);
-        }
-      } else {
-        document.body.classList.remove('mcp-page-hidden');
-        if (pausedByHiddenRef.current && hiddenAtRef.current !== null) {
-          const elapsed = Math.floor((Date.now() - hiddenAtRef.current) / 1000);
-          const { timerRemaining, setTimerRemaining, setTimerRunning } = useMcpStore.getState();
-          const adjusted = Math.max(0, timerRemaining - elapsed);
-          setTimerRemaining(adjusted);
-          if (adjusted > 0) setTimerRunning(true);
-          pausedByHiddenRef.current = false;
-        }
-        hiddenAtRef.current = null;
-      }
+      document.body.classList.toggle('mcp-page-hidden', document.hidden);
     };
 
     document.addEventListener('visibilitychange', onVisibility);
