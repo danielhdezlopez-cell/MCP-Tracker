@@ -221,6 +221,7 @@ export const BACKGROUNDS = [
   'Sentinel_02.jpg',
   'Sentinel_03.jpg',
   'Sentinel_04.jpg',
+  'Sentinel_05.jpg',
   'She_Hulk.jpg',
   'She_Hulk_02.jpg',
   'Sam_Wilson_01.jpg',

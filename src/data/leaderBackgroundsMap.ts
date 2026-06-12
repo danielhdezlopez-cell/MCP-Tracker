@@ -55,7 +55,7 @@ export const LEADER_BACKGROUNDS: Record<string, string[]> = {
   'red-skull-master-of-hydra':     ['Red_Skull_01.jpg', 'Red_Skull_02.jpg', 'Red_Skull_03.jpg', 'Red_Skull_04.jpg', 'Red_Skull_05.jpg'],
   'red-skull-master-of-world':     ['Red_Skull_01.jpg', 'Red_Skull_02.jpg', 'Red_Skull_03.jpg', 'Red_Skull_04.jpg', 'Red_Skull_05.jpg'],
   'sam-wilson':                    ['Falcon.jpg', 'Falcon_01.jpg', 'Sam_Wilson_01.jpg', 'Sam_Wilson_02.jpg', 'Sam_Wilson_03.jpg'],
-  'sentinel':                      ['Sentinel_01.jpg', 'Sentinel_02.jpg', 'Sentinel_03.jpg', 'Sentinel_04.jpg'],
+  'sentinel':                      ['Sentinel_01.jpg', 'Sentinel_02.jpg', 'Sentinel_03.jpg', 'Sentinel_04.jpg', 'Sentinel_05.jpg'],
   'she-hulk':                      ['She_Hulk.jpg', 'She_Hulk_02.jpg'],
   'sin':                           ['Sin.jpg', 'Sin_01.jpg', 'Sin_02.jpg', 'Sin_03.jpg'],
   'spectrum':                      ['Spectrum.jpg', 'Monica_Rambeau_01.jpg', 'Monica_Rambeau_02.jpg', 'Monica_Rambeau_03.jpg', 'Monica_Rambeau_04.jpg'],
