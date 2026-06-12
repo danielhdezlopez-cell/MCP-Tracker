@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6px 14px;
+  padding: 6px 26px;
   gap: 4px;
   border-color: var(--color-accent-left);
   box-shadow: 0 0 12px var(--color-glow-left), inset 0 0 20px rgba(0,195,255,0.03);
@@ -142,14 +142,36 @@
 }
 
 .timer-panel__display {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 900;
   letter-spacing: 0.1em;
+  line-height: 1;
   color: var(--color-accent-left);
   text-shadow: 0 0 14px var(--color-accent-left), 0 0 28px rgba(0,195,255,0.2);
-  line-height: 1;
+  font-variant-numeric: tabular-nums;
   transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.timer-panel__min {
+  letter-spacing: 0.04em;
+}
+
+.timer-panel__sec {
+  position: absolute;
+  left: calc(100% + 0.06em);
+  top: 0.12em;
+  font-size: 0.34em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  text-shadow: 0 0 7px rgba(0,195,255,0.4);
+}
+
+.timer-panel__display.critical .timer-panel__sec {
+  text-shadow: 0 0 8px rgba(255,42,42,0.45);
 }
 
 .timer-panel__display.critical {

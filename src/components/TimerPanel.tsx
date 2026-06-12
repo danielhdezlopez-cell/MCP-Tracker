@@ -6,10 +6,10 @@ const LONG_PRESS_MS = 500;
 const CRITICAL_S = 15 * 60;
 const TICK_MS = 250; // sampling rate; re-render only happens when the displayed second changes
 
-function formatTime(seconds: number): string {
+function formatTime(seconds: number): { m: string; s: string } {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  return { m: String(m).padStart(2, '0'), s: String(s).padStart(2, '0') };
 }
 
 /**
@@ -116,6 +116,8 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
     }
   };
 
+  const { m, s } = formatTime(remaining);
+
   // SVG ring progress
   const R = 46;
   const CIRC = 2 * Math.PI * R;
@@ -162,8 +164,9 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
           </svg>
         )}
         <div className="timer-panel__display-wrap">
-          <div className={`timer-panel__display ${stateClass}`}>
-            {formatTime(remaining)}
+          <div className={`timer-panel__display ${stateClass}`} aria-label={`${m}:${s}`}>
+            <span className="timer-panel__min">{m}</span>
+            <span className="timer-panel__sec">{s}</span>
           </div>
         </div>
         <div
