@@ -164,15 +164,16 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
           </svg>
         )}
         <div className="timer-panel__display-wrap">
-          <div className={`timer-panel__display ${stateClass}`} aria-label={`${m}:${s}`}>
-            <span className="timer-panel__min">{m}</span>
-            <span className="timer-panel__sec">{s}</span>
+          <div className={`timer-panel__display ${stateClass}${isPaused ? ' timer-panel__display--paused' : ''}`} aria-label={`${m}:${s}`}>
+            <span className="timer-panel__digits">
+              <span className="timer-panel__min">{m}</span>
+              <span className="timer-panel__sec">{s}</span>
+            </span>
+            {isPaused && (
+              <span className="timer-panel__pause-icon" aria-hidden="true">⏸</span>
+            )}
           </div>
         </div>
-        <div
-          className={`timer-panel__paused-label${isPaused ? '' : ' timer-panel__paused-label--hidden'}`}
-          aria-hidden={!isPaused}
-        >PAUSED</div>
       </div>
 
     </>
