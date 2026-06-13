@@ -122,8 +122,9 @@ const VSPortrait = memo(function VSPortrait({ side, showPortrait }: { side: 'lef
 });
 
 export function MainPage() {
-  const scoreLeft     = useMcpStore(s => s.scoreLeft);
-  const scoreRight    = useMcpStore(s => s.scoreRight);
+  const scoreLeft          = useMcpStore(s => s.scoreLeft);
+  const scoreRight         = useMcpStore(s => s.scoreRight);
+  const roundScoreHistory  = useMcpStore(s => s.roundScoreHistory);
   const leaderLeft    = useMcpStore(s => s.leaderLeft);
   const leaderRight   = useMcpStore(s => s.leaderRight);
   const resetGame     = useMcpStore(s => s.resetGame);
@@ -149,7 +150,7 @@ export function MainPage() {
           <HudScore side="left" />
         </div>
         <div className="vs-hud__center">
-          <ScoreProgressIndicator player1Score={scoreLeft} player2Score={scoreRight} />
+          <ScoreProgressIndicator player1Score={scoreLeft} player2Score={scoreRight} roundScoreHistory={roundScoreHistory} />
         </div>
         <div className="vs-hud__side vs-hud__side--right">
           <HudScore side="right" />

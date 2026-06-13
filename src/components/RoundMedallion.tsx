@@ -15,6 +15,7 @@ function polar(cx: number, cy: number, r: number, deg: number) {
 export function RoundMedallion() {
   const round = useMcpStore((s) => s.round);
   const setRound = useMcpStore((s) => s.setRound);
+  const recordRoundScores = useMcpStore((s) => s.recordRoundScores);
   const kangLeftChronalRound  = useMcpStore((s) => s.kangLeftChronalRound);
   const kangRightChronalRound = useMcpStore((s) => s.kangRightChronalRound);
   const kangLeftTrustRound    = useMcpStore((s) => s.kangLeftTrustRound);
@@ -26,6 +27,7 @@ export function RoundMedallion() {
 
   const advance = () => {
     if (round < TOTAL) {
+      recordRoundScores();
       setRound(round + 1);
       const c = coreRef.current;
       if (c) { c.classList.remove('pulse'); void c.offsetWidth; c.classList.add('pulse'); }

@@ -125,6 +125,37 @@
   text-shadow: 0 0 6px var(--sp-p1-glow), 0 0 6px var(--sp-p2-glow);
 }
 
+/* ── Round history marks ────────────────────────────────── */
+.score-progress__mark {
+  position: absolute;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.score-progress__mark--p1 {
+  left: 3px;
+  background: var(--sp-p1);
+  box-shadow: 0 0 3px var(--sp-p1-glow);
+  opacity: 0.75;
+}
+
+.score-progress__mark--p2 {
+  right: 3px;
+  background: var(--sp-p2);
+  box-shadow: 0 0 3px var(--sp-p2-glow);
+  opacity: 0.75;
+}
+
+/* When the cell is already the active highlight, dim the mark slightly */
+.score-progress__cell[data-fill='p1'] .score-progress__mark--p1,
+.score-progress__cell[data-fill='p2'] .score-progress__mark--p2,
+.score-progress__cell[data-fill='both'] .score-progress__mark {
+  opacity: 0.4;
+}
+
 /* ── Compact: tablet landscape (iPad mini 6 in HUD) ─────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .score-progress { --sp-cell: clamp(24px, 2.4vw, 28px); }
