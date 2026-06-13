@@ -167,7 +167,6 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
           <div className={`timer-panel__display ${stateClass}${isPaused ? ' timer-panel__display--paused' : ''}`} aria-label={`${m}:${s}`}>
             <span className="timer-panel__digits">
               <span className="timer-panel__min">{m}</span>
-              <span className="timer-panel__colon">:</span>
               <span className="timer-panel__sec">{s}</span>
             </span>
             {isPaused && (
