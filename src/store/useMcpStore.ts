@@ -92,6 +92,9 @@ interface McpState {
   roundScoreHistory: RoundScoreEntry[];
   recordRoundScores: () => void;
 
+  showIntro: boolean;
+  setShowIntro: (show: boolean) => void;
+
   resetGame: () => void;
 }
 
@@ -260,6 +263,9 @@ export const useMcpStore = create<McpState>()(
       showAffiliationBanner: true,
       showMainLeaderPortraits: true,
 
+      showIntro: true,
+      setShowIntro: (show) => set({ showIntro: show }),
+
       setCurrentPage: (page) => set({ currentPage: page }),
       setPendingLeaderAssign: (side) => set({ pendingLeaderAssign: side }),
       setPendingMissionType: (type) => set({ pendingMissionType: type }),
@@ -379,6 +385,7 @@ export const useMcpStore = create<McpState>()(
           selectedSecure: null,
           selectedExtract: null,
           roundScoreHistory: [],
+          showIntro: true,
           timerRemainingPaused: timerDuration,
           timerEndsAt: null,
           timerCritical: false,
@@ -389,6 +396,11 @@ export const useMcpStore = create<McpState>()(
     }),
     {
       name: 'mcp-tracker-store',
+      partialize: (state) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { showIntro, setShowIntro, ...rest } = state;
+        return rest;
+      },
       onRehydrateStorage: () => (state) => {
         // ── Timer migration: legacy timerRemaining/timerRunning → timestamp model ──
         if (state) {

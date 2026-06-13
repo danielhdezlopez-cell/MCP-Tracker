@@ -1,19 +1,16 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { Layout } from './components/Layout';
 import { PWAUpdatePrompt } from './components/PWAUpdatePrompt';
 import { IntroSplash } from './components/IntroSplash';
-
-// Show intro only once per browser session (not on tab switches or SPA nav)
-const SESSION_KEY = 'mcp-intro-seen';
-const alreadySeen = sessionStorage.getItem(SESSION_KEY) === '1';
+import { useMcpStore } from './store/useMcpStore';
 
 function App() {
-  const [showIntro, setShowIntro] = useState(!alreadySeen);
+  const showIntro   = useMcpStore(s => s.showIntro);
+  const setShowIntro = useMcpStore(s => s.setShowIntro);
 
   const handleIntroDone = useCallback(() => {
-    sessionStorage.setItem(SESSION_KEY, '1');
     setShowIntro(false);
-  }, []);
+  }, [setShowIntro]);
 
   return (
     <>
