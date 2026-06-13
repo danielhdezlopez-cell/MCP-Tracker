@@ -39,7 +39,7 @@ export function IntroSplash({ onDone }: IntroSplashProps) {
       <video
         ref={videoRef}
         className="intro-splash__video"
-        src="/intro.mp4"
+        src={`${import.meta.env.BASE_URL}intro.mp4`}
         autoPlay
         muted
         playsInline
