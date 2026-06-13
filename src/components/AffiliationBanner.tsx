@@ -74,7 +74,7 @@ export function AffiliationBanner({ side }: { side: 'left' | 'right' }) {
       </span>
 
       <span className="aff-banner__text">
-        <span className="aff-banner__name">{fx.name}</span>
+        <span className={`aff-banner__name${fx.name.length > 18 ? ' aff-banner__name--lg' : fx.name.length > 12 ? ' aff-banner__name--md' : ''}`}>{fx.name}</span>
       </span>
     </div>
   );
