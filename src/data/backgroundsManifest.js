@@ -3,7 +3,6 @@ export const BACKGROUNDS = [
   'Adam_Warlock_02.jpg',
   'Adam_Warlock_03.jpg',
   'Adam_Warlock_04.jpg',
-  'Adam_Warlock_05.jpg',
   'Adam_Warlock_06.jpg',
   'Apocalypse_01.jpg',
   'Apocalypse_02.jpg',
