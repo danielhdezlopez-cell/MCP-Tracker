@@ -103,7 +103,7 @@ export function RoundMedallion() {
         >
           <span className="round-medallion__eyebrow">Round</span>
           <span className="round-medallion__num">{round}</span>
-          <span className="round-medallion__of">of {TOTAL}</span>
+
         </div>
         {(showTs || showTn) && (
           <div className="round-medallion__kang-badges" aria-label="Kang markers">
