@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './IntroSplash.css';
 
 interface IntroSplashProps {
@@ -11,31 +11,28 @@ const FADE_MS = 500;
 export function IntroSplash({ duration = 5000, onDone }: IntroSplashProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [fading, setFading] = useState(false);
+  const fadingRef = useRef(false);
 
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-
-    const startFade = () => {
-      setFading(true);
-      timer = setTimeout(onDone, FADE_MS);
-    };
-
-    // Start fade after duration regardless of video state
-    const showTimer = setTimeout(startFade, duration);
-
-    const vid = videoRef.current;
-    if (vid) {
-      vid.play().catch(() => {});
-    }
-
-    return () => {
-      clearTimeout(showTimer);
-      clearTimeout(timer);
-    };
+  const startFade = useCallback(() => {
+    if (fadingRef.current) return;
+    fadingRef.current = true;
+    setFading(true);
+    setTimeout(onDone, FADE_MS);
   }, [onDone]);
 
+  useEffect(() => {
+    const showTimer = setTimeout(startFade, duration);
+    const vid = videoRef.current;
+    if (vid) vid.play().catch(() => {});
+    return () => clearTimeout(showTimer);
+  }, [startFade, duration]);
+
   return (
-    <div className={`intro-splash${fading ? ' intro-splash--fading' : ''}`}>
+    <div
+      className={`intro-splash${fading ? ' intro-splash--fading' : ''}`}
+      onClick={startFade}
+      onPointerDown={(e) => e.preventDefault()}
+    >
       <video
         ref={videoRef}
         className="intro-splash__video"
