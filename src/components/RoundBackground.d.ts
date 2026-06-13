@@ -1,3 +1,9 @@
-import type { FC } from 'react';
-declare const RoundBackground: FC<{ round: number; leaderId?: string | null }>;
+import type { ReactElement } from 'react';
+
+declare function RoundBackground(props: {
+  round: number;
+  leaderId?: string | null;
+  side?: 'left' | 'right';
+}): ReactElement | null;
+
 export default RoundBackground;
