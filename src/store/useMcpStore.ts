@@ -266,7 +266,7 @@ export const useMcpStore = create<McpState>()(
       showMainLeaderPortraits: true,
 
       showIntro: true,
-      introDuration: 5000,
+      introDuration: 2000,
       introSrc: 'intro.mp4',
       setShowIntro: (show) => set({ showIntro: show }),
 
