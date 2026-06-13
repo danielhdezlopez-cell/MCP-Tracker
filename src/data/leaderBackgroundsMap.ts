@@ -2,7 +2,7 @@
 // Leaders absent from this map fall back to the global shuffled deck.
 export const LEADER_BACKGROUNDS: Record<string, string[]> = {
   'adam-warlock':                  ['Adam_Warlock_02.jpg', 'Adam_Warlock_03.jpg', 'Adam_Warlock_04.jpg', 'Adam_Warlock_06.jpg', 'Adam_Warlock_07.jpg', 'Adam_Warlock_08.jpg'],
-  'spider-man':                    ['Spiderman2.jpg', 'Spider_Man_02.jpg', 'Spider_Man_03.jpg', 'Spider_Man_04.jpg', 'Spider_Man_05.jpg', 'Spider_Man_06.jpg', 'Spider_Man_07.jpg'],
+  'spider-man':                    ['Spiderman2.jpg', 'Spider_Man_02.jpg', 'Spider_Man_03.jpg', 'Spider_Man_04.jpg', 'Spider_Man_06.jpg', 'Spider_Man_07.jpg'],
   'apocalypse':                    ['Apocalypse_01.jpg', 'Apocalypse_02.jpg', 'Apocalypse_03.jpg', 'Apocalypse_04.jpg', 'Apocalypse_05.jpg'],
   'baron-strucker':                ['Baron_Von_Strucker_01.jpg', 'Baron_Von_Strucker_02.jpg', 'Baron_Von_Strucker_03.jpg', 'Baron_Von_Strucker_04.jpg', 'Baron_Von_Strucker_05.jpg'],
   'baron-zemo':                    ['Baron_Zemo.jpg', 'Baron_Zemo_01.jpg', 'Baron_Zemo_02.jpg', 'Baron_Zemo_03.jpg', 'Baron_Zemo_04.jpg', 'Baron_Zemo_05.jpg', 'Baron_Zemo_06.jpg'],
