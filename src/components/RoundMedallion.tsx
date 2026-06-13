@@ -103,7 +103,6 @@ export function RoundMedallion() {
           onPointerCancel={cancel}
           onKeyDown={onKeyDown}
         >
-          <span className="round-medallion__eyebrow">Round</span>
           <span className="round-medallion__num">{round}</span>
 
         </div>

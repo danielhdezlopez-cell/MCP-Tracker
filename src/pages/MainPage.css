@@ -356,13 +356,13 @@
 }
 
 .vs-battle__timer .timer-panel {
-  padding: 5px 14px;
-  gap: 2px;
-  min-width: clamp(160px, 20.4vw, 240px);
+  padding: 1px 5px;
+  gap: 0;
+  min-width: unset;
 }
 
 .vs-battle__timer .timer-panel__display {
-  font-size: clamp(2.22rem, 4.12vw, 3.17rem);
+  font-size: clamp(4.4rem, 8.2vw, 6.3rem);
 }
 
 /* ── VS Separator ─────────────────────────────────────────── */
@@ -1005,8 +1005,8 @@
   .vs-hud__center { gap: 6px; padding: 5px 16px; }
   .vs-hud .timer-panel { padding: 5px 16px; min-width: clamp(120px, 15vw, 180px); }
   .vs-hud .timer-panel__display { font-size: clamp(1.6rem, 3.0vw, 2.4rem); }
-  .vs-battle__timer .timer-panel { padding: 6px 18px; min-width: clamp(143px, 16.5vw, 215px); }
-  .vs-battle__timer .timer-panel__display { font-size: clamp(1.76rem, 3.3vw, 2.64rem); }
+  .vs-battle__timer .timer-panel { padding: 1px 5px; min-width: unset; }
+  .vs-battle__timer .timer-panel__display { font-size: clamp(3.5rem, 6.6vw, 5rem); }
   .vs-hud .round-tracker__pips { gap: 6px; }
   .vs-hud .round-tracker__pips::before {
     left: calc(clamp(40px, 5.0vw, 61px) / 2);
