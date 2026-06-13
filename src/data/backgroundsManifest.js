@@ -272,7 +272,6 @@ export const BACKGROUNDS = [
   'Spider_Man_02.jpg',
   'Spider_Man_03.jpg',
   'Spider_Man_04.jpg',
-  'Spider_Man_05.jpg',
   'Spider_Man_06.jpg',
   'Spider_Man_07.jpg',
   'Spiderman2.jpg',
