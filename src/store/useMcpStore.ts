@@ -93,6 +93,7 @@ interface McpState {
   recordRoundScores: () => void;
 
   showIntro: boolean;
+  introDuration: number;
   setShowIntro: (show: boolean) => void;
 
   resetGame: () => void;
@@ -264,6 +265,7 @@ export const useMcpStore = create<McpState>()(
       showMainLeaderPortraits: true,
 
       showIntro: true,
+      introDuration: 5000,
       setShowIntro: (show) => set({ showIntro: show }),
 
       setCurrentPage: (page) => set({ currentPage: page }),
@@ -386,6 +388,7 @@ export const useMcpStore = create<McpState>()(
           selectedExtract: null,
           roundScoreHistory: [],
           showIntro: true,
+          introDuration: 4000,
           timerRemainingPaused: timerDuration,
           timerEndsAt: null,
           timerCritical: false,
@@ -398,7 +401,7 @@ export const useMcpStore = create<McpState>()(
       name: 'mcp-tracker-store',
       partialize: (state) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { showIntro, setShowIntro, ...rest } = state;
+        const { showIntro, introDuration, setShowIntro, ...rest } = state;
         return rest;
       },
       onRehydrateStorage: () => (state) => {
