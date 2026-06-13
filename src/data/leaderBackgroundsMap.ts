@@ -9,7 +9,7 @@ export const LEADER_BACKGROUNDS: Record<string, string[]> = {
   'bastion':                       ['Bastion_01.jpg', 'Bastion_02.jpg', 'Bastion_03.jpg', 'Bastion_04.jpg', 'Bastion_05.jpg'],
   'black-bolt':                    ['Black_Bolt.jpg', 'Black_Bolt_02.jpg', 'Black_Bolt_03.jpg', 'Black_Bolt_04.jpg', 'Black_Bolt_05.jpg'],
   'black-panther':                 ['BlackPanther2.jpg', 'BlackPanther3.jpg', 'Black_Panther_01.jpg', 'Black_Panther_02.jpg', 'Black_Panther_03.jpg', 'Black_Panther_04.jpg', 'Black_Panther_05.jpg', 'Black_Panther_06.jpg', 'Black_Panther_07.jpg'],
-  'blade':                         ['Blade.jpg', 'Blade2.jpg', 'Blade_01.jpg', 'Blade_02.jpg', 'Blade_03.jpg', 'Blade_04.jpg'],
+  'blade':                         ['Blade.jpg', 'Blade2.jpg', 'Blade_02.jpg', 'Blade_04.jpg'],
   'cable':                         ['Cable_01.jpg', 'Cable_02.jpg', 'Cable_03.jpg'],
   'captain-america':               ['Captain_America_01.jpg', 'Captain_America_02.jpg', 'Captain_America_03.jpg', 'Captain_America_04.jpg', 'Captain_America_05.jpg', 'Captain_America_06.jpg'],
   'captain-america-first-avenger': ['Captain_America_01.jpg', 'Captain_America_02.jpg', 'Captain_America_03.jpg', 'Captain_America_04.jpg', 'Captain_America_05.jpg', 'Captain_America_06.jpg'],
