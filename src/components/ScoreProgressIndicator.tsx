@@ -5,7 +5,8 @@ import './ScoreProgressIndicator.css';
  * ScoreProgressIndicator
  * ----------------------
  * Non-interactive HUD grid (1–16). Active cells show current P1/P2 score.
- * Past rounds leave small dots in the bottom corners of each earned cell.
+ * The cell where each player ended a past round shows a small round-number badge.
+ * P1 badge → bottom-left (red). P2 badge → bottom-right (blue).
  */
 interface ScoreProgressIndicatorProps {
   player1Score: number;
@@ -29,12 +30,16 @@ export function ScoreProgressIndicator({
   const p1 = displayPoint(player1Score);
   const p2 = displayPoint(player2Score);
 
-  // Build sets: which cells have a P1 or P2 history mark
-  const p1Marked = new Set<number>();
-  const p2Marked = new Set<number>();
+  // Map: cell number → round label for P1 / P2
+  // Only the final score cell of each round gets a mark.
+  // If a later round overwrites the same cell, the latest round wins.
+  const p1RoundAt = new Map<number, number>();
+  const p2RoundAt = new Map<number, number>();
   for (const entry of roundScoreHistory) {
-    for (let i = entry.p1Start + 1; i <= Math.min(entry.p1End, TOTAL_POINTS); i++) p1Marked.add(i);
-    for (let i = entry.p2Start + 1; i <= Math.min(entry.p2End, TOTAL_POINTS); i++) p2Marked.add(i);
+    const p1Cell = Math.min(entry.p1End, TOTAL_POINTS);
+    const p2Cell = Math.min(entry.p2End, TOTAL_POINTS);
+    if (p1Cell > 0) p1RoundAt.set(p1Cell, entry.round);
+    if (p2Cell > 0) p2RoundAt.set(p2Cell, entry.round);
   }
 
   return (
@@ -48,13 +53,17 @@ export function ScoreProgressIndicator({
           const isP1 = n === p1;
           const isP2 = n === p2;
           const fill = isP1 && isP2 ? 'both' : isP1 ? 'p1' : isP2 ? 'p2' : 'none';
-          const hasP1Mark = p1Marked.has(n);
-          const hasP2Mark = p2Marked.has(n);
+          const p1Round = p1RoundAt.get(n);
+          const p2Round = p2RoundAt.get(n);
           return (
             <div key={n} className="score-progress__cell" data-fill={fill}>
               <span className="score-progress__num">{n}</span>
-              {hasP1Mark && <span className="score-progress__mark score-progress__mark--p1" />}
-              {hasP2Mark && <span className="score-progress__mark score-progress__mark--p2" />}
+              {p1Round !== undefined && (
+                <span className="score-progress__mark score-progress__mark--p1">{p1Round}</span>
+              )}
+              {p2Round !== undefined && (
+                <span className="score-progress__mark score-progress__mark--p2">{p2Round}</span>
+              )}
             </div>
           );
         })}
