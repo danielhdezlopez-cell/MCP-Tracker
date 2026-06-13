@@ -356,7 +356,7 @@
 }
 
 .vs-battle__timer .timer-panel {
-  padding: 1px 2.2em 1px 5px;
+  padding: 1px 5px;
   gap: 0;
   min-width: unset;
 }

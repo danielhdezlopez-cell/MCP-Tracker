@@ -160,8 +160,7 @@
 
 /* ── Digits wrapper (minutes + superscript seconds) ──────────────── */
 .timer-panel__digits {
-  position: relative;
-  display: inline-block;
+  display: inline;
   letter-spacing: 0.04em;
   transition: opacity 0.2s ease, filter 0.2s ease;
 }
@@ -171,13 +170,11 @@
 }
 
 .timer-panel__sec {
-  position: absolute;
-  left: calc(100% + 0.04em);
-  top: 0;
   font-size: 0.36em;
   font-weight: 700;
   letter-spacing: 0.06em;
   opacity: 0.7;
+  vertical-align: super;
   text-shadow: 0 0 7px rgba(0,195,255,0.4);
 }
 
