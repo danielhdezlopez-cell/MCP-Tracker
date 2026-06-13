@@ -129,31 +129,33 @@
 .score-progress__mark {
   position: absolute;
   bottom: 2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1;
   pointer-events: none;
+  letter-spacing: 0;
 }
 
 .score-progress__mark--p1 {
-  left: 3px;
-  background: var(--sp-p1);
-  box-shadow: 0 0 3px var(--sp-p1-glow);
-  opacity: 0.75;
+  left: 2px;
+  color: var(--sp-p1);
+  text-shadow: 0 0 4px var(--sp-p1-glow);
+  opacity: 0.85;
 }
 
 .score-progress__mark--p2 {
-  right: 3px;
-  background: var(--sp-p2);
-  box-shadow: 0 0 3px var(--sp-p2-glow);
-  opacity: 0.75;
+  right: 2px;
+  color: var(--sp-p2);
+  text-shadow: 0 0 4px var(--sp-p2-glow);
+  opacity: 0.85;
 }
 
-/* When the cell is already the active highlight, dim the mark slightly */
+/* Dim mark when cell is the active highlight of same player */
 .score-progress__cell[data-fill='p1'] .score-progress__mark--p1,
 .score-progress__cell[data-fill='p2'] .score-progress__mark--p2,
 .score-progress__cell[data-fill='both'] .score-progress__mark {
-  opacity: 0.4;
+  opacity: 0.45;
 }
 
 /* ── Compact: tablet landscape (iPad mini 6 in HUD) ─────── */
