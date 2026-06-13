@@ -232,7 +232,7 @@
 
 .hud-score__val {
   font-family: 'Orbitron', var(--font-display, sans-serif);
-  font-size: clamp(3.4rem, 6.2vw, 4.7rem);
+  font-size: clamp(4.8rem, 8.8vw, 6.8rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -306,24 +306,28 @@
   flex-shrink: 0;
 }
 .hud-score__btn--left {
-  border-color: rgba(231,76,60,0.45);
-  color: #e74c3c;
-  background: rgba(231,76,60,0.08);
+  border-color: rgba(231,76,60,0.18);
+  color: rgba(231,76,60,0.35);
+  background: rgba(231,76,60,0.04);
 }
 .hud-score__btn--left:hover:not(:disabled) {
-  background: rgba(231,76,60,0.18);
-  box-shadow: 0 0 8px rgba(231,76,60,0.4);
+  color: rgba(231,76,60,0.75);
+  border-color: rgba(231,76,60,0.45);
+  background: rgba(231,76,60,0.12);
+  box-shadow: 0 0 8px rgba(231,76,60,0.3);
 }
 .hud-score__btn--right {
-  border-color: rgba(59,159,240,0.45);
-  color: #3b9ff0;
-  background: rgba(59,159,240,0.08);
+  border-color: rgba(59,159,240,0.18);
+  color: rgba(59,159,240,0.35);
+  background: rgba(59,159,240,0.04);
 }
 .hud-score__btn--right:hover:not(:disabled) {
-  background: rgba(59,159,240,0.18);
-  box-shadow: 0 0 8px rgba(59,159,240,0.4);
+  color: rgba(59,159,240,0.75);
+  border-color: rgba(59,159,240,0.45);
+  background: rgba(59,159,240,0.12);
+  box-shadow: 0 0 8px rgba(59,159,240,0.3);
 }
-.hud-score__btn:disabled { opacity: 0.22; cursor: default; }
+.hud-score__btn:disabled { opacity: 0.15; cursor: default; }
 .hud-score__btn:active:not(:disabled) { transform: scale(0.92); }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -837,7 +841,7 @@
   .vs-hud .round-tracker__pip-num { font-size: 0.65rem; }
 
   /* Score: escala fluida, legible sin cortarse */
-  .hud-score__val { font-size: clamp(2.0rem, 8.5vw, 2.8rem); }
+  .hud-score__val { font-size: clamp(2.8rem, 11vw, 3.8rem); }
   .hud-score__controls { gap: 8px; }
   .hud-score__btn {
     width: clamp(32px, 7.5vw, 42px);
@@ -875,7 +879,7 @@
   .vs-hud .round-tracker__pip-num { font-size: 0.58rem; }
 
   /* Score — ligeramente más compacto para iPhone Max */
-  .hud-score__val { font-size: clamp(1.9rem, 7.8vw, 2.6rem); }
+  .hud-score__val { font-size: clamp(2.6rem, 10vw, 3.5rem); }
   .hud-score__controls { gap: 6px; }
   .hud-score__btn {
     width: clamp(30px, 7vw, 40px);
@@ -913,7 +917,7 @@
   }
   .vs-hud .round-tracker__pip-num { font-size: 0.82rem; }
 
-  .hud-score__val { font-size: clamp(2.6rem, 5.5vw, 3.8rem); }
+  .hud-score__val { font-size: clamp(3.8rem, 7.5vw, 5.4rem); }
   .hud-score__btn {
     width: clamp(40px, 5vw, 56px);
     height: clamp(44px, 7vh, 68px);
@@ -938,7 +942,7 @@
   .vs-hud__side--right { justify-content: flex-start; padding: 0 70px 0 28px; } /* 70px = ctrl-strip (44px) + right (10px) + gap (16px) */
 
   /* Ajuste fino del score para pantallas muy anchas */
-  .hud-score__val { font-size: clamp(3.6rem, 4.5vw, 5.2rem); }
+  .hud-score__val { font-size: clamp(5.2rem, 6.2vw, 7.4rem); }
   .hud-score__btn {
     width: clamp(52px, 4.5vw, 72px);
     height: clamp(52px, 6vh, 76px);
@@ -1021,7 +1025,7 @@
   }
 
   /* Larger score — line-height: 1 keeps it inside the 148px strip */
-  .hud-score__val { font-size: clamp(4.0rem, 8.0vw, 6.5rem); line-height: 1; }
+  .hud-score__val { font-size: clamp(5.6rem, 10.5vw, 8.8rem); line-height: 1; }
   .hud-score__btn {
     width: clamp(52px, 6.0vw, 78px);
     height: clamp(56px, 7.5vh, 80px);
