@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6px 26px;
-  gap: 4px;
+  justify-content: center;
+  padding: 8px 32px;
+  gap: 0;
   border-color: var(--color-accent-left);
   box-shadow: 0 0 12px var(--color-glow-left), inset 0 0 20px rgba(0,195,255,0.03);
   transition: all 0.5s ease;
@@ -141,18 +142,28 @@
   background: linear-gradient(90deg, transparent, rgba(255,42,42,0.2), transparent);
 }
 
+/* ── Main display container ──────────────────────────────────────── */
 .timer-panel__display {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(2.6rem, 6vw, 4rem);
   font-weight: 900;
-  letter-spacing: 0.1em;
   line-height: 1;
   color: var(--color-accent-left);
   text-shadow: 0 0 14px var(--color-accent-left), 0 0 28px rgba(0,195,255,0.2);
   font-variant-numeric: tabular-nums;
   transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+/* ── Digits wrapper (minutes + superscript seconds) ─────────────── */
+.timer-panel__digits {
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.06em;
+  transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
 .timer-panel__min {
@@ -162,8 +173,8 @@
 .timer-panel__sec {
   position: absolute;
   left: calc(100% + 0.06em);
-  top: 0.12em;
-  font-size: 0.34em;
+  top: 0.1em;
+  font-size: 0.32em;
   font-weight: 700;
   letter-spacing: 0.08em;
   opacity: 0.55;
@@ -185,10 +196,42 @@
   50% { opacity: 0.55; }
 }
 
-/* ── Expired state (00:00) — static red, no overlay, no sound ──── */
+/* ── Expired state (00:00) ───────────────────────────────────────── */
 .timer-panel__display.expired {
   color: var(--color-critical);
   text-shadow: 0 0 16px var(--color-critical), 0 0 32px rgba(255,42,42,0.3);
+}
+
+/* ── Paused state — blur digits, show pause icon ────────────────── */
+.timer-panel--paused {
+  border-style: dashed;
+}
+
+.timer-panel__display--paused .timer-panel__digits {
+  opacity: 0.32;
+  filter: blur(2px) brightness(0.65);
+}
+
+.timer-panel__pause-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+  opacity: 0.85;
+  text-shadow: 0 0 12px var(--color-accent-left), 0 0 24px rgba(0,195,255,0.35);
+  animation: pause-in 0.2s ease;
+  pointer-events: none;
+}
+
+@keyframes pause-in {
+  from { opacity: 0; transform: scale(0.75); }
+  to   { opacity: 0.85; transform: scale(1); }
+}
+
+.timer-panel--critical .timer-panel__pause-icon {
+  text-shadow: 0 0 12px var(--color-critical), 0 0 24px rgba(255,42,42,0.4);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -196,30 +239,7 @@
   .timer-panel--critical { animation: none !important; }
   .timer-panel__display.critical { animation: none !important; opacity: 1; }
   .timer-panel:active { transform: none; }
-}
-
-/* ── Paused state ────────────────────────────────────────────────── */
-.timer-panel--paused {
-  border-style: dashed;
-  opacity: 0.78;
-}
-
-.timer-panel--paused .timer-panel__display {
-  opacity: 0.55;
-}
-
-.timer-panel__paused-label {
-  font-family: var(--font-display);
-  font-size: 0.55rem;
-  letter-spacing: 0.22em;
-  color: var(--color-warn);
-  opacity: 0.8;
-  line-height: 1;
-  margin-top: -2px;
-}
-
-.timer-panel__paused-label--hidden {
-  visibility: hidden;
+  .timer-panel__pause-icon { animation: none; }
 }
 
 /* ── Long-press reset ring ───────────────────────────────────────── */
@@ -305,10 +325,8 @@
   -webkit-text-stroke: 1px var(--color-border);
 }
 [data-theme='comic-ink'] .timer-panel--paused {
-  opacity: 1;
   border-style: dashed;
 }
-[data-theme='comic-ink'] .timer-panel__paused-label { color: var(--color-accent-right); }
 
 /* ── Idle / hidden: pause non-critical decorative animations ──────── */
 body.mcp-idle .timer-panel__display-wrap::after,
@@ -319,10 +337,9 @@ body.mcp-page-hidden .timer-panel__display-wrap::after {
 /* ── Tablet landscape: iPad mini 6 / Air / Pro (1000–1400px) ────── */
 @media (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
   .timer-panel {
-    padding: 10px 22px;
-    gap: 5px;
+    padding: 10px 36px;
   }
   .timer-panel__display {
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-size: clamp(3rem, 5.5vw, 4.8rem);
   }
 }
