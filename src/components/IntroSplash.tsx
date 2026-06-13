@@ -3,12 +3,13 @@ import './IntroSplash.css';
 
 interface IntroSplashProps {
   duration?: number;
+  src?: string;
   onDone: () => void;
 }
 
 const FADE_MS = 500;
 
-export function IntroSplash({ duration = 5000, onDone }: IntroSplashProps) {
+export function IntroSplash({ duration = 5000, src = 'intro.mp4', onDone }: IntroSplashProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [fading, setFading] = useState(false);
   const fadingRef = useRef(false);
@@ -36,7 +37,7 @@ export function IntroSplash({ duration = 5000, onDone }: IntroSplashProps) {
       <video
         ref={videoRef}
         className="intro-splash__video"
-        src={`${import.meta.env.BASE_URL}intro.mp4`}
+        src={`${import.meta.env.BASE_URL}${src}`}
         autoPlay
         muted
         playsInline

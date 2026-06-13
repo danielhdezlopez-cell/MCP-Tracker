@@ -49,9 +49,9 @@ export default defineConfig({
         // 15 MB max per pre-cached file (for large portrait PNGs/webps)
         maximumFileSizeToCacheInBytes: 15 * 1024 * 1024,
         runtimeCaching: [
-          // Intro video — network only (too large to cache, needs range requests)
+          // Intro / reset videos — network only
           {
-            urlPattern: /\/intro\.mp4$/i,
+            urlPattern: /\/(intro|reset)\.mp4$/i,
             handler: 'NetworkOnly',
           },
           // Google Fonts — stylesheet (revalidate in background)
