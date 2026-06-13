@@ -5,8 +5,9 @@ import { IntroSplash } from './components/IntroSplash';
 import { useMcpStore } from './store/useMcpStore';
 
 function App() {
-  const showIntro   = useMcpStore(s => s.showIntro);
-  const setShowIntro = useMcpStore(s => s.setShowIntro);
+  const showIntro    = useMcpStore(s => s.showIntro);
+  const introDuration = useMcpStore(s => s.introDuration);
+  const setShowIntro  = useMcpStore(s => s.setShowIntro);
 
   const handleIntroDone = useCallback(() => {
     setShowIntro(false);
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <>
-      {showIntro && <IntroSplash onDone={handleIntroDone} />}
+      {showIntro && <IntroSplash duration={introDuration} onDone={handleIntroDone} />}
       <Layout />
       <PWAUpdatePrompt />
     </>

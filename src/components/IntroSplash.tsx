@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import './IntroSplash.css';
 
 interface IntroSplashProps {
+  duration?: number;
   onDone: () => void;
 }
 
-const SHOW_MS = 2000;
 const FADE_MS = 500;
 
-export function IntroSplash({ onDone }: IntroSplashProps) {
+export function IntroSplash({ duration = 5000, onDone }: IntroSplashProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [fading, setFading] = useState(false);
 
@@ -20,8 +20,8 @@ export function IntroSplash({ onDone }: IntroSplashProps) {
       timer = setTimeout(onDone, FADE_MS);
     };
 
-    // Start fade after SHOW_MS regardless of video state
-    const showTimer = setTimeout(startFade, SHOW_MS);
+    // Start fade after duration regardless of video state
+    const showTimer = setTimeout(startFade, duration);
 
     const vid = videoRef.current;
     if (vid) {
