@@ -45,10 +45,15 @@ export default defineConfig({
         // Pre-cache all static assets (JS, CSS, HTML, images, fonts)
         globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff,woff2}'],
         // Round backgrounds are fetched on demand — exclude from precache (8 MB)
-        globIgnores: ['backgrounds/**'],
+        globIgnores: ['backgrounds/**', '*.mp4'],
         // 15 MB max per pre-cached file (for large portrait PNGs/webps)
         maximumFileSizeToCacheInBytes: 15 * 1024 * 1024,
         runtimeCaching: [
+          // Intro video — network only (too large to cache, needs range requests)
+          {
+            urlPattern: /\/intro\.mp4$/i,
+            handler: 'NetworkOnly',
+          },
           // Google Fonts — stylesheet (revalidate in background)
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
