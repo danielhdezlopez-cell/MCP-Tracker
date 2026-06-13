@@ -3,7 +3,13 @@ import { persist } from 'zustand/middleware';
 import { type Leader } from '../data/leadersData';
 import { type Mission } from '../data/missionsData';
 
-export type Theme = 'neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'emma-frost' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'jane-foster' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'malekith' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'namor' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'sin' | 'spectrum' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
+export interface RoundScoreEntry {
+  round: number;
+  p1Start: number; p1End: number; p1Delta: number;
+  p2Start: number; p2End: number; p2Delta: number;
+}
+
+export type Theme ='neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'emma-frost' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'jane-foster' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'malekith' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'namor' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'sin' | 'spectrum' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
 export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
@@ -82,6 +88,9 @@ interface McpState {
   setVideoBg: (bg: VideoBg) => void;
   setShowAffiliationBanner: (show: boolean) => void;
   setShowMainLeaderPortraits: (show: boolean) => void;
+
+  roundScoreHistory: RoundScoreEntry[];
+  recordRoundScores: () => void;
 
   resetGame: () => void;
 }
@@ -225,6 +234,7 @@ export const useMcpStore = create<McpState>()(
       round: 1,
       selectedSecure: null,
       selectedExtract: null,
+      roundScoreHistory: [],
 
       kangLeftSetupAnswered: false,
       kangLeftChronalPlayed: false,
@@ -271,6 +281,20 @@ export const useMcpStore = create<McpState>()(
         set({ leaderRight: leader, ...kangReset });
       },
       setRound: (round) => set({ round: Math.max(1, Math.min(6, round)) }),
+
+      recordRoundScores: () => {
+        const { round, scoreLeft, scoreRight, roundScoreHistory } = get();
+        const prev = roundScoreHistory.find(e => e.round === round);
+        const p1Start = prev ? prev.p1Start : (roundScoreHistory.length > 0 ? roundScoreHistory[roundScoreHistory.length - 1].p1End : 0);
+        const p2Start = prev ? prev.p2Start : (roundScoreHistory.length > 0 ? roundScoreHistory[roundScoreHistory.length - 1].p2End : 0);
+        const entry: RoundScoreEntry = {
+          round,
+          p1Start, p1End: scoreLeft,  p1Delta: Math.max(0, scoreLeft  - p1Start),
+          p2Start, p2End: scoreRight, p2Delta: Math.max(0, scoreRight - p2Start),
+        };
+        const filtered = roundScoreHistory.filter(e => e.round !== round);
+        set({ roundScoreHistory: [...filtered, entry] });
+      },
       setSelectedSecure: (mission) => {
         if (mission === null) {
           set({ selectedSecure: null, ...KANG_LEFT_RESET, ...KANG_RIGHT_RESET });
@@ -354,6 +378,7 @@ export const useMcpStore = create<McpState>()(
           round: 1,
           selectedSecure: null,
           selectedExtract: null,
+          roundScoreHistory: [],
           timerRemainingPaused: timerDuration,
           timerEndsAt: null,
           timerCritical: false,

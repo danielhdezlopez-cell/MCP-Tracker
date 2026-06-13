@@ -1,29 +1,21 @@
+import { type RoundScoreEntry } from '../store/useMcpStore';
 import './ScoreProgressIndicator.css';
 
 /**
  * ScoreProgressIndicator
  * ----------------------
- * Indicador visual NO interactivo del progreso de puntos (1–16) de ambos jugadores.
- * Renderiza un grid HUD sutil: dos filas de 8 celdas.
- *   · Fila 1 → puntos 1–8
- *   · Fila 2 → puntos 9–16
- *
- * Se resalta la celda que coincide con la puntuación ACTUAL de cada jugador:
- *   · Player 1 → rojo
- *   · Player 2 → azul
- *   · Misma puntuación → borde dividido rojo/azul con doble glow.
- *
- * Es SOLO una referencia: nunca modifica la puntuación y no es clicable ni enfocable.
+ * Non-interactive HUD grid (1–16). Active cells show current P1/P2 score.
+ * Past rounds leave small dots in the bottom corners of each earned cell.
  */
 interface ScoreProgressIndicatorProps {
   player1Score: number;
   player2Score: number;
+  roundScoreHistory?: RoundScoreEntry[];
 }
 
 const TOTAL_POINTS = 16;
 const POINTS = Array.from({ length: TOTAL_POINTS }, (_, i) => i + 1);
 
-/** Acota una puntuación cruda a la ventana visible 0–16. */
 function displayPoint(score: number): number {
   if (score <= 0) return 0;
   return Math.min(score, TOTAL_POINTS);
@@ -32,9 +24,18 @@ function displayPoint(score: number): number {
 export function ScoreProgressIndicator({
   player1Score,
   player2Score,
+  roundScoreHistory = [],
 }: ScoreProgressIndicatorProps) {
   const p1 = displayPoint(player1Score);
   const p2 = displayPoint(player2Score);
+
+  // Build sets: which cells have a P1 or P2 history mark
+  const p1Marked = new Set<number>();
+  const p2Marked = new Set<number>();
+  for (const entry of roundScoreHistory) {
+    for (let i = entry.p1Start + 1; i <= Math.min(entry.p1End, TOTAL_POINTS); i++) p1Marked.add(i);
+    for (let i = entry.p2Start + 1; i <= Math.min(entry.p2End, TOTAL_POINTS); i++) p2Marked.add(i);
+  }
 
   return (
     <div
@@ -47,9 +48,13 @@ export function ScoreProgressIndicator({
           const isP1 = n === p1;
           const isP2 = n === p2;
           const fill = isP1 && isP2 ? 'both' : isP1 ? 'p1' : isP2 ? 'p2' : 'none';
+          const hasP1Mark = p1Marked.has(n);
+          const hasP2Mark = p2Marked.has(n);
           return (
             <div key={n} className="score-progress__cell" data-fill={fill}>
               <span className="score-progress__num">{n}</span>
+              {hasP1Mark && <span className="score-progress__mark score-progress__mark--p1" />}
+              {hasP2Mark && <span className="score-progress__mark score-progress__mark--p2" />}
             </div>
           );
         })}
