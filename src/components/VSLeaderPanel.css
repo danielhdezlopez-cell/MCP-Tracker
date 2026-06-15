@@ -1,0 +1,255 @@
+/* ═══════════════════════════════════════════════════════════════
+   VS Leader Panel — Energy Scan Transition
+   Replaces VSPortrait in vs-battle__side.
+   Owns two image layers that wipe in/out via clip-path.
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --scan-dur: 780ms;
+  --scan-ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.vs-leader-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* ── Layer view (clips layers to panel bounds) ─────────────── */
+.vs-leader-panel__view {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ── Image layers ──────────────────────────────────────────── */
+.vs-leader-panel__layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.vs-leader-panel__layer.is-active {
+  opacity: 1;
+}
+
+/* During scan: entering layer animates in on top (z3), leaving stays visible under (z2) */
+.vs-leader-panel__layer.entering {
+  z-index: 3;
+}
+
+.vs-leader-panel__layer.leaving {
+  z-index: 2;
+  opacity: 1;
+}
+
+/* Blurred portrait used as atmospheric background for each layer */
+.vs-leader-panel__layer-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 18%;
+  filter: blur(14px) brightness(0.45);
+  transform: scale(1.2);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+/* Colour wash */
+.vs-leader-panel__layer-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(3, 5, 12, 0.12) 46%,
+    rgba(3, 5, 12, 0.52)
+  );
+  pointer-events: none;
+}
+
+/* Portrait image — same size/position as the old vs-portrait__img */
+.vs-leader-panel__layer-por {
+  position: absolute;
+  top: 8px;
+  height: 29.6%;
+  width: auto;
+  max-width: 35.2%;
+  object-fit: contain;
+  object-position: top center;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+.vs-leader-panel--left  .vs-leader-panel__layer-por { left: 8px; }
+.vs-leader-panel--right .vs-leader-panel__layer-por { right: 8px; }
+
+.vs-leader-panel:hover .vs-leader-panel__layer-por {
+  transform: scale(1.03) translateY(3px);
+}
+
+/* ── FX layer: scan bar lives here, above images, below frame ─ */
+.vs-leader-panel__fx {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Scan bar — always anchored left:0; translateX drives the sweep */
+.vs-leader-panel__scanbar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 7%;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(39, 226, 255, 0.55) 34%,
+    rgba(215, 250, 255, 1)   50%,
+    rgba(39, 226, 255, 0.55) 66%,
+    transparent
+  );
+  box-shadow:
+    0 0 52px 14px rgba(39, 226, 255, 0.92),
+    0 0 16px 4px  rgba(215, 250, 255, 0.85);
+  mix-blend-mode: screen;
+}
+
+/* ── Frame overlay (carries glow pulse during scan) ────────── */
+.vs-leader-panel__frame {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ── Empty / hidden states ─────────────────────────────────── */
+.vs-leader-panel--empty {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.vs-leader-panel__empty {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.vs-leader-panel__plus {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: rgba(255, 255, 255, 0.18);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.vs-leader-panel__hint {
+  font-family: 'Orbitron', var(--font-display, sans-serif);
+  font-size: clamp(9px, 1.1vw, 13px);
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.22);
+  text-transform: uppercase;
+}
+
+.vs-leader-panel--empty:hover .vs-leader-panel__plus {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.vs-leader-panel--hidden {
+  background: transparent;
+  pointer-events: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ENERGY SCAN KEYFRAMES
+   Scoped strictly to .vs-leader-panel — nothing outside animates.
+═══════════════════════════════════════════════════════════════ */
+
+/* Wipe: entering layer reveals from the scanning side */
+@keyframes vs-scan-reveal-l {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes vs-scan-reveal-r {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* Scan bar sweeps the full panel width.
+   Both keyframes anchor bar at left:0 — only translateX direction differs.
+   With bar width 7%: -120% is just off-panel left, 1500% is just off-panel right. */
+@keyframes vs-scan-bar-l {
+  0%   { transform: translateX(-120%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(1500%); opacity: 0; }
+}
+
+@keyframes vs-scan-bar-r {
+  0%   { transform: translateX(1500%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(-120%); opacity: 0; }
+}
+
+/* Frame: brief cyan flash at ~45% of the scan */
+@keyframes vs-scan-frameglow {
+  0%, 100% { box-shadow: none; }
+  45%       { box-shadow: 0 0 22px rgba(39, 226, 255, 0.55), inset 0 0 36px rgba(39, 226, 255, 0.18); }
+}
+
+/* ── Wipe per side ─────────────────────────────────────────── */
+.vs-leader-panel--left  .vs-leader-panel__layer.entering {
+  animation: vs-scan-reveal-l var(--scan-dur) var(--scan-ease) both;
+}
+
+.vs-leader-panel--right .vs-leader-panel__layer.entering {
+  animation: vs-scan-reveal-r var(--scan-dur) var(--scan-ease) both;
+}
+
+/* ── Scan bar per side ─────────────────────────────────────── */
+.vs-leader-panel--left.scanning  .vs-leader-panel__scanbar {
+  animation: vs-scan-bar-l var(--scan-dur) var(--scan-ease) both;
+}
+
+.vs-leader-panel--right.scanning .vs-leader-panel__scanbar {
+  animation: vs-scan-bar-r var(--scan-dur) var(--scan-ease) both;
+}
+
+/* ── Frame glow ────────────────────────────────────────────── */
+.vs-leader-panel.scanning .vs-leader-panel__frame {
+  animation: vs-scan-frameglow var(--scan-dur) ease both;
+}
+
+/* ── Reduced-motion: plain opacity fade, no bar or glow ─────── */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes vs-scan-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .vs-leader-panel__layer.entering {
+    animation: vs-scan-fade 0.3s ease both !important;
+  }
+
+  .vs-leader-panel__layer.leaving {
+    opacity: 1;
+  }
+
+  .vs-leader-panel__scanbar,
+  .vs-leader-panel.scanning .vs-leader-panel__frame {
+    animation: none !important;
+  }
+}
