@@ -76,21 +76,22 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  overflow: hidden; /* clips bar at exact panel edges */
+  overflow: hidden; /* clips bar at panel edges */
 }
 
-/* Scan bar base — 14% wide gradient, strong cyan core with white center.
-   P1 uses left-based positioning; P2 uses right-based positioning to ensure
-   the bar anchors semantically to each panel's leading edge.
-   opacity:0 at rest; each side's animation sets opacity:1. */
+/* Scan bar — horizontal band, full width, sweeps top→bottom.
+   Height 14% of panel height. Gradient runs 180deg (top→bottom).
+   Both P1 and P2 share the same direction. */
 .vs-leader-panel__scanbar {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 14%;
+  left: 0;
+  right: 0;
+  top: -14%;
+  height: 14%;
+  width: 100%;
   opacity: 0;
   background: linear-gradient(
-    90deg,
+    180deg,
     transparent                   0%,
     rgba(39, 226, 255, 0.10)     12%,
     rgba(39, 226, 255, 0.65)     35%,
@@ -104,34 +105,17 @@
   filter: brightness(1.5);
 }
 
-/* Bright white core — tight band over the gradient */
+/* Bright white core — horizontal line at center of the band */
 .vs-leader-panel__scanbar::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
+    180deg,
     transparent                   46%,
     rgba(255, 255, 255, 1.00)    50%,
     transparent                   54%
   );
-}
-
-/* P1: bar starts from left edge, travels right.
-   left:-14% → bar's right edge at 0 = just off left (clipped).
-   left:100% → bar's left edge at 100% = just off right (clipped). */
-.vs-leader-panel--left .vs-leader-panel__scanbar {
-  left: -14%;
-  right: auto;
-}
-
-/* P2: bar anchored by RIGHT property — starts from right edge, travels left.
-   right:-14% → bar's left edge at 100% = just off right (clipped).
-   right:100% → bar's right edge at 0% = just off left (clipped).
-   Using right% ensures the bar starts at P2's actual right boundary. */
-.vs-leader-panel--right .vs-leader-panel__scanbar {
-  right: -14%;
-  left: auto;
 }
 
 /* ── Frame overlay (carries cyan glow pulse during scan) ─────── */
@@ -188,30 +172,18 @@
    Scoped strictly to .vs-leader-panel — nothing outside animates.
 ═══════════════════════════════════════════════════════════════ */
 
-/* Wipe: entering layer reveals from the scanning side */
-@keyframes vs-scan-reveal-l {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0 0 0); }
+/* Portrait wipe: top→bottom for both sides */
+@keyframes vs-scan-reveal-tb {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0   0); }
 }
 
-@keyframes vs-scan-reveal-r {
-  from { clip-path: inset(0 0 0 100%); }
-  to   { clip-path: inset(0 0 0 0); }
-}
-
-/* P1 (left→right): animates the `left` property.
-   Bar starts fully off the left edge, sweeps to fully off the right edge. */
-@keyframes vs-scan-bar-l {
-  from { left: -14%; opacity: 1; }
-  to   { left: 100%; opacity: 1; }
-}
-
-/* P2 (right→left): animates the `right` property — anchors to P2's right edge.
-   right:-14% = bar's left edge at 114% = fully off right (clipped).
-   right:100% = bar's right edge at 0% = fully off left (clipped). */
-@keyframes vs-scan-bar-r {
-  from { right: -14%; opacity: 1; }
-  to   { right: 100%; opacity: 1; }
+/* Scan bar: top→bottom for both sides.
+   top:-14% = bar fully off top edge (clipped).
+   top:100% = bar fully off bottom edge (clipped). */
+@keyframes vs-scan-bar-tb {
+  from { top: -14%; opacity: 1; }
+  to   { top: 100%; opacity: 1; }
 }
 
 /* Frame: brief cyan flash at ~45% of the scan */
@@ -220,22 +192,14 @@
   45%       { box-shadow: 0 0 22px rgba(39, 226, 255, 0.55), inset 0 0 36px rgba(39, 226, 255, 0.18); }
 }
 
-/* ── Wipe per side ─────────────────────────────────────────── */
-.vs-leader-panel--left  .vs-leader-panel__layer.entering {
-  animation: vs-scan-reveal-l var(--scan-dur) var(--scan-ease) both;
+/* ── Portrait wipe — top→bottom, both sides ────────────────── */
+.vs-leader-panel__layer.entering {
+  animation: vs-scan-reveal-tb var(--scan-dur) var(--scan-ease) both;
 }
 
-.vs-leader-panel--right .vs-leader-panel__layer.entering {
-  animation: vs-scan-reveal-r var(--scan-dur) var(--scan-ease) both;
-}
-
-/* ── Scan bar per side ─────────────────────────────────────── */
-.vs-leader-panel--left.scanning  .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-l var(--scan-dur) ease-out both;
-}
-
-.vs-leader-panel--right.scanning .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-r var(--scan-dur) ease-out both;
+/* ── Scan bar — top→bottom, both sides ────────────────────── */
+.vs-leader-panel.scanning .vs-leader-panel__scanbar {
+  animation: vs-scan-bar-tb var(--scan-dur) ease-out both;
 }
 
 /* ── Frame glow ────────────────────────────────────────────── */
