@@ -8,7 +8,6 @@ import { VSBackground } from '../components/VSBackground';
 import { KangChronalModal } from '../components/KangChronalModal';
 import { NavIconSettings } from '../components/icons';
 import { AffiliationBanner } from '../components/AffiliationBanner';
-import { VSLeaderPanel } from '../components/VSLeaderPanel';
 import { useIdleDetection } from '../hooks/useIdleDetection';
 import { usePageVisibility } from '../hooks/usePageVisibility';
 import { useWakeLock } from '../hooks/useWakeLock';
@@ -75,6 +74,52 @@ const HudScore = memo(function HudScore({ side }: { side: 'left' | 'right' }) {
   );
 });
 
+const VSPortrait = memo(function VSPortrait({ side, showPortrait }: { side: 'left' | 'right'; showPortrait: boolean }) {
+  const leader                 = useMcpStore(s => side === 'left' ? s.leaderLeft : s.leaderRight);
+  const setCurrentPage         = useMcpStore(s => s.setCurrentPage);
+  const setPendingLeaderAssign = useMcpStore(s => s.setPendingLeaderAssign);
+
+  const handleClick = () => {
+    setPendingLeaderAssign(side);
+    setCurrentPage('leaders');
+  };
+
+  if (!showPortrait) {
+    return (
+      <div
+        className={`vs-portrait vs-portrait--${side} vs-portrait--hidden`}
+        onClick={handleClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
+        aria-label={leader ? `Change leader: ${leader.name}` : `Assign ${side === 'left' ? 'Player 1' : 'Player 2'} leader`}
+      />
+    );
+  }
+
+  return (
+    <div
+      className={`vs-portrait vs-portrait--${side}${!leader ? ' vs-portrait--empty' : ''}`}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
+      aria-label={leader ? `Change leader: ${leader.name}` : `Assign ${side === 'left' ? 'Player 1' : 'Player 2'} leader`}
+    >
+      {leader ? (
+        <>
+          <img src={leader.image ?? ''} alt={leader.name} className="vs-portrait__img" draggable={false} />
+          <div className={`vs-portrait__name vs-portrait__name--${side}`}>{leader.name.toUpperCase()}</div>
+        </>
+      ) : (
+        <div className="vs-portrait__empty">
+          <div className="vs-portrait__plus">+</div>
+          <div className="vs-portrait__hint">TAP · ASSIGN</div>
+        </div>
+      )}
+    </div>
+  );
+});
 
 export function MainPage() {
   const scoreLeft          = useMcpStore(s => s.scoreLeft);
@@ -144,12 +189,12 @@ export function MainPage() {
         </div>
         <div className="vs-battle__side vs-battle__side--left">
           <RoundBackground round={round} leaderId={leaderLeft?.id} side="left" />
-          <VSLeaderPanel side="left" showPortrait={showMainLeaderPortraits} />
+          <VSPortrait side="left" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="left" />
         </div>
         <div className="vs-battle__side vs-battle__side--right">
           <RoundBackground round={round} leaderId={leaderRight?.id} side="right" />
-          <VSLeaderPanel side="right" showPortrait={showMainLeaderPortraits} />
+          <VSPortrait side="right" showPortrait={showMainLeaderPortraits} />
           <AffiliationBanner side="right" />
         </div>
         <RoundMedallion />

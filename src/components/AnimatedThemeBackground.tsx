@@ -90,15 +90,12 @@ function SmoothLoopVideo({ src, poster, onError, onReady }: { src: string; poste
     inset: 0,
     opacity: ready ? 1 : 0,
     transition: ready ? 'opacity 0.6s ease-in' : 'none',
-    backgroundImage: `url(${poster})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
   };
 
   return (
     <div style={wrapStyle}>
       <video ref={refA} src={src} poster={poster} autoPlay muted playsInline preload="auto" style={vs} onError={onError} onCanPlay={handleReady} />
-      <video ref={refB} src={src} poster={poster} muted playsInline preload="auto" style={{ ...vs, opacity: 0 }} onError={onError} />
+      <video ref={refB} src={src} muted playsInline preload="auto" style={{ ...vs, opacity: 0 }} onError={onError} />
     </div>
   );
 }
@@ -159,39 +156,29 @@ export function AnimatedThemeBackground({ theme }: Props) {
             />
           )
           : (
-            <div
+            <video
+              key={videoConfig.src}
+              src={videoConfig.src}
+              poster={poster}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
               style={{
                 position: 'absolute',
                 inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block',
                 opacity: videoVisible ? 1 : 0,
                 transition: videoVisible ? 'opacity 0.6s ease-in' : 'none',
-                backgroundImage: `url(${poster})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
               }}
-            >
-              <video
-                key={videoConfig.src}
-                src={videoConfig.src}
-                poster={poster}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-                onCanPlay={() => setVideoVisible(true)}
-                onLoadedData={() => setVideoVisible(true)}
-                onError={() => setBgError(true)}
-              />
-            </div>
+              onCanPlay={() => setVideoVisible(true)}
+              onLoadedData={() => setVideoVisible(true)}
+              onError={() => setBgError(true)}
+            />
           )
       )}
       <div className="anim-theme-bg__overlay" />
