@@ -1,13 +1,15 @@
 /* ═══════════════════════════════════════════════════════════════
    VS Leader Panel — Energy Scan Transition
-   Replaces VSPortrait in vs-battle__side.
-   Two transparent layers hold the portrait image; the VSBackground
-   video always shows through — layers do NOT have their own background.
+   Spec: design_handoff_energy_scan_transition/ENERGY_SCAN_PROMPT.md
+   Vertical line sweeps horizontally across each player's half:
+     P1 left-edge → center seam (left: 0 → 100%)
+     P2 right-edge → center seam (left: 100% → 0)
+   Three-element line: trail · glow (screen) · core (no blend).
 ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  --scan-dur: 780ms;
-  --scan-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --scan-dur: 1080ms;
+  --scan-ease: cubic-bezier(.42, .02, .16, 1);
 }
 
 .vs-leader-panel {
@@ -15,7 +17,7 @@
   width: 100%;
   height: 100%;
   cursor: pointer;
-  overflow: hidden;
+  overflow: hidden; /* clips glow so it never invades the other half */
 }
 
 /* ── Layer view — clips both layers to panel bounds ────────── */
@@ -26,8 +28,6 @@
 }
 
 /* ── Image layers ──────────────────────────────────────────── */
-/* Layers are transparent — only the portrait image renders.
-   The VSBackground video is always visible behind them. */
 .vs-leader-panel__layer {
   position: absolute;
   inset: 0;
@@ -41,7 +41,7 @@
 /* During scan: entering wipes in on top (z3), leaving stays visible under (z2) */
 .vs-leader-panel__layer.entering {
   z-index: 3;
-  opacity: 1; /* visible so the clip-path wipe shows the portrait */
+  opacity: 1;
 }
 
 .vs-leader-panel__layer.leaving {
@@ -49,7 +49,7 @@
   opacity: 1;
 }
 
-/* Portrait image — same size/position as the old vs-portrait__img */
+/* Portrait image */
 .vs-leader-panel__layer-por {
   position: absolute;
   top: 8px;
@@ -70,59 +70,100 @@
   transform: scale(1.03) translateY(3px);
 }
 
-/* ── FX layer: scan bar (above layers, below frame) ────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ENERGY SCAN ELEMENTS
+   z-index 14 per spec — above theme/portrait, below HUD/banners
+═══════════════════════════════════════════════════════════════ */
+
+/* FX container: full-panel anchor for the scan, no overflow clip
+   (clipping is handled by .vs-leader-panel { overflow:hidden } above) */
 .vs-leader-panel__fx {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 14;
   pointer-events: none;
-  overflow: hidden; /* clips bar at panel edges */
 }
 
-/* Scan bar — horizontal band, full width, sweeps top→bottom.
-   Height 14% of panel height. Gradient runs 180deg (top→bottom).
-   Both P1 and P2 share the same direction. */
-.vs-leader-panel__scanbar {
+/* Scan anchor: 0-width element that moves with `left`.
+   All three sub-elements are positioned relative to this anchor. */
+.vs-leader-panel__scan {
   position: absolute;
+  top: 0;
+  bottom: 0;
   left: 0;
-  right: 0;
-  top: -14%;
-  height: 14%;
-  width: 100%;
+  width: 0;
   opacity: 0;
-  background: linear-gradient(
-    180deg,
-    transparent                   0%,
-    rgba(39, 226, 255, 0.10)     12%,
-    rgba(39, 226, 255, 0.65)     35%,
-    rgba(80, 235, 255, 0.95)     44%,
-    rgba(255, 255, 255, 1.00)    50%,
-    rgba(80, 235, 255, 0.95)     56%,
-    rgba(39, 226, 255, 0.65)     65%,
-    rgba(39, 226, 255, 0.10)     88%,
-    transparent                  100%
-  );
-  filter: brightness(1.5);
 }
 
-/* Bright white core — horizontal line at center of the band */
-.vs-leader-panel__scanbar::after {
+/* ── Trail: 128px soft glow behind the scan direction ───────── */
+.vs-leader-panel__trail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 128px;
+  mix-blend-mode: screen;
+}
+
+/* P1 sweeps L→R: trail extends LEFT (behind) */
+.vs-leader-panel--left  .vs-leader-panel__trail {
+  right: 1px;
+  background: linear-gradient(to left, rgba(39, 226, 255, .55), rgba(39, 226, 255, .14) 46%, transparent);
+}
+
+/* P2 sweeps R→L: trail extends RIGHT (behind) */
+.vs-leader-panel--right .vs-leader-panel__trail {
+  left: 1px;
+  background: linear-gradient(to right, rgba(39, 226, 255, .55), rgba(39, 226, 255, .14) 46%, transparent);
+}
+
+/* ── Glow: 4-level box-shadow, mix-blend-mode:screen ────────── */
+.vs-leader-panel__glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  transform: translateX(-1.5px);
+  background: rgba(39, 226, 255, .5);
+  mix-blend-mode: screen;
+  box-shadow:
+    0 0 6px  2px  rgba(234, 255, 255, .95),
+    0 0 20px 6px  rgba(39,  226, 255, 1),
+    0 0 54px 16px rgba(39,  226, 255, .72),
+    0 0 120px 42px rgba(39, 226, 255, .34);
+}
+
+/* ── Core: solid opaque line — NO blend mode ────────────────── */
+.vs-leader-panel__core {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  transform: translateX(-1.5px);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #bff0ff 0%, #ffffff 14%, #ffffff 86%, #bff0ff 100%);
+  box-shadow: 0 0 5px 1px #f2feff;
+}
+
+/* Hairlines for contrast on bright portraits */
+.vs-leader-panel__core::before,
+.vs-leader-panel__core::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent                   46%,
-    rgba(255, 255, 255, 1.00)    50%,
-    transparent                   54%
-  );
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(8, 30, 46, .55);
 }
+.vs-leader-panel__core::before { left:  -1px; }
+.vs-leader-panel__core::after  { right: -1px; }
 
-/* ── Frame overlay (carries cyan glow pulse during scan) ─────── */
+/* ── Frame overlay (subtle cyan pulse during scan) ───────────── */
 .vs-leader-panel__frame {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 15;
   pointer-events: none;
 }
 
@@ -169,45 +210,67 @@
 
 /* ═══════════════════════════════════════════════════════════════
    ENERGY SCAN KEYFRAMES
-   Scoped strictly to .vs-leader-panel — nothing outside animates.
 ═══════════════════════════════════════════════════════════════ */
 
-/* Portrait wipe: top→bottom for both sides */
-@keyframes vs-scan-reveal-tb {
-  from { clip-path: inset(0 0 100% 0); }
-  to   { clip-path: inset(0 0 0   0); }
+/* Scan anchor sweep:
+   P1 — left edge (0) → center seam (100%)
+   P2 — right edge (left:100%) → center seam (left:0) */
+@keyframes vs-sweep-l {
+  0%   { left: 0;    opacity: 0; }
+  5%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
 }
 
-/* Scan bar: top→bottom for both sides.
-   top:-14% = bar fully off top edge (clipped).
-   top:100% = bar fully off bottom edge (clipped). */
-@keyframes vs-scan-bar-tb {
-  from { top: -14%; opacity: 1; }
-  to   { top: 100%; opacity: 1; }
+@keyframes vs-sweep-r {
+  0%   { left: 100%; opacity: 0; }
+  5%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { left: 0;    opacity: 0; }
 }
 
-/* Frame: brief cyan flash at ~45% of the scan */
+/* Portrait wipe (sync with scan — same dur + ease):
+   P1 reveals left→right; P2 reveals right→left */
+@keyframes vs-wipe-l {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0   0 0); }
+}
+
+@keyframes vs-wipe-r {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { clip-path: inset(0 0 0 0);   }
+}
+
+/* Frame pulse */
 @keyframes vs-scan-frameglow {
   0%, 100% { box-shadow: none; }
   45%       { box-shadow: 0 0 22px rgba(39, 226, 255, 0.55), inset 0 0 36px rgba(39, 226, 255, 0.18); }
 }
 
-/* ── Portrait wipe — top→bottom, both sides ────────────────── */
-.vs-leader-panel__layer.entering {
-  animation: vs-scan-reveal-tb var(--scan-dur) var(--scan-ease) both;
+/* ── Scan per side ─────────────────────────────────────────── */
+.vs-leader-panel--left.scanning  .vs-leader-panel__scan {
+  animation: vs-sweep-l var(--scan-dur) var(--scan-ease) both;
 }
 
-/* ── Scan bar — top→bottom, both sides ────────────────────── */
-.vs-leader-panel.scanning .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-tb var(--scan-dur) ease-out both;
+.vs-leader-panel--right.scanning .vs-leader-panel__scan {
+  animation: vs-sweep-r var(--scan-dur) var(--scan-ease) both;
 }
 
-/* ── Frame glow ────────────────────────────────────────────── */
+/* ── Portrait wipe per side ────────────────────────────────── */
+.vs-leader-panel--left  .vs-leader-panel__layer.entering {
+  animation: vs-wipe-l var(--scan-dur) var(--scan-ease) both;
+}
+
+.vs-leader-panel--right .vs-leader-panel__layer.entering {
+  animation: vs-wipe-r var(--scan-dur) var(--scan-ease) both;
+}
+
+/* ── Frame glow during scan ────────────────────────────────── */
 .vs-leader-panel.scanning .vs-leader-panel__frame {
   animation: vs-scan-frameglow var(--scan-dur) ease both;
 }
 
-/* ── Reduced-motion: plain opacity fade, no bar or glow ─────── */
+/* ── Reduced-motion: plain opacity fade, no line or glow ─────── */
 @media (prefers-reduced-motion: reduce) {
   @keyframes vs-scan-fade {
     from { opacity: 0; }
@@ -220,7 +283,7 @@
 
   .vs-leader-panel__layer.leaving { opacity: 1; }
 
-  .vs-leader-panel__scanbar,
+  .vs-leader-panel__scan,
   .vs-leader-panel.scanning .vs-leader-panel__frame {
     animation: none !important;
   }
