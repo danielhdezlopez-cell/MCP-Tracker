@@ -76,30 +76,29 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  overflow: hidden;
+  /* No overflow:hidden — lets the glow bleed naturally at edges */
 }
 
-/* Bar is always anchored left:0; translateX drives the sweep.
-   With width 7%: -120% = just off-panel left, 1500% = just off-panel right. */
+/* Bar uses left% (relative to container) for precise full-panel traversal.
+   Width 16% of panel. Starts fully off-panel, ends fully off-panel. */
 .vs-leader-panel__scanbar {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  width: 7%;
+  width: 16%;
   opacity: 0;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(39, 226, 255, 0.55) 34%,
-    rgba(215, 250, 255, 1)   50%,
-    rgba(39, 226, 255, 0.55) 66%,
-    transparent
+    transparent                   0%,
+    rgba(39, 226, 255, 0.45)     20%,
+    rgba(39, 226, 255, 0.85)     38%,
+    rgba(215, 250, 255, 1)       50%,
+    rgba(39, 226, 255, 0.85)     62%,
+    rgba(39, 226, 255, 0.45)     80%,
+    transparent                  100%
   );
-  box-shadow:
-    0 0 52px 14px rgba(39, 226, 255, 0.92),
-    0 0 16px 4px  rgba(215, 250, 255, 0.85);
-  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 18px rgba(39, 226, 255, 0.95))
+          drop-shadow(0 0 6px  rgba(215, 250, 255, 1));
 }
 
 /* ── Frame overlay (carries cyan glow pulse during scan) ─────── */
@@ -167,19 +166,20 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 
-/* Bar sweeps full panel width (both anchored at left:0) */
+/* Bar sweeps full panel using left% (relative to container width).
+   left:-16% = fully off left edge; left:100% = fully off right edge. */
 @keyframes vs-scan-bar-l {
-  0%   { transform: translateX(-120%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(1500%); opacity: 0; }
+  0%   { left: -16%; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { left: 100%;  opacity: 0; }
 }
 
 @keyframes vs-scan-bar-r {
-  0%   { transform: translateX(1500%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(-120%); opacity: 0; }
+  0%   { left: 100%;  opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { left: -16%;  opacity: 0; }
 }
 
 /* Frame: brief cyan flash at ~45% of the scan */
