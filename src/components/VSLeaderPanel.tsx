@@ -127,19 +127,12 @@ export const VSLeaderPanel = memo(function VSLeaderPanel({ side, showPortrait }:
           return (
             <div key={idx} className={layerClass}>
               {layerLeader && (
-                <>
-                  <div
-                    className="vs-leader-panel__layer-bg"
-                    style={{ backgroundImage: `url(${layerLeader.image ?? ''})` }}
-                  />
-                  <div className="vs-leader-panel__layer-wash" />
-                  <img
-                    src={layerLeader.image ?? ''}
-                    alt={layerLeader.name}
-                    className="vs-leader-panel__layer-por"
-                    draggable={false}
-                  />
-                </>
+                <img
+                  src={layerLeader.image ?? ''}
+                  alt={layerLeader.name}
+                  className="vs-leader-panel__layer-por"
+                  draggable={false}
+                />
               )}
             </div>
           );
