@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       includeAssets: ['assets/**/*'],
       manifest: {
         name: 'MCP Tracker',
@@ -41,6 +41,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        skipWaiting: true,
         clientsClaim: true,
         // Pre-cache all static assets (JS, CSS, HTML, images, fonts)
         globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff,woff2}'],
