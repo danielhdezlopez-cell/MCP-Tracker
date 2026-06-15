@@ -1,7 +1,18 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { type Leader } from '../data/leadersData';
-import { useMcpStore } from '../store/useMcpStore';
+import { useMcpStore, getThemeFromLeader } from '../store/useMcpStore';
+import { getThemeVideoConfig } from '../data/themeVideoMap';
+import { getPosterUrl } from '../utils/themeAssetCache';
 import './VSLeaderPanel.css';
+
+function leaderPosterUrl(leader: Leader | null): string | null {
+  if (!leader) return null;
+  const theme = getThemeFromLeader(leader);
+  if (!theme) return null;
+  const config = getThemeVideoConfig(theme);
+  if (!config) return null;
+  return getPosterUrl(config.src);
+}
 
 interface Props {
   side: 'left' | 'right';
@@ -108,13 +119,14 @@ export const VSLeaderPanel = memo(function VSLeaderPanel({ side, showPortrait }:
       onKeyDown={handleKeyDown}
       aria-label={ariaLabel}
     >
-      {/* Two persistent transparent layers — only portrait image, video shows through */}
+      {/* Two persistent layers — background poster + portrait, visible only during transitions */}
       <div className="vs-leader-panel__view">
         {([0, 1] as const).map(idx => {
           const layerLeader = layerData[idx];
           const isActive   = idx === activeIdx;
           const isEntering = idx === enteringIdx;
           const isLeaving  = isActive && enteringIdx !== null;
+          const posterUrl  = leaderPosterUrl(layerLeader);
 
           const layerClass = [
             'vs-leader-panel__layer',
@@ -125,6 +137,13 @@ export const VSLeaderPanel = memo(function VSLeaderPanel({ side, showPortrait }:
 
           return (
             <div key={idx} className={layerClass}>
+              {/* Theme background — fills full half, revealed by clip-path wipe */}
+              {posterUrl && (
+                <div
+                  className="vs-leader-panel__layer-bg"
+                  style={{ backgroundImage: `url(${posterUrl})` }}
+                />
+              )}
               {layerLeader && (
                 <img
                   src={layerLeader.image ?? ''}
