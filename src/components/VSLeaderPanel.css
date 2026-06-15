@@ -79,30 +79,32 @@
 }
 
 /* Scan bar — 12% wide gradient bar.
-   No mix-blend-mode (invisible on dark video), no box-shadow (clipped by
-   overflow:hidden on .vs-leader-panel). Glow is baked into the gradient.
-   Position uses left% (relative to container) for responsive traversal:
-     left:-12% → bar's right edge at 0%  = just off left edge
-     left:100% → bar's left edge at 100% = just off right edge */
+   Glow is baked into the gradient; no mix-blend-mode, no box-shadow.
+   opacity stays 1 throughout animation — .vs-leader-panel { overflow:hidden }
+   clips the bar when it's outside panel bounds, so no artificial fade needed.
+   Removing the opacity fade fixes P2: with ease-out the bar travels fast at
+   start, so a 6% fade-in made P2 appear to start far from the right edge.
+   Position: left% relative to container for fully responsive traversal. */
 .vs-leader-panel__scanbar {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 12%;
-  opacity: 0;
+  opacity: 0; /* hidden at rest; animation sets to 1 */
   background: linear-gradient(
     90deg,
     transparent                    0%,
-    rgba(39, 226, 255, 0.08)      18%,
-    rgba(39, 226, 255, 0.55)      40%,
-    rgba(39, 226, 255, 0.90)      47%,
+    rgba(39, 226, 255, 0.15)      15%,
+    rgba(39, 226, 255, 0.75)      38%,
+    rgba(120, 245, 255, 1.00)     46%,
     rgba(255, 255, 255, 1.00)     50%,
-    rgba(39, 226, 255, 0.90)      53%,
-    rgba(39, 226, 255, 0.55)      60%,
-    rgba(39, 226, 255, 0.08)      82%,
+    rgba(120, 245, 255, 1.00)     54%,
+    rgba(39, 226, 255, 0.75)      62%,
+    rgba(39, 226, 255, 0.15)      85%,
     transparent                   100%
   );
+  filter: brightness(1.4);
 }
 
 /* Crisp white core line layered on top of the cyan gradient */
@@ -112,9 +114,9 @@
   inset: 0;
   background: linear-gradient(
     90deg,
-    transparent                  46%,
-    rgba(255, 255, 255, 0.95)   50%,
-    transparent                  54%
+    transparent                  47%,
+    rgba(255, 255, 255, 1.00)   50%,
+    transparent                  53%
   );
 }
 
@@ -183,20 +185,18 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 
-/* left% is relative to the container (panel) width — fully responsive.
-   -12% = bar right-edge at 0 (just off left). 100% = bar left-edge at 100% (just off right). */
+/* left% relative to container — fully responsive on all screen sizes.
+   Opacity is 1 throughout; .vs-leader-panel { overflow:hidden } clips the bar
+   when outside bounds, so no artificial fade is needed. This guarantees P2
+   starts exactly at its right edge (not faded in mid-panel). */
 @keyframes vs-scan-bar-l {
-  0%   { left: -12%; opacity: 0; }
-  6%   { opacity: 1; }
-  94%  { opacity: 1; }
-  100% { left: 100%;  opacity: 0; }
+  from { left: -12%; opacity: 1; }
+  to   { left: 100%; opacity: 1; }
 }
 
 @keyframes vs-scan-bar-r {
-  0%   { left: 100%;  opacity: 0; }
-  6%   { opacity: 1; }
-  94%  { opacity: 1; }
-  100% { left: -12%;  opacity: 0; }
+  from { left: 100%; opacity: 1; }
+  to   { left: -12%; opacity: 1; }
 }
 
 /* Frame: brief cyan flash at ~45% of the scan */
