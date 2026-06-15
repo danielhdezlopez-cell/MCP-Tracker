@@ -9,7 +9,7 @@ import { VIDEO_THEMES } from './data/themeVideoMap.ts';
 // Bump this string whenever a deploy isn't reaching users due to stale SW cache.
 // On first load after a version change: unregisters old SW, clears all caches,
 // then reloads once so the fresh SW takes over.
-const CACHE_VERSION = 'v20260526';
+const CACHE_VERSION = 'v20260615';
 const CACHE_KEY = 'mcp-cache-version';
 
 async function boot() {
