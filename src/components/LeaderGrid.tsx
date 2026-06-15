@@ -22,13 +22,16 @@ const LeaderCard = memo(function LeaderCard({ leader, isLeft, isRight, onSelect 
   const variant = isLeft ? 'left' : isRight ? 'right' : 'neutral';
   const selected = isLeft || isRight;
   const handleClick = useCallback(() => onSelect(leader), [leader, onSelect]);
+  const hasCover = Boolean(leader.coverImage);
 
   return (
     <button
-      className={`leader-card ${isLeft ? 'selected-left' : ''} ${isRight ? 'selected-right' : ''}`}
+      className={`leader-card ${isLeft ? 'selected-left' : ''} ${isRight ? 'selected-right' : ''} ${hasCover ? 'has-cover' : ''}`}
       onClick={handleClick}
       aria-label={`Select ${leader.name}`}
+      style={hasCover ? { backgroundImage: `url(${leader.coverImage})` } : undefined}
     >
+      {hasCover && <div className="leader-card__cover-overlay" />}
       <div className="leader-card__hex-wrap">
         <HexPortrait
           image={leader.image}
