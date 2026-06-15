@@ -76,32 +76,46 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  /* No overflow:hidden — lets the glow bleed naturally at edges */
 }
 
-/* 3 px thin bar — both sides anchored left:0; direction handled by translateX in keyframes.
-   Uses box-shadow (not filter) for strong multi-layer cyan glow + mix-blend-mode:screen. */
+/* Scan bar — 12% wide gradient bar.
+   No mix-blend-mode (invisible on dark video), no box-shadow (clipped by
+   overflow:hidden on .vs-leader-panel). Glow is baked into the gradient.
+   Position uses left% (relative to container) for responsive traversal:
+     left:-12% → bar's right edge at 0%  = just off left edge
+     left:100% → bar's left edge at 100% = just off right edge */
 .vs-leader-panel__scanbar {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 3px;
+  width: 12%;
   opacity: 0;
-  border-radius: 2px;
   background: linear-gradient(
-    180deg,
-    rgba(215, 250, 255, 0.85),
-    #eafdff 18%,
-    #eafdff 82%,
-    rgba(215, 250, 255, 0.85)
+    90deg,
+    transparent                    0%,
+    rgba(39, 226, 255, 0.08)      18%,
+    rgba(39, 226, 255, 0.55)      40%,
+    rgba(39, 226, 255, 0.90)      47%,
+    rgba(255, 255, 255, 1.00)     50%,
+    rgba(39, 226, 255, 0.90)      53%,
+    rgba(39, 226, 255, 0.55)      60%,
+    rgba(39, 226, 255, 0.08)      82%,
+    transparent                   100%
   );
-  box-shadow:
-    0 0 4px 1px #eafdff,
-    0 0 18px 5px rgba(39, 226, 255, 1),
-    0 0 60px 20px rgba(39, 226, 255, 0.85),
-    0 0 120px 44px rgba(39, 226, 255, 0.45);
-  mix-blend-mode: screen;
+}
+
+/* Crisp white core line layered on top of the cyan gradient */
+.vs-leader-panel__scanbar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent                  46%,
+    rgba(255, 255, 255, 0.95)   50%,
+    transparent                  54%
+  );
 }
 
 /* ── Frame overlay (carries cyan glow pulse during scan) ─────── */
@@ -169,21 +183,20 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 
-/* Bar is 3 px; both anchored left:0. translateX(-100%) ≈ -3px (off left edge).
-   translateX(11300%) ≈ 339px (off right edge for a ~340px panel).
-   Using translateX keeps the animation on the compositor thread. */
+/* left% is relative to the container (panel) width — fully responsive.
+   -12% = bar right-edge at 0 (just off left). 100% = bar left-edge at 100% (just off right). */
 @keyframes vs-scan-bar-l {
-  0%   { transform: translateX(-100%); opacity: 0; }
-  8%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { transform: translateX(11300%); opacity: 0; }
+  0%   { left: -12%; opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { left: 100%;  opacity: 0; }
 }
 
 @keyframes vs-scan-bar-r {
-  0%   { transform: translateX(11300%); opacity: 0; }
-  8%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
+  0%   { left: 100%;  opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { left: -12%;  opacity: 0; }
 }
 
 /* Frame: brief cyan flash at ~45% of the scan */
@@ -203,11 +216,11 @@
 
 /* ── Scan bar per side ─────────────────────────────────────── */
 .vs-leader-panel--left.scanning  .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-l var(--scan-dur) var(--scan-ease) both;
+  animation: vs-scan-bar-l var(--scan-dur) ease-out both;
 }
 
 .vs-leader-panel--right.scanning .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-r var(--scan-dur) var(--scan-ease) both;
+  animation: vs-scan-bar-r var(--scan-dur) ease-out both;
 }
 
 /* ── Frame glow ────────────────────────────────────────────── */
