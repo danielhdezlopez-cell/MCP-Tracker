@@ -49,37 +49,39 @@
   opacity: 1;
 }
 
-/* Theme background — fills the full half, visible only during transition */
+/* Theme background — fills the full half, only revealed in the entering layer */
 .vs-leader-panel__layer-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center 16%;
-  filter: brightness(.66) saturate(1.06);
   opacity: 0;
   pointer-events: none;
 }
 
+/* Dark overlay on top of bg image (no filter to avoid clip-path conflicts in Safari) */
 .vs-leader-panel__layer-bg::after {
   content: '';
   position: absolute;
   inset: 0;
+  background: rgba(0, 0, 0, .34);
 }
 
 .vs-leader-panel--left  .vs-leader-panel__layer-bg::after {
   background:
-    linear-gradient(to right, rgba(160,0,20,.22), rgba(0,0,0,.28) 50%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.96) 100%),
-    linear-gradient(to bottom, rgba(0,0,0,.18), rgba(0,0,0,.42));
+    rgba(0, 0, 0, .34),
+    linear-gradient(to right, rgba(160,0,20,.20), rgba(0,0,0,.0) 55%, rgba(0,0,0,.65) 88%, rgba(0,0,0,.94) 100%);
 }
 
 .vs-leader-panel--right .vs-leader-panel__layer-bg::after {
   background:
-    linear-gradient(to left, rgba(0,60,170,.22), rgba(0,0,0,.28) 50%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.96) 100%),
-    linear-gradient(to bottom, rgba(0,0,0,.18), rgba(0,0,0,.42));
+    rgba(0, 0, 0, .34),
+    linear-gradient(to left, rgba(0,60,170,.20), rgba(0,0,0,.0) 55%, rgba(0,0,0,.65) 88%, rgba(0,0,0,.94) 100%);
 }
 
-.vs-leader-panel__layer.entering .vs-leader-panel__layer-bg,
-.vs-leader-panel__layer.leaving  .vs-leader-panel__layer-bg {
+/* Only the ENTERING layer shows the background — leaving stays transparent so
+   the live VSBackground video remains visible on the "old" side during the wipe */
+.vs-leader-panel__layer.entering .vs-leader-panel__layer-bg {
   opacity: 1;
 }
 
