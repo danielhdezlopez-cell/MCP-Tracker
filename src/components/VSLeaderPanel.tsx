@@ -8,7 +8,7 @@ interface Props {
   showPortrait: boolean;
 }
 
-const SCAN_DUR = 850; // ms — keep in sync with --scan-dur in CSS
+const SCAN_DUR = 780; // ms — keep in sync with --scan-dur in CSS
 
 interface PanelState {
   layerData: [Leader | null, Leader | null];
