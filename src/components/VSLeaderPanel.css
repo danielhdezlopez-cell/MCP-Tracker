@@ -38,36 +38,12 @@
 /* During scan: entering layer animates in on top (z3), leaving stays visible under (z2) */
 .vs-leader-panel__layer.entering {
   z-index: 3;
+  opacity: 1; /* visible so clip-path wipe shows the portrait */
 }
 
 .vs-leader-panel__layer.leaving {
   z-index: 2;
   opacity: 1;
-}
-
-/* Blurred portrait used as atmospheric background for each layer */
-.vs-leader-panel__layer-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center 18%;
-  filter: blur(14px) brightness(0.45);
-  transform: scale(1.2);
-  transform-origin: center;
-  pointer-events: none;
-}
-
-/* Colour wash */
-.vs-leader-panel__layer-wash {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.22) 0%,
-    rgba(3, 5, 12, 0.12) 46%,
-    rgba(3, 5, 12, 0.52)
-  );
-  pointer-events: none;
 }
 
 /* Portrait image — same size/position as the old vs-portrait__img */
