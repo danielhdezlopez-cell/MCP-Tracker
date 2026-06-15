@@ -8,7 +8,7 @@ interface Props {
   showPortrait: boolean;
 }
 
-const SCAN_DUR = 780; // ms — keep in sync with --scan-dur in CSS
+const SCAN_DUR = 1080; // ms — keep in sync with --scan-dur in CSS
 
 interface PanelState {
   layerData: [Leader | null, Leader | null];
@@ -138,9 +138,13 @@ export const VSLeaderPanel = memo(function VSLeaderPanel({ side, showPortrait }:
         })}
       </div>
 
-      {/* Scan bar — above layers, below frame */}
+      {/* Energy Scan — trail · glow · core (above layers, below frame) */}
       <div className="vs-leader-panel__fx" aria-hidden="true">
-        <div className="vs-leader-panel__scanbar" />
+        <div className="vs-leader-panel__scan">
+          <div className="vs-leader-panel__trail" />
+          <div className="vs-leader-panel__glow" />
+          <div className="vs-leader-panel__core" />
+        </div>
       </div>
 
       {/* Frame — carries the cyan glow pulse during scan */}
