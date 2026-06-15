@@ -76,48 +76,62 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
+  overflow: hidden; /* clips bar at exact panel edges */
 }
 
-/* Scan bar — 12% wide gradient bar.
-   Glow is baked into the gradient; no mix-blend-mode, no box-shadow.
-   opacity stays 1 throughout animation — .vs-leader-panel { overflow:hidden }
-   clips the bar when it's outside panel bounds, so no artificial fade needed.
-   Removing the opacity fade fixes P2: with ease-out the bar travels fast at
-   start, so a 6% fade-in made P2 appear to start far from the right edge.
-   Position: left% relative to container for fully responsive traversal. */
+/* Scan bar base — 14% wide gradient, strong cyan core with white center.
+   P1 uses left-based positioning; P2 uses right-based positioning to ensure
+   the bar anchors semantically to each panel's leading edge.
+   opacity:0 at rest; each side's animation sets opacity:1. */
 .vs-leader-panel__scanbar {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  width: 12%;
-  opacity: 0; /* hidden at rest; animation sets to 1 */
+  width: 14%;
+  opacity: 0;
   background: linear-gradient(
     90deg,
-    transparent                    0%,
-    rgba(39, 226, 255, 0.15)      15%,
-    rgba(39, 226, 255, 0.75)      38%,
-    rgba(120, 245, 255, 1.00)     46%,
-    rgba(255, 255, 255, 1.00)     50%,
-    rgba(120, 245, 255, 1.00)     54%,
-    rgba(39, 226, 255, 0.75)      62%,
-    rgba(39, 226, 255, 0.15)      85%,
-    transparent                   100%
+    transparent                   0%,
+    rgba(39, 226, 255, 0.10)     12%,
+    rgba(39, 226, 255, 0.65)     35%,
+    rgba(80, 235, 255, 0.95)     44%,
+    rgba(255, 255, 255, 1.00)    50%,
+    rgba(80, 235, 255, 0.95)     56%,
+    rgba(39, 226, 255, 0.65)     65%,
+    rgba(39, 226, 255, 0.10)     88%,
+    transparent                  100%
   );
-  filter: brightness(1.4);
+  filter: brightness(1.5);
 }
 
-/* Crisp white core line layered on top of the cyan gradient */
+/* Bright white core — tight band over the gradient */
 .vs-leader-panel__scanbar::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    transparent                  47%,
-    rgba(255, 255, 255, 1.00)   50%,
-    transparent                  53%
+    transparent                   46%,
+    rgba(255, 255, 255, 1.00)    50%,
+    transparent                   54%
   );
+}
+
+/* P1: bar starts from left edge, travels right.
+   left:-14% → bar's right edge at 0 = just off left (clipped).
+   left:100% → bar's left edge at 100% = just off right (clipped). */
+.vs-leader-panel--left .vs-leader-panel__scanbar {
+  left: -14%;
+  right: auto;
+}
+
+/* P2: bar anchored by RIGHT property — starts from right edge, travels left.
+   right:-14% → bar's left edge at 100% = just off right (clipped).
+   right:100% → bar's right edge at 0% = just off left (clipped).
+   Using right% ensures the bar starts at P2's actual right boundary. */
+.vs-leader-panel--right .vs-leader-panel__scanbar {
+  right: -14%;
+  left: auto;
 }
 
 /* ── Frame overlay (carries cyan glow pulse during scan) ─────── */
@@ -185,18 +199,19 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 
-/* left% relative to container — fully responsive on all screen sizes.
-   Opacity is 1 throughout; .vs-leader-panel { overflow:hidden } clips the bar
-   when outside bounds, so no artificial fade is needed. This guarantees P2
-   starts exactly at its right edge (not faded in mid-panel). */
+/* P1 (left→right): animates the `left` property.
+   Bar starts fully off the left edge, sweeps to fully off the right edge. */
 @keyframes vs-scan-bar-l {
-  from { left: -12%; opacity: 1; }
+  from { left: -14%; opacity: 1; }
   to   { left: 100%; opacity: 1; }
 }
 
+/* P2 (right→left): animates the `right` property — anchors to P2's right edge.
+   right:-14% = bar's left edge at 114% = fully off right (clipped).
+   right:100% = bar's right edge at 0% = fully off left (clipped). */
 @keyframes vs-scan-bar-r {
-  from { left: 100%; opacity: 1; }
-  to   { left: -12%; opacity: 1; }
+  from { right: -14%; opacity: 1; }
+  to   { right: 100%; opacity: 1; }
 }
 
 /* Frame: brief cyan flash at ~45% of the scan */
