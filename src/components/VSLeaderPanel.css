@@ -49,6 +49,40 @@
   opacity: 1;
 }
 
+/* Theme background — fills the full half, visible only during transition */
+.vs-leader-panel__layer-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 16%;
+  filter: brightness(.66) saturate(1.06);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vs-leader-panel__layer-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.vs-leader-panel--left  .vs-leader-panel__layer-bg::after {
+  background:
+    linear-gradient(to right, rgba(160,0,20,.22), rgba(0,0,0,.28) 50%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.96) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.18), rgba(0,0,0,.42));
+}
+
+.vs-leader-panel--right .vs-leader-panel__layer-bg::after {
+  background:
+    linear-gradient(to left, rgba(0,60,170,.22), rgba(0,0,0,.28) 50%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.96) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.18), rgba(0,0,0,.42));
+}
+
+.vs-leader-panel__layer.entering .vs-leader-panel__layer-bg,
+.vs-leader-panel__layer.leaving  .vs-leader-panel__layer-bg {
+  opacity: 1;
+}
+
 /* Portrait image */
 .vs-leader-panel__layer-por {
   position: absolute;
