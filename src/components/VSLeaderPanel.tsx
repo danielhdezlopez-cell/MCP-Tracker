@@ -128,7 +128,7 @@ export const VSLeaderPanel = memo(function VSLeaderPanel({ side, showPortrait }:
             <div key={idx} className={layerClass}>
               {layerLeader && (
                 <img
-                  src={layerLeader.image ?? ''}
+                  src={layerLeader.coverImage ?? layerLeader.image ?? ''}
                   alt={layerLeader.name}
                   className="vs-leader-panel__layer-por"
                   draggable={false}
