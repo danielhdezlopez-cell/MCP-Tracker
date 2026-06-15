@@ -20,44 +20,6 @@
   text-align: center;
 }
 
-/* Cover image as card background */
-.leader-card.has-cover {
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-}
-
-/* Dark scrim so hex portrait and chips stay legible */
-.leader-card__cover-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(4, 6, 14, 0.38) 0%,
-    rgba(4, 6, 14, 0.52) 60%,
-    rgba(4, 6, 14, 0.78) 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Ensure content sits above the overlay */
-.leader-card.has-cover .leader-card__hex-wrap,
-.leader-card.has-cover .leader-card__affils {
-  position: relative;
-  z-index: 1;
-}
-
-.leader-card.has-cover:hover .leader-card__cover-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(4, 6, 14, 0.22) 0%,
-    rgba(4, 6, 14, 0.36) 60%,
-    rgba(4, 6, 14, 0.65) 100%
-  );
-}
-
 .leader-card:hover {
   border-color: var(--color-accent-left);
   background: var(--color-panel-alt);
