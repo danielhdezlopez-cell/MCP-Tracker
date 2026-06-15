@@ -6,7 +6,7 @@
 ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  --scan-dur: 780ms;
+  --scan-dur: 850ms;
   --scan-ease: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -76,29 +76,45 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  /* No overflow:hidden — lets the glow bleed naturally at edges */
+  overflow: hidden; /* clips bar outside panel bounds; bar extends ±10% vertically */
 }
 
-/* Bar uses left% (relative to container) for precise full-panel traversal.
-   Width 16% of panel. Starts fully off-panel, ends fully off-panel. */
+/* Bar: 18% wide, extends top/bottom beyond container to avoid vertical clip.
+   translateX percentages are relative to the bar's OWN width (18% of panel):
+     -140% × 18% ≈ -25% of panel  → just off left edge
+      680% × 18% ≈ 122% of panel  → just off right edge */
 .vs-leader-panel__scanbar {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 16%;
-  opacity: 0;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 18%;
   background: linear-gradient(
     90deg,
-    transparent                   0%,
-    rgba(39, 226, 255, 0.45)     20%,
-    rgba(39, 226, 255, 0.85)     38%,
-    rgba(215, 250, 255, 1)       50%,
-    rgba(39, 226, 255, 0.85)     62%,
-    rgba(39, 226, 255, 0.45)     80%,
-    transparent                  100%
+    transparent                    0%,
+    rgba(80, 220, 255, 0.15)      25%,
+    rgba(120, 245, 255, 0.95)     50%,
+    rgba(80, 220, 255, 0.20)      75%,
+    transparent                   100%
   );
-  filter: drop-shadow(0 0 18px rgba(39, 226, 255, 0.95))
-          drop-shadow(0 0 6px  rgba(215, 250, 255, 1));
+  filter:
+    drop-shadow(0 0 8px  rgba(80, 220, 255, 0.90))
+    drop-shadow(0 0 18px rgba(80, 220, 255, 0.65))
+    drop-shadow(0 0 32px rgba(80, 220, 255, 0.35));
+}
+
+/* Bright white core line on top of the cyan gradient */
+.vs-leader-panel__scanbar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent              45%,
+    rgba(255, 255, 255, 0.95) 50%,
+    transparent              55%
+  );
+  opacity: 0.9;
 }
 
 /* ── Frame overlay (carries cyan glow pulse during scan) ─────── */
@@ -166,20 +182,17 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 
-/* Bar sweeps full panel using left% (relative to container width).
-   left:-16% = fully off left edge; left:100% = fully off right edge. */
+/* translateX is relative to bar's own width (18% of panel).
+   P1 L→R: -140% = -25.2% of panel (off left), 680% = 122.4% of panel (off right).
+   P2 R→L: mirror. */
 @keyframes vs-scan-bar-l {
-  0%   { left: -16%; opacity: 0; }
-  8%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { left: 100%;  opacity: 0; }
+  from { transform: translateX(-140%); opacity: 0.95; }
+  to   { transform: translateX(680%);  opacity: 0.95; }
 }
 
 @keyframes vs-scan-bar-r {
-  0%   { left: 100%;  opacity: 0; }
-  8%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { left: -16%;  opacity: 0; }
+  from { transform: translateX(680%);  opacity: 0.95; }
+  to   { transform: translateX(-140%); opacity: 0.95; }
 }
 
 /* Frame: brief cyan flash at ~45% of the scan */
@@ -199,11 +212,11 @@
 
 /* ── Scan bar per side ─────────────────────────────────────── */
 .vs-leader-panel--left.scanning  .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-l var(--scan-dur) var(--scan-ease) both;
+  animation: vs-scan-bar-l var(--scan-dur) ease-out both;
 }
 
 .vs-leader-panel--right.scanning .vs-leader-panel__scanbar {
-  animation: vs-scan-bar-r var(--scan-dur) var(--scan-ease) both;
+  animation: vs-scan-bar-r var(--scan-dur) ease-out both;
 }
 
 /* ── Frame glow ────────────────────────────────────────────── */
