@@ -4,7 +4,7 @@
    Vertical line sweeps horizontally across each player's half:
      P1 left-edge → center seam (left: 0 → 100%)
      P2 right-edge → center seam (left: 100% → 0)
-   Three-element line: trail · glow (screen) · core (no blend).
+   Three-element line: trail · glow · core (all solid, no blend modes).
 ═══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -49,7 +49,10 @@
   opacity: 1;
 }
 
-/* Theme background — fills the full half, only revealed in the entering layer */
+/* ── Theme background — full-half poster image ─────────────── */
+/* Fills the entire layer. Visible on both leaving (old leader) and entering
+   (new leader) during the transition — leaving covers the VSBackground video
+   so old content stays visible while the scan wipes in the new side. */
 .vs-leader-panel__layer-bg {
   position: absolute;
   inset: 0;
@@ -59,33 +62,34 @@
   pointer-events: none;
 }
 
-/* Dark overlay on top of bg image (no filter to avoid clip-path conflicts in Safari) */
+/* Tint overlay (no CSS filter — filter+clip-path conflicts in Safari/iOS) */
 .vs-leader-panel__layer-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, .34);
 }
 
-.vs-leader-panel--left  .vs-leader-panel__layer-bg::after {
+.vs-leader-panel--left .vs-leader-panel__layer-bg::after {
   background:
-    rgba(0, 0, 0, .34),
-    linear-gradient(to right, rgba(160,0,20,.20), rgba(0,0,0,.0) 55%, rgba(0,0,0,.65) 88%, rgba(0,0,0,.94) 100%);
+    linear-gradient(to right, rgba(160,0,20,.18), transparent 50%, rgba(0,0,0,.60) 88%, rgba(0,0,0,.92) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.38)),
+    rgba(0,0,0,.28);
 }
 
 .vs-leader-panel--right .vs-leader-panel__layer-bg::after {
   background:
-    rgba(0, 0, 0, .34),
-    linear-gradient(to left, rgba(0,60,170,.20), rgba(0,0,0,.0) 55%, rgba(0,0,0,.65) 88%, rgba(0,0,0,.94) 100%);
+    linear-gradient(to left, rgba(0,60,170,.18), transparent 50%, rgba(0,0,0,.60) 88%, rgba(0,0,0,.92) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.38)),
+    rgba(0,0,0,.28);
 }
 
-/* Only the ENTERING layer shows the background — leaving stays transparent so
-   the live VSBackground video remains visible on the "old" side during the wipe */
-.vs-leader-panel__layer.entering .vs-leader-panel__layer-bg {
+/* Background visible on both transition layers */
+.vs-leader-panel__layer.entering .vs-leader-panel__layer-bg,
+.vs-leader-panel__layer.leaving  .vs-leader-panel__layer-bg {
   opacity: 1;
 }
 
-/* Portrait image */
+/* ── Portrait image ────────────────────────────────────────── */
 .vs-leader-panel__layer-por {
   position: absolute;
   top: 8px;
@@ -108,11 +112,9 @@
 
 /* ═══════════════════════════════════════════════════════════════
    ENERGY SCAN ELEMENTS
-   z-index 14 per spec — above theme/portrait, below HUD/banners
+   z-index 14 — above theme/portrait layers, below frame/HUD
 ═══════════════════════════════════════════════════════════════ */
 
-/* FX container: full-panel anchor for the scan, no overflow clip
-   (clipping is handled by .vs-leader-panel { overflow:hidden } above) */
 .vs-leader-panel__fx {
   position: absolute;
   inset: 0;
@@ -120,8 +122,7 @@
   pointer-events: none;
 }
 
-/* Scan anchor: 0-width element that moves with `left`.
-   All three sub-elements are positioned relative to this anchor. */
+/* 0-width anchor — animates with left% */
 .vs-leader-panel__scan {
   position: absolute;
   top: 0;
@@ -131,58 +132,53 @@
   opacity: 0;
 }
 
-/* ── Trail: 128px soft glow behind the scan direction ───────── */
+/* ── Trail: 160px soft cyan gradient, NO blend mode ─────────── */
 .vs-leader-panel__trail {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 128px;
-  mix-blend-mode: screen;
+  width: 160px;
 }
 
-/* P1 sweeps L→R: trail extends LEFT (behind) */
 .vs-leader-panel--left  .vs-leader-panel__trail {
   right: 1px;
-  background: linear-gradient(to left, rgba(39, 226, 255, .55), rgba(39, 226, 255, .14) 46%, transparent);
+  background: linear-gradient(to left, rgba(39, 226, 255, .45), rgba(39, 226, 255, .08) 60%, transparent);
 }
 
-/* P2 sweeps R→L: trail extends RIGHT (behind) */
 .vs-leader-panel--right .vs-leader-panel__trail {
   left: 1px;
-  background: linear-gradient(to right, rgba(39, 226, 255, .55), rgba(39, 226, 255, .14) 46%, transparent);
+  background: linear-gradient(to right, rgba(39, 226, 255, .45), rgba(39, 226, 255, .08) 60%, transparent);
 }
 
-/* ── Glow: 4-level box-shadow, mix-blend-mode:screen ────────── */
+/* ── Glow: strong cyan halo, NO blend mode ──────────────────── */
 .vs-leader-panel__glow {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 3px;
-  transform: translateX(-1.5px);
-  background: rgba(39, 226, 255, .5);
-  mix-blend-mode: screen;
+  width: 4px;
+  transform: translateX(-2px);
+  background: rgba(39, 226, 255, .9);
   box-shadow:
-    0 0 6px  2px  rgba(234, 255, 255, .95),
-    0 0 20px 6px  rgba(39,  226, 255, 1),
-    0 0 54px 16px rgba(39,  226, 255, .72),
-    0 0 120px 42px rgba(39, 226, 255, .34);
+    0 0  8px  3px  rgba(39, 226, 255, 1),
+    0 0 24px  8px  rgba(39, 226, 255, .85),
+    0 0 60px 20px  rgba(39, 226, 255, .55),
+    0 0 130px 48px rgba(39, 226, 255, .28);
 }
 
-/* ── Core: solid opaque line — NO blend mode ────────────────── */
+/* ── Core: solid opaque white line ──────────────────────────── */
 .vs-leader-panel__core {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 3px;
-  transform: translateX(-1.5px);
+  width: 4px;
+  transform: translateX(-2px);
   border-radius: 2px;
-  background: linear-gradient(180deg, #bff0ff 0%, #ffffff 14%, #ffffff 86%, #bff0ff 100%);
-  box-shadow: 0 0 5px 1px #f2feff;
+  background: linear-gradient(180deg, #c8f4ff 0%, #ffffff 12%, #ffffff 88%, #c8f4ff 100%);
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, .9);
 }
 
-/* Hairlines for contrast on bright portraits */
 .vs-leader-panel__core::before,
 .vs-leader-panel__core::after {
   content: '';
@@ -190,12 +186,12 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background: rgba(8, 30, 46, .55);
+  background: rgba(8, 30, 46, .6);
 }
 .vs-leader-panel__core::before { left:  -1px; }
 .vs-leader-panel__core::after  { right: -1px; }
 
-/* ── Frame overlay (subtle cyan pulse during scan) ───────────── */
+/* ── Frame overlay (cyan pulse during scan) ─────────────────── */
 .vs-leader-panel__frame {
   position: absolute;
   inset: 0;
@@ -248,9 +244,6 @@
    ENERGY SCAN KEYFRAMES
 ═══════════════════════════════════════════════════════════════ */
 
-/* Scan anchor sweep:
-   P1 — left edge (0) → center seam (100%)
-   P2 — right edge (left:100%) → center seam (left:0) */
 @keyframes vs-sweep-l {
   0%   { left: 0;    opacity: 0; }
   5%   { opacity: 1; }
@@ -265,8 +258,6 @@
   100% { left: 0;    opacity: 0; }
 }
 
-/* Portrait wipe (sync with scan — same dur + ease):
-   P1 reveals left→right; P2 reveals right→left */
 @keyframes vs-wipe-l {
   from { clip-path: inset(0 100% 0 0); }
   to   { clip-path: inset(0 0   0 0); }
@@ -277,13 +268,12 @@
   to   { clip-path: inset(0 0 0 0);   }
 }
 
-/* Frame pulse */
 @keyframes vs-scan-frameglow {
   0%, 100% { box-shadow: none; }
-  45%       { box-shadow: 0 0 22px rgba(39, 226, 255, 0.55), inset 0 0 36px rgba(39, 226, 255, 0.18); }
+  45%      { box-shadow: 0 0 28px rgba(39, 226, 255, 0.7), inset 0 0 40px rgba(39, 226, 255, 0.22); }
 }
 
-/* ── Scan per side ─────────────────────────────────────────── */
+/* ── Scan animation per side ───────────────────────────────── */
 .vs-leader-panel--left.scanning  .vs-leader-panel__scan {
   animation: vs-sweep-l var(--scan-dur) var(--scan-ease) both;
 }
@@ -292,7 +282,7 @@
   animation: vs-sweep-r var(--scan-dur) var(--scan-ease) both;
 }
 
-/* ── Portrait wipe per side ────────────────────────────────── */
+/* ── Layer wipe per side ───────────────────────────────────── */
 .vs-leader-panel--left  .vs-leader-panel__layer.entering {
   animation: vs-wipe-l var(--scan-dur) var(--scan-ease) both;
 }
@@ -306,7 +296,7 @@
   animation: vs-scan-frameglow var(--scan-dur) ease both;
 }
 
-/* ── Reduced-motion: plain opacity fade, no line or glow ─────── */
+/* ── Reduced-motion fallback ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   @keyframes vs-scan-fade {
     from { opacity: 0; }
