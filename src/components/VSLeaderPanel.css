@@ -1,96 +1,12 @@
-/* ═══════════════════════════════════════════════════════════════
-   VS Leader Panel — Energy Scan Transition
-   Spec: design_handoff_energy_scan_transition/ENERGY_SCAN_PROMPT.md
-   Vertical line sweeps horizontally across each player's half:
-     P1 left-edge → center seam (left: 0 → 100%)
-     P2 right-edge → center seam (left: 100% → 0)
-   Three-element line: trail · glow · core (all solid, no blend modes).
-═══════════════════════════════════════════════════════════════ */
-
-:root {
-  --scan-dur: 1080ms;
-  --scan-ease: cubic-bezier(.42, .02, .16, 1);
-}
-
 .vs-leader-panel {
   position: relative;
   width: 100%;
   height: 100%;
   cursor: pointer;
-  overflow: hidden; /* clips glow so it never invades the other half */
-}
-
-/* ── Layer view — clips both layers to panel bounds ────────── */
-.vs-leader-panel__view {
-  position: absolute;
-  inset: 0;
   overflow: hidden;
 }
 
-/* ── Image layers ──────────────────────────────────────────── */
-.vs-leader-panel__layer {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-
-.vs-leader-panel__layer.is-active {
-  opacity: 1;
-}
-
-/* During scan: entering wipes in on top (z3), leaving stays visible under (z2) */
-.vs-leader-panel__layer.entering {
-  z-index: 3;
-  opacity: 1;
-}
-
-.vs-leader-panel__layer.leaving {
-  z-index: 2;
-  opacity: 1;
-}
-
-/* ── Theme background — full-half poster image ─────────────── */
-/* Fills the entire layer. Visible on both leaving (old leader) and entering
-   (new leader) during the transition — leaving covers the VSBackground video
-   so old content stays visible while the scan wipes in the new side. */
-.vs-leader-panel__layer-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center 16%;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Tint overlay (no CSS filter — filter+clip-path conflicts in Safari/iOS) */
-.vs-leader-panel__layer-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-}
-
-.vs-leader-panel--left .vs-leader-panel__layer-bg::after {
-  background:
-    linear-gradient(to right, rgba(160,0,20,.18), transparent 50%, rgba(0,0,0,.60) 88%, rgba(0,0,0,.92) 100%),
-    linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.38)),
-    rgba(0,0,0,.28);
-}
-
-.vs-leader-panel--right .vs-leader-panel__layer-bg::after {
-  background:
-    linear-gradient(to left, rgba(0,60,170,.18), transparent 50%, rgba(0,0,0,.60) 88%, rgba(0,0,0,.92) 100%),
-    linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.38)),
-    rgba(0,0,0,.28);
-}
-
-/* Background visible on both transition layers */
-.vs-leader-panel__layer.entering .vs-leader-panel__layer-bg,
-.vs-leader-panel__layer.leaving  .vs-leader-panel__layer-bg {
-  opacity: 1;
-}
-
-/* ── Portrait image ────────────────────────────────────────── */
-.vs-leader-panel__layer-por {
+.vs-leader-panel__por {
   position: absolute;
   top: 8px;
   height: 29.6%;
@@ -103,103 +19,13 @@
   transition: transform 0.25s ease;
 }
 
-.vs-leader-panel--left  .vs-leader-panel__layer-por { left: 8px; }
-.vs-leader-panel--right .vs-leader-panel__layer-por { right: 8px; }
+.vs-leader-panel--left  .vs-leader-panel__por { left: 8px; }
+.vs-leader-panel--right .vs-leader-panel__por { right: 8px; }
 
-.vs-leader-panel:hover .vs-leader-panel__layer-por {
+.vs-leader-panel:hover .vs-leader-panel__por {
   transform: scale(1.03) translateY(3px);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   ENERGY SCAN ELEMENTS
-   z-index 14 — above theme/portrait layers, below frame/HUD
-═══════════════════════════════════════════════════════════════ */
-
-.vs-leader-panel__fx {
-  position: absolute;
-  inset: 0;
-  z-index: 14;
-  pointer-events: none;
-}
-
-/* 0-width anchor — animates with left% */
-.vs-leader-panel__scan {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  opacity: 0;
-}
-
-/* ── Trail: 160px soft cyan gradient, NO blend mode ─────────── */
-.vs-leader-panel__trail {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 160px;
-}
-
-.vs-leader-panel--left  .vs-leader-panel__trail {
-  right: 1px;
-  background: linear-gradient(to left, rgba(39, 226, 255, .45), rgba(39, 226, 255, .08) 60%, transparent);
-}
-
-.vs-leader-panel--right .vs-leader-panel__trail {
-  left: 1px;
-  background: linear-gradient(to right, rgba(39, 226, 255, .45), rgba(39, 226, 255, .08) 60%, transparent);
-}
-
-/* ── Glow: strong cyan halo, NO blend mode ──────────────────── */
-.vs-leader-panel__glow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 4px;
-  transform: translateX(-2px);
-  background: rgba(39, 226, 255, .9);
-  box-shadow:
-    0 0  8px  3px  rgba(39, 226, 255, 1),
-    0 0 24px  8px  rgba(39, 226, 255, .85),
-    0 0 60px 20px  rgba(39, 226, 255, .55),
-    0 0 130px 48px rgba(39, 226, 255, .28);
-}
-
-/* ── Core: solid opaque white line ──────────────────────────── */
-.vs-leader-panel__core {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 4px;
-  transform: translateX(-2px);
-  border-radius: 2px;
-  background: linear-gradient(180deg, #c8f4ff 0%, #ffffff 12%, #ffffff 88%, #c8f4ff 100%);
-  box-shadow: 0 0 8px 2px rgba(255, 255, 255, .9);
-}
-
-.vs-leader-panel__core::before,
-.vs-leader-panel__core::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: rgba(8, 30, 46, .6);
-}
-.vs-leader-panel__core::before { left:  -1px; }
-.vs-leader-panel__core::after  { right: -1px; }
-
-/* ── Frame overlay (cyan pulse during scan) ─────────────────── */
-.vs-leader-panel__frame {
-  position: absolute;
-  inset: 0;
-  z-index: 15;
-  pointer-events: none;
-}
-
-/* ── Empty / hidden states ─────────────────────────────────── */
 .vs-leader-panel--empty {
   background: rgba(0, 0, 0, 0.15);
 }
@@ -238,79 +64,4 @@
 .vs-leader-panel--hidden {
   background: transparent;
   pointer-events: auto;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ENERGY SCAN KEYFRAMES
-═══════════════════════════════════════════════════════════════ */
-
-@keyframes vs-sweep-l {
-  0%   { left: 0;    opacity: 0; }
-  5%   { opacity: 1; }
-  94%  { opacity: 1; }
-  100% { left: 100%; opacity: 0; }
-}
-
-@keyframes vs-sweep-r {
-  0%   { left: 100%; opacity: 0; }
-  5%   { opacity: 1; }
-  94%  { opacity: 1; }
-  100% { left: 0;    opacity: 0; }
-}
-
-@keyframes vs-wipe-l {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0   0 0); }
-}
-
-@keyframes vs-wipe-r {
-  from { clip-path: inset(0 0 0 100%); }
-  to   { clip-path: inset(0 0 0 0);   }
-}
-
-@keyframes vs-scan-frameglow {
-  0%, 100% { box-shadow: none; }
-  45%      { box-shadow: 0 0 28px rgba(39, 226, 255, 0.7), inset 0 0 40px rgba(39, 226, 255, 0.22); }
-}
-
-/* ── Scan animation per side ───────────────────────────────── */
-.vs-leader-panel--left.scanning  .vs-leader-panel__scan {
-  animation: vs-sweep-l var(--scan-dur) var(--scan-ease) both;
-}
-
-.vs-leader-panel--right.scanning .vs-leader-panel__scan {
-  animation: vs-sweep-r var(--scan-dur) var(--scan-ease) both;
-}
-
-/* ── Layer wipe per side ───────────────────────────────────── */
-.vs-leader-panel--left  .vs-leader-panel__layer.entering {
-  animation: vs-wipe-l var(--scan-dur) var(--scan-ease) both;
-}
-
-.vs-leader-panel--right .vs-leader-panel__layer.entering {
-  animation: vs-wipe-r var(--scan-dur) var(--scan-ease) both;
-}
-
-/* ── Frame glow during scan ────────────────────────────────── */
-.vs-leader-panel.scanning .vs-leader-panel__frame {
-  animation: vs-scan-frameglow var(--scan-dur) ease both;
-}
-
-/* ── Reduced-motion fallback ───────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  @keyframes vs-scan-fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  .vs-leader-panel__layer.entering {
-    animation: vs-scan-fade 0.3s ease both !important;
-  }
-
-  .vs-leader-panel__layer.leaving { opacity: 1; }
-
-  .vs-leader-panel__scan,
-  .vs-leader-panel.scanning .vs-leader-panel__frame {
-    animation: none !important;
-  }
 }
