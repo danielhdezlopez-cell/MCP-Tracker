@@ -34,3 +34,5 @@ Thumbs.db
 
 # One-off generation scripts
 generate_card.py
+renamed_files/
+renamed_files.zip
