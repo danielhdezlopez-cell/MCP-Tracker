@@ -77,7 +77,6 @@ export function MovementSimulator() {
   const [addSizeMm, setAddSizeMm] = useState<SizeMm>(30);
   const [showRanges, setShowRanges] = useState(true);
   const [showMeasurements, setShowMeasurements] = useState(true);
-  const [showCenters, setShowCenters] = useState(false);
 
   const svgRef        = useRef<SVGSVGElement>(null);
   const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
@@ -192,10 +191,6 @@ export function MovementSimulator() {
           <label className="msim__chk">
             <input type="checkbox" checked={showMeasurements} onChange={e => setShowMeasurements(e.target.checked)} />
             Distances
-          </label>
-          <label className="msim__chk">
-            <input type="checkbox" checked={showCenters}      onChange={e => setShowCenters(e.target.checked)} />
-            Centers
           </label>
         </div>
       </div>
@@ -332,10 +327,6 @@ export function MovementSimulator() {
                   stroke={mini.color}
                   strokeWidth={isSel ? 0.14 : 0.09}
                 />
-                {/* Center dot */}
-                {showCenters && (
-                  <circle cx={mini.x} cy={mini.y} r={0.07} fill={mini.color} />
-                )}
                 {/* Label */}
                 <text
                   x={mini.x} y={mini.y + 0.22}

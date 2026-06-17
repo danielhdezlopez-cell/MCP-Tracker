@@ -208,7 +208,7 @@ export function SettingsPage() {
               <span className="settings-item__val">{brightness}%</span>
             </div>
           </div>
-          <div className="settings-item">
+          <div className="settings-item" style={{ display: 'none' }}>
             <label className="settings-item__label">AFFILIATION BANNER</label>
             <div className="settings-item__control">
               <button
@@ -223,7 +223,7 @@ export function SettingsPage() {
               </button>
             </div>
           </div>
-          <div className="settings-item">
+          <div className="settings-item" style={{ display: 'none' }}>
             <label className="settings-item__label">LEADER PORTRAITS</label>
             <div className="settings-item__control">
               <button
