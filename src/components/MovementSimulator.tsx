@@ -334,24 +334,6 @@ export function MovementSimulator() {
             fill="none" stroke="rgba(100,180,255,0.35)" strokeWidth="0.14" />
         </svg>
       </div>
-
-      {/* ── Legend ────────────────────────────────────────────────── */}
-      <div className="msim__legend">
-        <div className="msim__legend-row">
-          <span className="msim__legend-pill msim__legend-pill--top">■ Deploy top</span>
-          <span className="msim__legend-pill msim__legend-pill--bot">■ Deploy bottom</span>
-        </div>
-        <div className="msim__legend-row">
-          {RANGES.map(r => (
-            <span key={r.label} className="msim__legend-pill" style={{ color: r.color }}>
-              {r.label}
-            </span>
-          ))}
-        </div>
-        <p className="msim__note">
-          Tap to select · Drag to move · Distances are edge-to-edge
-        </p>
-      </div>
     </div>
   );
 }
