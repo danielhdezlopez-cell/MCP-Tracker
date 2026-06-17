@@ -1,0 +1,129 @@
+/*══════════════════════════════════════════════════════════════════
+  ENERGY SCAN · estructura REAL de MCP Tracker
+  Se monta dentro de .vs-battle, justo después de <VSBackground/>.
+  Geometría IDÉNTICA a .vs-bg ⇒ las mitades coinciden con las imágenes
+  de líder y llegan al centro real (sin el offset del panel .vs-battle__sep).
+══════════════════════════════════════════════════════════════════*/
+
+.escan{
+  --escan-dur: 1100ms;
+  --escan-ease: cubic-bezier(.42,.02,.16,1);
+  --escan-core: 3px;            /* grosor del núcleo sólido            */
+  --escan-cyan: 39,226,255;     /* color glow (cian eléctrico) en RGB  */
+
+  position: absolute;
+  inset: 0;
+  /* POR ENCIMA de .vs-bg (z0) y de sus overlays oscuros, POR DEBAJO de
+     .vs-battle__sep (z5), .vs-battle__timer (z6) y del HUD/misiones. */
+  z-index: 4;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;             /* recorta cualquier resto en los bordes */
+}
+
+/* Cada mitad = exactamente la mitad del área de batalla, igual que .vs-bg__half.
+   overflow:hidden ⇒ el glow JAMÁS cruza el centro hacia el rival. */
+.escan__half{
+  flex: 1 1 50%;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── El “raíl” que se desplaza (ancho 0, ancla del beam) ── */
+.escan__beam{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  opacity: 0;
+  will-change: left, opacity;
+}
+
+/* ── Estela energética (detrás del núcleo, hacia el lado de origen) ── */
+.escan__trail{
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  mix-blend-mode: screen;       /* se integra sobre el vídeo del líder */
+}
+.escan__half--left  .escan__trail{
+  right: 1px;
+  background: linear-gradient(to left,
+    rgba(var(--escan-cyan), .55), rgba(var(--escan-cyan), .14) 46%, transparent);
+}
+.escan__half--right .escan__trail{
+  left: 1px;
+  background: linear-gradient(to right,
+    rgba(var(--escan-cyan), .55), rgba(var(--escan-cyan), .14) 46%, transparent);
+}
+
+/* ── GLOW exterior fuerte (4 niveles) — usa screen para no ensuciar el fondo ── */
+.escan__glow{
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  width: 3px;
+  transform: translateX(-1.5px);
+  background: rgba(var(--escan-cyan), .5);
+  mix-blend-mode: screen;
+  box-shadow:
+    0 0 6px   2px rgba(234,255,255,.95),
+    0 0 20px  6px rgba(var(--escan-cyan), 1),
+    0 0 54px 16px rgba(var(--escan-cyan), .72),
+    0 0 120px 42px rgba(var(--escan-cyan), .34);
+}
+
+/* ── NÚCLEO sólido y OPACO — la línea protagonista.
+      SIN blend ⇒ siempre nítida sobre vídeos oscuros Y claros. ── */
+.escan__core{
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  width: var(--escan-core);
+  transform: translateX(calc(var(--escan-core) / -2));
+  border-radius: 2px;
+  background: linear-gradient(180deg,
+    #bff0ff 0%, #ffffff 14%, #ffffff 86%, #bff0ff 100%);
+  box-shadow: 0 0 5px 1px #f2feff;
+}
+/* hairlines a los lados ⇒ recorta sobre retratos/zonas muy claras */
+.escan__core::before,
+.escan__core::after{
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(8,30,46,.55);
+}
+.escan__core::before{ left: -1px; }
+.escan__core::after { right: -1px; }
+
+/* ── RECORRIDO ──
+   P1: left 0 → 100% (borde izquierdo de la imagen → centro real)
+   P2: left 100% → 0 (borde derecho de la imagen → centro real)        */
+@keyframes escan-sweepL{
+  0%{ left: 0;    opacity: 0; }
+  6%{ opacity: 1; }
+  92%{ opacity: 1; }
+  100%{ left: 100%; opacity: 0; }
+}
+@keyframes escan-sweepR{
+  0%{ left: 100%; opacity: 0; }
+  6%{ opacity: 1; }
+  92%{ opacity: 1; }
+  100%{ left: 0; opacity: 0; }
+}
+.escan__half--left.is-scanning  .escan__beam{ animation: escan-sweepL var(--escan-dur) var(--escan-ease) both; }
+.escan__half--right.is-scanning .escan__beam{ animation: escan-sweepR var(--escan-dur) var(--escan-ease) both; }
+
+/* ── iPad Mini 6 / tablet landscape — núcleo un pelín más fino ── */
+@media (min-width: 1000px) and (max-width: 1440px) and (orientation: landscape){
+  .escan{ --escan-core: 2.5px; }
+}
+
+/* ── Accesibilidad: sin movimiento, sin barrido ── */
+@media (prefers-reduced-motion: reduce){
+  .escan__beam{ animation: none !important; }
+}

@@ -14,6 +14,7 @@ import { usePageVisibility } from '../hooks/usePageVisibility';
 import { useWakeLock } from '../hooks/useWakeLock';
 import { ScoreProgressIndicator } from '../components/ScoreProgressIndicator';
 import RoundBackground from '../components/RoundBackground';
+import { EnergyScan } from '../components/EnergyScan';
 import './MainPage.css';
 
 const MAX_SCORE = 20;
@@ -139,6 +140,7 @@ export function MainPage() {
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
         <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
+        <EnergyScan />
         <div className="vs-battle__timer">
           <TimerPanel onResetRequest={() => setShowReset(true)} />
         </div>
