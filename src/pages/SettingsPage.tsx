@@ -153,91 +153,92 @@ export function SettingsPage() {
     <div className="settings-page scroll-area">
       <AnimatedBackground mode={interactiveBg} />
       <div className="settings-page__inner">
-        <div className="settings-section">
-          <div className="settings-section__title">⏱ TIMER</div>
-          <div className="settings-row">
-            <button
-              className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 90 * 60 ? 'active' : ''}`}
-              onClick={() => selectPreset(90)}
-            >
-              90 MIN
-            </button>
-            <button
-              className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 120 * 60 ? 'active' : ''}`}
-              onClick={() => selectPreset(120)}
-            >
-              120 MIN
-            </button>
-            <button
-              className={`btn-hud settings-preset-btn ${isCustom ? 'active' : ''}`}
-              onClick={selectCustom}
-            >
-              CUSTOM
-            </button>
-          </div>
-          {isCustom && (
-            <div className="settings-row settings-custom-timer">
-              <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(-5)}>−5 MIN</button>
-              <span className="settings-custom-val">{customMins} MIN</span>
-              <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(5)}>+5 MIN</button>
+        <div className="settings-top-row">
+          <div className="settings-section settings-section--half">
+            <div className="settings-section__title">⏱ TIMER</div>
+            <div className="settings-row">
+              <button
+                className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 90 * 60 ? 'active' : ''}`}
+                onClick={() => selectPreset(90)}
+              >
+                90 MIN
+              </button>
+              <button
+                className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 120 * 60 ? 'active' : ''}`}
+                onClick={() => selectPreset(120)}
+              >
+                120 MIN
+              </button>
+              <button
+                className={`btn-hud settings-preset-btn ${isCustom ? 'active' : ''}`}
+                onClick={selectCustom}
+              >
+                CUSTOM
+              </button>
             </div>
-          )}
-        </div>
+            {isCustom && (
+              <div className="settings-row settings-custom-timer">
+                <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(-5)}>−5 MIN</button>
+                <span className="settings-custom-val">{customMins} MIN</span>
+                <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(5)}>+5 MIN</button>
+              </div>
+            )}
+          </div>
 
-        <div className="settings-section">
-          <div className="settings-section__title">⚙ GENERAL</div>
-          <div className="settings-item" style={{ display: 'none' }}>
-            <label className="settings-item__label">OFFLINE READY</label>
-            <div className="settings-item__control">
-              <span className={`settings-offline-badge${offlineReady ? ' settings-offline-badge--ready' : ''}`}>
-                {offlineReady ? 'YES' : 'NO'}
-              </span>
+          <div className="settings-section settings-section--half">
+            <div className="settings-section__title">⚙ GENERAL</div>
+            <div className="settings-item" style={{ display: 'none' }}>
+              <label className="settings-item__label">OFFLINE READY</label>
+              <div className="settings-item__control">
+                <span className={`settings-offline-badge${offlineReady ? ' settings-offline-badge--ready' : ''}`}>
+                  {offlineReady ? 'YES' : 'NO'}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="settings-item">
-            <label className="settings-item__label">BRIGHTNESS</label>
-            <div className="settings-item__control">
-              <input
-                type="range"
-                min="20"
-                max="100"
-                value={brightness}
-                onChange={e => setBrightness(Number(e.target.value))}
-                className="settings-slider"
-              />
-              <span className="settings-item__val">{brightness}%</span>
+            <div className="settings-item">
+              <label className="settings-item__label">BRIGHTNESS</label>
+              <div className="settings-item__control">
+                <input
+                  type="range"
+                  min="20"
+                  max="100"
+                  value={brightness}
+                  onChange={e => setBrightness(Number(e.target.value))}
+                  className="settings-slider"
+                />
+                <span className="settings-item__val">{brightness}%</span>
+              </div>
             </div>
-          </div>
-          <div className="settings-item" style={{ display: 'none' }}>
-            <label className="settings-item__label">AFFILIATION BANNER</label>
-            <div className="settings-item__control">
-              <button
-                type="button"
-                role="switch"
-                aria-checked={showAffiliationBanner}
-                aria-label="Toggle affiliation banner"
-                className={`settings-toggle ${showAffiliationBanner ? 'on' : ''}`}
-                onClick={() => setShowAffiliationBanner(!showAffiliationBanner)}
-              >
-                <span className="settings-toggle__knob" />
-              </button>
+            <div className="settings-item" style={{ display: 'none' }}>
+              <label className="settings-item__label">AFFILIATION BANNER</label>
+              <div className="settings-item__control">
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={showAffiliationBanner}
+                  aria-label="Toggle affiliation banner"
+                  className={`settings-toggle ${showAffiliationBanner ? 'on' : ''}`}
+                  onClick={() => setShowAffiliationBanner(!showAffiliationBanner)}
+                >
+                  <span className="settings-toggle__knob" />
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="settings-item" style={{ display: 'none' }}>
-            <label className="settings-item__label">LEADER PORTRAITS</label>
-            <div className="settings-item__control">
-              <button
-                type="button"
-                role="switch"
-                aria-checked={showMainLeaderPortraits}
-                aria-label="Toggle leader portraits"
-                className={`settings-toggle ${showMainLeaderPortraits ? 'on' : ''}`}
-                onClick={() => setShowMainLeaderPortraits(!showMainLeaderPortraits)}
-              >
-                <span className="settings-toggle__knob" />
-              </button>
+            <div className="settings-item" style={{ display: 'none' }}>
+              <label className="settings-item__label">LEADER PORTRAITS</label>
+              <div className="settings-item__control">
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={showMainLeaderPortraits}
+                  aria-label="Toggle leader portraits"
+                  className={`settings-toggle ${showMainLeaderPortraits ? 'on' : ''}`}
+                  onClick={() => setShowMainLeaderPortraits(!showMainLeaderPortraits)}
+                >
+                  <span className="settings-toggle__knob" />
+                </button>
+              </div>
             </div>
-          </div>
           <div className="settings-item settings-item--preload" style={{ display: 'none' }}>
             <label className="settings-item__label">PRELOAD THEMES</label>
             <div className="settings-item__control settings-preload-ctrl">
@@ -265,6 +266,7 @@ export function SettingsPage() {
               )}
             </div>
           </div>
+        </div>
         </div>
 
         <div className="settings-section">

@@ -15,6 +15,16 @@
   padding: 8px;
 }
 
+.settings-top-row {
+  display: flex;
+  gap: 2px;
+}
+
+.settings-top-row .settings-section--half {
+  flex: 1;
+  min-width: 0;
+}
+
 .settings-section {
   background: var(--color-panel);
   border: 1px solid var(--color-border);
