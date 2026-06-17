@@ -178,7 +178,7 @@ export function MovementSimulator() {
           >
             {BASE_SIZES_MM.map(mm => (
               <option key={mm} value={mm}>
-                {mm} mm ({mmToInches(mm).toFixed(2)}")
+                {mm} mm
               </option>
             ))}
           </select>
