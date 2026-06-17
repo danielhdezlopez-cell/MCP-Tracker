@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useMcpStore, type Theme } from '../store/useMcpStore';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { MovementSimulator } from '../components/MovementSimulator';
 import { VIDEO_THEMES } from '../data/themeVideoMap';
 import { preloadTheme, getAssetStatus, subscribeToTheme } from '../utils/themeAssetCache';
 import './SettingsPage.css';
@@ -91,6 +92,7 @@ export function SettingsPage() {
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
   const [isCustom, setIsCustom] = useState(timerDuration !== 90 * 60 && timerDuration !== 120 * 60);
   const [offlineReady, setOfflineReady] = useState(false);
+  const [showSimulator, setShowSimulator] = useState(false);
 
   // Offline preload state
   const allVideoThemes = Object.keys(VIDEO_THEMES) as Theme[];
@@ -267,10 +269,23 @@ export function SettingsPage() {
         </div>
 
         <div className="settings-section">
-          <div className="settings-section__title">🖌 STYLES</div>
-          <div className="settings-styles-placeholder">
-            Style options coming soon.
+          <div className="settings-section__title">📐 MOVEMENT &amp; RANGE SIMULATOR</div>
+          <div className="settings-item">
+            <label className="settings-item__label">SIMULATOR</label>
+            <div className="settings-item__control">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={showSimulator}
+                aria-label="Toggle movement simulator"
+                className={`settings-toggle ${showSimulator ? 'on' : ''}`}
+                onClick={() => setShowSimulator(v => !v)}
+              >
+                <span className="settings-toggle__knob" />
+              </button>
+            </div>
           </div>
+          {showSimulator && <MovementSimulator />}
         </div>
 
         <div className="settings-section" style={{ display: 'none' }}>
