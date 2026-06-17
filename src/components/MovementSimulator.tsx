@@ -1,107 +1,79 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import './MovementSimulator.css';
+import {
+  BOARD_IN, DEPLOY_IN, P1_LINE_IN, P2_LINE_IN,
+  BASE_SIZES_MM, MCP_RANGES, RANGE_KEYS, MCP_MOVES, SIM_KEY, P1_COLOR, P2_COLOR,
+} from '../lib/simulatorConstants';
+import type { SizeMm, MoveKey, RangeKey } from '../lib/simulatorConstants';
+import {
+  getBaseRadiusIn, getRangeRingRadiusIn, getMoveEndX,
+  clampToBoard, getSpawnPosition,
+} from '../lib/simulatorGeometry';
 import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup } from '../data/mapSetups';
 import { MISSIONS } from '../data/missionsData';
 import { useMcpStore } from '../store/useMcpStore';
 
-// ── Board constants (all in inches) ──────────────────────────────────────────
-const BOARD  = 36;
-const DEPLOY = 6;
-
-// ── MCP range table (R1 excluded) ────────────────────────────────────────────
-const RANGES = [
-  { label: 'R2', inches: 3,  color: '#4ade80' },
-  { label: 'R3', inches: 6,  color: '#facc15' },
-  { label: 'R4', inches: 8,  color: '#fb923c' },
-  { label: 'R5', inches: 10, color: '#f87171' },
-];
-
-// ── Base sizes (30 / 50 / 65 mm) ─────────────────────────────────────────────
-const BASE_SIZES_MM = [30, 50, 65] as const;
-type SizeMm = 30 | 50 | 65;
-
-const MINI_COLORS = [
-  '#27e2ff', '#ff6b35', '#a855f7', '#22c55e',
-  '#f59e0b', '#ec4899', '#ef4444', '#06b6d4',
-];
-
-// ── Fallback dropdown: only missions that have objective data ─────────────────
+// Fallback dropdown: only missions from MISSIONS panel that have objective coordinates
 const SECURE_WITH_SETUP  = MISSIONS.filter(m => m.type === 'Secure'  && MISSION_TO_SETUP[m.id]);
 const EXTRACT_WITH_SETUP = MISSIONS.filter(m => m.type === 'Extract' && MISSION_TO_SETUP[m.id]);
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-export const mmToInches = (mm: number) => mm / 25.4;
-
-export const rangeToInches = (range: 1 | 2 | 3 | 4 | 5): number =>
-  ({ 1: 1, 2: 3, 3: 6, 4: 8, 5: 10 }[range]);
-
-function euclidean(ax: number, ay: number, bx: number, by: number) {
-  return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
-}
-
-export function edgeToEdgeDistance(
-  ax: number, ay: number, ar: number,
-  bx: number, by: number, br: number,
-): number {
-  return Math.max(0, euclidean(ax, ay, bx, by) - ar - br);
-}
-
-function inchesToRange(d: number): string {
-  if (d <= 1)  return 'R1';
-  if (d <= 3)  return 'R2';
-  if (d <= 6)  return 'R3';
-  if (d <= 8)  return 'R4';
-  if (d <= 10) return 'R5';
-  return '>R5';
-}
-
 // ── Types ─────────────────────────────────────────────────────────────────────
-interface Mini {
-  id: string;
-  x: number;
+interface Character {
+  id: string;         // 'A1', 'A2', …
+  baseMm: SizeMm;
+  x: number;          // centre, inches
   y: number;
-  sizeMm: SizeMm;
-  label: string;
-  color: string;
+  ranges: number[];   // active range selections
+  move: MoveKey | null;
 }
 
-// ── LocalStorage persistence ──────────────────────────────────────────────────
-const LS_KEY = 'mcp-simulator-v1';
-
-function loadMinis(): Mini[] {
+// ── LocalStorage ──────────────────────────────────────────────────────────────
+function loadChars(): Character[] {
   try {
-    const raw = localStorage.getItem(LS_KEY);
-    return raw ? (JSON.parse(raw) as Mini[]) : [];
-  } catch {
-    return [];
-  }
+    const raw = localStorage.getItem(SIM_KEY);
+    if (!raw) return [];
+    const p = JSON.parse(raw);
+    return Array.isArray(p.characters) ? (p.characters as Character[]) : [];
+  } catch { return []; }
+}
+
+function saveChars(chars: Character[]) {
+  try { localStorage.setItem(SIM_KEY, JSON.stringify({ characters: chars })); } catch { /* noop */ }
+}
+
+function initCounter(chars: Character[]): number {
+  if (!chars.length) return 0;
+  const nums = chars.map(c => parseInt(c.id.replace(/\D/g, ''), 10)).filter(n => !isNaN(n));
+  return nums.length ? Math.max(...nums) : 0;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function MovementSimulator() {
-  const [minis, setMinis] = useState<Mini[]>(loadMinis);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [addSizeMm, setAddSizeMm] = useState<SizeMm>(30);
-  const [showRanges, setShowRanges] = useState(true);
-  const [showMeasurements, setShowMeasurements] = useState(true);
-  const [selectedSetupId, setSelectedSetupId] = useState<string | null>(null);
+  const initial = loadChars();
+  const [characters, setCharacters] = useState<Character[]>(initial);
+  const [selectedId,  setSelectedId]  = useState<string | null>(null);
+  const [addSizeMm,   setAddSizeMm]   = useState<SizeMm>(35);
+  const [manualSetupId, setManualSetupId] = useState<string | null>(null);
 
   const svgRef     = useRef<SVGSVGElement>(null);
   const dragRef    = useRef<{ id: string; ox: number; oy: number } | null>(null);
-  const counterRef = useRef(minis.length);
+  const counterRef = useRef(initCounter(initial));
 
-  // ── MAIN selected missions (Zustand) ────────────────────────────────────────
+  // Persist characters; clean up the old provisional key once
+  useEffect(() => { saveChars(characters); }, [characters]);
+  useEffect(() => { try { localStorage.removeItem('mcp-simulator-v1'); } catch { /* noop */ } }, []);
+
+  // ── MAIN missions (Zustand) ────────────────────────────────────────────────
   const selectedSecure  = useMcpStore(s => s.selectedSecure);
   const selectedExtract = useMcpStore(s => s.selectedExtract);
 
-  // Resolve which map setups come from MAIN selections
   const mainSetups = useMemo<MapSetup[]>(() => {
     const result: MapSetup[] = [];
-    for (const mission of [selectedSecure, selectedExtract]) {
-      if (!mission) continue;
-      const setupId = MISSION_TO_SETUP[mission.id];
-      if (!setupId) continue;
-      const setup = MAP_SETUPS.find(s => s.id === setupId);
+    for (const m of [selectedSecure, selectedExtract]) {
+      if (!m) continue;
+      const sid = MISSION_TO_SETUP[m.id];
+      if (!sid) continue;
+      const setup = MAP_SETUPS.find(s => s.id === sid);
       if (setup) result.push(setup);
     }
     return result;
@@ -109,341 +81,377 @@ export function MovementSimulator() {
 
   const isMainActive = mainSetups.length > 0;
 
-  // Fallback: manual dropdown (only when MAIN has no active missions with setups)
-  const manualSetup = (!isMainActive && selectedSetupId)
-    ? (MAP_SETUPS.find(s => s.id === selectedSetupId) ?? null)
+  const manualSetup = !isMainActive && manualSetupId
+    ? (MAP_SETUPS.find(s => s.id === manualSetupId) ?? null)
     : null;
 
   const activeSetups: MapSetup[] = isMainActive ? mainSetups : (manualSetup ? [manualSetup] : []);
   const isObjectivesMode = activeSetups.length > 0;
 
-  useEffect(() => {
-    try { localStorage.setItem(LS_KEY, JSON.stringify(minis)); } catch { /* noop */ }
-  }, [minis]);
-
+  // ── SVG coordinate helper ─────────────────────────────────────────────────
   const toSvgPt = useCallback((e: React.PointerEvent | PointerEvent) => {
     const svg = svgRef.current;
     if (!svg) return { x: 0, y: 0 };
     const pt = svg.createSVGPoint();
-    pt.x = e.clientX;
-    pt.y = e.clientY;
+    pt.x = e.clientX; pt.y = e.clientY;
     const m = svg.getScreenCTM();
     if (!m) return { x: 0, y: 0 };
     return pt.matrixTransform(m.inverse());
   }, []);
 
-  const addMini = () => {
+  // ── Actions ───────────────────────────────────────────────────────────────
+  const deployCharacter = () => {
     counterRef.current += 1;
     const n = counterRef.current;
-    const color = MINI_COLORS[(n - 1) % MINI_COLORS.length];
-    const r = mmToInches(addSizeMm) / 2;
-    const x = Math.max(r, Math.min(BOARD - r, 18 + (Math.random() - 0.5) * 6));
-    const y = Math.max(r, Math.min(BOARD - r, 18 + (Math.random() - 0.5) * 6));
-    const mini: Mini = { id: `m${n}`, x, y, sizeMm: addSizeMm, label: `M${n}`, color };
-    setMinis(prev => [...prev, mini]);
-    setSelectedId(mini.id);
-  };
-
-  const deleteMini = (id: string) => {
-    setMinis(prev => prev.filter(m => m.id !== id));
-    setSelectedId(prev => (prev === id ? null : prev));
+    const { x, y } = getSpawnPosition(n, addSizeMm);
+    const ch: Character = { id: `A${n}`, baseMm: addSizeMm, x, y, ranges: [], move: null };
+    setCharacters(prev => [...prev, ch]);
+    setTimeout(() => setSelectedId(ch.id), 0);
   };
 
   const reset = () => {
-    setMinis([]);
+    setCharacters([]);
     setSelectedId(null);
     counterRef.current = 0;
-    try { localStorage.removeItem(LS_KEY); } catch { /* noop */ }
+    try { localStorage.removeItem(SIM_KEY); } catch { /* noop */ }
+  };
+
+  const toggleRange = (r: RangeKey) => {
+    setCharacters(prev => prev.map(c => {
+      if (c.id !== selectedId) return c;
+      const has = c.ranges.includes(r);
+      return { ...c, ranges: has ? c.ranges.filter(x => x !== r) : [...c.ranges, r].sort() };
+    }));
+  };
+
+  const toggleMove = (m: MoveKey) => {
+    setCharacters(prev => prev.map(c => {
+      if (c.id !== selectedId) return c;
+      return { ...c, move: c.move === m ? null : m };
+    }));
   };
 
   const onPointerDown = useCallback((e: React.PointerEvent, id: string) => {
     e.stopPropagation();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
     const pt = toSvgPt(e);
-    const mini = minis.find(m => m.id === id);
-    if (!mini) return;
-    dragRef.current = { id, ox: pt.x - mini.x, oy: pt.y - mini.y };
+    const ch = characters.find(c => c.id === id);
+    if (!ch) return;
+    dragRef.current = { id, ox: pt.x - ch.x, oy: pt.y - ch.y };
     setSelectedId(id);
-  }, [minis, toSvgPt]);
+  }, [characters, toSvgPt]);
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (!dragRef.current) return;
     const { id, ox, oy } = dragRef.current;
     const pt = toSvgPt(e);
-    setMinis(prev => prev.map(m => {
-      if (m.id !== id) return m;
-      const r = mmToInches(m.sizeMm) / 2;
-      return {
-        ...m,
-        x: Math.max(r, Math.min(BOARD - r, pt.x - ox)),
-        y: Math.max(r, Math.min(BOARD - r, pt.y - oy)),
-      };
+    setCharacters(prev => prev.map(c => {
+      if (c.id !== id) return c;
+      const { x, y } = clampToBoard(pt.x - ox, pt.y - oy, c.baseMm);
+      return { ...c, x, y };
     }));
   }, [toSvgPt]);
 
   const onPointerUp = useCallback(() => { dragRef.current = null; }, []);
 
-  const selected = minis.find(m => m.id === selectedId) ?? null;
+  const selectedChar = characters.find(c => c.id === selectedId) ?? null;
 
+  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <div className="msim">
-      {/* ── Controls ─────────────────────────────────────────────── */}
-      <div className="msim__controls">
-        <div className="msim__ctrl-row">
-          <label className="msim__select-label">Base Sizes</label>
-          <select
-            className="msim__select"
-            value={addSizeMm}
-            onChange={e => setAddSizeMm(Number(e.target.value) as SizeMm)}
-            aria-label="Base size"
-          >
-            {BASE_SIZES_MM.map(mm => (
-              <option key={mm} value={mm}>{mm} mm</option>
-            ))}
-          </select>
-          <button className="msim__btn msim__btn--add" onClick={addMini}>＋ ADD</button>
-          {selectedId && (
-            <button className="msim__btn msim__btn--del" onClick={() => deleteMini(selectedId)}>
-              DELETE
-            </button>
-          )}
-          <button className="msim__btn msim__btn--reset" onClick={reset}>RESET</button>
-        </div>
-
-        {/* Objectives row — hidden when MAIN missions are driving the display */}
-        {!isMainActive && (
-          <div className="msim__ctrl-row">
-            <label className="msim__select-label">Objectives</label>
-            <select
-              className="msim__select msim__select--setup"
-              value={selectedSetupId ?? ''}
-              onChange={e => setSelectedSetupId(e.target.value || null)}
-              aria-label="Objective setup"
-            >
-              <option value="">— Movement mode —</option>
-              {SECURE_WITH_SETUP.length > 0 && (
-                <optgroup label="Secure">
-                  {SECURE_WITH_SETUP.map(m => {
-                    const setupId = MISSION_TO_SETUP[m.id];
-                    return <option key={m.id} value={setupId}>{m.name} (T{m.threat})</option>;
-                  })}
-                </optgroup>
-              )}
-              {EXTRACT_WITH_SETUP.length > 0 && (
-                <optgroup label="Extract">
-                  {EXTRACT_WITH_SETUP.map(m => {
-                    const setupId = MISSION_TO_SETUP[m.id];
-                    return <option key={m.id} value={setupId}>{m.name} (T{m.threat})</option>;
-                  })}
-                </optgroup>
-              )}
-            </select>
-          </div>
-        )}
-
-        {/* MAIN missions badge */}
-        {isMainActive && (
-          <div className="msim__ctrl-row">
-            <span className="msim__main-badge">MAIN missions active</span>
-            <span className="msim__main-missions">
-              {[selectedSecure, selectedExtract]
-                .filter(Boolean)
-                .map(m => m!.name)
-                .join(' · ')}
-            </span>
-          </div>
-        )}
-
-        {!isObjectivesMode && (
-          <div className="msim__ctrl-row msim__ctrl-row--toggles">
-            <label className="msim__chk">
-              <input type="checkbox" checked={showRanges} onChange={e => setShowRanges(e.target.checked)} />
-              Range
-            </label>
-            <label className="msim__chk">
-              <input type="checkbox" checked={showMeasurements} onChange={e => setShowMeasurements(e.target.checked)} />
-              Distances
-            </label>
-          </div>
-        )}
+      {/* Inner header */}
+      <div className="msim__bar">
+        <span className="msim__bar-sub">Deployment &amp; Range</span>
+        <span className="msim__bar-dims">36 × 36 in</span>
       </div>
 
-      {/* ── SVG Board ────────────────────────────────────────────── */}
-      <div className="msim__board-wrap">
-        <svg
-          ref={svgRef}
-          viewBox={`0 0 ${BOARD} ${BOARD}`}
-          className="msim__svg"
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onClick={() => setSelectedId(null)}
-          aria-label="Movement simulator board"
-        >
-          {/* Background */}
-          <rect x={0} y={0} width={BOARD} height={BOARD} className="msim__bg" />
+      <div className="msim__body">
+        {/* ── SVG Board ────────────────────────────────────────── */}
+        <div className="msim__stage">
+          <div className="msim__boardwrap">
+            <svg
+              ref={svgRef}
+              viewBox={`0 0 ${BOARD_IN} ${BOARD_IN}`}
+              className="msim__svg"
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onClick={() => setSelectedId(null)}
+              aria-label="Movement simulator board"
+            >
+              <defs>
+                {/* Board background radial gradient */}
+                <radialGradient id="msimBg" cx="50%" cy="50%" r="70%">
+                  <stop offset="0%"   stopColor="#0c1830"/>
+                  <stop offset="70%"  stopColor="#060a16"/>
+                  <stop offset="100%" stopColor="#04060e"/>
+                </radialGradient>
+                {/* P2 deploy zone (top, orange) */}
+                <linearGradient id="msimDzTop" x1="0" y1="0" x2="0" y2={DEPLOY_IN} gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"   stopColor={P2_COLOR} stopOpacity="0.22"/>
+                  <stop offset="100%" stopColor={P2_COLOR} stopOpacity="0.01"/>
+                </linearGradient>
+                {/* P1 deploy zone (bottom, cyan) */}
+                <linearGradient id="msimDzBot" x1="0" y1={BOARD_IN} x2="0" y2={P1_LINE_IN} gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"   stopColor={P1_COLOR} stopOpacity="0.22"/>
+                  <stop offset="100%" stopColor={P1_COLOR} stopOpacity="0.01"/>
+                </linearGradient>
+              </defs>
 
-          {/* 6" major grid */}
-          {[6, 12, 18, 24, 30].map(v => (
-            <g key={v}>
-              <line x1={v} y1={0} x2={v} y2={BOARD} className="msim__grid-major" />
-              <line x1={0} y1={v} x2={BOARD} y2={v} className="msim__grid-major" />
-            </g>
-          ))}
-          {/* 1" minor grid */}
-          {Array.from({ length: 35 }, (_, i) => i + 1)
-            .filter(v => v % 6 !== 0)
-            .map(v => (
-              <g key={v}>
-                <line x1={v} y1={0} x2={v} y2={BOARD} className="msim__grid-minor" />
-                <line x1={0} y1={v} x2={BOARD} y2={v} className="msim__grid-minor" />
-              </g>
-            ))}
+              {/* Background */}
+              <rect x={0} y={0} width={BOARD_IN} height={BOARD_IN} fill="url(#msimBg)"/>
 
-          {/* Center axes */}
-          <line x1={18} y1={0} x2={18} y2={BOARD} className="msim__axis" />
-          <line x1={0} y1={18} x2={BOARD} y2={18} className="msim__axis" />
+              {/* 6" major grid */}
+              {[6, 12, 18, 24, 30].map(v => (
+                <g key={v}>
+                  <line x1={v} y1={0} x2={v} y2={BOARD_IN} stroke="rgba(0,195,255,0.13)" strokeWidth="0.05"/>
+                  <line x1={0} y1={v} x2={BOARD_IN} y2={v} stroke="rgba(0,195,255,0.13)" strokeWidth="0.05"/>
+                </g>
+              ))}
+              {/* 1" minor grid */}
+              {Array.from({ length: 35 }, (_, i) => i + 1)
+                .filter(v => v % 6 !== 0)
+                .map(v => (
+                  <g key={v}>
+                    <line x1={v} y1={0} x2={v} y2={BOARD_IN} stroke="rgba(100,150,220,0.045)" strokeWidth="0.025"/>
+                    <line x1={0} y1={v} x2={BOARD_IN} y2={v} stroke="rgba(100,150,220,0.045)" strokeWidth="0.025"/>
+                  </g>
+                ))}
 
-          {/* Deployment zones */}
-          <rect x={0} y={0} width={BOARD} height={DEPLOY} className="msim__deploy msim__deploy--top" />
-          <rect x={0} y={BOARD - DEPLOY} width={BOARD} height={DEPLOY} className="msim__deploy msim__deploy--bot" />
+              {/* Center axes */}
+              <line x1={18} y1={0} x2={18} y2={BOARD_IN} stroke="rgba(0,195,255,0.18)" strokeWidth="0.06" strokeDasharray="0.5 0.3"/>
+              <line x1={0} y1={18} x2={BOARD_IN} y2={18} stroke="rgba(0,195,255,0.18)" strokeWidth="0.06" strokeDasharray="0.5 0.3"/>
 
-          {/* Ruler labels */}
-          {[6, 12, 18, 24, 30, 36].map(v => (
-            <text key={`xl${v}`} x={v - 0.12} y={0.9} className="msim__ruler-label" textAnchor="end">{v}"</text>
-          ))}
-          {[6, 12, 18, 24, 30, 36].map(v => (
-            <text key={`yl${v}`} x={0.5} y={v + 0.3} className="msim__ruler-label" textAnchor="start">{v}"</text>
-          ))}
+              {/* Deploy zones */}
+              <rect x={0} y={0}          width={BOARD_IN} height={DEPLOY_IN} fill="url(#msimDzTop)"/>
+              <line x1={0} y1={P2_LINE_IN} x2={BOARD_IN} y2={P2_LINE_IN} stroke={`${P2_COLOR}cc`} strokeWidth="0.09"/>
+              <rect x={0} y={P1_LINE_IN} width={BOARD_IN} height={DEPLOY_IN} fill="url(#msimDzBot)"/>
+              <line x1={0} y1={P1_LINE_IN} x2={BOARD_IN} y2={P1_LINE_IN} stroke={`${P1_COLOR}cc`} strokeWidth="0.09"/>
 
-          {/* ── Selected mini: range rings (R2–R5) — movement mode only ── */}
-          {!isObjectivesMode && selected && showRanges && RANGES.map(range => {
-            const r = mmToInches(selected.sizeMm) / 2;
-            const ringR = r + range.inches;
-            return (
-              <g key={range.label}>
-                <circle
-                  cx={selected.x} cy={selected.y} r={ringR}
-                  fill="none"
-                  stroke={range.color}
-                  strokeWidth="0.07"
-                  strokeDasharray="0.35 0.2"
-                  opacity="0.60"
-                />
-                <text
-                  x={selected.x}
-                  y={selected.y - ringR - 0.1}
-                  textAnchor="middle"
-                  fill={range.color}
-                  fontSize="0.65"
-                  fontFamily="monospace"
-                  fontWeight="bold"
-                  opacity="0.9"
-                >
-                  {range.label}
-                </text>
-              </g>
-            );
-          })}
+              {/* Ruler labels */}
+              {[6, 12, 18, 24, 30, 36].map(v => (
+                <text key={`xl${v}`} x={v - 0.12} y={0.85} textAnchor="end"
+                  fill="rgba(0,195,255,0.40)" fontSize="0.52" fontFamily="monospace">{v}"</text>
+              ))}
+              {[6, 12, 18, 24, 30].map(v => (
+                <text key={`yl${v}`} x={0.45} y={v + 0.28} textAnchor="start"
+                  fill="rgba(0,195,255,0.40)" fontSize="0.52" fontFamily="monospace">{v}"</text>
+              ))}
 
-          {/* ── Selected mini: distances — movement mode only ─────── */}
-          {!isObjectivesMode && selected && showMeasurements &&
-            minis
-              .filter(m => m.id !== selected.id)
-              .map(other => {
-                const selR   = mmToInches(selected.sizeMm) / 2;
-                const otherR = mmToInches(other.sizeMm) / 2;
-                const d  = edgeToEdgeDistance(selected.x, selected.y, selR, other.x, other.y, otherR);
-                const mx = (selected.x + other.x) / 2;
-                const my = (selected.y + other.y) / 2;
+              {/* ── Range rings — movement mode only ────────────── */}
+              {!isObjectivesMode && characters.map(ch =>
+                ch.ranges.map(r => {
+                  const ringR = getRangeRingRadiusIn(ch.baseMm, MCP_RANGES[r]);
+                  return (
+                    <g key={`${ch.id}-r${r}`}>
+                      <circle cx={ch.x} cy={ch.y} r={ringR}
+                        fill="none" stroke={P1_COLOR} strokeWidth="0.07"
+                        strokeDasharray="0.3 0.2" opacity="0.55"/>
+                      <text x={ch.x} y={ch.y - ringR - 0.12}
+                        textAnchor="middle" fill={P1_COLOR}
+                        fontSize="0.58" fontFamily="monospace" fontWeight="bold" opacity="0.9">
+                        R{r}
+                      </text>
+                    </g>
+                  );
+                })
+              )}
+
+              {/* ── Move lines — movement mode only ─────────────── */}
+              {!isObjectivesMode && characters.map(ch => {
+                if (!ch.move) return null;
+                const moveIn = MCP_MOVES[ch.move];
+                const startX = ch.x + getBaseRadiusIn(ch.baseMm);
+                const endX   = getMoveEndX(ch.x, ch.baseMm, moveIn);
                 return (
-                  <g key={`d-${other.id}`}>
-                    <line
-                      x1={selected.x} y1={selected.y} x2={other.x} y2={other.y}
-                      stroke="rgba(255,200,80,0.22)" strokeWidth="0.06"
-                      strokeDasharray="0.22 0.15"
-                    />
-                    <text
-                      x={mx} y={my - 0.3}
-                      textAnchor="middle" fill="#ffcc44"
-                      fontSize="0.65" fontFamily="monospace" fontWeight="bold"
-                    >
-                      {d.toFixed(1)}" · {inchesToRange(d)}
+                  <g key={`${ch.id}-mv`}>
+                    <line x1={startX} y1={ch.y} x2={endX} y2={ch.y}
+                      stroke={P1_COLOR} strokeWidth="0.1" opacity="0.9"/>
+                    <circle cx={endX} cy={ch.y} r={0.2}
+                      fill="#040c1a" stroke={P1_COLOR} strokeWidth="0.09"/>
+                    <rect x={endX - 0.38} y={ch.y - 0.95} width={0.76} height={0.55}
+                      fill={P1_COLOR} rx="0.1"/>
+                    <text x={endX} y={ch.y - 0.52}
+                      textAnchor="middle" fill="#021018"
+                      fontSize="0.46" fontFamily="monospace" fontWeight="bold"
+                      style={{ pointerEvents: 'none' }}>
+                      {ch.move}
                     </text>
                   </g>
                 );
-              })
-          }
+              })}
 
-          {/* ── Objective setup markers (one or two setups simultaneously) ── */}
-          {activeSetups.map(setup =>
-            setup.objectives.map(obj => {
-              const isSecure = obj.type === 'secure';
-              const fill   = isSecure ? 'rgba(39,226,255,0.18)' : 'rgba(255,180,60,0.18)';
-              const stroke = isSecure ? '#27e2ff' : '#ffb43c';
-              const glow   = isSecure ? '#27e2ff' : '#ffb43c';
-              return (
-                <g key={`${setup.id}-${obj.id}`}>
-                  <circle cx={obj.x} cy={obj.y} r={0.55}
-                    fill={fill} stroke={stroke} strokeWidth="0.09"
-                    style={{ filter: `drop-shadow(0 0 0.3px ${glow})` }}
-                  />
-                  <circle cx={obj.x} cy={obj.y} r={0.12} fill={stroke} opacity="0.9" />
-                  <text
-                    x={obj.x} y={obj.y - 0.72}
-                    textAnchor="middle"
-                    fill={stroke}
-                    fontSize="0.52"
-                    fontFamily="monospace"
-                    fontWeight="bold"
-                    opacity="0.95"
+              {/* ── Objective markers ────────────────────────────── */}
+              {activeSetups.map(setup =>
+                setup.objectives.map(obj => {
+                  const isSecure = obj.type === 'secure';
+                  const stroke = isSecure ? P1_COLOR : P2_COLOR;
+                  const fill   = isSecure ? 'rgba(0,195,255,0.15)' : 'rgba(255,106,0,0.15)';
+                  return (
+                    <g key={`${setup.id}-${obj.id}`}>
+                      <circle cx={obj.x} cy={obj.y} r={0.55}
+                        fill={fill} stroke={stroke} strokeWidth="0.09"/>
+                      <circle cx={obj.x} cy={obj.y} r={0.12} fill={stroke} opacity="0.9"/>
+                      <text x={obj.x} y={obj.y - 0.72}
+                        textAnchor="middle" fill={stroke}
+                        fontSize="0.52" fontFamily="monospace" fontWeight="bold" opacity="0.95">
+                        {obj.id}
+                      </text>
+                    </g>
+                  );
+                })
+              )}
+
+              {/* ── Characters ───────────────────────────────────── */}
+              {characters.map(ch => {
+                const r       = getBaseRadiusIn(ch.baseMm);
+                const isSel   = ch.id === selectedId;
+                const tiers   = ({ 35: 0, 50: 1, 65: 2 } as Record<number,number>)[ch.baseMm] ?? 0;
+                return (
+                  <g key={ch.id} onPointerDown={e => onPointerDown(e, ch.id)} style={{ cursor: 'grab' }}>
+                    {/* Selection halo */}
+                    {isSel && (
+                      <circle cx={ch.x} cy={ch.y} r={r + 0.22}
+                        fill="none" stroke={P1_COLOR} strokeWidth="0.07" opacity="0.45"/>
+                    )}
+                    {/* Base circle */}
+                    <circle cx={ch.x} cy={ch.y} r={r}
+                      fill={`${P1_COLOR}25`}
+                      stroke={P1_COLOR}
+                      strokeWidth={isSel ? 0.14 : 0.09}/>
+                    {/* Inner tier rings (differentiate 50mm / 65mm) */}
+                    {Array.from({ length: tiers }, (_, i) => (
+                      <circle key={i} cx={ch.x} cy={ch.y} r={r * (1 - 0.3 * (i + 1))}
+                        fill="none" stroke={P1_COLOR} strokeWidth="0.045" opacity="0.5"/>
+                    ))}
+                    {/* ID label */}
+                    <text x={ch.x} y={ch.y + 0.22}
+                      textAnchor="middle" fill="white"
+                      fontSize="0.6" fontFamily="monospace" fontWeight="bold"
+                      style={{ pointerEvents: 'none', userSelect: 'none' }}>
+                      {ch.id}
+                    </text>
+                  </g>
+                );
+              })}
+
+              {/* Board border */}
+              <rect x={0} y={0} width={BOARD_IN} height={BOARD_IN}
+                fill="none" stroke={`${P1_COLOR}50`} strokeWidth="0.14"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* ── Controls column ───────────────────────────────────── */}
+        <div className="msim__ctrl">
+
+          {/* CHARACTER */}
+          <div className="msim__cgroup">
+            <div className="msim__cgroup-title">Character</div>
+            <div className="msim__cgroup-body">
+              <div className="msim__seg">
+                {BASE_SIZES_MM.map(mm => (
+                  <button
+                    key={mm}
+                    className={`msim__seg-btn${addSizeMm === mm ? ' msim__seg-btn--on' : ''}`}
+                    onClick={() => setAddSizeMm(mm)}
                   >
-                    {obj.id}
-                  </text>
-                </g>
-              );
-            })
+                    {mm}<span className="msim__seg-sub">mm</span>
+                  </button>
+                ))}
+              </div>
+              <button className="msim__deploy-btn" onClick={deployCharacter}>
+                ＋ Deploy character
+              </button>
+            </div>
+          </div>
+
+          {/* RANGE — movement mode only */}
+          {!isObjectivesMode && (
+            <div className="msim__cgroup">
+              <div className="msim__cgroup-title">Range</div>
+              <div className="msim__cgroup-body">
+                <div className="msim__rangerow">
+                  {RANGE_KEYS.map(r => (
+                    <button
+                      key={r}
+                      className={`msim__range-btn${selectedChar?.ranges.includes(r) ? ' msim__range-btn--on' : ''}`}
+                      onClick={() => toggleRange(r)}
+                      disabled={!selectedChar}
+                    >
+                      R{r}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           )}
 
-          {/* ── Miniatures ────────────────────────────────────────── */}
-          {minis.map(mini => {
-            const r     = mmToInches(mini.sizeMm) / 2;
-            const isSel = mini.id === selectedId;
-            return (
-              <g key={mini.id} onPointerDown={e => onPointerDown(e, mini.id)} style={{ cursor: 'grab' }}>
-                {isSel && (
-                  <circle cx={mini.x} cy={mini.y} r={r + 0.18}
-                    fill="none" stroke={mini.color} strokeWidth="0.07" opacity="0.5" />
-                )}
-                <circle
-                  cx={mini.x} cy={mini.y} r={r}
-                  fill={`${mini.color}30`}
-                  stroke={mini.color}
-                  strokeWidth={isSel ? 0.14 : 0.09}
-                />
-                <text
-                  x={mini.x} y={mini.y + 0.22}
-                  textAnchor="middle" fill="white"
-                  fontSize="0.58" fontFamily="monospace" fontWeight="bold"
-                  style={{ pointerEvents: 'none', userSelect: 'none' }}
-                >
-                  {mini.label}
-                </text>
-                <text
-                  x={mini.x} y={mini.y + r + 0.65}
-                  textAnchor="middle" fill={mini.color}
-                  fontSize="0.48" fontFamily="monospace" opacity="0.8"
-                  style={{ pointerEvents: 'none', userSelect: 'none' }}
-                >
-                  {mini.sizeMm}mm
-                </text>
-              </g>
-            );
-          })}
+          {/* MOVE — movement mode only */}
+          {!isObjectivesMode && (
+            <div className="msim__cgroup">
+              <div className="msim__cgroup-title">Move</div>
+              <div className="msim__cgroup-body">
+                <div className="msim__rangerow">
+                  {(['S', 'M', 'L'] as MoveKey[]).map(m => (
+                    <button
+                      key={m}
+                      className={`msim__range-btn${selectedChar?.move === m ? ' msim__range-btn--on' : ''}`}
+                      onClick={() => toggleMove(m)}
+                      disabled={!selectedChar}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
-          {/* Board border */}
-          <rect x={0} y={0} width={BOARD} height={BOARD}
-            fill="none" stroke="rgba(100,180,255,0.35)" strokeWidth="0.14" />
-        </svg>
+          {/* OBJECTIVES */}
+          <div className="msim__cgroup">
+            <div className="msim__cgroup-title">Objectives</div>
+            <div className="msim__cgroup-body">
+              {isMainActive ? (
+                <>
+                  <div className="msim__main-badge">MAIN missions active</div>
+                  <div className="msim__main-missions">
+                    {[selectedSecure, selectedExtract]
+                      .filter(Boolean)
+                      .map(m => m!.name)
+                      .join(' · ')}
+                  </div>
+                </>
+              ) : (
+                <select
+                  className="msim__select msim__select--setup"
+                  value={manualSetupId ?? ''}
+                  onChange={e => setManualSetupId(e.target.value || null)}
+                >
+                  <option value="">— Movement mode —</option>
+                  {SECURE_WITH_SETUP.length > 0 && (
+                    <optgroup label="Secure">
+                      {SECURE_WITH_SETUP.map(m => (
+                        <option key={m.id} value={MISSION_TO_SETUP[m.id]}>{m.name} (T{m.threat})</option>
+                      ))}
+                    </optgroup>
+                  )}
+                  {EXTRACT_WITH_SETUP.length > 0 && (
+                    <optgroup label="Extract">
+                      {EXTRACT_WITH_SETUP.map(m => (
+                        <option key={m.id} value={MISSION_TO_SETUP[m.id]}>{m.name} (T{m.threat})</option>
+                      ))}
+                    </optgroup>
+                  )}
+                </select>
+              )}
+            </div>
+          </div>
+
+          {/* RESET — icon only */}
+          <button className="msim__reset-btn" onClick={reset} aria-label="Reset simulator" title="Reset simulator">
+            ⟳
+          </button>
+        </div>
       </div>
     </div>
   );
