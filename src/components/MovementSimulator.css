@@ -116,12 +116,12 @@
   stroke-width: 0.06;
 }
 .msim__deploy--top {
-  fill: rgba(140, 70, 210, 0.10);
-  stroke: rgba(160, 80, 240, 0.45);
+  fill: rgba(140, 70, 210, 0.30);
+  stroke: rgba(160, 80, 240, 0.65);
 }
 .msim__deploy--bot {
-  fill: rgba(40, 180, 90, 0.10);
-  stroke: rgba(50, 210, 100, 0.45);
+  fill: rgba(40, 180, 90, 0.28);
+  stroke: rgba(50, 210, 100, 0.65);
 }
 
 .msim__deploy-label {

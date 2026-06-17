@@ -92,7 +92,6 @@ export function SettingsPage() {
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
   const [isCustom, setIsCustom] = useState(timerDuration !== 90 * 60 && timerDuration !== 120 * 60);
   const [offlineReady, setOfflineReady] = useState(false);
-  const [showSimulator, setShowSimulator] = useState(false);
 
   // Offline preload state
   const allVideoThemes = Object.keys(VIDEO_THEMES) as Theme[];
@@ -269,23 +268,8 @@ export function SettingsPage() {
         </div>
 
         <div className="settings-section">
-          <div className="settings-section__title">📐 MOVEMENT &amp; RANGE SIMULATOR</div>
-          <div className="settings-item">
-            <label className="settings-item__label">SIMULATOR</label>
-            <div className="settings-item__control">
-              <button
-                type="button"
-                role="switch"
-                aria-checked={showSimulator}
-                aria-label="Toggle movement simulator"
-                className={`settings-toggle ${showSimulator ? 'on' : ''}`}
-                onClick={() => setShowSimulator(v => !v)}
-              >
-                <span className="settings-toggle__knob" />
-              </button>
-            </div>
-          </div>
-          {showSimulator && <MovementSimulator />}
+          <div className="settings-section__title">📐 SIMULATOR</div>
+          <MovementSimulator />
         </div>
 
         <div className="settings-section" style={{ display: 'none' }}>
