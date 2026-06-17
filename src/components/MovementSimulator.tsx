@@ -1,6 +1,8 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import './MovementSimulator.css';
-import { MAP_SETUPS, type MapSetup } from '../data/mapSetups';
+import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup } from '../data/mapSetups';
+import { MISSIONS } from '../data/missionsData';
+import { useMcpStore } from '../store/useMcpStore';
 
 // ── Board constants (all in inches) ──────────────────────────────────────────
 const BOARD  = 36;
@@ -22,6 +24,10 @@ const MINI_COLORS = [
   '#27e2ff', '#ff6b35', '#a855f7', '#22c55e',
   '#f59e0b', '#ec4899', '#ef4444', '#06b6d4',
 ];
+
+// ── Fallback dropdown: only missions that have objective data ─────────────────
+const SECURE_WITH_SETUP  = MISSIONS.filter(m => m.type === 'Secure'  && MISSION_TO_SETUP[m.id]);
+const EXTRACT_WITH_SETUP = MISSIONS.filter(m => m.type === 'Extract' && MISSION_TO_SETUP[m.id]);
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 export const mmToInches = (mm: number) => mm / 25.4;
@@ -83,6 +89,33 @@ export function MovementSimulator() {
   const svgRef     = useRef<SVGSVGElement>(null);
   const dragRef    = useRef<{ id: string; ox: number; oy: number } | null>(null);
   const counterRef = useRef(minis.length);
+
+  // ── MAIN selected missions (Zustand) ────────────────────────────────────────
+  const selectedSecure  = useMcpStore(s => s.selectedSecure);
+  const selectedExtract = useMcpStore(s => s.selectedExtract);
+
+  // Resolve which map setups come from MAIN selections
+  const mainSetups = useMemo<MapSetup[]>(() => {
+    const result: MapSetup[] = [];
+    for (const mission of [selectedSecure, selectedExtract]) {
+      if (!mission) continue;
+      const setupId = MISSION_TO_SETUP[mission.id];
+      if (!setupId) continue;
+      const setup = MAP_SETUPS.find(s => s.id === setupId);
+      if (setup) result.push(setup);
+    }
+    return result;
+  }, [selectedSecure, selectedExtract]);
+
+  const isMainActive = mainSetups.length > 0;
+
+  // Fallback: manual dropdown (only when MAIN has no active missions with setups)
+  const manualSetup = (!isMainActive && selectedSetupId)
+    ? (MAP_SETUPS.find(s => s.id === selectedSetupId) ?? null)
+    : null;
+
+  const activeSetups: MapSetup[] = isMainActive ? mainSetups : (manualSetup ? [manualSetup] : []);
+  const isObjectivesMode = activeSetups.length > 0;
 
   useEffect(() => {
     try { localStorage.setItem(LS_KEY, JSON.stringify(minis)); } catch { /* noop */ }
@@ -151,10 +184,6 @@ export function MovementSimulator() {
   const onPointerUp = useCallback(() => { dragRef.current = null; }, []);
 
   const selected = minis.find(m => m.id === selectedId) ?? null;
-  const activeSetup: MapSetup | null = selectedSetupId
-    ? (MAP_SETUPS.find(s => s.id === selectedSetupId) ?? null)
-    : null;
-  const isObjectivesMode = activeSetup !== null;
 
   return (
     <div className="msim">
@@ -181,27 +210,49 @@ export function MovementSimulator() {
           <button className="msim__btn msim__btn--reset" onClick={reset}>RESET</button>
         </div>
 
-        <div className="msim__ctrl-row">
-          <label className="msim__select-label">Objectives</label>
-          <select
-            className="msim__select msim__select--setup"
-            value={selectedSetupId ?? ''}
-            onChange={e => setSelectedSetupId(e.target.value || null)}
-            aria-label="Objective setup"
-          >
-            <option value="">— Movement mode —</option>
-            <optgroup label="Secure">
-              {MAP_SETUPS.filter(s => s.type === 'secure').map(s => (
-                <option key={s.id} value={s.id}>{s.name} (T{s.threat})</option>
-              ))}
-            </optgroup>
-            <optgroup label="Extract">
-              {MAP_SETUPS.filter(s => s.type === 'extract').map(s => (
-                <option key={s.id} value={s.id}>{s.name} (T{s.threat})</option>
-              ))}
-            </optgroup>
-          </select>
-        </div>
+        {/* Objectives row — hidden when MAIN missions are driving the display */}
+        {!isMainActive && (
+          <div className="msim__ctrl-row">
+            <label className="msim__select-label">Objectives</label>
+            <select
+              className="msim__select msim__select--setup"
+              value={selectedSetupId ?? ''}
+              onChange={e => setSelectedSetupId(e.target.value || null)}
+              aria-label="Objective setup"
+            >
+              <option value="">— Movement mode —</option>
+              {SECURE_WITH_SETUP.length > 0 && (
+                <optgroup label="Secure">
+                  {SECURE_WITH_SETUP.map(m => {
+                    const setupId = MISSION_TO_SETUP[m.id];
+                    return <option key={m.id} value={setupId}>{m.name} (T{m.threat})</option>;
+                  })}
+                </optgroup>
+              )}
+              {EXTRACT_WITH_SETUP.length > 0 && (
+                <optgroup label="Extract">
+                  {EXTRACT_WITH_SETUP.map(m => {
+                    const setupId = MISSION_TO_SETUP[m.id];
+                    return <option key={m.id} value={setupId}>{m.name} (T{m.threat})</option>;
+                  })}
+                </optgroup>
+              )}
+            </select>
+          </div>
+        )}
+
+        {/* MAIN missions badge */}
+        {isMainActive && (
+          <div className="msim__ctrl-row">
+            <span className="msim__main-badge">MAIN missions active</span>
+            <span className="msim__main-missions">
+              {[selectedSecure, selectedExtract]
+                .filter(Boolean)
+                .map(m => m!.name)
+                .join(' · ')}
+            </span>
+          </div>
+        )}
 
         {!isObjectivesMode && (
           <div className="msim__ctrl-row msim__ctrl-row--toggles">
@@ -323,33 +374,35 @@ export function MovementSimulator() {
               })
           }
 
-          {/* ── Objective setup markers ──────────────────────────── */}
-          {activeSetup && activeSetup.objectives.map(obj => {
-            const isSecure = obj.type === 'secure';
-            const fill   = isSecure ? 'rgba(39,226,255,0.18)' : 'rgba(255,180,60,0.18)';
-            const stroke = isSecure ? '#27e2ff' : '#ffb43c';
-            const glow   = isSecure ? '#27e2ff' : '#ffb43c';
-            return (
-              <g key={obj.id}>
-                <circle cx={obj.x} cy={obj.y} r={0.55}
-                  fill={fill} stroke={stroke} strokeWidth="0.09"
-                  style={{ filter: `drop-shadow(0 0 0.3px ${glow})` }}
-                />
-                <circle cx={obj.x} cy={obj.y} r={0.12} fill={stroke} opacity="0.9" />
-                <text
-                  x={obj.x} y={obj.y - 0.72}
-                  textAnchor="middle"
-                  fill={stroke}
-                  fontSize="0.52"
-                  fontFamily="monospace"
-                  fontWeight="bold"
-                  opacity="0.95"
-                >
-                  {obj.id}
-                </text>
-              </g>
-            );
-          })}
+          {/* ── Objective setup markers (one or two setups simultaneously) ── */}
+          {activeSetups.map(setup =>
+            setup.objectives.map(obj => {
+              const isSecure = obj.type === 'secure';
+              const fill   = isSecure ? 'rgba(39,226,255,0.18)' : 'rgba(255,180,60,0.18)';
+              const stroke = isSecure ? '#27e2ff' : '#ffb43c';
+              const glow   = isSecure ? '#27e2ff' : '#ffb43c';
+              return (
+                <g key={`${setup.id}-${obj.id}`}>
+                  <circle cx={obj.x} cy={obj.y} r={0.55}
+                    fill={fill} stroke={stroke} strokeWidth="0.09"
+                    style={{ filter: `drop-shadow(0 0 0.3px ${glow})` }}
+                  />
+                  <circle cx={obj.x} cy={obj.y} r={0.12} fill={stroke} opacity="0.9" />
+                  <text
+                    x={obj.x} y={obj.y - 0.72}
+                    textAnchor="middle"
+                    fill={stroke}
+                    fontSize="0.52"
+                    fontFamily="monospace"
+                    fontWeight="bold"
+                    opacity="0.95"
+                  >
+                    {obj.id}
+                  </text>
+                </g>
+              );
+            })
+          )}
 
           {/* ── Miniatures ────────────────────────────────────────── */}
           {minis.map(mini => {

@@ -27,6 +27,17 @@ function ext(id: string, x: number, y: number): ObjectivePoint {
   return { id, x, y, type: 'extract' };
 }
 
+// Maps mission IDs (from missionsData.ts) to their map setup IDs here.
+// Only missions with a matching setup can show objectives in the simulator.
+export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
+  'mutant-madman':      'mutant-madman',
+  'deadly-meteors':     'deadly-meteors',
+  'spider-infected':    'spider-infected',
+  'alien-ship':         'alien-ship',
+  'infinity-formula':   'infinity-formula',
+  'skrulls-infiltrate': 'skrulls',
+};
+
 export const MAP_SETUPS: MapSetup[] = [
   // ── SECURE CRISES ────────────────────────────────────────────────────────
   {

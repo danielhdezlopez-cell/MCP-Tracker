@@ -195,6 +195,30 @@
   font-style: italic;
 }
 
+/* MAIN missions active indicator */
+.msim__main-badge {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: rgba(39, 226, 255, 0.85);
+  padding: 3px 8px;
+  border: 1px solid rgba(39, 226, 255, 0.35);
+  border-radius: 3px;
+  background: rgba(0, 40, 60, 0.55);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.msim__main-missions {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: rgba(160, 210, 245, 0.55);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ── iPad mini 6 (1024×1366 portrait / 1366×1024 landscape) ─────────────── */
 @media (min-width: 768px) and (max-width: 1080px) {
   .msim__board-wrap { max-width: 480px; }
