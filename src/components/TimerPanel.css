@@ -112,34 +112,12 @@
   50% { box-shadow: 0 0 26px rgba(255, 42, 42, 0.8), inset 0 0 10px rgba(255,42,42,0.06); }
 }
 
-/* Display area with scanline */
+/* Display area */
 .timer-panel__display-wrap {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.timer-panel__display-wrap::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  top: 50%;
-  background: linear-gradient(90deg, transparent, rgba(0,195,255,0.12), transparent);
-  pointer-events: none;
-  animation: scan-line 8s ease-in-out infinite;
-}
-
-@keyframes scan-line {
-  0%   { top: 0%; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-.timer-panel--critical .timer-panel__display-wrap::after {
-  background: linear-gradient(90deg, transparent, rgba(255,42,42,0.2), transparent);
 }
 
 /* ── Main display container ──────────────────────────────────────── */

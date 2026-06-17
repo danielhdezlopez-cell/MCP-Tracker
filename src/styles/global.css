@@ -200,9 +200,8 @@ button:active {
   box-shadow: 0 0 10px var(--color-glow-left);
 }
 
-/* ── Pause shimmer/scan-line when timer enters critical (audit P2-02) ── */
-body[data-timer-state="critical"] .score-panel__bar::after,
-body[data-timer-state="critical"] .timer-panel__display-wrap::after {
+/* ── Pause shimmer when timer enters critical (audit P2-02) ── */
+body[data-timer-state="critical"] .score-panel__bar::after {
   animation-play-state: paused;
   opacity: 0;
 }

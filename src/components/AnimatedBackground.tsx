@@ -5,7 +5,7 @@ interface Props {
   mode: InteractiveBg;
 }
 
-// ─── tech-hex: hex grid with animated scan line ───────────────────────────────
+// ─── tech-hex: animated hex grid ─────────────────────────────────────────────
 // Target ~20 FPS for this decorative canvas to reduce GPU/CPU load on iPad.
 const TARGET_FPS = 20;
 const FRAME_MS   = 1000 / TARGET_FPS;
@@ -26,7 +26,6 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
   const H = () => canvas.height;
 
   const SIZE = 30;
-  let scanY = 0;
   let t = 0;
   let lastFrameTime = 0;
 
@@ -52,9 +51,7 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
       for (let col = -1; col < cols; col++) {
         const x = col * SIZE * 1.5;
         const y = row * h + (col % 2 === 0 ? 0 : h / 2);
-        const distFromScan = Math.abs(y - scanY) / H();
-        const scanGlow = Math.max(0, 0.22 - distFromScan * 0.8);
-        const wave = 0.03 + 0.025 * Math.abs(Math.sin(t * 0.4 + col * 0.4 + row * 0.6));
+          const wave = 0.03 + 0.025 * Math.abs(Math.sin(t * 0.4 + col * 0.4 + row * 0.6));
 
         ctx.beginPath();
         for (let i = 0; i < 6; i++) {
@@ -65,12 +62,8 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
         }
         ctx.closePath();
 
-        if (scanGlow > 0.05) {
-          ctx.fillStyle = `rgba(0, 195, 255, ${scanGlow * 0.08})`;
-          ctx.fill();
-        }
-        ctx.strokeStyle = `rgba(0, 195, 255, ${wave + scanGlow})`;
-        ctx.lineWidth = scanGlow > 0.1 ? 1 : 0.5;
+        ctx.strokeStyle = `rgba(0, 195, 255, ${wave})`;
+        ctx.lineWidth = 0.5;
         ctx.stroke();
       }
     }
@@ -89,27 +82,8 @@ function runTechHex(canvas: HTMLCanvasElement, signal: AbortSignal) {
 
     ctx.clearRect(0, 0, W(), H());
     t += 0.05;
-    scanY = (scanY + 1.8) % H();
 
     drawGrid();
-
-    // Scan beam
-    const grad = ctx.createLinearGradient(0, scanY - 60, 0, scanY + 60);
-    grad.addColorStop(0, 'transparent');
-    grad.addColorStop(0.4, 'rgba(0, 195, 255, 0.04)');
-    grad.addColorStop(0.5, 'rgba(0, 220, 255, 0.12)');
-    grad.addColorStop(0.6, 'rgba(0, 195, 255, 0.04)');
-    grad.addColorStop(1, 'transparent');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, scanY - 60, W(), 120);
-
-    // Scan leading edge
-    ctx.beginPath();
-    ctx.moveTo(0, scanY);
-    ctx.lineTo(W(), scanY);
-    ctx.strokeStyle = 'rgba(0, 220, 255, 0.35)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
 
     // Floating hex data chars
     dataBits.forEach((d, i) => {
