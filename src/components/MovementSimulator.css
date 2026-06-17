@@ -1,91 +1,56 @@
-/* ── Movement Simulator ─────────────────────────────────────────────────────*/
+/* ── MovementSimulator — Comic Tech / Cinematic ─────────────────────────────*/
 
+/* ── Root shell ──────────────────────────────────────────────────────────── */
 .msim {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px 14px;
 }
 
-/* Controls */
-.msim__controls {
+/* ── Inner header bar ────────────────────────────────────────────────────── */
+.msim__bar {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.msim__ctrl-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   align-items: center;
+  justify-content: space-between;
+  padding: 7px 14px;
+  border-bottom: 1px solid #1e3a6e;
+  background: linear-gradient(90deg, rgba(0,195,255,0.10), transparent 45%, rgba(255,106,0,0.07));
 }
 
-.msim__ctrl-row--toggles { gap: 14px; }
-
-.msim__select {
-  background: rgba(0, 15, 30, 0.85);
-  border: 1px solid rgba(100, 180, 255, 0.3);
-  color: #c0d8f0;
+.msim__bar-sub {
   font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #6a8cbc;
+  text-transform: uppercase;
+}
+
+.msim__bar-dims {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
   font-size: 11px;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-}
-.msim__select:focus { border-color: rgba(39, 226, 255, 0.6); }
-
-.msim__select--setup {
-  flex: 1;
-  max-width: 380px;
-  font-size: 10px;
+  color: #6a8cbc;
+  letter-spacing: 0.1em;
 }
 
-.msim__btn {
-  background: rgba(0, 20, 45, 0.85);
-  border: 1px solid rgba(100, 180, 255, 0.3);
-  color: #8fc8f0;
-  font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  padding: 6px 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-  min-height: 32px;
-}
-.msim__btn:hover          { background: rgba(0, 50, 100, 0.85); border-color: rgba(100, 210, 255, 0.6); color: #c8e8ff; }
-.msim__btn--add           { border-color: rgba(39, 226, 255, 0.4); color: #27e2ff; }
-.msim__btn--add:hover     { background: rgba(0, 80, 120, 0.85); }
-.msim__btn--del           { border-color: rgba(255, 80, 80, 0.4);  color: #ff8080; }
-.msim__btn--del:hover     { background: rgba(80, 0, 0, 0.85); border-color: rgba(255, 80, 80, 0.7); }
-.msim__btn--reset         { border-color: rgba(255, 160, 60, 0.35); color: #ffaa50; }
-.msim__btn--reset:hover   { background: rgba(60, 30, 0, 0.85); }
-
-.msim__chk {
+/* ── Body: board left, controls right ───────────────────────────────────── */
+.msim__body {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  color: rgba(160, 210, 245, 0.85);
-  font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  user-select: none;
+  gap: 16px;
+  padding: 16px;
+  align-items: flex-start;
 }
-.msim__chk input { accent-color: #27e2ff; cursor: pointer; width: 14px; height: 14px; }
 
-/* Board wrapper — 1:1 square, responsive */
-.msim__board-wrap {
+/* ── Board stage ─────────────────────────────────────────────────────────── */
+.msim__stage {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.msim__boardwrap {
   width: 100%;
-  aspect-ratio: 1 / 1;
   max-width: 560px;
-  align-self: center;
-  border: 1px solid rgba(100, 160, 255, 0.22);
-  border-radius: 4px;
-  overflow: hidden;
-  touch-action: none;
+  aspect-ratio: 1 / 1;
 }
 
 .msim__svg {
@@ -94,140 +59,237 @@
   display: block;
   user-select: none;
   touch-action: none;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(0,195,255,0.28);
 }
 
-/* ── SVG element classes ─────────────────────────────────────────────────────*/
-
-.msim__bg {
-  fill: #06101e;
-}
-
-.msim__grid-major {
-  stroke: rgba(80, 140, 220, 0.14);
-  stroke-width: 0.05;
-}
-
-.msim__grid-minor {
-  stroke: rgba(60, 100, 180, 0.06);
-  stroke-width: 0.025;
-}
-
-.msim__axis {
-  stroke: rgba(100, 200, 255, 0.20);
-  stroke-width: 0.06;
-  stroke-dasharray: 0.6 0.3;
-}
-
-.msim__deploy {
-  stroke-width: 0.06;
-}
-.msim__deploy--top {
-  fill: rgba(140, 70, 210, 0.30);
-  stroke: rgba(160, 80, 240, 0.65);
-}
-.msim__deploy--bot {
-  fill: rgba(40, 180, 90, 0.28);
-  stroke: rgba(50, 210, 100, 0.65);
-}
-
-.msim__deploy-label {
-  font-family: monospace;
-  font-size: 1.1px;
-  font-weight: bold;
-  letter-spacing: 0.04em;
-}
-.msim__deploy-label--top { fill: rgba(190, 130, 255, 0.75); }
-.msim__deploy-label--bot { fill: rgba(80, 220, 120, 0.75); }
-
-.msim__ruler-label {
-  font-family: monospace;
-  font-size: 0.55px;
-  fill: rgba(100, 160, 220, 0.40);
-}
-
-.msim__obj {
-  fill: rgba(200, 200, 210, 0.18);
-  stroke: rgba(220, 220, 235, 0.80);
-  stroke-width: 0.09;
-}
-
-.msim__obj-dot {
-  fill: rgba(255, 255, 255, 0.75);
-}
-
-.msim__obj-label {
-  font-family: monospace;
-  font-size: 0.55px;
-  fill: rgba(210, 210, 225, 0.80);
-  letter-spacing: 0.04em;
-}
-
-/* Legend */
-.msim__legend {
+/* ── Controls column ─────────────────────────────────────────────────────── */
+.msim__ctrl {
+  width: 220px;
+  flex: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.msim__legend-row {
-  display: flex;
-  flex-wrap: wrap;
   gap: 10px;
 }
 
-.msim__legend-pill {
+/* ── Control group card ──────────────────────────────────────────────────── */
+.msim__cgroup {
+  background: #0d1526;
+  border: 1px solid #1e3a6e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 24px rgba(0,0,0,0.4);
+}
+
+.msim__cgroup-title {
   font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 9px;
-  letter-spacing: 0.05em;
-  color: rgba(140, 190, 230, 0.70);
-}
-.msim__legend-pill--top { color: rgba(180, 120, 255, 0.80); }
-.msim__legend-pill--bot { color: rgba(70, 210, 110, 0.80); }
-.msim__legend-pill--obj { color: rgba(210, 210, 235, 0.80); }
-
-.msim__note {
-  font-family: var(--font-main, sans-serif);
+  font-weight: 700;
   font-size: 10px;
-  color: rgba(120, 160, 200, 0.55);
-  line-height: 1.4;
-  margin: 0;
-  font-style: italic;
+  letter-spacing: 0.18em;
+  color: #00c3ff;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-bottom: 1px solid #1e3a6e;
+  background: linear-gradient(90deg, rgba(0,195,255,0.13), transparent);
 }
 
-/* MAIN missions active indicator */
+.msim__cgroup-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Size segment buttons (35 / 50 / 65) ────────────────────────────────── */
+.msim__seg {
+  display: flex;
+  gap: 6px;
+}
+
+.msim__seg-btn {
+  flex: 1;
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-weight: 900;
+  font-size: 20px;
+  color: #6a8cbc;
+  padding: 8px 2px 6px;
+  border: 1px solid #1e3a6e;
+  border-radius: 6px;
+  background: #111c35;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  gap: 0;
+}
+
+.msim__seg-sub {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+
+.msim__seg-btn--on {
+  border-color: #00c3ff;
+  color: #00c3ff;
+  background: rgba(0,195,255,0.09);
+  box-shadow: 0 0 8px rgba(0,195,255,0.30);
+}
+
+.msim__seg-btn:not(.msim__seg-btn--on):hover {
+  border-color: rgba(0,195,255,0.4);
+  color: #c0d8f0;
+}
+
+/* ── Deploy button ───────────────────────────────────────────────────────── */
+.msim__deploy-btn {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #e0f0ff;
+  border: 1px solid #1e3a6e;
+  border-radius: 6px;
+  background: #111c35;
+  padding: 10px 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-height: 42px;
+  text-transform: uppercase;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.msim__deploy-btn:hover {
+  border-color: #00c3ff;
+  box-shadow: 0 0 8px rgba(0,195,255,0.30);
+}
+
+/* ── Range / Move buttons ────────────────────────────────────────────────── */
+.msim__rangerow {
+  display: flex;
+  gap: 6px;
+}
+
+.msim__range-btn {
+  flex: 1;
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-weight: 700;
+  font-size: 12px;
+  color: #6a8cbc;
+  border: 1px solid #1e3a6e;
+  border-radius: 6px;
+  background: #111c35;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s;
+  min-height: 38px;
+}
+
+.msim__range-btn--on {
+  border-color: #00c3ff;
+  color: #021018;
+  background: #00c3ff;
+  box-shadow: 0 0 10px rgba(0,195,255,0.35);
+}
+
+.msim__range-btn:not(.msim__range-btn--on):not(:disabled):hover {
+  border-color: rgba(0,195,255,0.45);
+  color: #a0d8f0;
+}
+
+.msim__range-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Objectives select ───────────────────────────────────────────────────── */
+.msim__select {
+  background: rgba(0, 15, 30, 0.85);
+  border: 1px solid rgba(0, 195, 255, 0.3);
+  color: #c0d8f0;
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 10px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+}
+
+.msim__select:focus {
+  border-color: rgba(0, 195, 255, 0.6);
+}
+
+.msim__select--setup {
+  font-size: 9px;
+}
+
+/* ── MAIN missions badge ─────────────────────────────────────────────────── */
 .msim__main-badge {
   font-family: var(--font-display, 'Orbitron', monospace);
   font-size: 9px;
   letter-spacing: 0.06em;
-  color: rgba(39, 226, 255, 0.85);
+  color: rgba(0, 195, 255, 0.85);
   padding: 3px 8px;
-  border: 1px solid rgba(39, 226, 255, 0.35);
+  border: 1px solid rgba(0, 195, 255, 0.35);
   border-radius: 3px;
   background: rgba(0, 40, 60, 0.55);
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .msim__main-missions {
-  font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 8px;
-  letter-spacing: 0.04em;
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 9px;
   color: rgba(160, 210, 245, 0.55);
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-/* ── iPad mini 6 (1024×1366 portrait / 1366×1024 landscape) ─────────────── */
+/* ── Reset button (icon only) ────────────────────────────────────────────── */
+.msim__reset-btn {
+  font-size: 22px;
+  line-height: 1;
+  color: #6a8cbc;
+  border: 1px solid rgba(255, 106, 0, 0.4);
+  background: rgba(255, 106, 0, 0.04);
+  border-radius: 6px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.3s;
+  width: 100%;
+  min-height: 44px;
+}
+
+.msim__reset-btn:hover {
+  border-color: #ff6a00;
+  color: #ff9a3c;
+  box-shadow: 0 0 10px rgba(255, 106, 0, 0.35);
+}
+
+.msim__reset-btn:active {
+  transform: rotate(-180deg);
+}
+
+/* ── iPad mini 6 (landscape / portrait 768–1080) ─────────────────────────── */
 @media (min-width: 768px) and (max-width: 1080px) {
-  .msim__board-wrap { max-width: 480px; }
-  .msim__btn        { font-size: 9px; padding: 5px 11px; }
+  .msim__ctrl        { width: 190px; }
+  .msim__seg-btn     { font-size: 17px; min-height: 46px; }
+  .msim__deploy-btn  { font-size: 10px; }
 }
 
-/* ── Mobile portrait ─────────────────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .msim { padding: 10px 10px; gap: 8px; }
-  .msim__board-wrap { max-width: 100%; }
-  .msim__ctrl-row--toggles { gap: 10px; }
+/* ── Mobile: stack vertically ────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .msim__body        { flex-direction: column; padding: 12px; }
+  .msim__ctrl        { width: 100%; }
+  .msim__boardwrap   { max-width: 100%; }
+  .msim__seg-btn     { font-size: 18px; }
 }
