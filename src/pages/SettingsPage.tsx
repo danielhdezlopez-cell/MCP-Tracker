@@ -156,33 +156,35 @@ export function SettingsPage() {
         <div className="settings-top-row">
           <div className="settings-section settings-section--half">
             <div className="settings-section__title">⏱ TIMER</div>
-            <div className="settings-row">
-              <button
-                className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 90 * 60 ? 'active' : ''}`}
-                onClick={() => selectPreset(90)}
-              >
-                90 MIN
-              </button>
-              <button
-                className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 120 * 60 ? 'active' : ''}`}
-                onClick={() => selectPreset(120)}
-              >
-                120 MIN
-              </button>
-              <button
-                className={`btn-hud settings-preset-btn ${isCustom ? 'active' : ''}`}
-                onClick={selectCustom}
-              >
-                CUSTOM
-              </button>
-            </div>
-            {isCustom && (
-              <div className="settings-row settings-custom-timer">
-                <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(-5)}>−5 MIN</button>
-                <span className="settings-custom-val">{customMins} MIN</span>
-                <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(5)}>+5 MIN</button>
+            <div className="settings-timer-body">
+              <div className="settings-row">
+                <button
+                  className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 90 * 60 ? 'active' : ''}`}
+                  onClick={() => selectPreset(90)}
+                >
+                  90 MIN
+                </button>
+                <button
+                  className={`btn-hud settings-preset-btn ${!isCustom && timerDuration === 120 * 60 ? 'active' : ''}`}
+                  onClick={() => selectPreset(120)}
+                >
+                  120 MIN
+                </button>
+                <button
+                  className={`btn-hud settings-preset-btn ${isCustom ? 'active' : ''}`}
+                  onClick={selectCustom}
+                >
+                  CUSTOM
+                </button>
               </div>
-            )}
+              {isCustom && (
+                <div className="settings-custom-timer">
+                  <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(-5)}>−5 MIN</button>
+                  <span className="settings-custom-val">{customMins} MIN</span>
+                  <button className="btn-hud settings-adj-btn" onClick={() => adjustCustom(5)}>+5 MIN</button>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="settings-section settings-section--half">
