@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import './MovementSimulator.css';
+import { MAP_SETUPS, type MapSetup } from '../data/mapSetups';
 
 // ── Board constants (all in inches) ──────────────────────────────────────────
 const BOARD  = 36;
@@ -77,6 +78,7 @@ export function MovementSimulator() {
   const [addSizeMm, setAddSizeMm] = useState<SizeMm>(30);
   const [showRanges, setShowRanges] = useState(true);
   const [showMeasurements, setShowMeasurements] = useState(true);
+  const [selectedSetupId, setSelectedSetupId] = useState<string | null>(null);
 
   const svgRef     = useRef<SVGSVGElement>(null);
   const dragRef    = useRef<{ id: string; ox: number; oy: number } | null>(null);
@@ -149,6 +151,10 @@ export function MovementSimulator() {
   const onPointerUp = useCallback(() => { dragRef.current = null; }, []);
 
   const selected = minis.find(m => m.id === selectedId) ?? null;
+  const activeSetup: MapSetup | null = selectedSetupId
+    ? (MAP_SETUPS.find(s => s.id === selectedSetupId) ?? null)
+    : null;
+  const isObjectivesMode = activeSetup !== null;
 
   return (
     <div className="msim">
@@ -175,16 +181,40 @@ export function MovementSimulator() {
           <button className="msim__btn msim__btn--reset" onClick={reset}>RESET</button>
         </div>
 
-        <div className="msim__ctrl-row msim__ctrl-row--toggles">
-          <label className="msim__chk">
-            <input type="checkbox" checked={showRanges} onChange={e => setShowRanges(e.target.checked)} />
-            Range
-          </label>
-          <label className="msim__chk">
-            <input type="checkbox" checked={showMeasurements} onChange={e => setShowMeasurements(e.target.checked)} />
-            Distances
-          </label>
+        <div className="msim__ctrl-row">
+          <label className="msim__select-label">Objectives</label>
+          <select
+            className="msim__select msim__select--setup"
+            value={selectedSetupId ?? ''}
+            onChange={e => setSelectedSetupId(e.target.value || null)}
+            aria-label="Objective setup"
+          >
+            <option value="">— Movement mode —</option>
+            <optgroup label="Secure">
+              {MAP_SETUPS.filter(s => s.type === 'secure').map(s => (
+                <option key={s.id} value={s.id}>{s.name} (T{s.threat})</option>
+              ))}
+            </optgroup>
+            <optgroup label="Extract">
+              {MAP_SETUPS.filter(s => s.type === 'extract').map(s => (
+                <option key={s.id} value={s.id}>{s.name} (T{s.threat})</option>
+              ))}
+            </optgroup>
+          </select>
         </div>
+
+        {!isObjectivesMode && (
+          <div className="msim__ctrl-row msim__ctrl-row--toggles">
+            <label className="msim__chk">
+              <input type="checkbox" checked={showRanges} onChange={e => setShowRanges(e.target.checked)} />
+              Range
+            </label>
+            <label className="msim__chk">
+              <input type="checkbox" checked={showMeasurements} onChange={e => setShowMeasurements(e.target.checked)} />
+              Distances
+            </label>
+          </div>
+        )}
       </div>
 
       {/* ── SVG Board ────────────────────────────────────────────── */}
@@ -234,8 +264,8 @@ export function MovementSimulator() {
             <text key={`yl${v}`} x={0.5} y={v + 0.3} className="msim__ruler-label" textAnchor="start">{v}"</text>
           ))}
 
-          {/* ── Selected mini: range rings (R2–R5) ───────────────── */}
-          {selected && showRanges && RANGES.map(range => {
+          {/* ── Selected mini: range rings (R2–R5) — movement mode only ── */}
+          {!isObjectivesMode && selected && showRanges && RANGES.map(range => {
             const r = mmToInches(selected.sizeMm) / 2;
             const ringR = r + range.inches;
             return (
@@ -264,8 +294,8 @@ export function MovementSimulator() {
             );
           })}
 
-          {/* ── Selected mini: distances to other minis ───────────── */}
-          {selected && showMeasurements &&
+          {/* ── Selected mini: distances — movement mode only ─────── */}
+          {!isObjectivesMode && selected && showMeasurements &&
             minis
               .filter(m => m.id !== selected.id)
               .map(other => {
@@ -292,6 +322,34 @@ export function MovementSimulator() {
                 );
               })
           }
+
+          {/* ── Objective setup markers ──────────────────────────── */}
+          {activeSetup && activeSetup.objectives.map(obj => {
+            const isSecure = obj.type === 'secure';
+            const fill   = isSecure ? 'rgba(39,226,255,0.18)' : 'rgba(255,180,60,0.18)';
+            const stroke = isSecure ? '#27e2ff' : '#ffb43c';
+            const glow   = isSecure ? '#27e2ff' : '#ffb43c';
+            return (
+              <g key={obj.id}>
+                <circle cx={obj.x} cy={obj.y} r={0.55}
+                  fill={fill} stroke={stroke} strokeWidth="0.09"
+                  style={{ filter: `drop-shadow(0 0 0.3px ${glow})` }}
+                />
+                <circle cx={obj.x} cy={obj.y} r={0.12} fill={stroke} opacity="0.9" />
+                <text
+                  x={obj.x} y={obj.y - 0.72}
+                  textAnchor="middle"
+                  fill={stroke}
+                  fontSize="0.52"
+                  fontFamily="monospace"
+                  fontWeight="bold"
+                  opacity="0.95"
+                >
+                  {obj.id}
+                </text>
+              </g>
+            );
+          })}
 
           {/* ── Miniatures ────────────────────────────────────────── */}
           {minis.map(mini => {

@@ -36,6 +36,12 @@
 }
 .msim__select:focus { border-color: rgba(39, 226, 255, 0.6); }
 
+.msim__select--setup {
+  flex: 1;
+  max-width: 380px;
+  font-size: 10px;
+}
+
 .msim__btn {
   background: rgba(0, 20, 45, 0.85);
   border: 1px solid rgba(100, 180, 255, 0.3);
