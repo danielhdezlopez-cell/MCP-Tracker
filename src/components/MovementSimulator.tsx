@@ -13,7 +13,7 @@ const RANGES = [
   { label: 'R5', inches: 10, color: '#f87171' },
 ];
 
-// ── Base sizes ────────────────────────────────────────────────────────────────
+// ── Base sizes (30 / 50 / 65 mm) ─────────────────────────────────────────────
 const BASE_SIZES_MM = [30, 50, 65] as const;
 type SizeMm = 30 | 50 | 65;
 
@@ -78,16 +78,14 @@ export function MovementSimulator() {
   const [showRanges, setShowRanges] = useState(true);
   const [showMeasurements, setShowMeasurements] = useState(true);
 
-  const svgRef        = useRef<SVGSVGElement>(null);
-  const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
-  const counterRef    = useRef(minis.length);
+  const svgRef     = useRef<SVGSVGElement>(null);
+  const dragRef    = useRef<{ id: string; ox: number; oy: number } | null>(null);
+  const counterRef = useRef(minis.length);
 
-  // Persist minis to localStorage
   useEffect(() => {
     try { localStorage.setItem(LS_KEY, JSON.stringify(minis)); } catch { /* noop */ }
   }, [minis]);
 
-  // Convert client pointer to SVG inch coordinates
   const toSvgPt = useCallback((e: React.PointerEvent | PointerEvent) => {
     const svg = svgRef.current;
     if (!svg) return { x: 0, y: 0 };
@@ -104,7 +102,6 @@ export function MovementSimulator() {
     const n = counterRef.current;
     const color = MINI_COLORS[(n - 1) % MINI_COLORS.length];
     const r = mmToInches(addSizeMm) / 2;
-    // Spawn near center with slight random offset, clamped to board
     const x = Math.max(r, Math.min(BOARD - r, 18 + (Math.random() - 0.5) * 6));
     const y = Math.max(r, Math.min(BOARD - r, 18 + (Math.random() - 0.5) * 6));
     const mini: Mini = { id: `m${n}`, x, y, sizeMm: addSizeMm, label: `M${n}`, color };
@@ -124,7 +121,6 @@ export function MovementSimulator() {
     try { localStorage.removeItem(LS_KEY); } catch { /* noop */ }
   };
 
-  // Drag handlers
   const onPointerDown = useCallback((e: React.PointerEvent, id: string) => {
     e.stopPropagation();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
@@ -159,6 +155,7 @@ export function MovementSimulator() {
       {/* ── Controls ─────────────────────────────────────────────── */}
       <div className="msim__controls">
         <div className="msim__ctrl-row">
+          <label className="msim__select-label">Base Sizes</label>
           <select
             className="msim__select"
             value={addSizeMm}
@@ -166,17 +163,12 @@ export function MovementSimulator() {
             aria-label="Base size"
           >
             {BASE_SIZES_MM.map(mm => (
-              <option key={mm} value={mm}>
-                {mm} mm
-              </option>
+              <option key={mm} value={mm}>{mm} mm</option>
             ))}
           </select>
           <button className="msim__btn msim__btn--add" onClick={addMini}>＋ ADD</button>
           {selectedId && (
-            <button
-              className="msim__btn msim__btn--del"
-              onClick={() => deleteMini(selectedId)}
-            >
+            <button className="msim__btn msim__btn--del" onClick={() => deleteMini(selectedId)}>
               DELETE
             </button>
           )}
@@ -185,7 +177,7 @@ export function MovementSimulator() {
 
         <div className="msim__ctrl-row msim__ctrl-row--toggles">
           <label className="msim__chk">
-            <input type="checkbox" checked={showRanges}       onChange={e => setShowRanges(e.target.checked)} />
+            <input type="checkbox" checked={showRanges} onChange={e => setShowRanges(e.target.checked)} />
             Range
           </label>
           <label className="msim__chk">
@@ -209,7 +201,7 @@ export function MovementSimulator() {
           {/* Background */}
           <rect x={0} y={0} width={BOARD} height={BOARD} className="msim__bg" />
 
-          {/* 6" grid lines */}
+          {/* 6" major grid */}
           {[6, 12, 18, 24, 30].map(v => (
             <g key={v}>
               <line x1={v} y1={0} x2={v} y2={BOARD} className="msim__grid-major" />
@@ -234,10 +226,7 @@ export function MovementSimulator() {
           <rect x={0} y={0} width={BOARD} height={DEPLOY} className="msim__deploy msim__deploy--top" />
           <rect x={0} y={BOARD - DEPLOY} width={BOARD} height={DEPLOY} className="msim__deploy msim__deploy--bot" />
 
-          {/* Deploy zone labels */}
-
-
-          {/* Corner inch labels */}
+          {/* Ruler labels */}
           {[6, 12, 18, 24, 30, 36].map(v => (
             <text key={`xl${v}`} x={v - 0.12} y={0.9} className="msim__ruler-label" textAnchor="end">{v}"</text>
           ))}
@@ -245,8 +234,7 @@ export function MovementSimulator() {
             <text key={`yl${v}`} x={0.5} y={v + 0.3} className="msim__ruler-label" textAnchor="start">{v}"</text>
           ))}
 
-
-          {/* ── Selected mini: range rings ────────────────────────── */}
+          {/* ── Selected mini: range rings (R2–R5) ───────────────── */}
           {selected && showRanges && RANGES.map(range => {
             const r = mmToInches(selected.sizeMm) / 2;
             const ringR = r + range.inches;
@@ -258,16 +246,16 @@ export function MovementSimulator() {
                   stroke={range.color}
                   strokeWidth="0.07"
                   strokeDasharray="0.35 0.2"
-                  opacity="0.55"
+                  opacity="0.60"
                 />
-                {/* Label at top of ring */}
                 <text
                   x={selected.x}
                   y={selected.y - ringR - 0.1}
                   textAnchor="middle"
                   fill={range.color}
-                  fontSize="0.6"
+                  fontSize="0.65"
                   fontFamily="monospace"
+                  fontWeight="bold"
                   opacity="0.9"
                 >
                   {range.label}
@@ -276,14 +264,14 @@ export function MovementSimulator() {
             );
           })}
 
-          {/* ── Selected mini: measurement lines ─────────────────── */}
+          {/* ── Selected mini: distances to other minis ───────────── */}
           {selected && showMeasurements &&
             minis
               .filter(m => m.id !== selected.id)
               .map(other => {
-                const selR = mmToInches(selected.sizeMm) / 2;
+                const selR   = mmToInches(selected.sizeMm) / 2;
                 const otherR = mmToInches(other.sizeMm) / 2;
-                const d = edgeToEdgeDistance(selected.x, selected.y, selR, other.x, other.y, otherR);
+                const d  = edgeToEdgeDistance(selected.x, selected.y, selR, other.x, other.y, otherR);
                 const mx = (selected.x + other.x) / 2;
                 const my = (selected.y + other.y) / 2;
                 return (
@@ -293,9 +281,10 @@ export function MovementSimulator() {
                       stroke="rgba(255,200,80,0.22)" strokeWidth="0.06"
                       strokeDasharray="0.22 0.15"
                     />
-                    <text x={mx} y={my - 0.3}
+                    <text
+                      x={mx} y={my - 0.3}
                       textAnchor="middle" fill="#ffcc44"
-                      fontSize="0.62" fontFamily="monospace" fontWeight="bold"
+                      fontSize="0.65" fontFamily="monospace" fontWeight="bold"
                     >
                       {d.toFixed(1)}" · {inchesToRange(d)}
                     </text>
@@ -306,47 +295,32 @@ export function MovementSimulator() {
 
           {/* ── Miniatures ────────────────────────────────────────── */}
           {minis.map(mini => {
-            const r = mmToInches(mini.sizeMm) / 2;
+            const r     = mmToInches(mini.sizeMm) / 2;
             const isSel = mini.id === selectedId;
             return (
-              <g
-                key={mini.id}
-                onPointerDown={e => onPointerDown(e, mini.id)}
-                style={{ cursor: 'grab' }}
-              >
-                {/* Selection halo */}
+              <g key={mini.id} onPointerDown={e => onPointerDown(e, mini.id)} style={{ cursor: 'grab' }}>
                 {isSel && (
                   <circle cx={mini.x} cy={mini.y} r={r + 0.18}
-                    fill="none" stroke={mini.color} strokeWidth="0.07" opacity="0.5"
-                  />
+                    fill="none" stroke={mini.color} strokeWidth="0.07" opacity="0.5" />
                 )}
-                {/* Base fill */}
                 <circle
                   cx={mini.x} cy={mini.y} r={r}
                   fill={`${mini.color}30`}
                   stroke={mini.color}
                   strokeWidth={isSel ? 0.14 : 0.09}
                 />
-                {/* Label */}
                 <text
                   x={mini.x} y={mini.y + 0.22}
-                  textAnchor="middle"
-                  fill="white"
-                  fontSize="0.58"
-                  fontFamily="monospace"
-                  fontWeight="bold"
+                  textAnchor="middle" fill="white"
+                  fontSize="0.58" fontFamily="monospace" fontWeight="bold"
                   style={{ pointerEvents: 'none', userSelect: 'none' }}
                 >
                   {mini.label}
                 </text>
-                {/* Size label below */}
                 <text
                   x={mini.x} y={mini.y + r + 0.65}
-                  textAnchor="middle"
-                  fill={mini.color}
-                  fontSize="0.48"
-                  fontFamily="monospace"
-                  opacity="0.8"
+                  textAnchor="middle" fill={mini.color}
+                  fontSize="0.48" fontFamily="monospace" opacity="0.8"
                   style={{ pointerEvents: 'none', userSelect: 'none' }}
                 >
                   {mini.sizeMm}mm
@@ -364,20 +338,18 @@ export function MovementSimulator() {
       {/* ── Legend ────────────────────────────────────────────────── */}
       <div className="msim__legend">
         <div className="msim__legend-row">
-          <span className="msim__legend-pill msim__legend-pill--top">■ Top deploy (6")</span>
-          <span className="msim__legend-pill msim__legend-pill--bot">■ Bottom deploy (6")</span>
-          <span className="msim__legend-pill msim__legend-pill--obj">● Objective (edge-to-edge)</span>
+          <span className="msim__legend-pill msim__legend-pill--top">■ Deploy top</span>
+          <span className="msim__legend-pill msim__legend-pill--bot">■ Deploy bottom</span>
         </div>
         <div className="msim__legend-row">
           {RANGES.map(r => (
             <span key={r.label} className="msim__legend-pill" style={{ color: r.color }}>
-              {r.label} = {r.inches}"
+              {r.label}
             </span>
           ))}
         </div>
         <p className="msim__note">
-          Tap a miniature to select it. Drag to reposition. Distances are edge-to-edge.
-          Range rings extend from the base edge.
+          Tap to select · Drag to move · Distances are edge-to-edge
         </p>
       </div>
     </div>
