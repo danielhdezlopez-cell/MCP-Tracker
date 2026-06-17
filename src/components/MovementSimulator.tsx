@@ -2,30 +2,20 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import './MovementSimulator.css';
 
 // ── Board constants (all in inches) ──────────────────────────────────────────
-const BOARD      = 36;
-const DEPLOY     = 6;   // deployment zone depth = Range 3
-const OBJ_R      = 0.45; // visual radius of objective markers
+const BOARD  = 36;
+const DEPLOY = 6;
 
-// ── MCP range table ──────────────────────────────────────────────────────────
+// ── MCP range table (R1 excluded) ────────────────────────────────────────────
 const RANGES = [
-  { label: 'R1', inches: 1,  color: '#27e2ff' },
   { label: 'R2', inches: 3,  color: '#4ade80' },
   { label: 'R3', inches: 6,  color: '#facc15' },
   { label: 'R4', inches: 8,  color: '#fb923c' },
   { label: 'R5', inches: 10, color: '#f87171' },
 ];
 
-// ── Default objective placement ───────────────────────────────────────────────
-const OBJECTIVES = [
-  { id: 'obj1', x: 18, y: 10 },
-  { id: 'obj2', x: 6,  y: 18 },
-  { id: 'obj3', x: 30, y: 18 },
-  { id: 'obj4', x: 18, y: 26 },
-];
-
 // ── Base sizes ────────────────────────────────────────────────────────────────
-const BASE_SIZES_MM = [35, 50, 65] as const;
-type SizeMm = 35 | 50 | 65;
+const BASE_SIZES_MM = [30, 50, 65] as const;
+type SizeMm = 30 | 50 | 65;
 
 const MINI_COLORS = [
   '#27e2ff', '#ff6b35', '#a855f7', '#22c55e',
@@ -84,7 +74,7 @@ function loadMinis(): Mini[] {
 export function MovementSimulator() {
   const [minis, setMinis] = useState<Mini[]>(loadMinis);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [addSizeMm, setAddSizeMm] = useState<SizeMm>(35);
+  const [addSizeMm, setAddSizeMm] = useState<SizeMm>(30);
   const [showRanges, setShowRanges] = useState(true);
   const [showMeasurements, setShowMeasurements] = useState(true);
   const [showCenters, setShowCenters] = useState(false);
@@ -250,8 +240,7 @@ export function MovementSimulator() {
           <rect x={0} y={BOARD - DEPLOY} width={BOARD} height={DEPLOY} className="msim__deploy msim__deploy--bot" />
 
           {/* Deploy zone labels */}
-          <text x={0.7} y={2.6} className="msim__deploy-label msim__deploy-label--top">DEPLOY ZONE (6")</text>
-          <text x={0.7} y={BOARD - 0.7} className="msim__deploy-label msim__deploy-label--bot">DEPLOY ZONE (6")</text>
+
 
           {/* Corner inch labels */}
           {[6, 12, 18, 24, 30, 36].map(v => (
@@ -261,16 +250,6 @@ export function MovementSimulator() {
             <text key={`yl${v}`} x={0.5} y={v + 0.3} className="msim__ruler-label" textAnchor="start">{v}"</text>
           ))}
 
-          {/* Objectives */}
-          {OBJECTIVES.map(obj => (
-            <g key={obj.id}>
-              <circle cx={obj.x} cy={obj.y} r={OBJ_R} className="msim__obj" />
-              <circle cx={obj.x} cy={obj.y} r={0.08}  className="msim__obj-dot" />
-              <text x={obj.x} y={obj.y + OBJ_R + 0.65} className="msim__obj-label" textAnchor="middle">
-                OBJ
-              </text>
-            </g>
-          ))}
 
           {/* ── Selected mini: range rings ────────────────────────── */}
           {selected && showRanges && RANGES.map(range => {
@@ -296,63 +275,39 @@ export function MovementSimulator() {
                   fontFamily="monospace"
                   opacity="0.9"
                 >
-                  {range.label} ({range.inches}")
+                  {range.label}
                 </text>
               </g>
             );
           })}
 
           {/* ── Selected mini: measurement lines ─────────────────── */}
-          {selected && showMeasurements && (() => {
-            const selR = mmToInches(selected.sizeMm) / 2;
-            return [
-              // to objectives
-              ...OBJECTIVES.map(obj => {
-                const d = edgeToEdgeDistance(selected.x, selected.y, selR, obj.x, obj.y, OBJ_R);
-                const mx = (selected.x + obj.x) / 2;
-                const my = (selected.y + obj.y) / 2;
+          {selected && showMeasurements &&
+            minis
+              .filter(m => m.id !== selected.id)
+              .map(other => {
+                const selR = mmToInches(selected.sizeMm) / 2;
+                const otherR = mmToInches(other.sizeMm) / 2;
+                const d = edgeToEdgeDistance(selected.x, selected.y, selR, other.x, other.y, otherR);
+                const mx = (selected.x + other.x) / 2;
+                const my = (selected.y + other.y) / 2;
                 return (
-                  <g key={`d-${obj.id}`}>
+                  <g key={`d-${other.id}`}>
                     <line
-                      x1={selected.x} y1={selected.y} x2={obj.x} y2={obj.y}
-                      stroke="rgba(255,255,255,0.15)" strokeWidth="0.05"
+                      x1={selected.x} y1={selected.y} x2={other.x} y2={other.y}
+                      stroke="rgba(255,200,80,0.22)" strokeWidth="0.06"
                       strokeDasharray="0.22 0.15"
                     />
                     <text x={mx} y={my - 0.3}
-                      textAnchor="middle" fill="#ffe566"
+                      textAnchor="middle" fill="#ffcc44"
                       fontSize="0.62" fontFamily="monospace" fontWeight="bold"
                     >
                       {d.toFixed(1)}" · {inchesToRange(d)}
                     </text>
                   </g>
                 );
-              }),
-              // to other minis
-              ...minis
-                .filter(m => m.id !== selected.id)
-                .map(other => {
-                  const otherR = mmToInches(other.sizeMm) / 2;
-                  const d = edgeToEdgeDistance(selected.x, selected.y, selR, other.x, other.y, otherR);
-                  const mx = (selected.x + other.x) / 2;
-                  const my = (selected.y + other.y) / 2;
-                  return (
-                    <g key={`d-${other.id}`}>
-                      <line
-                        x1={selected.x} y1={selected.y} x2={other.x} y2={other.y}
-                        stroke="rgba(255,200,80,0.22)" strokeWidth="0.06"
-                        strokeDasharray="0.22 0.15"
-                      />
-                      <text x={mx} y={my - 0.3}
-                        textAnchor="middle" fill="#ffcc44"
-                        fontSize="0.62" fontFamily="monospace" fontWeight="bold"
-                      >
-                        {d.toFixed(1)}" · {inchesToRange(d)}
-                      </text>
-                    </g>
-                  );
-                }),
-            ];
-          })()}
+              })
+          }
 
           {/* ── Miniatures ────────────────────────────────────────── */}
           {minis.map(mini => {
