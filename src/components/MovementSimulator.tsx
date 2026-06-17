@@ -168,7 +168,7 @@ export function MovementSimulator() {
           >
             {BASE_SIZES_MM.map(mm => (
               <option key={mm} value={mm}>
-                {mm} mm ({mmToInches(mm).toFixed(2)}")
+                {mm} mm
               </option>
             ))}
           </select>
@@ -187,7 +187,7 @@ export function MovementSimulator() {
         <div className="msim__ctrl-row msim__ctrl-row--toggles">
           <label className="msim__chk">
             <input type="checkbox" checked={showRanges}       onChange={e => setShowRanges(e.target.checked)} />
-            Range rings
+            Range
           </label>
           <label className="msim__chk">
             <input type="checkbox" checked={showMeasurements} onChange={e => setShowMeasurements(e.target.checked)} />
