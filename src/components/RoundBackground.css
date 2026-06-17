@@ -1,11 +1,3 @@
-/* RoundBackground — Energy Scan transition */
-
-:root {
-  --scan-dur: 780ms;
-  --scan-ease: cubic-bezier(0.65, 0, 0.35, 1);
-  --scan-cyan: rgba(39, 226, 255, 0.55);
-}
-
 .round-bg {
   position: absolute;
   inset: 0;
@@ -23,95 +15,16 @@
   background-size: cover;
   background-position: center 22%;
   opacity: 0;
-  will-change: clip-path, opacity;
+  transition: opacity 400ms ease;
 }
 
 .round-bg__layer.is-active {
   opacity: 1;
 }
 
-/* Entering layer: clip-path wipe in */
-.round-bg--left  .round-bg__layer.is-entering {
+.round-bg__layer.is-entering {
   opacity: 1;
-  animation: scan-reveal-l var(--scan-dur) var(--scan-ease) both;
-}
-.round-bg--right .round-bg__layer.is-entering {
-  opacity: 1;
-  animation: scan-reveal-r var(--scan-dur) var(--scan-ease) both;
-}
-
-@keyframes scan-reveal-l {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0   0 0); }
-}
-@keyframes scan-reveal-r {
-  from { clip-path: inset(0 0 0 100%); }
-  to   { clip-path: inset(0 0 0 0);   }
-}
-
-/* ── Scan bar ── */
-
-.round-bg__scanbar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 18%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(39, 226, 255, 0.45) 25%,
-    rgba(39, 226, 255, 1.00) 48%,
-    rgba(255, 255, 255, 0.90) 50%,
-    rgba(39, 226, 255, 1.00) 52%,
-    rgba(39, 226, 255, 0.45) 75%,
-    transparent
-  );
-  mix-blend-mode: screen;
-  filter: blur(2px) brightness(1.6);
-  opacity: 0;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
-.round-bg--left.round-bg--scanning  .round-bg__scanbar {
-  animation: scan-bar-l var(--scan-dur) var(--scan-ease) both;
-}
-.round-bg--right.round-bg--scanning .round-bg__scanbar {
-  left: auto;
-  right: 0;
-  animation: scan-bar-r var(--scan-dur) var(--scan-ease) both;
-}
-
-@keyframes scan-bar-l {
-  0%   { transform: translateX(-16%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(720%); opacity: 0; }
-}
-@keyframes scan-bar-r {
-  0%   { transform: translateX(720%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(-16%); opacity: 0; }
-}
-
-/* ── Frame glow ── */
-
-.round-bg__frame {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.round-bg--scanning .round-bg__frame {
-  animation: scan-frameglow var(--scan-dur) ease both;
-}
-
-@keyframes scan-frameglow {
-  0%   { box-shadow: inset 0 0 0px rgba(39, 226, 255, 0); }
-  45%  { box-shadow: inset 0 0 40px rgba(39, 226, 255, 0.85), inset 0 0 16px rgba(255, 255, 255, 0.25); }
-  100% { box-shadow: inset 0 0 0px rgba(39, 226, 255, 0); }
+  z-index: 1;
 }
 
 /* ── Shade / vignette ── */
@@ -119,26 +32,9 @@
 .round-bg__shade {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
     radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.62) 100%),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 35%, rgba(0, 0, 0, 0.55) 100%);
   pointer-events: none;
-}
-
-/* ── Reduced motion fallback ── */
-
-@media (prefers-reduced-motion: reduce) {
-  .round-bg__layer.is-entering {
-    animation: scan-fade 0.3s ease both !important;
-    clip-path: none !important;
-  }
-  .round-bg__scanbar,
-  .round-bg__frame {
-    animation: none !important;
-  }
-
-  @keyframes scan-fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
 }

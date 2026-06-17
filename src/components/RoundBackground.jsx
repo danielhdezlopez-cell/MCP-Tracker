@@ -4,7 +4,7 @@ import { LEADER_BACKGROUNDS } from '../data/leaderBackgroundsMap';
 import './RoundBackground.css';
 
 const BASE = `${import.meta.env.BASE_URL}backgrounds/`;
-const SCAN_DUR = 780;
+const FADE_DUR = 400;
 
 function shuffle(arr) {
   const a = [...arr];
@@ -21,14 +21,13 @@ function getPool(leaderId) {
 }
 
 /**
- * Per-player round background with Energy Scan transition.
+ * Per-player round background with crossfade transition.
  *
  * - round <= 1 or no leaderId → renders nothing (theme wallpaper shows through).
- * - round >= 2 + leaderId → scan-wipe through images specific to that leader.
+ * - round >= 2 + leaderId → crossfade through images specific to that leader.
  * - Leader change mid-game → deck resets immediately to the new leader's pool.
  *
  * Mount inside each vs-battle__side (position:relative / overflow:hidden).
- * Requires `side` prop ('left' | 'right') for directional scan animation.
  */
 export default function RoundBackground({ round, leaderId, side = 'left' }) {
   const deckRef       = useRef(shuffle(getPool(leaderId)));
@@ -40,8 +39,7 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
 
   const [layers,   setLayers]   = useState([null, null]);
   const [active,   setActive]   = useState(0);
-  const [entering, setEntering] = useState(-1); // index of the entering layer
-  const [scanning, setScanning] = useState(false);
+  const [entering, setEntering] = useState(-1);
 
   useEffect(() => {
     const prevRound  = prevRoundRef.current;
@@ -59,7 +57,6 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
       setLayers([null, null]);
       setActive(0);
       setEntering(-1);
-      setScanning(false);
     }
 
     if (round <= 1 || !leaderId) {
@@ -68,7 +65,6 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
         activeRef.current = 0;
         setActive(0);
         setEntering(-1);
-        setScanning(false);
       }
       return;
     }
@@ -87,27 +83,22 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
     img.onload = () => {
       const hiddenIdx = activeRef.current === 0 ? 1 : 0;
 
-      // Paint hidden layer with new image
       setLayers((l) => {
         const copy = [...l];
         copy[hiddenIdx] = next;
         return copy;
       });
 
-      // Double-rAF so the new layer mounts before we trigger the animation
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           setEntering(hiddenIdx);
-          setScanning(true);
 
-          // Swap active at end of scan
           setTimeout(() => {
             activeRef.current = hiddenIdx;
             setActive(hiddenIdx);
             setEntering(-1);
-            setScanning(false);
             busyRef.current = false;
-          }, SCAN_DUR + 40);
+          }, FADE_DUR + 40);
         })
       );
     };
@@ -118,7 +109,7 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
 
   return (
     <div
-      className={`round-bg round-bg--${side}${scanning ? ' round-bg--scanning' : ''}`}
+      className={`round-bg round-bg--${side}`}
       aria-hidden="true"
     >
       {layers.map((src, i) =>
@@ -127,15 +118,13 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
             key={src}
             className={[
               'round-bg__layer',
-              i === active  ? 'is-active'  : '',
+              i === active   ? 'is-active'  : '',
               i === entering ? 'is-entering' : '',
             ].filter(Boolean).join(' ')}
             style={{ backgroundImage: `url(${src})` }}
           />
         ) : null
       )}
-      <div className="round-bg__scanbar" />
-      <div className="round-bg__frame" />
       <div className="round-bg__shade" />
     </div>
   );
