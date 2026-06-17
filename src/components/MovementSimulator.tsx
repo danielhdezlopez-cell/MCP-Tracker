@@ -6,7 +6,7 @@ import {
 } from '../lib/simulatorConstants';
 import type { SizeMm, MoveKey, RangeKey } from '../lib/simulatorConstants';
 import {
-  getBaseRadiusIn, getRangeRingRadiusIn, getMoveEndX,
+  getBaseRadiusIn, getRangeRingRadiusIn,
   clampToBoard, getSpawnPosition,
 } from '../lib/simulatorGeometry';
 import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup } from '../data/mapSetups';
@@ -159,12 +159,6 @@ export function MovementSimulator() {
   // ── Render ────────────────────────────────────────────────────────────────
   return (
     <div className="msim">
-      {/* Inner header */}
-      <div className="msim__bar">
-        <span className="msim__bar-sub">Deployment &amp; Range</span>
-        <span className="msim__bar-dims">36 × 36 in</span>
-      </div>
-
       <div className="msim__body">
         {/* ── SVG Board ────────────────────────────────────────── */}
         <div className="msim__stage">
@@ -259,21 +253,17 @@ export function MovementSimulator() {
               {/* ── Move lines — movement mode only ─────────────── */}
               {!isObjectivesMode && characters.map(ch => {
                 if (!ch.move) return null;
-                const moveIn = MCP_MOVES[ch.move];
-                const startX = ch.x + getBaseRadiusIn(ch.baseMm);
-                const endX   = getMoveEndX(ch.x, ch.baseMm, moveIn);
+                const moveIn  = MCP_MOVES[ch.move];
+                const moveR   = getBaseRadiusIn(ch.baseMm) + moveIn;
+                const MOVE_COLOR = '#4ade80';
                 return (
                   <g key={`${ch.id}-mv`}>
-                    <line x1={startX} y1={ch.y} x2={endX} y2={ch.y}
-                      stroke={P1_COLOR} strokeWidth="0.1" opacity="0.9"/>
-                    <circle cx={endX} cy={ch.y} r={0.2}
-                      fill="#040c1a" stroke={P1_COLOR} strokeWidth="0.09"/>
-                    <rect x={endX - 0.38} y={ch.y - 0.95} width={0.76} height={0.55}
-                      fill={P1_COLOR} rx="0.1"/>
-                    <text x={endX} y={ch.y - 0.52}
-                      textAnchor="middle" fill="#021018"
-                      fontSize="0.46" fontFamily="monospace" fontWeight="bold"
-                      style={{ pointerEvents: 'none' }}>
+                    <circle cx={ch.x} cy={ch.y} r={moveR}
+                      fill="none" stroke={MOVE_COLOR} strokeWidth="0.09"
+                      strokeDasharray="0.35 0.2" opacity="0.70"/>
+                    <text x={ch.x} y={ch.y - moveR - 0.12}
+                      textAnchor="middle" fill={MOVE_COLOR}
+                      fontSize="0.58" fontFamily="monospace" fontWeight="bold" opacity="0.9">
                       {ch.move}
                     </text>
                   </g>
