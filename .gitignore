@@ -34,3 +34,6 @@ Thumbs.db
 
 # One-off generation scripts
 generate_card.py
+
+# Claude Code session artifacts
+.claude/
