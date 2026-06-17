@@ -52,20 +52,28 @@ export function EnergyScan() {
   // Dispara el lado cuyo líder cambia
   useEffect(() => {
     const id = leaderLeft?.id ?? null;
-    if (id !== prevLeftId.current) { prevLeftId.current = id; if (id) fire('left'); }
-  }, [leaderLeft]);
+    if (id !== prevLeftId.current) {
+      prevLeftId.current = id;
+      if (id) setTimeout(() => fire('left'), 0);
+    }
+  }, [leaderLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const id = leaderRight?.id ?? null;
-    if (id !== prevRightId.current) { prevRightId.current = id; if (id) fire('right'); }
-  }, [leaderRight]);
+    if (id !== prevRightId.current) {
+      prevRightId.current = id;
+      if (id) setTimeout(() => fire('right'), 0);
+    }
+  }, [leaderRight]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Al avanzar de ronda, barre ambos lados
   useEffect(() => {
     if (round !== prevRound.current) {
       prevRound.current = round;
-      if (leaderLeft)  fire('left');
-      if (leaderRight) fire('right');
+      setTimeout(() => {
+        if (leaderLeft)  fire('left');
+        if (leaderRight) fire('right');
+      }, 0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [round]);
