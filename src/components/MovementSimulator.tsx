@@ -253,17 +253,23 @@ export function MovementSimulator() {
               {/* ── Move lines — movement mode only ─────────────── */}
               {!isObjectivesMode && characters.map(ch => {
                 if (!ch.move) return null;
-                const moveIn  = MCP_MOVES[ch.move];
-                const moveR   = getBaseRadiusIn(ch.baseMm) + moveIn;
                 const MOVE_COLOR = '#4ade80';
+                const moveIn  = MCP_MOVES[ch.move];
+                const r       = getBaseRadiusIn(ch.baseMm);
+                const startX  = ch.x + r;
+                const endX    = ch.x + r + moveIn;
                 return (
                   <g key={`${ch.id}-mv`}>
-                    <circle cx={ch.x} cy={ch.y} r={moveR}
-                      fill="none" stroke={MOVE_COLOR} strokeWidth="0.09"
-                      strokeDasharray="0.35 0.2" opacity="0.70"/>
-                    <text x={ch.x} y={ch.y - moveR - 0.12}
-                      textAnchor="middle" fill={MOVE_COLOR}
-                      fontSize="0.58" fontFamily="monospace" fontWeight="bold" opacity="0.9">
+                    <line x1={startX} y1={ch.y} x2={endX} y2={ch.y}
+                      stroke={MOVE_COLOR} strokeWidth="0.1" opacity="0.9"/>
+                    <circle cx={endX} cy={ch.y} r={0.2}
+                      fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.09"/>
+                    <rect x={endX - 0.38} y={ch.y - 0.95} width={0.76} height={0.55}
+                      fill={MOVE_COLOR} rx="0.1"/>
+                    <text x={endX} y={ch.y - 0.52}
+                      textAnchor="middle" fill="#021018"
+                      fontSize="0.46" fontFamily="monospace" fontWeight="bold"
+                      style={{ pointerEvents: 'none' }}>
                       {ch.move}
                     </text>
                   </g>
@@ -297,7 +303,10 @@ export function MovementSimulator() {
                 const isSel   = ch.id === selectedId;
                 const tiers   = ({ 35: 0, 50: 1, 65: 2 } as Record<number,number>)[ch.baseMm] ?? 0;
                 return (
-                  <g key={ch.id} onPointerDown={e => onPointerDown(e, ch.id)} style={{ cursor: 'grab' }}>
+                  <g key={ch.id}
+                    onPointerDown={e => onPointerDown(e, ch.id)}
+                    onClick={e => e.stopPropagation()}
+                    style={{ cursor: 'grab' }}>
                     {/* Selection halo */}
                     {isSel && (
                       <circle cx={ch.x} cy={ch.y} r={r + 0.22}
