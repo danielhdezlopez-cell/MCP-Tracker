@@ -37,6 +37,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'infinity-formula':   'infinity-formula',
   'skrulls-infiltrate': 'skrulls',
   'surprise-assault':   'surprise-assault',
+  'scientific-samples': 'scientific-samples',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -229,6 +230,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('B', 14, 16),  // upper-center-left
       ext('C', 22, 20),  // lower-center-right
       ext('D', 28, 16),  // upper-right
+    ],
+  },
+  {
+    id: 'scientific-samples',
+    name: 'Scientific Samples Found In Discovered Universe',
+    threat: 17,
+    type: 'extract',
+    objectives: [
+      ext('A',  6, 18),  // left-center
+      ext('B', 18, 10),  // top-center
+      ext('C', 18, 20),  // bottom-center
+      ext('D', 30, 18),  // right-center
     ],
   },
 ];
