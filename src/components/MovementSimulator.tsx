@@ -17,14 +17,18 @@ import { useMcpStore } from '../store/useMcpStore';
 const SECURE_WITH_SETUP  = MISSIONS.filter(m => m.type === 'Secure'  && MISSION_TO_SETUP[m.id]);
 const EXTRACT_WITH_SETUP = MISSIONS.filter(m => m.type === 'Extract' && MISSION_TO_SETUP[m.id]);
 
+// Base size → token label
+const BASE_LABEL: Record<number, string> = { 35: 'S', 50: 'M', 65: 'L' };
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Character {
-  id: string;         // 'A1', 'A2', …
+  id: string;
   baseMm: SizeMm;
-  x: number;          // centre, inches
+  x: number;
   y: number;
-  ranges: number[];   // active range selections
+  ranges: number[];
   move: MoveKey | null;
+  moveAngleDeg: number; // degrees in SVG coords; -90 = straight up
 }
 
 // ── LocalStorage ──────────────────────────────────────────────────────────────
@@ -33,7 +37,11 @@ function loadChars(): Character[] {
     const raw = localStorage.getItem(SIM_KEY);
     if (!raw) return [];
     const p = JSON.parse(raw);
-    return Array.isArray(p.characters) ? (p.characters as Character[]) : [];
+    if (!Array.isArray(p.characters)) return [];
+    return (p.characters as Character[]).map(c => ({
+      ...c,
+      moveAngleDeg: c.moveAngleDeg ?? -90,
+    }));
   } catch { return []; }
 }
 
@@ -55,11 +63,11 @@ export function MovementSimulator() {
   const [addSizeMm,   setAddSizeMm]   = useState<SizeMm>(35);
   const [manualSetupId, setManualSetupId] = useState<string | null>(null);
 
-  const svgRef     = useRef<SVGSVGElement>(null);
-  const dragRef    = useRef<{ id: string; ox: number; oy: number } | null>(null);
-  const counterRef = useRef(initCounter(initial));
+  const svgRef          = useRef<SVGSVGElement>(null);
+  const dragRef         = useRef<{ id: string; ox: number; oy: number } | null>(null);
+  const moveHandleRef   = useRef<string | null>(null); // character id being angle-dragged
+  const counterRef      = useRef(initCounter(initial));
 
-  // Persist characters; clean up the old provisional key once
   useEffect(() => { saveChars(characters); }, [characters]);
   useEffect(() => { try { localStorage.removeItem('mcp-simulator-v1'); } catch { /* noop */ } }, []);
 
@@ -104,7 +112,7 @@ export function MovementSimulator() {
     counterRef.current += 1;
     const n = counterRef.current;
     const { x, y } = getSpawnPosition(n, addSizeMm);
-    const ch: Character = { id: `A${n}`, baseMm: addSizeMm, x, y, ranges: [], move: null };
+    const ch: Character = { id: `A${n}`, baseMm: addSizeMm, x, y, ranges: [], move: null, moveAngleDeg: -90 };
     setCharacters(prev => [...prev, ch]);
     setTimeout(() => setSelectedId(ch.id), 0);
   };
@@ -131,6 +139,7 @@ export function MovementSimulator() {
     }));
   };
 
+  // ── Pointer handlers ──────────────────────────────────────────────────────
   const onPointerDown = useCallback((e: React.PointerEvent, id: string) => {
     e.stopPropagation();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
@@ -141,7 +150,26 @@ export function MovementSimulator() {
     setSelectedId(id);
   }, [characters, toSvgPt]);
 
+  const onMoveHandleDown = useCallback((e: React.PointerEvent, id: string) => {
+    e.stopPropagation();
+    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    moveHandleRef.current = id;
+  }, []);
+
   const onPointerMove = useCallback((e: React.PointerEvent) => {
+    // Move-handle rotation takes priority
+    if (moveHandleRef.current) {
+      const id = moveHandleRef.current;
+      const pt = toSvgPt(e);
+      setCharacters(prev => prev.map(c => {
+        if (c.id !== id) return c;
+        const dx = pt.x - c.x;
+        const dy = pt.y - c.y;
+        const angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+        return { ...c, moveAngleDeg: angleDeg };
+      }));
+      return;
+    }
     if (!dragRef.current) return;
     const { id, ox, oy } = dragRef.current;
     const pt = toSvgPt(e);
@@ -152,7 +180,10 @@ export function MovementSimulator() {
     }));
   }, [toSvgPt]);
 
-  const onPointerUp = useCallback(() => { dragRef.current = null; }, []);
+  const onPointerUp = useCallback(() => {
+    dragRef.current = null;
+    moveHandleRef.current = null;
+  }, []);
 
   const selectedChar = characters.find(c => c.id === selectedId) ?? null;
 
@@ -235,18 +266,20 @@ export function MovementSimulator() {
               {!isObjectivesMode && characters.map(ch =>
                 ch.ranges.map(r => {
                   const ringR = getRangeRingRadiusIn(ch.baseMm, MCP_RANGES[r]);
+                  // 225° in SVG coords = upper-left visually
+                  const labelAngle = 225 * Math.PI / 180;
+                  const lx = ch.x + (ringR + 0.4) * Math.cos(labelAngle);
+                  const ly = ch.y + (ringR + 0.4) * Math.sin(labelAngle);
                   return (
                     <g key={`${ch.id}-r${r}`}>
                       <circle cx={ch.x} cy={ch.y} r={ringR}
                         fill="none" stroke={P1_COLOR} strokeWidth="0.07"
                         strokeDasharray="0.3 0.2" opacity="0.55"/>
-                      {/* Label at 135° (upper-left diagonal) off the ring edge */}
                       <text
-                        x={ch.x + (ringR + 0.32) * Math.cos((135 * Math.PI) / 180)}
-                        y={ch.y + (ringR + 0.32) * Math.sin((135 * Math.PI) / 180)}
+                        x={lx} y={ly}
                         textAnchor="middle" dominantBaseline="middle"
                         fill={P1_COLOR}
-                        fontSize="0.58" fontFamily="monospace" fontWeight="bold" opacity="0.9">
+                        fontSize="0.75" fontFamily="monospace" fontWeight="bold" opacity="0.95">
                         R{r}
                       </text>
                     </g>
@@ -258,22 +291,34 @@ export function MovementSimulator() {
               {!isObjectivesMode && characters.map(ch => {
                 if (!ch.move) return null;
                 const MOVE_COLOR = '#4ade80';
-                const moveIn  = MCP_MOVES[ch.move];
-                const r       = getBaseRadiusIn(ch.baseMm);
-                // Line goes vertically upward from top of the base circle
-                const startY  = ch.y - r;
-                const endY    = ch.y - r - moveIn;
+                const moveIn    = MCP_MOVES[ch.move];
+                const angleRad  = ch.moveAngleDeg * Math.PI / 180;
+                const endX      = ch.x + Math.cos(angleRad) * moveIn;
+                const endY      = ch.y + Math.sin(angleRad) * moveIn;
+                // Label box slightly past end point
+                const lblX = ch.x + Math.cos(angleRad) * (moveIn + 0.55);
+                const lblY = ch.y + Math.sin(angleRad) * (moveIn + 0.55);
                 return (
                   <g key={`${ch.id}-mv`}>
-                    <line x1={ch.x} y1={startY} x2={ch.x} y2={endY}
-                      stroke={MOVE_COLOR} strokeWidth="0.1" opacity="0.9"/>
-                    <circle cx={ch.x} cy={endY} r={0.2}
-                      fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.09"/>
-                    <rect x={ch.x - 0.38} y={endY - 0.68} width={0.76} height={0.55}
+                    {/* Glow shadow */}
+                    <line x1={ch.x} y1={ch.y} x2={endX} y2={endY}
+                      stroke={MOVE_COLOR} strokeWidth="0.35" opacity="0.18"/>
+                    {/* Main line */}
+                    <line x1={ch.x} y1={ch.y} x2={endX} y2={endY}
+                      stroke={MOVE_COLOR} strokeWidth="0.16" opacity="0.95"
+                      strokeLinecap="round"/>
+                    {/* End marker — draggable */}
+                    <circle cx={endX} cy={endY} r={0.28}
+                      fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.12"
+                      style={{ cursor: 'crosshair' }}
+                      onPointerDown={e => onMoveHandleDown(e, ch.id)}/>
+                    {/* Move label */}
+                    <rect x={lblX - 0.42} y={lblY - 0.32} width={0.84} height={0.58}
                       fill={MOVE_COLOR} rx="0.1"/>
-                    <text x={ch.x} y={endY - 0.35}
-                      textAnchor="middle" fill="#021018"
-                      fontSize="0.46" fontFamily="monospace" fontWeight="bold"
+                    <text x={lblX} y={lblY}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill="#021018"
+                      fontSize="0.50" fontFamily="monospace" fontWeight="bold"
                       style={{ pointerEvents: 'none' }}>
                       {ch.move}
                     </text>
@@ -304,9 +349,9 @@ export function MovementSimulator() {
 
               {/* ── Characters ───────────────────────────────────── */}
               {characters.map(ch => {
-                const r       = getBaseRadiusIn(ch.baseMm);
-                const isSel   = ch.id === selectedId;
-                const tiers   = ({ 35: 0, 50: 1, 65: 2 } as Record<number,number>)[ch.baseMm] ?? 0;
+                const r     = getBaseRadiusIn(ch.baseMm);
+                const isSel = ch.id === selectedId;
+                const lbl   = BASE_LABEL[ch.baseMm] ?? 'S';
                 return (
                   <g key={ch.id}
                     onPointerDown={e => onPointerDown(e, ch.id)}
@@ -314,25 +359,34 @@ export function MovementSimulator() {
                     style={{ cursor: 'grab' }}>
                     {/* Selection halo */}
                     {isSel && (
-                      <circle cx={ch.x} cy={ch.y} r={r + 0.22}
-                        fill="none" stroke={P1_COLOR} strokeWidth="0.07" opacity="0.45"/>
+                      <circle cx={ch.x} cy={ch.y} r={r + 0.25}
+                        fill="none" stroke={P1_COLOR} strokeWidth="0.08" opacity="0.5"
+                        strokeDasharray="0.4 0.25"/>
                     )}
                     {/* Base circle */}
                     <circle cx={ch.x} cy={ch.y} r={r}
-                      fill={`${P1_COLOR}25`}
+                      fill={`${P1_COLOR}20`}
                       stroke={P1_COLOR}
-                      strokeWidth={isSel ? 0.14 : 0.09}/>
-                    {/* Inner tier rings (differentiate 50mm / 65mm) */}
-                    {Array.from({ length: tiers }, (_, i) => (
-                      <circle key={i} cx={ch.x} cy={ch.y} r={r * (1 - 0.3 * (i + 1))}
-                        fill="none" stroke={P1_COLOR} strokeWidth="0.045" opacity="0.5"/>
-                    ))}
-                    {/* ID label */}
-                    <text x={ch.x} y={ch.y + 0.22}
-                      textAnchor="middle" fill="white"
-                      fontSize="0.6" fontFamily="monospace" fontWeight="bold"
+                      strokeWidth={isSel ? 0.15 : 0.10}/>
+                    {/* Cross-hair accents at cardinal points */}
+                    {[0, 90, 180, 270].map(deg => {
+                      const rad = deg * Math.PI / 180;
+                      return (
+                        <line key={deg}
+                          x1={ch.x + Math.cos(rad) * (r - 0.15)}
+                          y1={ch.y + Math.sin(rad) * (r - 0.15)}
+                          x2={ch.x + Math.cos(rad) * (r + 0.12)}
+                          y2={ch.y + Math.sin(rad) * (r + 0.12)}
+                          stroke={P1_COLOR} strokeWidth="0.07" opacity="0.6"/>
+                      );
+                    })}
+                    {/* Size label: S / M / L */}
+                    <text x={ch.x} y={ch.y}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill="white"
+                      fontSize={r * 1.1} fontFamily="monospace" fontWeight="bold"
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                      {ch.id}
+                      {lbl}
                     </text>
                   </g>
                 );
