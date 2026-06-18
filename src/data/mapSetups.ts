@@ -47,6 +47,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'jailbreak':              'jailbreak',
   'assault-ships':          'assault-ships',
   'guardians-empress':      'guardians-empress',
+  'xmen-infiltrate':        'xmen-infiltrate',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -356,6 +357,18 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('B', 11, 23),  // lower-left
       sec('C', 25, 13),  // upper-right
       sec('D', 25, 23),  // lower-right
+    ],
+  },
+  {
+    id: 'xmen-infiltrate',
+    name: 'X-Men Infiltrate Secret Weapons Facility',
+    threat: 17,
+    type: 'secure',
+    objectives: [
+      sec('A', 11, 18),  // left
+      sec('B', 18, 11),  // top
+      sec('C', 18, 25),  // bottom
+      sec('D', 25, 18),  // right
     ],
   },
 ];
