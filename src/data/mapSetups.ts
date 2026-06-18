@@ -41,6 +41,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'sentinel-schematics': 'sentinel-schematics',
   'royal-wedding':       'royal-wedding',
   'inhumans-weaponry':   'inhumans-weaponry',
+  'salvaged-supplies':   'salvaged-supplies',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -281,6 +282,16 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('B', 10, 18),  // left-pair right
       ext('C', 26, 18),  // right-pair left
       ext('D', 30, 18),  // right-pair right
+    ],
+  },
+  {
+    id: 'salvaged-supplies',
+    name: 'Salvaged Supplies Fuel Resistance Efforts',
+    threat: 18,
+    type: 'extract',
+    objectives: [
+      ext('A', 13, 16),  // upper-left
+      ext('B', 23, 20),  // lower-right
     ],
   },
 ];
