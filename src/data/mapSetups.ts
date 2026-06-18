@@ -136,13 +136,12 @@ export const MAP_SETUPS: MapSetup[] = [
     id: 'skrulls',
     name: 'Skrulls Infiltrate World Leadership',
     threat: 17,
-    type: 'secure',
+    type: 'extract',
     objectives: [
-      sec('A',  9,  9),
-      sec('B', 27,  9),
-      sec('C', 18, 18),
-      sec('D',  9, 27),
-      sec('E', 27, 27),
+      ext('A',  6, 18),  // left
+      ext('B', 18, 16),  // center-top
+      ext('C', 18, 20),  // center-bottom
+      ext('D', 30, 18),  // right
     ],
   },
   // ── EXTRACT CRISES ───────────────────────────────────────────────────────
