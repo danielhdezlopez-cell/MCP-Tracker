@@ -39,6 +39,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'surprise-assault':   'surprise-assault',
   'scientific-samples':  'scientific-samples',
   'sentinel-schematics': 'sentinel-schematics',
+  'royal-wedding':       'royal-wedding',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -255,6 +256,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('B', 14, 22),  // lower-left
       ext('C', 22, 14),  // upper-right
       ext('D', 22, 22),  // lower-right
+    ],
+  },
+  {
+    id: 'royal-wedding',
+    name: 'Unexpected Guests Crash Royal Wedding',
+    threat: 17,
+    type: 'extract',
+    objectives: [
+      ext('A', 10, 13),  // upper-left
+      ext('B', 10, 26),  // lower-left
+      ext('C', 26, 13),  // upper-right
+      ext('D', 26, 26),  // lower-right
     ],
   },
 ];
