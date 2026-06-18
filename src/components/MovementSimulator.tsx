@@ -463,7 +463,7 @@ export function MovementSimulator() {
                 >
                   <option value="">— Secure: none —</option>
                   {SECURE_MISSIONS.map(m => (
-                    <option key={m.id} value={m.id}>{m.name}</option>
+                    <option key={m.id} value={m.id}>[T{m.threat}] {m.name}</option>
                   ))}
                 </select>
               </div>
@@ -478,7 +478,7 @@ export function MovementSimulator() {
                 >
                   <option value="">— Extract: none —</option>
                   {EXTRACT_MISSIONS.map(m => (
-                    <option key={m.id} value={m.id}>{m.name}</option>
+                    <option key={m.id} value={m.id}>[T{m.threat}] {m.name}</option>
                   ))}
                 </select>
               </div>
