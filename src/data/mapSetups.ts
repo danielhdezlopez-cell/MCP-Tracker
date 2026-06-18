@@ -48,6 +48,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'assault-ships':          'assault-ships',
   'guardians-empress':      'guardians-empress',
   'xmen-infiltrate':        'xmen-infiltrate',
+  'lockdown':               'lockdown',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -369,6 +370,18 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('B', 18, 11),  // top
       sec('C', 18, 25),  // bottom
       sec('D', 25, 18),  // right
+    ],
+  },
+  {
+    id: 'lockdown',
+    name: 'Lockdown! Security Systems Stymie Breakout',
+    threat: 18,
+    type: 'secure',
+    objectives: [
+      sec('A', 13, 13),  // upper-left
+      sec('B', 13, 23),  // lower-left
+      sec('C', 23, 13),  // upper-right
+      sec('D', 23, 23),  // lower-right
     ],
   },
 ];
