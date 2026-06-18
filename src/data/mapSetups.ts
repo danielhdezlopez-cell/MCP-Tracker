@@ -41,7 +41,8 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'sentinel-schematics': 'sentinel-schematics',
   'royal-wedding':       'royal-wedding',
   'inhumans-weaponry':   'inhumans-weaponry',
-  'salvaged-supplies':   'salvaged-supplies',
+  'salvaged-supplies':      'salvaged-supplies',
+  'experimental-soldiers':  'experimental-soldiers',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -292,6 +293,17 @@ export const MAP_SETUPS: MapSetup[] = [
     objectives: [
       ext('A', 13, 16),  // upper-left
       ext('B', 23, 20),  // lower-right
+    ],
+  },
+  {
+    id: 'experimental-soldiers',
+    name: 'Evidence Of Experimental Soldiers Exposed',
+    threat: 19,
+    type: 'extract',
+    objectives: [
+      ext('A',  8, 18),  // left
+      ext('B', 18, 18),  // center
+      ext('C', 28, 18),  // right
     ],
   },
 ];
