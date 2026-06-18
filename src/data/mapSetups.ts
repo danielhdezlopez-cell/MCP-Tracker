@@ -40,6 +40,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'scientific-samples':  'scientific-samples',
   'sentinel-schematics': 'sentinel-schematics',
   'royal-wedding':       'royal-wedding',
+  'inhumans-weaponry':   'inhumans-weaponry',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -268,6 +269,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('B', 10, 23),  // lower-left
       ext('C', 26, 13),  // upper-right
       ext('D', 26, 23),  // lower-right
+    ],
+  },
+  {
+    id: 'inhumans-weaponry',
+    name: 'Inhumans Deploy Advanced Weaponry',
+    threat: 18,
+    type: 'extract',
+    objectives: [
+      ext('A',  6, 18),  // left-pair left
+      ext('B', 10, 18),  // left-pair right
+      ext('C', 26, 18),  // right-pair left
+      ext('D', 30, 18),  // right-pair right
     ],
   },
 ];
