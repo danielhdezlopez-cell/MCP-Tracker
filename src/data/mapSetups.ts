@@ -43,6 +43,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'inhumans-weaponry':   'inhumans-weaponry',
   'salvaged-supplies':      'salvaged-supplies',
   'experimental-soldiers':  'experimental-soldiers',
+  'mutant-extremists':      'mutant-extremists',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -304,6 +305,20 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('A',  8, 18),  // left
       ext('B', 18, 18),  // center
       ext('C', 28, 18),  // right
+    ],
+  },
+  {
+    id: 'mutant-extremists',
+    name: 'Mutants Extremists Target U.S. Senators!',
+    threat: 19,
+    type: 'extract',
+    objectives: [
+      ext('A', 13, 16),  // upper-left
+      ext('B', 18, 16),  // upper-center
+      ext('C', 23, 16),  // upper-right
+      ext('D', 13, 20),  // lower-left
+      ext('E', 18, 20),  // lower-center
+      ext('F', 23, 20),  // lower-right
     ],
   },
 ];
