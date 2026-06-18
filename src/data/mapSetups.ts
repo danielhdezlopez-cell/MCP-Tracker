@@ -406,10 +406,10 @@ export const MAP_SETUPS: MapSetup[] = [
     type: 'secure',
     objectives: [
       sec('A', 10, 13),  // upper-left
-      sec('B', 10, 26),  // lower-left
+      sec('B', 10, 23),  // lower-left
       sec('C', 18, 18),  // center
       sec('D', 26, 13),  // upper-right
-      sec('E', 26, 26),  // lower-right
+      sec('E', 26, 23),  // lower-right
     ],
   },
   {
