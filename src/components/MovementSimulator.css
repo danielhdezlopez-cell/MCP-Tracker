@@ -207,6 +207,25 @@
   font-size: 9px;
 }
 
+/* ── Crisis row (dot + dropdown) ────────────────────────────────────────── */
+.msim__crisis-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.msim__crisis-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+.msim__crisis-dot--secure  { color: #00c3ff; background: rgba(0,195,255,0.25); }
+.msim__crisis-dot--extract { color: #ff3b30; background: rgba(255,59,48,0.25); }
+
 /* ── MAIN missions badge ─────────────────────────────────────────────────── */
 .msim__main-badge {
   font-family: var(--font-display, 'Orbitron', monospace);
