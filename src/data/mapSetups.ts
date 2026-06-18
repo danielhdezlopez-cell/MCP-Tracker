@@ -265,9 +265,9 @@ export const MAP_SETUPS: MapSetup[] = [
     type: 'extract',
     objectives: [
       ext('A', 10, 13),  // upper-left
-      ext('B', 10, 26),  // lower-left
+      ext('B', 10, 23),  // lower-left
       ext('C', 26, 13),  // upper-right
-      ext('D', 26, 26),  // lower-right
+      ext('D', 26, 23),  // lower-right
     ],
   },
 ];
