@@ -182,11 +182,12 @@ export const MAP_SETUPS: MapSetup[] = [
     id: 'infinity-formula',
     name: 'Infinity Formula Goes Missing!',
     threat: 17,
-    type: 'extract',
+    type: 'secure',
     objectives: [
-      ext('A',  6, 18),
-      ext('B', 18, 18),
-      ext('C', 30, 18),
+      sec('A',  8, 13),  // upper-left
+      sec('B',  8, 23),  // lower-left
+      sec('C', 28, 13),  // upper-right
+      sec('D', 28, 23),  // lower-right
     ],
   },
   {
