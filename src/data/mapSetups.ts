@@ -44,6 +44,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'salvaged-supplies':      'salvaged-supplies',
   'experimental-soldiers':  'experimental-soldiers',
   'mutant-extremists':      'mutant-extremists',
+  'jailbreak':              'jailbreak',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -319,6 +320,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('D', 13, 20),  // lower-left
       ext('E', 18, 20),  // lower-center
       ext('F', 23, 20),  // lower-right
+    ],
+  },
+  {
+    id: 'jailbreak',
+    name: 'Jailbreak Leads To Mass Mutant Escape!',
+    threat: 20,
+    type: 'extract',
+    objectives: [
+      ext('A', 10, 10),  // upper-left
+      ext('B', 10, 26),  // lower-left
+      ext('C', 26, 10),  // upper-right
+      ext('D', 26, 26),  // lower-right
     ],
   },
 ];
