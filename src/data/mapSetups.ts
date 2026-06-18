@@ -46,6 +46,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'mutant-extremists':      'mutant-extremists',
   'jailbreak':              'jailbreak',
   'assault-ships':          'assault-ships',
+  'guardians-empress':      'guardians-empress',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -342,6 +343,18 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('B', 14, 14),  // upper-center-left
       sec('C', 22, 22),  // lower-center-right
       sec('D', 28, 14),  // upper-right
+    ],
+  },
+  {
+    id: 'guardians-empress',
+    name: "Guardians Save Shi'Ar Empress In Style",
+    threat: 17,
+    type: 'secure',
+    objectives: [
+      sec('A', 11, 13),  // upper-left
+      sec('B', 11, 23),  // lower-left
+      sec('C', 25, 13),  // upper-right
+      sec('D', 25, 23),  // lower-right
     ],
   },
 ];
