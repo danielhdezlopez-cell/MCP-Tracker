@@ -9,13 +9,18 @@ import {
   getBaseRadiusIn, getRangeRingRadiusIn,
   clampToBoard, getSpawnPosition,
 } from '../lib/simulatorGeometry';
-import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup } from '../data/mapSetups';
-import { MISSIONS } from '../data/missionsData';
+import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup, type ObjectivePoint } from '../data/mapSetups';
 import { useMcpStore } from '../store/useMcpStore';
 
-// Fallback dropdown: only missions from MISSIONS panel that have objective coordinates
-const SECURE_WITH_SETUP  = MISSIONS.filter(m => m.type === 'Secure'  && MISSION_TO_SETUP[m.id]);
-const EXTRACT_WITH_SETUP = MISSIONS.filter(m => m.type === 'Extract' && MISSION_TO_SETUP[m.id]);
+// Objective token size: 1" diameter (25 mm) → 0.5" radius
+const OBJ_R = 0.5;
+// Colour constants for objective types
+const SECURE_COLOR  = '#00c3ff'; // blue/cyan
+const EXTRACT_COLOR = '#ff3b30'; // red
+
+// Filtered setup lists for the dropdowns
+const SECURE_SETUPS  = MAP_SETUPS.filter(s => s.type === 'secure');
+const EXTRACT_SETUPS = MAP_SETUPS.filter(s => s.type === 'extract');
 
 // Base size → token label
 const BASE_LABEL: Record<number, string> = { 35: 'S', 50: 'M', 65: 'L' };
@@ -55,18 +60,42 @@ function initCounter(chars: Character[]): number {
   return nums.length ? Math.max(...nums) : 0;
 }
 
+// ── Objective token ───────────────────────────────────────────────────────────
+function ObjectiveToken({ obj, color }: { obj: ObjectivePoint; color: string }) {
+  return (
+    <g key={obj.id}>
+      {/* Glow ring */}
+      <circle cx={obj.x} cy={obj.y} r={OBJ_R + 0.18}
+        fill="none" stroke={color} strokeWidth="0.07" opacity="0.25"/>
+      {/* Main token */}
+      <circle cx={obj.x} cy={obj.y} r={OBJ_R}
+        fill={`${color}22`} stroke={color} strokeWidth="0.1" opacity="0.95"/>
+      {/* Inner dot */}
+      <circle cx={obj.x} cy={obj.y} r={0.1} fill={color} opacity="0.9"/>
+      {/* Label */}
+      <text x={obj.x} y={obj.y - OBJ_R - 0.22}
+        textAnchor="middle" dominantBaseline="middle"
+        fill={color} fontSize="0.55" fontFamily="monospace" fontWeight="bold" opacity="0.95">
+        {obj.id}
+      </text>
+    </g>
+  );
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 export function MovementSimulator() {
   const initial = loadChars();
-  const [characters, setCharacters] = useState<Character[]>(initial);
-  const [selectedId,  setSelectedId]  = useState<string | null>(null);
-  const [addSizeMm,   setAddSizeMm]   = useState<SizeMm>(35);
-  const [manualSetupId, setManualSetupId] = useState<string | null>(null);
+  const [characters,    setCharacters]    = useState<Character[]>(initial);
+  const [selectedId,    setSelectedId]    = useState<string | null>(null);
+  const [addSizeMm,     setAddSizeMm]     = useState<SizeMm>(35);
+  // null = follow MAIN; '' = none; otherwise setup id
+  const [localSecureId,  setLocalSecureId]  = useState<string | null>(null);
+  const [localExtractId, setLocalExtractId] = useState<string | null>(null);
 
-  const svgRef          = useRef<SVGSVGElement>(null);
-  const dragRef         = useRef<{ id: string; ox: number; oy: number } | null>(null);
-  const moveHandleRef   = useRef<string | null>(null); // character id being angle-dragged
-  const counterRef      = useRef(initCounter(initial));
+  const svgRef        = useRef<SVGSVGElement>(null);
+  const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
+  const moveHandleRef = useRef<string | null>(null);
+  const counterRef    = useRef(initCounter(initial));
 
   useEffect(() => { saveChars(characters); }, [characters]);
   useEffect(() => { try { localStorage.removeItem('mcp-simulator-v1'); } catch { /* noop */ } }, []);
@@ -75,26 +104,24 @@ export function MovementSimulator() {
   const selectedSecure  = useMcpStore(s => s.selectedSecure);
   const selectedExtract = useMcpStore(s => s.selectedExtract);
 
-  const mainSetups = useMemo<MapSetup[]>(() => {
-    const result: MapSetup[] = [];
-    for (const m of [selectedSecure, selectedExtract]) {
-      if (!m) continue;
-      const sid = MISSION_TO_SETUP[m.id];
-      if (!sid) continue;
-      const setup = MAP_SETUPS.find(s => s.id === sid);
-      if (setup) result.push(setup);
-    }
-    return result;
-  }, [selectedSecure, selectedExtract]);
+  // Resolve setup IDs from MAIN missions
+  const mainSecureSetupId  = selectedSecure  ? (MISSION_TO_SETUP[selectedSecure.id]  ?? null) : null;
+  const mainExtractSetupId = selectedExtract ? (MISSION_TO_SETUP[selectedExtract.id] ?? null) : null;
 
-  const isMainActive = mainSetups.length > 0;
+  // Active setup: local override wins, then MAIN, then null
+  const activeSecureSetup = useMemo<MapSetup | null>(() => {
+    const id = localSecureId !== null ? (localSecureId || null) : mainSecureSetupId;
+    return id ? (MAP_SETUPS.find(s => s.id === id) ?? null) : null;
+  }, [localSecureId, mainSecureSetupId]);
 
-  const manualSetup = !isMainActive && manualSetupId
-    ? (MAP_SETUPS.find(s => s.id === manualSetupId) ?? null)
-    : null;
+  const activeExtractSetup = useMemo<MapSetup | null>(() => {
+    const id = localExtractId !== null ? (localExtractId || null) : mainExtractSetupId;
+    return id ? (MAP_SETUPS.find(s => s.id === id) ?? null) : null;
+  }, [localExtractId, mainExtractSetupId]);
 
-  const activeSetups: MapSetup[] = isMainActive ? mainSetups : (manualSetup ? [manualSetup] : []);
-  const isObjectivesMode = activeSetups.length > 0;
+  // Current dropdown display values
+  const secureDropVal  = localSecureId  !== null ? localSecureId  : (mainSecureSetupId  ?? '');
+  const extractDropVal = localExtractId !== null ? localExtractId : (mainExtractSetupId ?? '');
 
   // ── SVG coordinate helper ─────────────────────────────────────────────────
   const toSvgPt = useCallback((e: React.PointerEvent | PointerEvent) => {
@@ -157,7 +184,6 @@ export function MovementSimulator() {
   }, []);
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
-    // Move-handle rotation takes priority
     if (moveHandleRef.current) {
       const id = moveHandleRef.current;
       const pt = toSvgPt(e);
@@ -165,8 +191,7 @@ export function MovementSimulator() {
         if (c.id !== id) return c;
         const dx = pt.x - c.x;
         const dy = pt.y - c.y;
-        const angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
-        return { ...c, moveAngleDeg: angleDeg };
+        return { ...c, moveAngleDeg: Math.atan2(dy, dx) * 180 / Math.PI };
       }));
       return;
     }
@@ -204,18 +229,15 @@ export function MovementSimulator() {
               aria-label="Movement simulator board"
             >
               <defs>
-                {/* Board background radial gradient */}
                 <radialGradient id="msimBg" cx="50%" cy="50%" r="70%">
                   <stop offset="0%"   stopColor="#0c1830"/>
                   <stop offset="70%"  stopColor="#060a16"/>
                   <stop offset="100%" stopColor="#04060e"/>
                 </radialGradient>
-                {/* P2 deploy zone (top, orange) */}
                 <linearGradient id="msimDzTop" x1="0" y1="0" x2="0" y2={DEPLOY_IN} gradientUnits="userSpaceOnUse">
                   <stop offset="0%"   stopColor={P2_COLOR} stopOpacity="0.48"/>
                   <stop offset="100%" stopColor={P2_COLOR} stopOpacity="0.06"/>
                 </linearGradient>
-                {/* P1 deploy zone (bottom, cyan) */}
                 <linearGradient id="msimDzBot" x1="0" y1={BOARD_IN} x2="0" y2={P1_LINE_IN} gradientUnits="userSpaceOnUse">
                   <stop offset="0%"   stopColor={P1_COLOR} stopOpacity="0.48"/>
                   <stop offset="100%" stopColor={P1_COLOR} stopOpacity="0.06"/>
@@ -262,21 +284,27 @@ export function MovementSimulator() {
                   fill="rgba(0,195,255,0.40)" fontSize="0.52" fontFamily="monospace">{v}"</text>
               ))}
 
-              {/* ── Range rings — movement mode only ────────────── */}
-              {!isObjectivesMode && characters.map(ch =>
+              {/* ── Objective tokens — always rendered when a setup is active ── */}
+              {activeSecureSetup?.objectives.map(obj => (
+                <ObjectiveToken key={`sec-${obj.id}`} obj={obj} color={SECURE_COLOR}/>
+              ))}
+              {activeExtractSetup?.objectives.map(obj => (
+                <ObjectiveToken key={`ext-${obj.id}`} obj={obj} color={EXTRACT_COLOR}/>
+              ))}
+
+              {/* ── Range rings ──────────────────────────────────── */}
+              {characters.map(ch =>
                 ch.ranges.map(r => {
                   const ringR = getRangeRingRadiusIn(ch.baseMm, MCP_RANGES[r]);
-                  // 225° in SVG coords = upper-left visually
                   const labelAngle = 225 * Math.PI / 180;
-                  const lx = ch.x + (ringR + 0.4) * Math.cos(labelAngle);
-                  const ly = ch.y + (ringR + 0.4) * Math.sin(labelAngle);
                   return (
                     <g key={`${ch.id}-r${r}`}>
                       <circle cx={ch.x} cy={ch.y} r={ringR}
                         fill="none" stroke={P1_COLOR} strokeWidth="0.07"
                         strokeDasharray="0.3 0.2" opacity="0.55"/>
                       <text
-                        x={lx} y={ly}
+                        x={ch.x + (ringR + 0.4) * Math.cos(labelAngle)}
+                        y={ch.y + (ringR + 0.4) * Math.sin(labelAngle)}
                         textAnchor="middle" dominantBaseline="middle"
                         fill={P1_COLOR}
                         fontSize="0.75" fontFamily="monospace" fontWeight="bold" opacity="0.95">
@@ -287,36 +315,30 @@ export function MovementSimulator() {
                 })
               )}
 
-              {/* ── Move lines — movement mode only ─────────────── */}
-              {!isObjectivesMode && characters.map(ch => {
+              {/* ── Move lines ───────────────────────────────────── */}
+              {characters.map(ch => {
                 if (!ch.move) return null;
                 const MOVE_COLOR = '#4ade80';
                 const moveIn    = MCP_MOVES[ch.move];
                 const baseR     = getBaseRadiusIn(ch.baseMm);
                 const angleRad  = ch.moveAngleDeg * Math.PI / 180;
-                // Start at the perimeter of the token, not the center
                 const startX    = ch.x + Math.cos(angleRad) * baseR;
                 const startY    = ch.y + Math.sin(angleRad) * baseR;
                 const endX      = ch.x + Math.cos(angleRad) * (baseR + moveIn);
                 const endY      = ch.y + Math.sin(angleRad) * (baseR + moveIn);
-                // Label box slightly past end point
                 const lblX = ch.x + Math.cos(angleRad) * (baseR + moveIn + 0.55);
                 const lblY = ch.y + Math.sin(angleRad) * (baseR + moveIn + 0.55);
                 return (
                   <g key={`${ch.id}-mv`}>
-                    {/* Glow shadow */}
                     <line x1={startX} y1={startY} x2={endX} y2={endY}
                       stroke={MOVE_COLOR} strokeWidth="0.65" opacity="0.18"/>
-                    {/* Main line — double width */}
                     <line x1={startX} y1={startY} x2={endX} y2={endY}
                       stroke={MOVE_COLOR} strokeWidth="0.32" opacity="0.95"
                       strokeLinecap="round"/>
-                    {/* End marker — draggable */}
                     <circle cx={endX} cy={endY} r={0.28}
                       fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.12"
                       style={{ cursor: 'crosshair' }}
                       onPointerDown={e => onMoveHandleDown(e, ch.id)}/>
-                    {/* Move label */}
                     <rect x={lblX - 0.42} y={lblY - 0.32} width={0.84} height={0.58}
                       fill={MOVE_COLOR} rx="0.1"/>
                     <text x={lblX} y={lblY}
@@ -330,27 +352,6 @@ export function MovementSimulator() {
                 );
               })}
 
-              {/* ── Objective markers ────────────────────────────── */}
-              {activeSetups.map(setup =>
-                setup.objectives.map(obj => {
-                  const isSecure = obj.type === 'secure';
-                  const stroke = isSecure ? P1_COLOR : P2_COLOR;
-                  const fill   = isSecure ? 'rgba(0,195,255,0.15)' : 'rgba(255,106,0,0.15)';
-                  return (
-                    <g key={`${setup.id}-${obj.id}`}>
-                      <circle cx={obj.x} cy={obj.y} r={0.55}
-                        fill={fill} stroke={stroke} strokeWidth="0.09"/>
-                      <circle cx={obj.x} cy={obj.y} r={0.12} fill={stroke} opacity="0.9"/>
-                      <text x={obj.x} y={obj.y - 0.72}
-                        textAnchor="middle" fill={stroke}
-                        fontSize="0.52" fontFamily="monospace" fontWeight="bold" opacity="0.95">
-                        {obj.id}
-                      </text>
-                    </g>
-                  );
-                })
-              )}
-
               {/* ── Characters ───────────────────────────────────── */}
               {characters.map(ch => {
                 const r     = getBaseRadiusIn(ch.baseMm);
@@ -361,18 +362,15 @@ export function MovementSimulator() {
                     onPointerDown={e => onPointerDown(e, ch.id)}
                     onClick={e => e.stopPropagation()}
                     style={{ cursor: 'grab' }}>
-                    {/* Selection halo */}
                     {isSel && (
                       <circle cx={ch.x} cy={ch.y} r={r + 0.25}
                         fill="none" stroke={P1_COLOR} strokeWidth="0.08" opacity="0.5"
                         strokeDasharray="0.4 0.25"/>
                     )}
-                    {/* Base circle */}
                     <circle cx={ch.x} cy={ch.y} r={r}
                       fill={`${P1_COLOR}20`}
                       stroke={P1_COLOR}
                       strokeWidth={isSel ? 0.15 : 0.10}/>
-                    {/* Cross-hair accents at cardinal points */}
                     {[0, 90, 180, 270].map(deg => {
                       const rad = deg * Math.PI / 180;
                       return (
@@ -384,7 +382,6 @@ export function MovementSimulator() {
                           stroke={P1_COLOR} strokeWidth="0.07" opacity="0.6"/>
                       );
                     })}
-                    {/* Size label: S / M / L */}
                     <text x={ch.x} y={ch.y}
                       textAnchor="middle" dominantBaseline="middle"
                       fill="white"
@@ -427,89 +424,87 @@ export function MovementSimulator() {
             </div>
           </div>
 
-          {/* RANGE — movement mode only */}
-          {!isObjectivesMode && (
-            <div className="msim__cgroup">
-              <div className="msim__cgroup-title">Range</div>
-              <div className="msim__cgroup-body">
-                <div className="msim__rangerow">
-                  {RANGE_KEYS.map(r => (
-                    <button
-                      key={r}
-                      className={`msim__range-btn${selectedChar?.ranges.includes(r) ? ' msim__range-btn--on' : ''}`}
-                      onClick={() => toggleRange(r)}
-                      disabled={!selectedChar}
-                    >
-                      R{r}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* MOVE — movement mode only */}
-          {!isObjectivesMode && (
-            <div className="msim__cgroup">
-              <div className="msim__cgroup-title">Move</div>
-              <div className="msim__cgroup-body">
-                <div className="msim__rangerow">
-                  {(['S', 'M', 'L'] as MoveKey[]).map(m => (
-                    <button
-                      key={m}
-                      className={`msim__range-btn${selectedChar?.move === m ? ' msim__range-btn--on' : ''}`}
-                      onClick={() => toggleMove(m)}
-                      disabled={!selectedChar}
-                    >
-                      {m}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* OBJECTIVES */}
+          {/* RANGE */}
           <div className="msim__cgroup">
-            <div className="msim__cgroup-title">Objectives</div>
+            <div className="msim__cgroup-title">Range</div>
             <div className="msim__cgroup-body">
-              {isMainActive ? (
-                <>
-                  <div className="msim__main-badge">MAIN missions active</div>
-                  <div className="msim__main-missions">
-                    {[selectedSecure, selectedExtract]
-                      .filter(Boolean)
-                      .map(m => m!.name)
-                      .join(' · ')}
-                  </div>
-                </>
-              ) : (
+              <div className="msim__rangerow">
+                {RANGE_KEYS.map(r => (
+                  <button
+                    key={r}
+                    className={`msim__range-btn${selectedChar?.ranges.includes(r) ? ' msim__range-btn--on' : ''}`}
+                    onClick={() => toggleRange(r)}
+                    disabled={!selectedChar}
+                  >
+                    R{r}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* MOVE */}
+          <div className="msim__cgroup">
+            <div className="msim__cgroup-title">Move</div>
+            <div className="msim__cgroup-body">
+              <div className="msim__rangerow">
+                {(['S', 'M', 'L'] as MoveKey[]).map(m => (
+                  <button
+                    key={m}
+                    className={`msim__range-btn${selectedChar?.move === m ? ' msim__range-btn--on' : ''}`}
+                    onClick={() => toggleMove(m)}
+                    disabled={!selectedChar}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* CRISIS / OBJECTIVES */}
+          <div className="msim__cgroup">
+            <div className="msim__cgroup-title">Crisis</div>
+            <div className="msim__cgroup-body">
+
+              {/* SECURE dropdown */}
+              <div className="msim__crisis-row">
+                <span className="msim__crisis-dot msim__crisis-dot--secure"/>
                 <select
                   className="msim__select msim__select--setup"
-                  value={manualSetupId ?? ''}
-                  onChange={e => setManualSetupId(e.target.value || null)}
+                  value={secureDropVal}
+                  onChange={e => setLocalSecureId(e.target.value)}
                 >
-                  <option value="">— Movement mode —</option>
-                  {SECURE_WITH_SETUP.length > 0 && (
-                    <optgroup label="Secure">
-                      {SECURE_WITH_SETUP.map(m => (
-                        <option key={m.id} value={MISSION_TO_SETUP[m.id]}>{m.name} (T{m.threat})</option>
-                      ))}
-                    </optgroup>
-                  )}
-                  {EXTRACT_WITH_SETUP.length > 0 && (
-                    <optgroup label="Extract">
-                      {EXTRACT_WITH_SETUP.map(m => (
-                        <option key={m.id} value={MISSION_TO_SETUP[m.id]}>{m.name} (T{m.threat})</option>
-                      ))}
-                    </optgroup>
-                  )}
+                  <option value="">— Secure: none —</option>
+                  {SECURE_SETUPS.map(s => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
                 </select>
+              </div>
+
+              {/* EXTRACT dropdown */}
+              <div className="msim__crisis-row">
+                <span className="msim__crisis-dot msim__crisis-dot--extract"/>
+                <select
+                  className="msim__select msim__select--setup"
+                  value={extractDropVal}
+                  onChange={e => setLocalExtractId(e.target.value)}
+                >
+                  <option value="">— Extract: none —</option>
+                  {EXTRACT_SETUPS.map(s => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Sync hint when MAIN is providing defaults */}
+              {(mainSecureSetupId || mainExtractSetupId) && (localSecureId === null && localExtractId === null) && (
+                <div className="msim__main-badge">Synced from MAIN</div>
               )}
             </div>
           </div>
 
-          {/* RESET — icon only */}
+          {/* RESET */}
           <button className="msim__reset-btn" onClick={reset} aria-label="Reset simulator" title="Reset simulator">
             ⟳
           </button>
