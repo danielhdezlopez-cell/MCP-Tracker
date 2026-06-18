@@ -36,6 +36,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'alien-ship':         'alien-ship',
   'infinity-formula':   'infinity-formula',
   'skrulls-infiltrate': 'skrulls',
+  'surprise-assault':   'surprise-assault',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -216,6 +217,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('C', 27, 18),
       ext('D', 18, 10),
       ext('E', 18, 26),
+    ],
+  },
+  {
+    id: 'surprise-assault',
+    name: 'Surprise Assault! Mutant Homes Destroyed',
+    threat: 16,
+    type: 'extract',
+    objectives: [
+      ext('A',  9,  9),  // upper-left
+      ext('B', 27,  9),  // upper-right
+      ext('C',  9, 27),  // lower-left
+      ext('D', 18, 27),  // lower-center
     ],
   },
 ];
