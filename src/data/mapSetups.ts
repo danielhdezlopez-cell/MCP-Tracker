@@ -52,6 +52,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'power-overload':         'power-overload',
   'sinister-syndicate':     'sinister-syndicate',
   'survivors-shelter':      'survivors-shelter',
+  'wedding-party':          'wedding-party',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -421,6 +422,16 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('A', 13, 18),  // left, center
       sec('B', 22, 13),  // upper-right
       sec('C', 22, 23),  // lower-right
+    ],
+  },
+  {
+    id: 'wedding-party',
+    name: 'Wedding Party Targeted In Terrible Attack!',
+    threat: 20,
+    type: 'secure',
+    objectives: [
+      sec('A',  9, 18),  // left
+      sec('B', 27, 18),  // right
     ],
   },
 ];
