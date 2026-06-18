@@ -50,6 +50,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'xmen-infiltrate':        'xmen-infiltrate',
   'lockdown':               'lockdown',
   'power-overload':         'power-overload',
+  'sinister-syndicate':     'sinister-syndicate',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -395,6 +396,19 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('B', 18, 10),  // top-center
       sec('C', 18, 26),  // bottom-center
       sec('D', 25, 20),  // right, below center
+    ],
+  },
+  {
+    id: 'sinister-syndicate',
+    name: 'Super-Powered Scoundrels Form Sinister Syndicate',
+    threat: 20,
+    type: 'secure',
+    objectives: [
+      sec('A', 10, 13),  // upper-left
+      sec('B', 10, 26),  // lower-left
+      sec('C', 18, 18),  // center
+      sec('D', 26, 13),  // upper-right
+      sec('E', 26, 26),  // lower-right
     ],
   },
 ];
