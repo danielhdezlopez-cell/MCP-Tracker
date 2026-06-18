@@ -181,13 +181,13 @@ export function MovementSimulator() {
                 </radialGradient>
                 {/* P2 deploy zone (top, orange) */}
                 <linearGradient id="msimDzTop" x1="0" y1="0" x2="0" y2={DEPLOY_IN} gradientUnits="userSpaceOnUse">
-                  <stop offset="0%"   stopColor={P2_COLOR} stopOpacity="0.22"/>
-                  <stop offset="100%" stopColor={P2_COLOR} stopOpacity="0.01"/>
+                  <stop offset="0%"   stopColor={P2_COLOR} stopOpacity="0.48"/>
+                  <stop offset="100%" stopColor={P2_COLOR} stopOpacity="0.06"/>
                 </linearGradient>
                 {/* P1 deploy zone (bottom, cyan) */}
                 <linearGradient id="msimDzBot" x1="0" y1={BOARD_IN} x2="0" y2={P1_LINE_IN} gradientUnits="userSpaceOnUse">
-                  <stop offset="0%"   stopColor={P1_COLOR} stopOpacity="0.22"/>
-                  <stop offset="100%" stopColor={P1_COLOR} stopOpacity="0.01"/>
+                  <stop offset="0%"   stopColor={P1_COLOR} stopOpacity="0.48"/>
+                  <stop offset="100%" stopColor={P1_COLOR} stopOpacity="0.06"/>
                 </linearGradient>
               </defs>
 
@@ -217,9 +217,9 @@ export function MovementSimulator() {
 
               {/* Deploy zones */}
               <rect x={0} y={0}          width={BOARD_IN} height={DEPLOY_IN} fill="url(#msimDzTop)"/>
-              <line x1={0} y1={P2_LINE_IN} x2={BOARD_IN} y2={P2_LINE_IN} stroke={`${P2_COLOR}cc`} strokeWidth="0.09"/>
+              <line x1={0} y1={P2_LINE_IN} x2={BOARD_IN} y2={P2_LINE_IN} stroke={`${P2_COLOR}ee`} strokeWidth="0.13"/>
               <rect x={0} y={P1_LINE_IN} width={BOARD_IN} height={DEPLOY_IN} fill="url(#msimDzBot)"/>
-              <line x1={0} y1={P1_LINE_IN} x2={BOARD_IN} y2={P1_LINE_IN} stroke={`${P1_COLOR}cc`} strokeWidth="0.09"/>
+              <line x1={0} y1={P1_LINE_IN} x2={BOARD_IN} y2={P1_LINE_IN} stroke={`${P1_COLOR}ee`} strokeWidth="0.13"/>
 
               {/* Ruler labels */}
               {[6, 12, 18, 24, 30, 36].map(v => (
@@ -240,8 +240,12 @@ export function MovementSimulator() {
                       <circle cx={ch.x} cy={ch.y} r={ringR}
                         fill="none" stroke={P1_COLOR} strokeWidth="0.07"
                         strokeDasharray="0.3 0.2" opacity="0.55"/>
-                      <text x={ch.x} y={ch.y - ringR - 0.12}
-                        textAnchor="middle" fill={P1_COLOR}
+                      {/* Label at 135° (upper-left diagonal) off the ring edge */}
+                      <text
+                        x={ch.x + (ringR + 0.32) * Math.cos((135 * Math.PI) / 180)}
+                        y={ch.y + (ringR + 0.32) * Math.sin((135 * Math.PI) / 180)}
+                        textAnchor="middle" dominantBaseline="middle"
+                        fill={P1_COLOR}
                         fontSize="0.58" fontFamily="monospace" fontWeight="bold" opacity="0.9">
                         R{r}
                       </text>
@@ -256,17 +260,18 @@ export function MovementSimulator() {
                 const MOVE_COLOR = '#4ade80';
                 const moveIn  = MCP_MOVES[ch.move];
                 const r       = getBaseRadiusIn(ch.baseMm);
-                const startX  = ch.x + r;
-                const endX    = ch.x + r + moveIn;
+                // Line goes vertically upward from top of the base circle
+                const startY  = ch.y - r;
+                const endY    = ch.y - r - moveIn;
                 return (
                   <g key={`${ch.id}-mv`}>
-                    <line x1={startX} y1={ch.y} x2={endX} y2={ch.y}
+                    <line x1={ch.x} y1={startY} x2={ch.x} y2={endY}
                       stroke={MOVE_COLOR} strokeWidth="0.1" opacity="0.9"/>
-                    <circle cx={endX} cy={ch.y} r={0.2}
+                    <circle cx={ch.x} cy={endY} r={0.2}
                       fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.09"/>
-                    <rect x={endX - 0.38} y={ch.y - 0.95} width={0.76} height={0.55}
+                    <rect x={ch.x - 0.38} y={endY - 0.68} width={0.76} height={0.55}
                       fill={MOVE_COLOR} rx="0.1"/>
-                    <text x={endX} y={ch.y - 0.52}
+                    <text x={ch.x} y={endY - 0.35}
                       textAnchor="middle" fill="#021018"
                       fontSize="0.46" fontFamily="monospace" fontWeight="bold"
                       style={{ pointerEvents: 'none' }}>
