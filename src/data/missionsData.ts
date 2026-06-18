@@ -20,7 +20,7 @@ export const MISSIONS: Mission[] = [
   { id: 'royal-wedding',         name: 'Unexpected Guests Crash Royal Wedding',             threat: 17, type: 'Extract', image: card('Unexpected Guests Crash Royal Wedding.png') },
   { id: 'inhumans-weaponry',     name: 'Inhumans Deploy Advanced Weaponry',                 threat: 18, type: 'Extract', image: card('Inhumans Deploy Advanced Weaponry.png') },
   { id: 'jailbreak',             name: 'Jailbreak Leads To Mass Mutant Escape!',            threat: 20, type: 'Extract', image: card('Jailbreak Leads To Mass Mutant Escape!.webp') },
-  { id: 'mutant-extremists',     name: 'Mutants Extremists Target U.S. Senators!',          threat: 19, type: 'Extract', image: card('Mutants Extremists Target U.S. Senators!.png') },
+  { id: 'mutant-extremists',     name: 'Mutant Extremists Target U.S. Senators!',          threat: 19, type: 'Extract', image: card('Mutant Extremists Target U.S. Senators!.png') },
   { id: 'experimental-soldiers', name: 'Evidence Of Experimental Soldiers Exposed',         threat: 19, type: 'Extract', image: card('Evidence Of Experimental Soldiers Exposed.webp') },
   { id: 'skrulls-infiltrate',    name: 'Skrulls Infiltrate World Leadership',               threat: 20, type: 'Extract', image: card('Skrulls Infiltrate World Leadership.png') },
   { id: 'sentinel-schematics',   name: 'Sentinel Schematics Sabotaged!',                    threat: 17, type: 'Extract', image: card('Sentinel Schematics Sabotaged!.webp') },

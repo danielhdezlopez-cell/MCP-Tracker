@@ -309,7 +309,7 @@ export const MAP_SETUPS: MapSetup[] = [
   },
   {
     id: 'mutant-extremists',
-    name: 'Mutants Extremists Target U.S. Senators!',
+    name: 'Mutant Extremists Target U.S. Senators!',
     threat: 19,
     type: 'extract',
     objectives: [
