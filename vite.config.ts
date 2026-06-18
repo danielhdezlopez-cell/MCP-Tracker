@@ -44,7 +44,7 @@ export default defineConfig({
         skipWaiting: true,
         clientsClaim: true,
         // Bump this string whenever you need to force a full SW cache invalidation
-        additionalManifestEntries: [{ url: 'version.txt', revision: '20260618-1' }],
+        additionalManifestEntries: [{ url: 'version.txt', revision: '20260618-2' }],
         // Pre-cache all static assets (JS, CSS, HTML, images, fonts)
         globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff,woff2}'],
         // Round backgrounds are fetched on demand — exclude from precache (8 MB)
