@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import './MovementSimulator.css';
 import {
   BOARD_IN, DEPLOY_IN, P1_LINE_IN, P2_LINE_IN,
@@ -10,17 +10,13 @@ import {
   clampToBoard, getSpawnPosition,
 } from '../lib/simulatorGeometry';
 import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup, type ObjectivePoint } from '../data/mapSetups';
+import { SECURE_MISSIONS, EXTRACT_MISSIONS } from '../data/missionsData';
 import { useMcpStore } from '../store/useMcpStore';
 
 // Objective token size: 1" diameter (25 mm) → 0.5" radius
 const OBJ_R = 0.5;
-// Colour constants for objective types
-const SECURE_COLOR  = '#00c3ff'; // blue/cyan
-const EXTRACT_COLOR = '#ff3b30'; // red
-
-// Filtered setup lists for the dropdowns
-const SECURE_SETUPS  = MAP_SETUPS.filter(s => s.type === 'secure');
-const EXTRACT_SETUPS = MAP_SETUPS.filter(s => s.type === 'extract');
+const SECURE_COLOR  = '#00c3ff';
+const EXTRACT_COLOR = '#ff3b30';
 
 // Base size → token label
 const BASE_LABEL: Record<number, string> = { 35: 'S', 50: 'M', 65: 'L' };
@@ -88,40 +84,35 @@ export function MovementSimulator() {
   const [characters,    setCharacters]    = useState<Character[]>(initial);
   const [selectedId,    setSelectedId]    = useState<string | null>(null);
   const [addSizeMm,     setAddSizeMm]     = useState<SizeMm>(35);
-  // null = follow MAIN; '' = none; otherwise setup id
-  const [localSecureId,  setLocalSecureId]  = useState<string | null>(null);
-  const [localExtractId, setLocalExtractId] = useState<string | null>(null);
+  // undefined = follow MAIN; '' = explicitly none; 'id' = user-selected mission id
+  const [localSecureId,  setLocalSecureId]  = useState<string | undefined>(undefined);
+  const [localExtractId, setLocalExtractId] = useState<string | undefined>(undefined);
 
   const svgRef        = useRef<SVGSVGElement>(null);
   const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
   const moveHandleRef = useRef<string | null>(null);
   const counterRef    = useRef(initCounter(initial));
 
-  useEffect(() => { saveChars(characters); }, [characters]);
-  useEffect(() => { try { localStorage.removeItem('mcp-simulator-v1'); } catch { /* noop */ } }, []);
-
   // ── MAIN missions (Zustand) ────────────────────────────────────────────────
   const selectedSecure  = useMcpStore(s => s.selectedSecure);
   const selectedExtract = useMcpStore(s => s.selectedExtract);
 
-  // Resolve setup IDs from MAIN missions
-  const mainSecureSetupId  = selectedSecure  ? (MISSION_TO_SETUP[selectedSecure.id]  ?? null) : null;
-  const mainExtractSetupId = selectedExtract ? (MISSION_TO_SETUP[selectedExtract.id] ?? null) : null;
+  // Effective mission ID: local override wins, else MAIN, else ''
+  const effectiveSecureId  = localSecureId  !== undefined ? localSecureId  : (selectedSecure?.id  ?? '');
+  const effectiveExtractId = localExtractId !== undefined ? localExtractId : (selectedExtract?.id ?? '');
 
-  // Active setup: local override wins, then MAIN, then null
+  // Resolve map setup from effective mission id via MISSION_TO_SETUP
   const activeSecureSetup = useMemo<MapSetup | null>(() => {
-    const id = localSecureId !== null ? (localSecureId || null) : mainSecureSetupId;
-    return id ? (MAP_SETUPS.find(s => s.id === id) ?? null) : null;
-  }, [localSecureId, mainSecureSetupId]);
+    if (!effectiveSecureId) return null;
+    const sid = MISSION_TO_SETUP[effectiveSecureId];
+    return sid ? (MAP_SETUPS.find(s => s.id === sid) ?? null) : null;
+  }, [effectiveSecureId]);
 
   const activeExtractSetup = useMemo<MapSetup | null>(() => {
-    const id = localExtractId !== null ? (localExtractId || null) : mainExtractSetupId;
-    return id ? (MAP_SETUPS.find(s => s.id === id) ?? null) : null;
-  }, [localExtractId, mainExtractSetupId]);
-
-  // Current dropdown display values
-  const secureDropVal  = localSecureId  !== null ? localSecureId  : (mainSecureSetupId  ?? '');
-  const extractDropVal = localExtractId !== null ? localExtractId : (mainExtractSetupId ?? '');
+    if (!effectiveExtractId) return null;
+    const sid = MISSION_TO_SETUP[effectiveExtractId];
+    return sid ? (MAP_SETUPS.find(s => s.id === sid) ?? null) : null;
+  }, [effectiveExtractId]);
 
   // ── SVG coordinate helper ─────────────────────────────────────────────────
   const toSvgPt = useCallback((e: React.PointerEvent | PointerEvent) => {
@@ -148,6 +139,8 @@ export function MovementSimulator() {
     setCharacters([]);
     setSelectedId(null);
     counterRef.current = 0;
+    setLocalSecureId('');  // explicitly none — does not affect MAIN
+    setLocalExtractId('');
     try { localStorage.removeItem(SIM_KEY); } catch { /* noop */ }
   };
 
@@ -467,38 +460,39 @@ export function MovementSimulator() {
             <div className="msim__cgroup-title">Crisis</div>
             <div className="msim__cgroup-body">
 
-              {/* SECURE dropdown */}
+              {/* SECURE dropdown — options = all Secure missions */}
               <div className="msim__crisis-row">
                 <span className="msim__crisis-dot msim__crisis-dot--secure"/>
                 <select
                   className="msim__select msim__select--setup"
-                  value={secureDropVal}
+                  value={effectiveSecureId}
                   onChange={e => setLocalSecureId(e.target.value)}
                 >
                   <option value="">— Secure: none —</option>
-                  {SECURE_SETUPS.map(s => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
+                  {SECURE_MISSIONS.map(m => (
+                    <option key={m.id} value={m.id}>{m.name}</option>
                   ))}
                 </select>
               </div>
 
-              {/* EXTRACT dropdown */}
+              {/* EXTRACT dropdown — options = all Extract missions */}
               <div className="msim__crisis-row">
                 <span className="msim__crisis-dot msim__crisis-dot--extract"/>
                 <select
                   className="msim__select msim__select--setup"
-                  value={extractDropVal}
+                  value={effectiveExtractId}
                   onChange={e => setLocalExtractId(e.target.value)}
                 >
                   <option value="">— Extract: none —</option>
-                  {EXTRACT_SETUPS.map(s => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
+                  {EXTRACT_MISSIONS.map(m => (
+                    <option key={m.id} value={m.id}>{m.name}</option>
                   ))}
                 </select>
               </div>
 
-              {/* Sync hint when MAIN is providing defaults */}
-              {(mainSecureSetupId || mainExtractSetupId) && (localSecureId === null && localExtractId === null) && (
+              {/* Sync hint when following MAIN */}
+              {localSecureId === undefined && localExtractId === undefined &&
+               (selectedSecure || selectedExtract) && (
                 <div className="msim__main-badge">Synced from MAIN</div>
               )}
             </div>
