@@ -49,6 +49,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'guardians-empress':      'guardians-empress',
   'xmen-infiltrate':        'xmen-infiltrate',
   'lockdown':               'lockdown',
+  'power-overload':         'power-overload',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -382,6 +383,18 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('B', 13, 23),  // lower-left
       sec('C', 23, 13),  // upper-right
       sec('D', 23, 23),  // lower-right
+    ],
+  },
+  {
+    id: 'power-overload',
+    name: 'Power Overload! Factory Goes Up In Flames',
+    threat: 19,
+    type: 'secure',
+    objectives: [
+      sec('A', 11, 16),  // left, above center
+      sec('B', 18, 10),  // top-center
+      sec('C', 18, 26),  // bottom-center
+      sec('D', 25, 20),  // right, below center
     ],
   },
 ];
