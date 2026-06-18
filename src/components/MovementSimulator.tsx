@@ -292,20 +292,24 @@ export function MovementSimulator() {
                 if (!ch.move) return null;
                 const MOVE_COLOR = '#4ade80';
                 const moveIn    = MCP_MOVES[ch.move];
+                const baseR     = getBaseRadiusIn(ch.baseMm);
                 const angleRad  = ch.moveAngleDeg * Math.PI / 180;
-                const endX      = ch.x + Math.cos(angleRad) * moveIn;
-                const endY      = ch.y + Math.sin(angleRad) * moveIn;
+                // Start at the perimeter of the token, not the center
+                const startX    = ch.x + Math.cos(angleRad) * baseR;
+                const startY    = ch.y + Math.sin(angleRad) * baseR;
+                const endX      = ch.x + Math.cos(angleRad) * (baseR + moveIn);
+                const endY      = ch.y + Math.sin(angleRad) * (baseR + moveIn);
                 // Label box slightly past end point
-                const lblX = ch.x + Math.cos(angleRad) * (moveIn + 0.55);
-                const lblY = ch.y + Math.sin(angleRad) * (moveIn + 0.55);
+                const lblX = ch.x + Math.cos(angleRad) * (baseR + moveIn + 0.55);
+                const lblY = ch.y + Math.sin(angleRad) * (baseR + moveIn + 0.55);
                 return (
                   <g key={`${ch.id}-mv`}>
                     {/* Glow shadow */}
-                    <line x1={ch.x} y1={ch.y} x2={endX} y2={endY}
-                      stroke={MOVE_COLOR} strokeWidth="0.35" opacity="0.18"/>
-                    {/* Main line */}
-                    <line x1={ch.x} y1={ch.y} x2={endX} y2={endY}
-                      stroke={MOVE_COLOR} strokeWidth="0.16" opacity="0.95"
+                    <line x1={startX} y1={startY} x2={endX} y2={endY}
+                      stroke={MOVE_COLOR} strokeWidth="0.65" opacity="0.18"/>
+                    {/* Main line — double width */}
+                    <line x1={startX} y1={startY} x2={endX} y2={endY}
+                      stroke={MOVE_COLOR} strokeWidth="0.32" opacity="0.95"
                       strokeLinecap="round"/>
                     {/* End marker — draggable */}
                     <circle cx={endX} cy={endY} r={0.28}
