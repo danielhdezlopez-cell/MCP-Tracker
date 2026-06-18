@@ -242,8 +242,8 @@ export function MovementSimulator() {
                         strokeDasharray="0.3 0.2" opacity="0.55"/>
                       {/* Label at 135° (upper-left diagonal) off the ring edge */}
                       <text
-                        x={ch.x + (ringR + 0.32) * Math.cos((135 * Math.PI) / 180)}
-                        y={ch.y + (ringR + 0.32) * Math.sin((135 * Math.PI) / 180)}
+                        x={ch.x + (ringR + 0.32) * Math.cos((315 * Math.PI) / 180)}
+                        y={ch.y + (ringR + 0.32) * Math.sin((315 * Math.PI) / 180)}
                         textAnchor="middle" dominantBaseline="middle"
                         fill={P1_COLOR}
                         fontSize="0.58" fontFamily="monospace" fontWeight="bold" opacity="0.9">
