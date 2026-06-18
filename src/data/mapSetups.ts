@@ -101,11 +101,9 @@ export const MAP_SETUPS: MapSetup[] = [
     threat: 17,
     type: 'secure',
     objectives: [
-      sec('A', 18, 18),
-      sec('B',  9, 18),
-      sec('C', 27, 18),
-      sec('D', 18,  9),
-      sec('E', 18, 27),
+      sec('A', 10, 16),  // left, above center
+      sec('B', 18, 18),  // center
+      sec('C', 26, 20),  // right, below center
     ],
   },
   {
