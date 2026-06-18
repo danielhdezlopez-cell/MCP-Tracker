@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import './MovementSimulator.css';
 import {
   BOARD_IN, DEPLOY_IN, P1_LINE_IN, P2_LINE_IN,
@@ -83,6 +83,8 @@ export function MovementSimulator() {
   const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
   const moveHandleRef = useRef<string | null>(null);
   const counterRef    = useRef(initCounter(initial));
+
+  useEffect(() => { saveChars(characters); }, [characters]);
 
   // ── MAIN missions (Zustand) ────────────────────────────────────────────────
   const selectedSecure  = useMcpStore(s => s.selectedSecure);
