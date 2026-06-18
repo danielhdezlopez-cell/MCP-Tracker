@@ -37,7 +37,8 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'infinity-formula':   'infinity-formula',
   'skrulls-infiltrate': 'skrulls',
   'surprise-assault':   'surprise-assault',
-  'scientific-samples': 'scientific-samples',
+  'scientific-samples':  'scientific-samples',
+  'sentinel-schematics': 'sentinel-schematics',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -242,6 +243,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('B', 18, 10),  // top-center
       ext('C', 18, 26),  // bottom-center
       ext('D', 30, 18),  // right-center
+    ],
+  },
+  {
+    id: 'sentinel-schematics',
+    name: 'Sentinel Schematics Sabotaged!',
+    threat: 17,
+    type: 'extract',
+    objectives: [
+      ext('A', 14, 14),  // upper-left
+      ext('B', 14, 22),  // lower-left
+      ext('C', 22, 14),  // upper-right
+      ext('D', 22, 22),  // lower-right
     ],
   },
 ];
