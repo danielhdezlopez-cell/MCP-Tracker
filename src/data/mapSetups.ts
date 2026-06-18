@@ -240,7 +240,7 @@ export const MAP_SETUPS: MapSetup[] = [
     objectives: [
       ext('A',  6, 18),  // left-center
       ext('B', 18, 10),  // top-center
-      ext('C', 18, 20),  // bottom-center
+      ext('C', 18, 26),  // bottom-center
       ext('D', 30, 18),  // right-center
     ],
   },
