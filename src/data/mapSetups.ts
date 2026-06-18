@@ -105,13 +105,13 @@ export const MAP_SETUPS: MapSetup[] = [
     id: 'spider-infected',
     name: 'Spider-Infected Invade Manhattan',
     threat: 17,
-    type: 'secure',
+    type: 'extract',
     objectives: [
-      sec('A', 18, 18),
-      sec('B',  9, 18),
-      sec('C', 27, 18),
-      sec('D', 18,  9),
-      sec('E', 18, 27),
+      ext('A', 10, 13),  // upper-left
+      ext('B', 10, 23),  // lower-left
+      ext('C', 18, 18),  // center
+      ext('D', 26, 13),  // upper-right
+      ext('E', 26, 23),  // lower-right
     ],
   },
   {
