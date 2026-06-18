@@ -45,6 +45,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'experimental-soldiers':  'experimental-soldiers',
   'mutant-extremists':      'mutant-extremists',
   'jailbreak':              'jailbreak',
+  'assault-ships':          'assault-ships',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -331,6 +332,18 @@ export const MAP_SETUPS: MapSetup[] = [
       ext('B', 10, 26),  // lower-left
       ext('C', 26, 10),  // upper-right
       ext('D', 26, 26),  // lower-right
+    ],
+  },
+  {
+    id: 'assault-ships',
+    name: 'Assault Ships Make Sweeping Search!',
+    threat: 16,
+    type: 'secure',
+    objectives: [
+      sec('A',  8, 22),  // lower-left
+      sec('B', 14, 14),  // upper-center-left
+      sec('C', 22, 22),  // lower-center-right
+      sec('D', 28, 14),  // upper-right
     ],
   },
 ];
