@@ -51,6 +51,7 @@ export const MISSION_TO_SETUP: Readonly<Record<string, string>> = {
   'lockdown':               'lockdown',
   'power-overload':         'power-overload',
   'sinister-syndicate':     'sinister-syndicate',
+  'survivors-shelter':      'survivors-shelter',
 };
 
 export const MAP_SETUPS: MapSetup[] = [
@@ -409,6 +410,17 @@ export const MAP_SETUPS: MapSetup[] = [
       sec('C', 18, 18),  // center
       sec('D', 26, 13),  // upper-right
       sec('E', 26, 26),  // lower-right
+    ],
+  },
+  {
+    id: 'survivors-shelter',
+    name: 'Survivors Search For Safe Shelter',
+    threat: 20,
+    type: 'secure',
+    objectives: [
+      sec('A', 13, 18),  // left, center
+      sec('B', 22, 13),  // upper-right
+      sec('C', 22, 23),  // lower-right
     ],
   },
 ];
