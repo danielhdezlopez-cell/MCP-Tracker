@@ -225,10 +225,10 @@ export const MAP_SETUPS: MapSetup[] = [
     threat: 16,
     type: 'extract',
     objectives: [
-      ext('A',  8, 16),  // upper-left
-      ext('B', 14, 20),  // lower-center-left
-      ext('C', 22, 16),  // upper-center-right
-      ext('D', 28, 20),  // lower-right
+      ext('A',  8, 20),  // lower-left
+      ext('B', 14, 16),  // upper-center-left
+      ext('C', 22, 20),  // lower-center-right
+      ext('D', 28, 16),  // upper-right
     ],
   },
 ];
