@@ -322,7 +322,7 @@ export function MovementSimulator() {
                       stroke={MOVE_COLOR} strokeWidth="0.32" opacity="0.95"
                       strokeLinecap="round"/>
                     <circle cx={endX} cy={endY} r={0.28}
-                      fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.12"
+                      fill="#040c1a" stroke="#f97316" strokeWidth="0.18"
                       style={{ cursor: 'crosshair' }}
                       onPointerDown={e => onMoveHandleDown(e, ch.id)}/>
                     <rect x={lblX - 0.42} y={lblY - 0.32} width={0.84} height={0.58}
