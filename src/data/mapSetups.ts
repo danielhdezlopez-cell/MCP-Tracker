@@ -77,14 +77,14 @@ export const MAP_SETUPS: MapSetup[] = [
   },
   {
     id: 'mutant-madman',
-    name: 'Mutant Madman Turns City Center Into Lethal Amusement Park!',
-    threat: 13,
+    name: 'Mutant Madman Turns City Into Lethal Amusement Park',
+    threat: 18,
     type: 'secure',
     objectives: [
-      sec('A',  9,  9),
-      sec('B', 27,  9),
-      sec('C',  9, 27),
-      sec('D', 27, 27),
+      sec('A',  8, 13),  // upper-left
+      sec('B',  8, 23),  // lower-left
+      sec('C', 28, 13),  // upper-right
+      sec('D', 28, 23),  // lower-right
     ],
   },
   {
