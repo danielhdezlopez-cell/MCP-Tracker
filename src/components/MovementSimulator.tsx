@@ -60,20 +60,11 @@ function initCounter(chars: Character[]): number {
 function ObjectiveToken({ obj, color }: { obj: ObjectivePoint; color: string }) {
   return (
     <g key={obj.id}>
-      {/* Glow ring */}
       <circle cx={obj.x} cy={obj.y} r={OBJ_R + 0.18}
         fill="none" stroke={color} strokeWidth="0.07" opacity="0.25"/>
-      {/* Main token */}
       <circle cx={obj.x} cy={obj.y} r={OBJ_R}
         fill={`${color}22`} stroke={color} strokeWidth="0.1" opacity="0.95"/>
-      {/* Inner dot */}
       <circle cx={obj.x} cy={obj.y} r={0.1} fill={color} opacity="0.9"/>
-      {/* Label */}
-      <text x={obj.x} y={obj.y - OBJ_R - 0.22}
-        textAnchor="middle" dominantBaseline="middle"
-        fill={color} fontSize="0.55" fontFamily="monospace" fontWeight="bold" opacity="0.95">
-        {obj.id}
-      </text>
     </g>
   );
 }
