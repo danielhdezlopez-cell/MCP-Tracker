@@ -43,44 +43,66 @@ interface Character {
   ranges: number[];
   move: MoveKey | null;
   moveAngleDeg: number; // degrees in SVG coords; -90 = straight up
-}
-
-interface LeaderToken {
-  side: 'p1' | 'p2';
-  leaderId: string;
-  baseMm: SizeMm;
-  x: number;
-  y: number;
-  initials: string;
-  iconSrc: string;
+  // Leader-only optional fields
+  isLeader?: boolean;
+  leaderSide?: 'p1' | 'p2';
+  leaderInitials?: string;
+  leaderIconSrc?: string;
 }
 
 // ── LocalStorage ──────────────────────────────────────────────────────────────
-interface SimState { characters: Character[]; leaderTokens: LeaderToken[]; }
+interface SimState { characters: Character[]; }
 
 function loadState(): SimState {
   try {
     const raw = localStorage.getItem(SIM_KEY);
-    if (!raw) return { characters: [], leaderTokens: [] };
+    if (!raw) return { characters: [] };
     const p = JSON.parse(raw);
-    return {
-      characters: Array.isArray(p.characters)
-        ? (p.characters as Character[]).map(c => ({ ...c, moveAngleDeg: c.moveAngleDeg ?? -90 }))
-        : [],
-      leaderTokens: Array.isArray(p.leaderTokens) ? p.leaderTokens : [],
-    };
-  } catch { return { characters: [], leaderTokens: [] }; }
+    if (Array.isArray(p.characters)) {
+      return {
+        characters: (p.characters as Character[]).map(c => ({ ...c, moveAngleDeg: c.moveAngleDeg ?? -90 })),
+      };
+    }
+    return { characters: [] };
+  } catch { return { characters: [] }; }
 }
 
-function saveState(chars: Character[], leaderTokens: LeaderToken[]) {
-  try { localStorage.setItem(SIM_KEY, JSON.stringify({ characters: chars, leaderTokens })); } catch { /* noop */ }
+function saveState(chars: Character[]) {
+  try { localStorage.setItem(SIM_KEY, JSON.stringify({ characters: chars })); } catch { /* noop */ }
 }
-
 
 function initCounter(chars: Character[]): number {
-  if (!chars.length) return 0;
-  const nums = chars.map(c => parseInt(c.id.replace(/\D/g, ''), 10)).filter(n => !isNaN(n));
+  const nonLeaders = chars.filter(c => !c.isLeader);
+  if (!nonLeaders.length) return 0;
+  const nums = nonLeaders.map(c => parseInt(c.id.replace(/\D/g, ''), 10)).filter(n => !isNaN(n));
   return nums.length ? Math.max(...nums) : 0;
+}
+
+function makeLeaderChar(
+  side: 'p1' | 'p2',
+  leaderId: string,
+  name: string,
+  affiliations: string[],
+  existingX?: number,
+  existingY?: number,
+): Character {
+  const baseMm = getLeaderBaseMm(leaderId);
+  const r = getBaseRadiusIn(baseMm);
+  const defaultX = 18;
+  const defaultY = side === 'p1' ? P1_LINE_IN - r : P2_LINE_IN + r;
+  return {
+    id: `leader-${side}`,
+    baseMm,
+    x: existingX ?? defaultX,
+    y: existingY ?? defaultY,
+    ranges: [],
+    move: null,
+    moveAngleDeg: -90,
+    isLeader: true,
+    leaderSide: side,
+    leaderInitials: getInitials(name),
+    leaderIconSrc: getAffiliationIcon(affiliations),
+  };
 }
 
 // ── Objective token ───────────────────────────────────────────────────────────
@@ -100,22 +122,20 @@ function ObjectiveToken({ obj, color }: { obj: ObjectivePoint; color: string }) 
 export function MovementSimulator() {
   const initialState = loadState();
   const [characters,    setCharacters]    = useState<Character[]>(initialState.characters);
-  const [leaderTokens,  setLeaderTokens]  = useState<LeaderToken[]>(initialState.leaderTokens);
   const [selectedId,    setSelectedId]    = useState<string | null>(null);
   const [addSizeMm,     setAddSizeMm]     = useState<SizeMm>(35);
   // undefined = follow MAIN; '' = explicitly none; 'id' = user-selected mission id
   const [localSecureId,  setLocalSecureId]  = useState<string | undefined>(undefined);
   const [localExtractId, setLocalExtractId] = useState<string | undefined>(undefined);
 
-  const svgRef           = useRef<SVGSVGElement>(null);
-  const dragRef          = useRef<{ id: string; ox: number; oy: number } | null>(null);
-  const dragLeaderRef    = useRef<{ side: 'p1'|'p2'; ox: number; oy: number } | null>(null);
-  const moveHandleRef    = useRef<string | null>(null);
-  const counterRef       = useRef(initCounter(initialState.characters));
+  const svgRef        = useRef<SVGSVGElement>(null);
+  const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
+  const moveHandleRef = useRef<string | null>(null);
+  const counterRef    = useRef(initCounter(initialState.characters));
   const prevLeaderLeftId  = useRef<string | null>(null);
   const prevLeaderRightId = useRef<string | null>(null);
 
-  useEffect(() => { saveState(characters, leaderTokens); }, [characters, leaderTokens]);
+  useEffect(() => { saveState(characters); }, [characters]);
 
   // ── MAIN state (Zustand) ──────────────────────────────────────────────────
   const selectedSecure  = useMcpStore(s => s.selectedSecure);
@@ -123,40 +143,30 @@ export function MovementSimulator() {
   const leaderLeft      = useMcpStore(s => s.leaderLeft);
   const leaderRight     = useMcpStore(s => s.leaderRight);
 
-  // Sync leader tokens when leaders change in MAIN
+  // Sync P1 leader when leaderLeft changes in MAIN
   useEffect(() => {
     const newId = leaderLeft?.id ?? null;
     if (newId === prevLeaderLeftId.current) return;
     prevLeaderLeftId.current = newId;
-    setLeaderTokens(prev => {
-      const without = prev.filter(t => t.side !== 'p1');
+    setCharacters(prev => {
+      const without = prev.filter(c => c.leaderSide !== 'p1');
       if (!newId || !leaderLeft) return without;
-      const baseMm = getLeaderBaseMm(newId);
-      const r = getBaseRadiusIn(baseMm);
-      return [...without, {
-        side: 'p1', leaderId: newId, baseMm,
-        x: 18, y: P1_LINE_IN - r,
-        initials: getInitials(leaderLeft.name),
-        iconSrc: getAffiliationIcon(leaderLeft.affiliations),
-      }];
+      // Preserve current position if token was already on the board
+      const existing = prev.find(c => c.leaderSide === 'p1');
+      return [...without, makeLeaderChar('p1', newId, leaderLeft.name, leaderLeft.affiliations, existing?.x, existing?.y)];
     });
   }, [leaderLeft]);
 
+  // Sync P2 leader when leaderRight changes in MAIN
   useEffect(() => {
     const newId = leaderRight?.id ?? null;
     if (newId === prevLeaderRightId.current) return;
     prevLeaderRightId.current = newId;
-    setLeaderTokens(prev => {
-      const without = prev.filter(t => t.side !== 'p2');
+    setCharacters(prev => {
+      const without = prev.filter(c => c.leaderSide !== 'p2');
       if (!newId || !leaderRight) return without;
-      const baseMm = getLeaderBaseMm(newId);
-      const r = getBaseRadiusIn(baseMm);
-      return [...without, {
-        side: 'p2', leaderId: newId, baseMm,
-        x: 18, y: P2_LINE_IN + r,
-        initials: getInitials(leaderRight.name),
-        iconSrc: getAffiliationIcon(leaderRight.affiliations),
-      }];
+      const existing = prev.find(c => c.leaderSide === 'p2');
+      return [...without, makeLeaderChar('p2', newId, leaderRight.name, leaderRight.affiliations, existing?.x, existing?.y)];
     });
   }, [leaderRight]);
 
@@ -199,30 +209,14 @@ export function MovementSimulator() {
   };
 
   const reset = () => {
-    setCharacters([]);
     setSelectedId(null);
     counterRef.current = 0;
     setLocalSecureId('');  // explicitly none — does not affect MAIN
     setLocalExtractId('');
-    // Re-spawn leader tokens at default positions
-    const respawned: LeaderToken[] = [];
-    if (leaderLeft) {
-      const bm = getLeaderBaseMm(leaderLeft.id);
-      const r = getBaseRadiusIn(bm);
-      respawned.push({ side: 'p1', leaderId: leaderLeft.id, baseMm: bm,
-        x: 18, y: P1_LINE_IN - r,
-        initials: getInitials(leaderLeft.name),
-        iconSrc: getAffiliationIcon(leaderLeft.affiliations) });
-    }
-    if (leaderRight) {
-      const bm = getLeaderBaseMm(leaderRight.id);
-      const r = getBaseRadiusIn(bm);
-      respawned.push({ side: 'p2', leaderId: leaderRight.id, baseMm: bm,
-        x: 18, y: P2_LINE_IN + r,
-        initials: getInitials(leaderRight.name),
-        iconSrc: getAffiliationIcon(leaderRight.affiliations) });
-    }
-    setLeaderTokens(respawned);
+    const respawned: Character[] = [];
+    if (leaderLeft) respawned.push(makeLeaderChar('p1', leaderLeft.id, leaderLeft.name, leaderLeft.affiliations));
+    if (leaderRight) respawned.push(makeLeaderChar('p2', leaderRight.id, leaderRight.name, leaderRight.affiliations));
+    setCharacters(respawned);
     try { localStorage.removeItem(SIM_KEY); } catch { /* noop */ }
   };
 
@@ -258,15 +252,6 @@ export function MovementSimulator() {
     moveHandleRef.current = id;
   }, []);
 
-  const onLeaderPointerDown = useCallback((e: React.PointerEvent, side: 'p1'|'p2') => {
-    e.stopPropagation();
-    (e.currentTarget as Element).setPointerCapture(e.pointerId);
-    const pt = toSvgPt(e);
-    const tok = leaderTokens.find(t => t.side === side);
-    if (!tok) return;
-    dragLeaderRef.current = { side, ox: pt.x - tok.x, oy: pt.y - tok.y };
-  }, [leaderTokens, toSvgPt]);
-
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (moveHandleRef.current) {
       const id = moveHandleRef.current;
@@ -279,16 +264,6 @@ export function MovementSimulator() {
       }));
       return;
     }
-    if (dragLeaderRef.current) {
-      const { side, ox, oy } = dragLeaderRef.current;
-      const pt = toSvgPt(e);
-      setLeaderTokens(prev => prev.map(t => {
-        if (t.side !== side) return t;
-        const { x, y } = clampToBoard(pt.x - ox, pt.y - oy, t.baseMm);
-        return { ...t, x, y };
-      }));
-      return;
-    }
     if (!dragRef.current) return;
     const { id, ox, oy } = dragRef.current;
     const pt = toSvgPt(e);
@@ -297,11 +272,10 @@ export function MovementSimulator() {
       const { x, y } = clampToBoard(pt.x - ox, pt.y - oy, c.baseMm);
       return { ...c, x, y };
     }));
-  }, [toSvgPt, setCharacters, setLeaderTokens]);
+  }, [toSvgPt, setCharacters]);
 
   const onPointerUp = useCallback(() => {
     dragRef.current = null;
-    dragLeaderRef.current = null;
     moveHandleRef.current = null;
   }, []);
 
@@ -392,16 +366,19 @@ export function MovementSimulator() {
                 ch.ranges.map(r => {
                   const ringR = getRangeRingRadiusIn(ch.baseMm, MCP_RANGES[r]);
                   const labelAngle = 225 * Math.PI / 180;
+                  const color = ch.isLeader
+                    ? (ch.leaderSide === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR)
+                    : P1_COLOR;
                   return (
                     <g key={`${ch.id}-r${r}`}>
                       <circle cx={ch.x} cy={ch.y} r={ringR}
-                        fill="none" stroke={P1_COLOR} strokeWidth="0.07"
+                        fill="none" stroke={color} strokeWidth="0.07"
                         strokeDasharray="0.3 0.2" opacity="0.55"/>
                       <text
                         x={ch.x + (ringR + 0.4) * Math.cos(labelAngle)}
                         y={ch.y + (ringR + 0.4) * Math.sin(labelAngle)}
                         textAnchor="middle" dominantBaseline="middle"
-                        fill={P1_COLOR}
+                        fill={color}
                         fontSize="0.75" fontFamily="monospace" fontWeight="bold" opacity="0.95">
                         R{r}
                       </text>
@@ -447,8 +424,8 @@ export function MovementSimulator() {
                 );
               })}
 
-              {/* ── Characters ───────────────────────────────────── */}
-              {characters.map(ch => {
+              {/* ── Characters (non-leader) ───────────────────────── */}
+              {characters.filter(ch => !ch.isLeader).map(ch => {
                 const r     = getBaseRadiusIn(ch.baseMm);
                 const isSel = ch.id === selectedId;
                 const lbl   = BASE_LABEL[ch.baseMm] ?? 'S';
@@ -457,7 +434,7 @@ export function MovementSimulator() {
                     onPointerDown={e => onPointerDown(e, ch.id)}
                     onClick={e => e.stopPropagation()}
                     style={{ cursor: 'grab' }}>
-                    {/* R1 secure-contest glow — soft area, no hard border */}
+                    {/* R1 secure-contest glow */}
                     <circle cx={ch.x} cy={ch.y} r={getRangeRingRadiusIn(ch.baseMm, 1)}
                       fill="#38bdf8" fillOpacity="0.06"
                       stroke="#38bdf8" strokeWidth="0.06" strokeOpacity="0.12"
@@ -494,37 +471,45 @@ export function MovementSimulator() {
               })}
 
               {/* ── Leader tokens ────────────────────────────────── */}
-              {leaderTokens.map(tok => {
-                const r      = getBaseRadiusIn(tok.baseMm);
-                const color  = tok.side === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
-                const clipId = `lc-${tok.side}`;
-                const logoR  = r * 0.78; // logo area radius — inset from stroke
+              {characters.filter(ch => ch.isLeader).map(ch => {
+                const r      = getBaseRadiusIn(ch.baseMm);
+                const color  = ch.leaderSide === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
+                const isSel  = ch.id === selectedId;
+                const clipId = `lc-${ch.leaderSide}`;
+                const logoR  = r * 0.78;
                 return (
-                  <g key={tok.side}
-                    onPointerDown={e => onLeaderPointerDown(e, tok.side)}
+                  <g key={ch.id}
+                    onPointerDown={e => onPointerDown(e, ch.id)}
                     onClick={e => e.stopPropagation()}
                     style={{ cursor: 'grab' }}>
                     <defs>
                       <clipPath id={clipId}>
-                        <circle cx={tok.x} cy={tok.y} r={logoR}/>
+                        <circle cx={ch.x} cy={ch.y} r={logoR}/>
                       </clipPath>
                     </defs>
                     {/* R1 glow */}
-                    <circle cx={tok.x} cy={tok.y} r={getRangeRingRadiusIn(tok.baseMm, 1)}
+                    <circle cx={ch.x} cy={ch.y} r={getRangeRingRadiusIn(ch.baseMm, 1)}
                       fill={color} fillOpacity="0.06"
                       stroke={color} strokeWidth="0.06" strokeOpacity="0.12"
                       style={{ pointerEvents: 'none' }}/>
+                    {/* Selection ring */}
+                    {isSel && (
+                      <circle cx={ch.x} cy={ch.y} r={r + 0.25}
+                        fill="none" stroke={color} strokeWidth="0.08" opacity="0.5"
+                        strokeDasharray="0.4 0.25"/>
+                    )}
                     {/* Base circle */}
-                    <circle cx={tok.x} cy={tok.y} r={r}
-                      fill={`${color}28`} stroke={color} strokeWidth="0.13"/>
+                    <circle cx={ch.x} cy={ch.y} r={r}
+                      fill={`${color}28`} stroke={color}
+                      strokeWidth={isSel ? 0.17 : 0.13}/>
                     {/* Dark backing so logo reads on the tinted base */}
-                    <circle cx={tok.x} cy={tok.y} r={logoR}
+                    <circle cx={ch.x} cy={ch.y} r={logoR}
                       fill="#060d1a" opacity="0.55"
                       style={{ pointerEvents: 'none' }}/>
                     {/* Affiliation logo — full opacity, clipped to inner circle */}
                     <image
-                      href={tok.iconSrc}
-                      x={tok.x - logoR} y={tok.y - logoR}
+                      href={ch.leaderIconSrc}
+                      x={ch.x - logoR} y={ch.y - logoR}
                       width={logoR * 2} height={logoR * 2}
                       opacity="1"
                       clipPath={`url(#${clipId})`}
@@ -534,20 +519,20 @@ export function MovementSimulator() {
                       const rad = deg * Math.PI / 180;
                       return (
                         <line key={deg}
-                          x1={tok.x + Math.cos(rad) * (r - 0.15)}
-                          y1={tok.y + Math.sin(rad) * (r - 0.15)}
-                          x2={tok.x + Math.cos(rad) * (r + 0.12)}
-                          y2={tok.y + Math.sin(rad) * (r + 0.12)}
+                          x1={ch.x + Math.cos(rad) * (r - 0.15)}
+                          y1={ch.y + Math.sin(rad) * (r - 0.15)}
+                          x2={ch.x + Math.cos(rad) * (r + 0.12)}
+                          y2={ch.y + Math.sin(rad) * (r + 0.12)}
                           stroke={color} strokeWidth="0.07" opacity="0.7"/>
                       );
                     })}
                     {/* Name abbreviation below token */}
-                    <text x={tok.x} y={tok.y + r + 0.55}
+                    <text x={ch.x} y={ch.y + r + 0.55}
                       textAnchor="middle" dominantBaseline="middle"
                       fill={color} fontSize="0.42" fontFamily="monospace" fontWeight="bold"
                       opacity="0.9"
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                      {tok.initials}
+                      {ch.leaderInitials}
                     </text>
                   </g>
                 );
@@ -627,7 +612,7 @@ export function MovementSimulator() {
             <div className="msim__cgroup-title">Crisis</div>
             <div className="msim__cgroup-body">
 
-              {/* SECURE dropdown — options = all Secure missions */}
+              {/* SECURE dropdown */}
               <div className="msim__crisis-row">
                 <span className="msim__crisis-dot msim__crisis-dot--secure"/>
                 <select
@@ -642,7 +627,7 @@ export function MovementSimulator() {
                 </select>
               </div>
 
-              {/* EXTRACT dropdown — options = all Extract missions */}
+              {/* EXTRACT dropdown */}
               <div className="msim__crisis-row">
                 <span className="msim__crisis-dot msim__crisis-dot--extract"/>
                 <select
