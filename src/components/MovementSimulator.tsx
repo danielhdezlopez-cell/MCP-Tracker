@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import './MovementSimulator.css';
 import {
-  BOARD_IN,
+  BOARD_IN, P1_LINE_IN, P2_LINE_IN,
   BASE_SIZES_MM, MCP_RANGES, RANGE_KEYS, MCP_MOVES, SIM_KEY, P1_COLOR, P2_COLOR,
 } from '../lib/simulatorConstants';
 import type { SizeMm, MoveKey, RangeKey } from '../lib/simulatorConstants';
@@ -20,12 +20,6 @@ import { getAffiliationIcon } from '../data/affiliationsFx';
 const OBJ_R = 0.5;
 const SECURE_COLOR  = '#00c3ff';
 const EXTRACT_COLOR = '#ff3b30';
-
-// Visual-only deploy line positions (1" from each edge).
-// These drive the rendered line and leader spawn; they do NOT affect
-// objective coordinates, MOVE, RANGE, or any mapSetups data.
-const P2_VISUAL_IN = 1;              // top deploy line (P2)
-const P1_VISUAL_IN = BOARD_IN - 1;  // bottom deploy line (P1)
 
 // Base size → token label
 const BASE_LABEL: Record<number, string> = { 35: 'S', 50: 'M', 65: 'L' };
@@ -96,7 +90,7 @@ function makeLeaderChar(
   const baseMm = getLeaderBaseMm(leaderId);
   const r = getBaseRadiusIn(baseMm);
   const defaultX = 18;
-  const defaultY = side === 'p1' ? P1_VISUAL_IN - r : P2_VISUAL_IN + r;
+  const defaultY = side === 'p1' ? P1_LINE_IN - r : P2_LINE_IN + r;
   return {
     id: `leader-${side}`,
     baseMm,
@@ -468,11 +462,11 @@ export function MovementSimulator() {
               <line x1={18} y1={0} x2={18} y2={BOARD_IN} stroke="rgba(0,195,255,0.18)" strokeWidth="0.06" strokeDasharray="0.5 0.3"/>
               <line x1={0} y1={18} x2={BOARD_IN} y2={18} stroke="rgba(0,195,255,0.18)" strokeWidth="0.06" strokeDasharray="0.5 0.3"/>
 
-              {/* Deploy zones — visual only, 1" deep from each edge */}
-              <rect x={0} y={0}             width={BOARD_IN} height={P2_VISUAL_IN} fill="url(#msimDzTop)"/>
-              <line x1={0} y1={P2_VISUAL_IN} x2={BOARD_IN} y2={P2_VISUAL_IN} stroke={`${P2_COLOR}ee`} strokeWidth="0.13"/>
-              <rect x={0} y={P1_VISUAL_IN}  width={BOARD_IN} height={P2_VISUAL_IN} fill="url(#msimDzBot)"/>
-              <line x1={0} y1={P1_VISUAL_IN} x2={BOARD_IN} y2={P1_VISUAL_IN} stroke={`${P1_COLOR}ee`} strokeWidth="0.13"/>
+              {/* Deploy zones — visual overlay only, 1" deep from each edge */}
+              <rect x={0} y={0}              width={BOARD_IN} height={1} fill="url(#msimDzTop)"/>
+              <line x1={0} y1={P2_LINE_IN} x2={BOARD_IN} y2={P2_LINE_IN} stroke={`${P2_COLOR}ee`} strokeWidth="0.13"/>
+              <rect x={0} y={BOARD_IN - 1}  width={BOARD_IN} height={1} fill="url(#msimDzBot)"/>
+              <line x1={0} y1={P1_LINE_IN} x2={BOARD_IN} y2={P1_LINE_IN} stroke={`${P1_COLOR}ee`} strokeWidth="0.13"/>
 
               {/* Ruler labels */}
               {[6, 12, 18, 24, 30, 36].map(v => (
