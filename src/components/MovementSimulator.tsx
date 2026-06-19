@@ -74,8 +74,6 @@ function saveState(chars: Character[], leaderTokens: LeaderToken[]) {
   try { localStorage.setItem(SIM_KEY, JSON.stringify({ characters: chars, leaderTokens })); } catch { /* noop */ }
 }
 
-// Keep backward-compat alias
-function loadChars(): Character[] { return loadState().characters; }
 
 function initCounter(chars: Character[]): number {
   if (!chars.length) return 0;
@@ -99,8 +97,7 @@ function ObjectiveToken({ obj, color }: { obj: ObjectivePoint; color: string }) 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function MovementSimulator() {
   const initialState = loadState();
-  const initial = initialState.characters;
-  const [characters,    setCharacters]    = useState<Character[]>(initial);
+  const [characters,    setCharacters]    = useState<Character[]>(initialState.characters);
   const [leaderTokens,  setLeaderTokens]  = useState<LeaderToken[]>(initialState.leaderTokens);
   const [selectedId,    setSelectedId]    = useState<string | null>(null);
   const [addSizeMm,     setAddSizeMm]     = useState<SizeMm>(35);
@@ -112,7 +109,7 @@ export function MovementSimulator() {
   const dragRef          = useRef<{ id: string; ox: number; oy: number } | null>(null);
   const dragLeaderRef    = useRef<{ side: 'p1'|'p2'; ox: number; oy: number } | null>(null);
   const moveHandleRef    = useRef<string | null>(null);
-  const counterRef       = useRef(initCounter(initial));
+  const counterRef       = useRef(initCounter(initialState.characters));
   const prevLeaderLeftId  = useRef<string | null>(null);
   const prevLeaderRightId = useRef<string | null>(null);
 
