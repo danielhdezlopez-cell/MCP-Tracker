@@ -461,7 +461,7 @@ export function MovementSimulator() {
                   value={effectiveSecureId}
                   onChange={e => setLocalSecureId(e.target.value)}
                 >
-                  <option value="">SECURE: tap to assign</option>
+                  <option value="">SECURE:</option>
                   {SECURE_MISSIONS.map(m => (
                     <option key={m.id} value={m.id}>{m.threat} - {m.name}</option>
                   ))}
@@ -476,7 +476,7 @@ export function MovementSimulator() {
                   value={effectiveExtractId}
                   onChange={e => setLocalExtractId(e.target.value)}
                 >
-                  <option value="">EXTRACT: tap to assign</option>
+                  <option value="">EXTRACT:</option>
                   {EXTRACT_MISSIONS.map(m => (
                     <option key={m.id} value={m.id}>{m.threat} - {m.name}</option>
                   ))}
