@@ -12,6 +12,7 @@ import {
 import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup, type ObjectivePoint } from '../data/mapSetups';
 import { SECURE_MISSIONS, EXTRACT_MISSIONS } from '../data/missionsData';
 import { useMcpStore } from '../store/useMcpStore';
+import { getLeaderBaseMm } from '../data/characterBaseSizes';
 
 // Objective token size: 1" diameter (25 mm) → 0.5" radius
 const OBJ_R = 0.5;
@@ -20,6 +21,17 @@ const EXTRACT_COLOR = '#ff3b30';
 
 // Base size → token label
 const BASE_LABEL: Record<number, string> = { 35: 'S', 50: 'M', 65: 'L' };
+
+// Leader token colors
+const P1_TOKEN_COLOR = '#00c3ff'; // cyan — matches P1_COLOR
+const P2_TOKEN_COLOR = '#f43f5e'; // rose-red
+
+function getInitials(name: string): string {
+  const clean = name.replace(/\s*\(.*?\)\s*/g, '').replace(/,.*$/, '').trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Character {
@@ -32,23 +44,38 @@ interface Character {
   moveAngleDeg: number; // degrees in SVG coords; -90 = straight up
 }
 
-// ── LocalStorage ──────────────────────────────────────────────────────────────
-function loadChars(): Character[] {
-  try {
-    const raw = localStorage.getItem(SIM_KEY);
-    if (!raw) return [];
-    const p = JSON.parse(raw);
-    if (!Array.isArray(p.characters)) return [];
-    return (p.characters as Character[]).map(c => ({
-      ...c,
-      moveAngleDeg: c.moveAngleDeg ?? -90,
-    }));
-  } catch { return []; }
+interface LeaderToken {
+  side: 'p1' | 'p2';
+  leaderId: string;
+  baseMm: SizeMm;
+  x: number;
+  y: number;
+  initials: string;
 }
 
-function saveChars(chars: Character[]) {
-  try { localStorage.setItem(SIM_KEY, JSON.stringify({ characters: chars })); } catch { /* noop */ }
+// ── LocalStorage ──────────────────────────────────────────────────────────────
+interface SimState { characters: Character[]; leaderTokens: LeaderToken[]; }
+
+function loadState(): SimState {
+  try {
+    const raw = localStorage.getItem(SIM_KEY);
+    if (!raw) return { characters: [], leaderTokens: [] };
+    const p = JSON.parse(raw);
+    return {
+      characters: Array.isArray(p.characters)
+        ? (p.characters as Character[]).map(c => ({ ...c, moveAngleDeg: c.moveAngleDeg ?? -90 }))
+        : [],
+      leaderTokens: Array.isArray(p.leaderTokens) ? p.leaderTokens : [],
+    };
+  } catch { return { characters: [], leaderTokens: [] }; }
 }
+
+function saveState(chars: Character[], leaderTokens: LeaderToken[]) {
+  try { localStorage.setItem(SIM_KEY, JSON.stringify({ characters: chars, leaderTokens })); } catch { /* noop */ }
+}
+
+// Keep backward-compat alias
+function loadChars(): Character[] { return loadState().characters; }
 
 function initCounter(chars: Character[]): number {
   if (!chars.length) return 0;
@@ -71,24 +98,66 @@ function ObjectiveToken({ obj, color }: { obj: ObjectivePoint; color: string }) 
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function MovementSimulator() {
-  const initial = loadChars();
+  const initialState = loadState();
+  const initial = initialState.characters;
   const [characters,    setCharacters]    = useState<Character[]>(initial);
+  const [leaderTokens,  setLeaderTokens]  = useState<LeaderToken[]>(initialState.leaderTokens);
   const [selectedId,    setSelectedId]    = useState<string | null>(null);
   const [addSizeMm,     setAddSizeMm]     = useState<SizeMm>(35);
   // undefined = follow MAIN; '' = explicitly none; 'id' = user-selected mission id
   const [localSecureId,  setLocalSecureId]  = useState<string | undefined>(undefined);
   const [localExtractId, setLocalExtractId] = useState<string | undefined>(undefined);
 
-  const svgRef        = useRef<SVGSVGElement>(null);
-  const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
-  const moveHandleRef = useRef<string | null>(null);
-  const counterRef    = useRef(initCounter(initial));
+  const svgRef           = useRef<SVGSVGElement>(null);
+  const dragRef          = useRef<{ id: string; ox: number; oy: number } | null>(null);
+  const dragLeaderRef    = useRef<{ side: 'p1'|'p2'; ox: number; oy: number } | null>(null);
+  const moveHandleRef    = useRef<string | null>(null);
+  const counterRef       = useRef(initCounter(initial));
+  const prevLeaderLeftId  = useRef<string | null>(null);
+  const prevLeaderRightId = useRef<string | null>(null);
 
-  useEffect(() => { saveChars(characters); }, [characters]);
+  useEffect(() => { saveState(characters, leaderTokens); }, [characters, leaderTokens]);
 
-  // ── MAIN missions (Zustand) ────────────────────────────────────────────────
+  // ── MAIN state (Zustand) ──────────────────────────────────────────────────
   const selectedSecure  = useMcpStore(s => s.selectedSecure);
   const selectedExtract = useMcpStore(s => s.selectedExtract);
+  const leaderLeft      = useMcpStore(s => s.leaderLeft);
+  const leaderRight     = useMcpStore(s => s.leaderRight);
+
+  // Sync leader tokens when leaders change in MAIN
+  useEffect(() => {
+    const newId = leaderLeft?.id ?? null;
+    if (newId === prevLeaderLeftId.current) return;
+    prevLeaderLeftId.current = newId;
+    setLeaderTokens(prev => {
+      const without = prev.filter(t => t.side !== 'p1');
+      if (!newId || !leaderLeft) return without;
+      const baseMm = getLeaderBaseMm(newId);
+      const r = getBaseRadiusIn(baseMm);
+      return [...without, {
+        side: 'p1', leaderId: newId, baseMm,
+        x: 18, y: Math.min(BOARD_IN - r, Math.max(P1_LINE_IN + r, 33)),
+        initials: getInitials(leaderLeft.name),
+      }];
+    });
+  }, [leaderLeft]);
+
+  useEffect(() => {
+    const newId = leaderRight?.id ?? null;
+    if (newId === prevLeaderRightId.current) return;
+    prevLeaderRightId.current = newId;
+    setLeaderTokens(prev => {
+      const without = prev.filter(t => t.side !== 'p2');
+      if (!newId || !leaderRight) return without;
+      const baseMm = getLeaderBaseMm(newId);
+      const r = getBaseRadiusIn(baseMm);
+      return [...without, {
+        side: 'p2', leaderId: newId, baseMm,
+        x: 18, y: Math.max(r, Math.min(P2_LINE_IN - r, 3)),
+        initials: getInitials(leaderRight.name),
+      }];
+    });
+  }, [leaderRight]);
 
   // Effective mission ID: local override wins, else MAIN, else ''
   const effectiveSecureId  = localSecureId  !== undefined ? localSecureId  : (selectedSecure?.id  ?? '');
@@ -134,6 +203,23 @@ export function MovementSimulator() {
     counterRef.current = 0;
     setLocalSecureId('');  // explicitly none — does not affect MAIN
     setLocalExtractId('');
+    // Re-spawn leader tokens at default positions
+    const respawned: LeaderToken[] = [];
+    if (leaderLeft) {
+      const bm = getLeaderBaseMm(leaderLeft.id);
+      const r = getBaseRadiusIn(bm);
+      respawned.push({ side: 'p1', leaderId: leaderLeft.id, baseMm: bm,
+        x: 18, y: Math.min(BOARD_IN - r, Math.max(P1_LINE_IN + r, 33)),
+        initials: getInitials(leaderLeft.name) });
+    }
+    if (leaderRight) {
+      const bm = getLeaderBaseMm(leaderRight.id);
+      const r = getBaseRadiusIn(bm);
+      respawned.push({ side: 'p2', leaderId: leaderRight.id, baseMm: bm,
+        x: 18, y: Math.max(r, Math.min(P2_LINE_IN - r, 3)),
+        initials: getInitials(leaderRight.name) });
+    }
+    setLeaderTokens(respawned);
     try { localStorage.removeItem(SIM_KEY); } catch { /* noop */ }
   };
 
@@ -169,6 +255,15 @@ export function MovementSimulator() {
     moveHandleRef.current = id;
   }, []);
 
+  const onLeaderPointerDown = useCallback((e: React.PointerEvent, side: 'p1'|'p2') => {
+    e.stopPropagation();
+    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    const pt = toSvgPt(e);
+    const tok = leaderTokens.find(t => t.side === side);
+    if (!tok) return;
+    dragLeaderRef.current = { side, ox: pt.x - tok.x, oy: pt.y - tok.y };
+  }, [leaderTokens, toSvgPt]);
+
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (moveHandleRef.current) {
       const id = moveHandleRef.current;
@@ -178,6 +273,16 @@ export function MovementSimulator() {
         const dx = pt.x - c.x;
         const dy = pt.y - c.y;
         return { ...c, moveAngleDeg: Math.atan2(dy, dx) * 180 / Math.PI };
+      }));
+      return;
+    }
+    if (dragLeaderRef.current) {
+      const { side, ox, oy } = dragLeaderRef.current;
+      const pt = toSvgPt(e);
+      setLeaderTokens(prev => prev.map(t => {
+        if (t.side !== side) return t;
+        const { x, y } = clampToBoard(pt.x - ox, pt.y - oy, t.baseMm);
+        return { ...t, x, y };
       }));
       return;
     }
@@ -193,6 +298,7 @@ export function MovementSimulator() {
 
   const onPointerUp = useCallback(() => {
     dragRef.current = null;
+    dragLeaderRef.current = null;
     moveHandleRef.current = null;
   }, []);
 
@@ -379,6 +485,55 @@ export function MovementSimulator() {
                       fontSize={r * 1.1} fontFamily="monospace" fontWeight="bold"
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
                       {lbl}
+                    </text>
+                  </g>
+                );
+              })}
+
+              {/* ── Leader tokens ────────────────────────────────── */}
+              {leaderTokens.map(tok => {
+                const r     = getBaseRadiusIn(tok.baseMm);
+                const color = tok.side === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
+                const fontSize = tok.baseMm === 65 ? r * 0.9 : tok.baseMm === 50 ? r * 1.0 : r * 1.1;
+                return (
+                  <g key={tok.side}
+                    onPointerDown={e => onLeaderPointerDown(e, tok.side)}
+                    onClick={e => e.stopPropagation()}
+                    style={{ cursor: 'grab' }}>
+                    {/* R1 glow */}
+                    <circle cx={tok.x} cy={tok.y} r={getRangeRingRadiusIn(tok.baseMm, 1)}
+                      fill={color} fillOpacity="0.06"
+                      stroke={color} strokeWidth="0.06" strokeOpacity="0.12"
+                      style={{ pointerEvents: 'none' }}/>
+                    {/* Base circle */}
+                    <circle cx={tok.x} cy={tok.y} r={r}
+                      fill={`${color}28`} stroke={color} strokeWidth="0.13"/>
+                    {/* Cross ticks */}
+                    {[0, 90, 180, 270].map(deg => {
+                      const rad = deg * Math.PI / 180;
+                      return (
+                        <line key={deg}
+                          x1={tok.x + Math.cos(rad) * (r - 0.15)}
+                          y1={tok.y + Math.sin(rad) * (r - 0.15)}
+                          x2={tok.x + Math.cos(rad) * (r + 0.12)}
+                          y2={tok.y + Math.sin(rad) * (r + 0.12)}
+                          stroke={color} strokeWidth="0.07" opacity="0.7"/>
+                      );
+                    })}
+                    {/* Initials */}
+                    <text x={tok.x} y={tok.y}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill={color}
+                      fontSize={fontSize} fontFamily="monospace" fontWeight="bold"
+                      style={{ pointerEvents: 'none', userSelect: 'none' }}>
+                      {tok.initials}
+                    </text>
+                    {/* Side badge */}
+                    <text x={tok.x} y={tok.y + r + 0.55}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill={color} fontSize="0.38" fontFamily="monospace" opacity="0.75"
+                      style={{ pointerEvents: 'none', userSelect: 'none' }}>
+                      {tok.side === 'p1' ? 'P1' : 'P2'}
                     </text>
                   </g>
                 );
