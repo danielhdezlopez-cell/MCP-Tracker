@@ -98,7 +98,8 @@ function makeLeaderChar(
     y: existingY ?? defaultY,
     ranges: [],
     move: getLeaderMove(leaderId),
-    moveAngleDeg: -90,
+    // P1 (bottom) points up toward centre; P2 (top) points down toward centre
+    moveAngleDeg: side === 'p1' ? -90 : 90,
     isLeader: true,
     leaderSide: side,
     leaderInitials: getInitials(name),
@@ -399,25 +400,32 @@ export function MovementSimulator() {
                 const startY    = ch.y + Math.sin(angleRad) * baseR;
                 const endX      = ch.x + Math.cos(angleRad) * (baseR + moveIn);
                 const endY      = ch.y + Math.sin(angleRad) * (baseR + moveIn);
-                const lblX = ch.x + Math.cos(angleRad) * (baseR + moveIn + 0.55);
-                const lblY = ch.y + Math.sin(angleRad) * (baseR + moveIn + 0.55);
+                // Label at midpoint, offset 0.5" perpendicular to the line
+                const midX   = (startX + endX) / 2;
+                const midY   = (startY + endY) / 2;
+                const perpX  = -Math.sin(angleRad) * 0.5;
+                const perpY  =  Math.cos(angleRad) * 0.5;
+                const lblX   = midX + perpX;
+                const lblY   = midY + perpY;
                 return (
                   <g key={`${ch.id}-mv`}>
+                    {/* subtle line — one stroke, low opacity */}
                     <line x1={startX} y1={startY} x2={endX} y2={endY}
-                      stroke={MOVE_COLOR} strokeWidth="0.65" opacity="0.18"/>
-                    <line x1={startX} y1={startY} x2={endX} y2={endY}
-                      stroke={MOVE_COLOR} strokeWidth="0.32" opacity="0.95"
-                      strokeLinecap="round"/>
-                    <circle cx={endX} cy={endY} r={0.28}
-                      fill="#040c1a" stroke="#f97316" strokeWidth="0.18"
+                      stroke={MOVE_COLOR} strokeWidth="0.18" opacity="0.55"
+                      strokeLinecap="round" strokeDasharray="0.35 0.18"/>
+                    {/* end-point drag handle */}
+                    <circle cx={endX} cy={endY} r={0.22}
+                      fill="#040c1a" stroke={MOVE_COLOR} strokeWidth="0.10" opacity="0.75"
                       style={{ cursor: 'crosshair' }}
                       onPointerDown={e => onMoveHandleDown(e, ch.id)}/>
-                    <rect x={lblX - 0.42} y={lblY - 0.32} width={0.84} height={0.58}
-                      fill={MOVE_COLOR} rx="0.1"/>
+                    {/* lateral HUD label at midpoint */}
+                    <rect x={lblX - 0.30} y={lblY - 0.22} width={0.60} height={0.42}
+                      fill="#060d1a" fillOpacity="0.72" rx="0.08"
+                      style={{ pointerEvents: 'none' }}/>
                     <text x={lblX} y={lblY}
                       textAnchor="middle" dominantBaseline="middle"
-                      fill="#021018"
-                      fontSize="0.50" fontFamily="monospace" fontWeight="bold"
+                      fill={MOVE_COLOR} opacity="0.85"
+                      fontSize="0.36" fontFamily="monospace" fontWeight="bold"
                       style={{ pointerEvents: 'none' }}>
                       {ch.move}
                     </text>
