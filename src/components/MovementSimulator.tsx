@@ -167,6 +167,19 @@ function ImageObjectiveToken({ obj, color, src, tokenKey }: {
   );
 }
 
+// Secure missions that use the Point of Interest token
+const SECURE_POI_MISSION_IDS = new Set([
+  'assault-ships',
+  'deadly-meteors',
+  'guardians-empress',
+  'infinity-formula',
+  'lockdown',
+  'mutant-madman',
+  'power-overload',
+  'sinister-syndicate',
+  'survivors-shelter',
+]);
+
 // Extract missions that use the custom asset token (red badge icon)
 const EXTRACT_ASSET_MISSION_IDS = new Set([
   'alien-ship',
@@ -190,6 +203,11 @@ const EXTRACT_SOURCE_MISSION_IDS = new Set([
   'experimental-soldiers',
   'jailbreak',
 ]);
+
+function SecurePoiToken({ obj }: { obj: ObjectivePoint }) {
+  return <ImageObjectiveToken obj={obj} color={SECURE_COLOR}
+    src={`${import.meta.env.BASE_URL}assets/objectives/secure-pointofinterest.png`} tokenKey="spoi"/>;
+}
 
 function ExtractAssetToken({ obj }: { obj: ObjectivePoint }) {
   return <ImageObjectiveToken obj={obj} color={EXTRACT_COLOR}
@@ -440,9 +458,11 @@ export function MovementSimulator() {
               ))}
 
               {/* ── Objective tokens — always rendered when a setup is active ── */}
-              {activeSecureSetup?.objectives.map(obj => (
-                <ObjectiveToken key={`sec-${obj.id}`} obj={obj} color={SECURE_COLOR}/>
-              ))}
+              {activeSecureSetup?.objectives.map(obj =>
+                SECURE_POI_MISSION_IDS.has(effectiveSecureId)
+                  ? <SecurePoiToken key={`sec-${obj.id}`} obj={obj}/>
+                  : <ObjectiveToken key={`sec-${obj.id}`} obj={obj} color={SECURE_COLOR}/>
+              )}
               {activeExtractSetup?.objectives.map(obj =>
                 EXTRACT_ASSET_MISSION_IDS.has(effectiveExtractId)
                   ? <ExtractAssetToken key={`ext-${obj.id}`} obj={obj}/>
