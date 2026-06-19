@@ -348,6 +348,14 @@ export function MovementSimulator() {
                     onPointerDown={e => onPointerDown(e, ch.id)}
                     onClick={e => e.stopPropagation()}
                     style={{ cursor: 'grab' }}>
+                    {/* R1 secure-contest glow ring — 1" from token edge */}
+                    <circle cx={ch.x} cy={ch.y} r={getRangeRingRadiusIn(ch.baseMm, 1)}
+                      fill="none" stroke="#38bdf8" strokeWidth="0.12" opacity="0.25"
+                      style={{ pointerEvents: 'none' }}/>
+                    <circle cx={ch.x} cy={ch.y} r={getRangeRingRadiusIn(ch.baseMm, 1)}
+                      fill="#38bdf820"
+                      stroke="none"
+                      style={{ pointerEvents: 'none' }}/>
                     {isSel && (
                       <circle cx={ch.x} cy={ch.y} r={r + 0.25}
                         fill="none" stroke={P1_COLOR} strokeWidth="0.08" opacity="0.5"
