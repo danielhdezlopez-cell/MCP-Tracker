@@ -130,6 +130,16 @@ const EXTRACT_ASSET_MISSION_IDS = new Set([
   'experimental-soldiers',
 ]);
 
+// Extract missions that use the civilian token
+const EXTRACT_CIVILIAN_MISSION_IDS = new Set([
+  'surprise-assault',
+  'spider-infected',
+  'royal-wedding',
+  'mutant-extremists',
+  'jailbreak',
+  'skrulls-infiltrate',
+]);
+
 // Custom token for extract missions with branded asset image + glow
 function ExtractAssetToken({ obj }: { obj: ObjectivePoint }) {
   const color   = EXTRACT_COLOR;
@@ -152,6 +162,33 @@ function ExtractAssetToken({ obj }: { obj: ObjectivePoint }) {
       {/* Asset image */}
       <image
         href={`${import.meta.env.BASE_URL}assets/objectives/extract-asset.png`}
+        x={obj.x - OBJ_R} y={obj.y - OBJ_R}
+        width={OBJ_R * 2} height={OBJ_R * 2}
+        clipPath={`url(#${clipId})`}
+        style={{ pointerEvents: 'none' }}/>
+    </g>
+  );
+}
+
+// Custom token for extract-civilian missions
+function ExtractCivilianToken({ obj }: { obj: ObjectivePoint }) {
+  const color  = EXTRACT_COLOR;
+  const glowR  = OBJ_R + mmToInches(25) / 2;
+  const clipId = `ec-clip-${obj.id}`;
+  return (
+    <g>
+      <circle cx={obj.x} cy={obj.y} r={glowR}
+        fill={`${color}10`} stroke={color} strokeWidth="0.06" opacity="0.55"
+        strokeDasharray="0.25 0.15"/>
+      <circle cx={obj.x} cy={obj.y} r={OBJ_R}
+        fill="#1a0606" stroke={color} strokeWidth="0.10" opacity="0.95"/>
+      <defs>
+        <clipPath id={clipId}>
+          <circle cx={obj.x} cy={obj.y} r={OBJ_R * 0.92}/>
+        </clipPath>
+      </defs>
+      <image
+        href={`${import.meta.env.BASE_URL}assets/objectives/extract-civilian.png`}
         x={obj.x - OBJ_R} y={obj.y - OBJ_R}
         width={OBJ_R * 2} height={OBJ_R * 2}
         clipPath={`url(#${clipId})`}
@@ -402,7 +439,9 @@ export function MovementSimulator() {
               {activeExtractSetup?.objectives.map(obj =>
                 EXTRACT_ASSET_MISSION_IDS.has(effectiveExtractId)
                   ? <ExtractAssetToken key={`ext-${obj.id}`} obj={obj}/>
-                  : <ObjectiveToken key={`ext-${obj.id}`} obj={obj} color={EXTRACT_COLOR}/>
+                  : EXTRACT_CIVILIAN_MISSION_IDS.has(effectiveExtractId)
+                    ? <ExtractCivilianToken key={`ext-${obj.id}`} obj={obj}/>
+                    : <ObjectiveToken key={`ext-${obj.id}`} obj={obj} color={EXTRACT_COLOR}/>
               )}
 
               {/* ── Range rings ──────────────────────────────────── */}
