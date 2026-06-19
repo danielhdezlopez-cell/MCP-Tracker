@@ -151,7 +151,7 @@ function ExtractAssetToken({ obj }: { obj: ObjectivePoint }) {
       </defs>
       {/* Asset image */}
       <image
-        href="/assets/objectives/extract-asset.png"
+        href={`${import.meta.env.BASE_URL}assets/objectives/extract-asset.png`}
         x={obj.x - OBJ_R} y={obj.y - OBJ_R}
         width={OBJ_R * 2} height={OBJ_R * 2}
         clipPath={`url(#${clipId})`}
