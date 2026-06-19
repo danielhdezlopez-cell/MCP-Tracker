@@ -13,6 +13,7 @@ import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup, type ObjectivePoint } from
 import { SECURE_MISSIONS, EXTRACT_MISSIONS } from '../data/missionsData';
 import { useMcpStore } from '../store/useMcpStore';
 import { getLeaderBaseMm } from '../data/characterBaseSizes';
+import { getLeaderMove } from '../data/leaderMovements';
 import { getAffiliationIcon } from '../data/affiliationsFx';
 
 // Objective token size: 1" diameter (25 mm) → 0.5" radius
@@ -96,7 +97,7 @@ function makeLeaderChar(
     x: existingX ?? defaultX,
     y: existingY ?? defaultY,
     ranges: [],
-    move: null,
+    move: getLeaderMove(leaderId),
     moveAngleDeg: -90,
     isLeader: true,
     leaderSide: side,
