@@ -133,7 +133,7 @@ export function MovementSimulator() {
       const r = getBaseRadiusIn(baseMm);
       return [...without, {
         side: 'p1', leaderId: newId, baseMm,
-        x: 18, y: Math.min(BOARD_IN - r, Math.max(P1_LINE_IN + r, 33)),
+        x: 18, y: P1_LINE_IN - r,
         initials: getInitials(leaderLeft.name),
       }];
     });
@@ -150,7 +150,7 @@ export function MovementSimulator() {
       const r = getBaseRadiusIn(baseMm);
       return [...without, {
         side: 'p2', leaderId: newId, baseMm,
-        x: 18, y: Math.max(r, Math.min(P2_LINE_IN - r, 3)),
+        x: 18, y: P2_LINE_IN + r,
         initials: getInitials(leaderRight.name),
       }];
     });
@@ -206,14 +206,14 @@ export function MovementSimulator() {
       const bm = getLeaderBaseMm(leaderLeft.id);
       const r = getBaseRadiusIn(bm);
       respawned.push({ side: 'p1', leaderId: leaderLeft.id, baseMm: bm,
-        x: 18, y: Math.min(BOARD_IN - r, Math.max(P1_LINE_IN + r, 33)),
+        x: 18, y: P1_LINE_IN - r,
         initials: getInitials(leaderLeft.name) });
     }
     if (leaderRight) {
       const bm = getLeaderBaseMm(leaderRight.id);
       const r = getBaseRadiusIn(bm);
       respawned.push({ side: 'p2', leaderId: leaderRight.id, baseMm: bm,
-        x: 18, y: Math.max(r, Math.min(P2_LINE_IN - r, 3)),
+        x: 18, y: P2_LINE_IN + r,
         initials: getInitials(leaderRight.name) });
     }
     setLeaderTokens(respawned);
