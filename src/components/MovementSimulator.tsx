@@ -28,19 +28,6 @@ const BASE_LABEL: Record<number, string> = { 35: 'S', 50: 'M', 65: 'L' };
 const P1_TOKEN_COLOR = '#00c3ff'; // cyan — matches P1_COLOR
 const P2_TOKEN_COLOR = '#f43f5e'; // rose-red
 
-// Move rule image assets — paths served from /public
-const MOVE_ASSETS: Record<string, string> = {
-  S: '/assets/move/move-s.png',
-  M: '/assets/move/move-m.png',
-  L: '/assets/move/move-l.png',
-};
-// Image aspect ratios (height/width) so we can compute SVG height from width
-const MOVE_ASSET_RATIO: Record<string, number> = {
-  S: 76 / 337,   // Move S.png  337×76
-  M: 69 / 504,   // Move M.png  504×69
-  L: 73 / 715,   // Move L.png  715×73
-};
-
 function getInitials(name: string): string {
   const clean = name.replace(/\s*\(.*?\)\s*/g, '').replace(/,.*$/, '').trim();
   const words = clean.split(/\s+/).filter(Boolean);
@@ -402,26 +389,43 @@ export function MovementSimulator() {
                 })
               )}
 
-              {/* ── Move rules (image assets) ─────────────────────── */}
+              {/* ── Move lines ───────────────────────────────────── */}
               {characters.map(ch => {
                 if (!ch.move) return null;
-                const baseR    = getBaseRadiusIn(ch.baseMm);
-                const angleRad = ch.moveAngleDeg * Math.PI / 180;
-                const startX   = ch.x + Math.cos(angleRad) * baseR;
-                const startY   = ch.y + Math.sin(angleRad) * baseR;
-                // All three images rendered at the same visual width (L distance)
-                const imgW = MCP_MOVES['L'];
-                const imgH = imgW * (MOVE_ASSET_RATIO[ch.move] ?? 0.15);
+                const MOVE_COLOR = '#4ade80';
+                const moveIn    = MCP_MOVES[ch.move];
+                const baseR     = getBaseRadiusIn(ch.baseMm);
+                const angleRad  = ch.moveAngleDeg * Math.PI / 180;
+                const startX    = ch.x + Math.cos(angleRad) * baseR;
+                const startY    = ch.y + Math.sin(angleRad) * baseR;
+                const endX      = ch.x + Math.cos(angleRad) * (baseR + moveIn);
+                const endY      = ch.y + Math.sin(angleRad) * (baseR + moveIn);
+                // Label at midpoint, offset 0.55" perpendicular to the line
+                const midX  = (startX + endX) / 2;
+                const midY  = (startY + endY) / 2;
+                const perpX = -Math.sin(angleRad) * 0.55;
+                const perpY =  Math.cos(angleRad) * 0.55;
+                const lblX  = midX + perpX;
+                const lblY  = midY + perpY;
                 return (
                   <g key={`${ch.id}-mv`}
                     onPointerDown={e => onMoveHandleDown(e, ch.id)}
-                    style={{ cursor: 'crosshair' }}
-                    transform={`translate(${startX},${startY}) rotate(${ch.moveAngleDeg})`}>
-                    <image
-                      href={MOVE_ASSETS[ch.move]}
-                      x={0} y={-imgH / 2}
-                      width={imgW} height={imgH}
+                    style={{ cursor: 'crosshair' }}>
+                    {/* solid continuous line — wider, subtle */}
+                    <line x1={startX} y1={startY} x2={endX} y2={endY}
+                      stroke={MOVE_COLOR} strokeWidth="0.28" opacity="0.45"
+                      strokeLinecap="round"/>
+                    {/* lateral HUD label at midpoint */}
+                    <rect x={lblX - 0.42} y={lblY - 0.32} width={0.84} height={0.64}
+                      fill="#060d1a" fillOpacity="0.72" rx="0.10"
                       style={{ pointerEvents: 'none' }}/>
+                    <text x={lblX} y={lblY}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill={MOVE_COLOR} opacity="0.90"
+                      fontSize="0.72" fontFamily="monospace" fontWeight="bold"
+                      style={{ pointerEvents: 'none' }}>
+                      {ch.move}
+                    </text>
                   </g>
                 );
               })}
