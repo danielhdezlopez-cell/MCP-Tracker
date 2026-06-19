@@ -13,6 +13,7 @@ import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup, type ObjectivePoint } from
 import { SECURE_MISSIONS, EXTRACT_MISSIONS } from '../data/missionsData';
 import { useMcpStore } from '../store/useMcpStore';
 import { getLeaderBaseMm } from '../data/characterBaseSizes';
+import { getAffiliationIcon } from '../data/affiliationsFx';
 
 // Objective token size: 1" diameter (25 mm) → 0.5" radius
 const OBJ_R = 0.5;
@@ -51,6 +52,7 @@ interface LeaderToken {
   x: number;
   y: number;
   initials: string;
+  iconSrc: string;
 }
 
 // ── LocalStorage ──────────────────────────────────────────────────────────────
@@ -135,6 +137,7 @@ export function MovementSimulator() {
         side: 'p1', leaderId: newId, baseMm,
         x: 18, y: P1_LINE_IN - r,
         initials: getInitials(leaderLeft.name),
+        iconSrc: getAffiliationIcon(leaderLeft.affiliations),
       }];
     });
   }, [leaderLeft]);
@@ -152,6 +155,7 @@ export function MovementSimulator() {
         side: 'p2', leaderId: newId, baseMm,
         x: 18, y: P2_LINE_IN + r,
         initials: getInitials(leaderRight.name),
+        iconSrc: getAffiliationIcon(leaderRight.affiliations),
       }];
     });
   }, [leaderRight]);
@@ -207,14 +211,16 @@ export function MovementSimulator() {
       const r = getBaseRadiusIn(bm);
       respawned.push({ side: 'p1', leaderId: leaderLeft.id, baseMm: bm,
         x: 18, y: P1_LINE_IN - r,
-        initials: getInitials(leaderLeft.name) });
+        initials: getInitials(leaderLeft.name),
+        iconSrc: getAffiliationIcon(leaderLeft.affiliations) });
     }
     if (leaderRight) {
       const bm = getLeaderBaseMm(leaderRight.id);
       const r = getBaseRadiusIn(bm);
       respawned.push({ side: 'p2', leaderId: leaderRight.id, baseMm: bm,
         x: 18, y: P2_LINE_IN + r,
-        initials: getInitials(leaderRight.name) });
+        initials: getInitials(leaderRight.name),
+        iconSrc: getAffiliationIcon(leaderRight.affiliations) });
     }
     setLeaderTokens(respawned);
     try { localStorage.removeItem(SIM_KEY); } catch { /* noop */ }
@@ -489,14 +495,21 @@ export function MovementSimulator() {
 
               {/* ── Leader tokens ────────────────────────────────── */}
               {leaderTokens.map(tok => {
-                const r     = getBaseRadiusIn(tok.baseMm);
-                const color = tok.side === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
+                const r        = getBaseRadiusIn(tok.baseMm);
+                const color    = tok.side === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
                 const fontSize = tok.baseMm === 65 ? r * 0.9 : tok.baseMm === 50 ? r * 1.0 : r * 1.1;
+                const clipId   = `lc-${tok.side}`;
+                const imgSize  = r * 2;
                 return (
                   <g key={tok.side}
                     onPointerDown={e => onLeaderPointerDown(e, tok.side)}
                     onClick={e => e.stopPropagation()}
                     style={{ cursor: 'grab' }}>
+                    <defs>
+                      <clipPath id={clipId}>
+                        <circle cx={tok.x} cy={tok.y} r={r * 0.82}/>
+                      </clipPath>
+                    </defs>
                     {/* R1 glow */}
                     <circle cx={tok.x} cy={tok.y} r={getRangeRingRadiusIn(tok.baseMm, 1)}
                       fill={color} fillOpacity="0.06"
@@ -505,6 +518,14 @@ export function MovementSimulator() {
                     {/* Base circle */}
                     <circle cx={tok.x} cy={tok.y} r={r}
                       fill={`${color}28`} stroke={color} strokeWidth="0.13"/>
+                    {/* Affiliation logo — subtle watermark inside token */}
+                    <image
+                      href={tok.iconSrc}
+                      x={tok.x - imgSize * 0.41} y={tok.y - imgSize * 0.41}
+                      width={imgSize * 0.82} height={imgSize * 0.82}
+                      opacity="0.22"
+                      clipPath={`url(#${clipId})`}
+                      style={{ pointerEvents: 'none' }}/>
                     {/* Cross ticks */}
                     {[0, 90, 180, 270].map(deg => {
                       const rad = deg * Math.PI / 180;
@@ -517,7 +538,7 @@ export function MovementSimulator() {
                           stroke={color} strokeWidth="0.07" opacity="0.7"/>
                       );
                     })}
-                    {/* Initials */}
+                    {/* Initials — on top of logo */}
                     <text x={tok.x} y={tok.y}
                       textAnchor="middle" dominantBaseline="middle"
                       fill={color}
@@ -525,12 +546,13 @@ export function MovementSimulator() {
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
                       {tok.initials}
                     </text>
-                    {/* Side badge */}
+                    {/* Name abbreviation below token (replaces P1/P2) */}
                     <text x={tok.x} y={tok.y + r + 0.55}
                       textAnchor="middle" dominantBaseline="middle"
-                      fill={color} fontSize="0.38" fontFamily="monospace" opacity="0.75"
+                      fill={color} fontSize="0.42" fontFamily="monospace" fontWeight="bold"
+                      opacity="0.85"
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                      {tok.side === 'p1' ? 'P1' : 'P2'}
+                      {tok.initials}
                     </text>
                   </g>
                 );
