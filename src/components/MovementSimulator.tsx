@@ -433,14 +433,23 @@ export function MovementSimulator() {
 
               {/* ── Characters (non-leader) ───────────────────────── */}
               {characters.filter(ch => !ch.isLeader).map(ch => {
-                const r     = getBaseRadiusIn(ch.baseMm);
-                const isSel = ch.id === selectedId;
-                const lbl   = BASE_LABEL[ch.baseMm] ?? 'S';
+                const r       = getBaseRadiusIn(ch.baseMm);
+                const isSel   = ch.id === selectedId;
+                const lbl     = BASE_LABEL[ch.baseMm] ?? 'S';
+                const logoR   = r * 0.78;
+                const clipId  = `cc-${ch.id}`;
+                // P1 leader logo used as translucent watermark inside each character token
+                const p1Icon  = leaderLeft ? getAffiliationIcon(leaderLeft.affiliations) : '';
                 return (
                   <g key={ch.id}
                     onPointerDown={e => onPointerDown(e, ch.id)}
                     onClick={e => e.stopPropagation()}
                     style={{ cursor: 'grab' }}>
+                    <defs>
+                      <clipPath id={clipId}>
+                        <circle cx={ch.x} cy={ch.y} r={logoR}/>
+                      </clipPath>
+                    </defs>
                     {/* R1 secure-contest glow */}
                     <circle cx={ch.x} cy={ch.y} r={getRangeRingRadiusIn(ch.baseMm, 1)}
                       fill="#38bdf8" fillOpacity="0.06"
@@ -455,6 +464,16 @@ export function MovementSimulator() {
                       fill={`${P1_COLOR}20`}
                       stroke={P1_COLOR}
                       strokeWidth={isSel ? 0.15 : 0.10}/>
+                    {/* P1 leader logo — translucent watermark */}
+                    {p1Icon && (
+                      <image
+                        href={p1Icon}
+                        x={ch.x - logoR} y={ch.y - logoR}
+                        width={logoR * 2} height={logoR * 2}
+                        opacity="0.18"
+                        clipPath={`url(#${clipId})`}
+                        style={{ pointerEvents: 'none' }}/>
+                    )}
                     {[0, 90, 180, 270].map(deg => {
                       const rad = deg * Math.PI / 180;
                       return (
@@ -466,10 +485,11 @@ export function MovementSimulator() {
                           stroke={P1_COLOR} strokeWidth="0.07" opacity="0.6"/>
                       );
                     })}
-                    <text x={ch.x} y={ch.y}
+                    {/* Base size label — outside the circle, at bottom-right edge */}
+                    <text x={ch.x + r * 0.72} y={ch.y + r + 0.28}
                       textAnchor="middle" dominantBaseline="middle"
-                      fill="white"
-                      fontSize={r * 1.1} fontFamily="monospace" fontWeight="bold"
+                      fill={P1_COLOR} opacity="0.75"
+                      fontSize="0.38" fontFamily="monospace" fontWeight="bold"
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
                       {lbl}
                     </text>
