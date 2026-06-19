@@ -244,7 +244,7 @@ export function MovementSimulator() {
     if (!ch) return;
     dragRef.current = { id, ox: pt.x - ch.x, oy: pt.y - ch.y };
     setSelectedId(id);
-  }, [characters, toSvgPt]);
+  }, [characters, toSvgPt, setSelectedId]);
 
   const onMoveHandleDown = useCallback((e: React.PointerEvent, id: string) => {
     e.stopPropagation();
@@ -291,7 +291,7 @@ export function MovementSimulator() {
       const { x, y } = clampToBoard(pt.x - ox, pt.y - oy, c.baseMm);
       return { ...c, x, y };
     }));
-  }, [toSvgPt]);
+  }, [toSvgPt, setCharacters, setLeaderTokens]);
 
   const onPointerUp = useCallback(() => {
     dragRef.current = null;
