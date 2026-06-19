@@ -6,7 +6,7 @@ import {
 } from '../lib/simulatorConstants';
 import type { SizeMm, MoveKey, RangeKey } from '../lib/simulatorConstants';
 import {
-  mmToInches, getBaseRadiusIn, getRangeRingRadiusIn,
+  getBaseRadiusIn, getRangeRingRadiusIn,
   clampToBoard, getSpawnPosition,
 } from '../lib/simulatorGeometry';
 import { MAP_SETUPS, MISSION_TO_SETUP, type MapSetup, type ObjectivePoint } from '../data/mapSetups';
@@ -107,15 +107,62 @@ function makeLeaderChar(
   };
 }
 
+// ── Shared glow helper ────────────────────────────────────────────────────────
+// Renders a soft radial-gradient halo behind any objective token.
+// glowId must be unique per token instance.
+function ObjectiveGlow({ cx, cy, color, glowId }: { cx: number; cy: number; color: string; glowId: string }) {
+  const glowR = OBJ_R * 1.7;
+  return (
+    <>
+      <defs>
+        <radialGradient id={glowId} cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stopColor={color} stopOpacity="0.30"/>
+          <stop offset="55%"  stopColor={color} stopOpacity="0.10"/>
+          <stop offset="100%" stopColor={color} stopOpacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx={cx} cy={cy} r={glowR} fill={`url(#${glowId})`}/>
+    </>
+  );
+}
+
 // ── Objective token ───────────────────────────────────────────────────────────
 function ObjectiveToken({ obj, color }: { obj: ObjectivePoint; color: string }) {
+  const glowId = `og-${obj.id}`;
   return (
-    <g key={obj.id}>
-      <circle cx={obj.x} cy={obj.y} r={OBJ_R + 0.18}
-        fill="none" stroke={color} strokeWidth="0.07" opacity="0.25"/>
+    <g>
+      <ObjectiveGlow cx={obj.x} cy={obj.y} color={color} glowId={glowId}/>
       <circle cx={obj.x} cy={obj.y} r={OBJ_R}
-        fill={`${color}22`} stroke={color} strokeWidth="0.1" opacity="0.95"/>
-      <circle cx={obj.x} cy={obj.y} r={0.1} fill={color} opacity="0.9"/>
+        fill={`${color}18`} stroke={color} strokeWidth="0.07" opacity="0.80"/>
+      <circle cx={obj.x} cy={obj.y} r={0.08} fill={color} opacity="0.85"/>
+    </g>
+  );
+}
+
+// ── Image objective token ─────────────────────────────────────────────────────
+// Shared renderer for all custom-image objectives: image only + soft halo.
+function ImageObjectiveToken({ obj, color, src, tokenKey }: {
+  obj: ObjectivePoint;
+  color: string;
+  src: string;
+  tokenKey: string;
+}) {
+  const clipId = `ioc-${tokenKey}-${obj.id}`;
+  const glowId = `iog-${tokenKey}-${obj.id}`;
+  return (
+    <g>
+      <ObjectiveGlow cx={obj.x} cy={obj.y} color={color} glowId={glowId}/>
+      <defs>
+        <clipPath id={clipId}>
+          <circle cx={obj.x} cy={obj.y} r={OBJ_R}/>
+        </clipPath>
+      </defs>
+      <image
+        href={src}
+        x={obj.x - OBJ_R} y={obj.y - OBJ_R}
+        width={OBJ_R * 2} height={OBJ_R * 2}
+        clipPath={`url(#${clipId})`}
+        style={{ pointerEvents: 'none' }}/>
     </g>
   );
 }
@@ -144,88 +191,17 @@ const EXTRACT_SOURCE_MISSION_IDS = new Set([
   'jailbreak',
 ]);
 
-// Custom token for extract missions with branded asset image + glow
 function ExtractAssetToken({ obj }: { obj: ObjectivePoint }) {
-  const color   = EXTRACT_COLOR;
-  const glowR   = OBJ_R + mmToInches(25) / 2; // 25 mm glow radius from centre
-  const clipId  = `ea-clip-${obj.id}`;
-  return (
-    <g>
-      {/* 25 mm glow ring */}
-      <circle cx={obj.x} cy={obj.y} r={glowR}
-        fill={`${color}10`} stroke={color} strokeWidth="0.06" opacity="0.55"
-        strokeDasharray="0.25 0.15"/>
-      {/* Token background */}
-      <circle cx={obj.x} cy={obj.y} r={OBJ_R}
-        fill="#1a0606" stroke={color} strokeWidth="0.10" opacity="0.95"/>
-      <defs>
-        <clipPath id={clipId}>
-          <circle cx={obj.x} cy={obj.y} r={OBJ_R * 0.92}/>
-        </clipPath>
-      </defs>
-      {/* Asset image */}
-      <image
-        href={`${import.meta.env.BASE_URL}assets/objectives/extract-asset.png`}
-        x={obj.x - OBJ_R} y={obj.y - OBJ_R}
-        width={OBJ_R * 2} height={OBJ_R * 2}
-        clipPath={`url(#${clipId})`}
-        style={{ pointerEvents: 'none' }}/>
-    </g>
-  );
+  return <ImageObjectiveToken obj={obj} color={EXTRACT_COLOR}
+    src={`${import.meta.env.BASE_URL}assets/objectives/extract-asset.png`} tokenKey="ea"/>;
 }
-
-// Custom token for extract-civilian missions
 function ExtractCivilianToken({ obj }: { obj: ObjectivePoint }) {
-  const color  = EXTRACT_COLOR;
-  const glowR  = OBJ_R + mmToInches(25) / 2;
-  const clipId = `ec-clip-${obj.id}`;
-  return (
-    <g>
-      <circle cx={obj.x} cy={obj.y} r={glowR}
-        fill={`${color}10`} stroke={color} strokeWidth="0.06" opacity="0.55"
-        strokeDasharray="0.25 0.15"/>
-      <circle cx={obj.x} cy={obj.y} r={OBJ_R}
-        fill="#1a0606" stroke={color} strokeWidth="0.10" opacity="0.95"/>
-      <defs>
-        <clipPath id={clipId}>
-          <circle cx={obj.x} cy={obj.y} r={OBJ_R * 0.92}/>
-        </clipPath>
-      </defs>
-      <image
-        href={`${import.meta.env.BASE_URL}assets/objectives/extract-civilian.png`}
-        x={obj.x - OBJ_R} y={obj.y - OBJ_R}
-        width={OBJ_R * 2} height={OBJ_R * 2}
-        clipPath={`url(#${clipId})`}
-        style={{ pointerEvents: 'none' }}/>
-    </g>
-  );
+  return <ImageObjectiveToken obj={obj} color={EXTRACT_COLOR}
+    src={`${import.meta.env.BASE_URL}assets/objectives/extract-civilian.png`} tokenKey="ec"/>;
 }
-
-// Custom token for extract-source missions
 function ExtractSourceToken({ obj }: { obj: ObjectivePoint }) {
-  const color  = EXTRACT_COLOR;
-  const glowR  = OBJ_R + mmToInches(25) / 2;
-  const clipId = `es-clip-${obj.id}`;
-  return (
-    <g>
-      <circle cx={obj.x} cy={obj.y} r={glowR}
-        fill={`${color}10`} stroke={color} strokeWidth="0.06" opacity="0.55"
-        strokeDasharray="0.25 0.15"/>
-      <circle cx={obj.x} cy={obj.y} r={OBJ_R}
-        fill="#1a0606" stroke={color} strokeWidth="0.10" opacity="0.95"/>
-      <defs>
-        <clipPath id={clipId}>
-          <circle cx={obj.x} cy={obj.y} r={OBJ_R * 0.92}/>
-        </clipPath>
-      </defs>
-      <image
-        href={`${import.meta.env.BASE_URL}assets/objectives/extract-source.png`}
-        x={obj.x - OBJ_R} y={obj.y - OBJ_R}
-        width={OBJ_R * 2} height={OBJ_R * 2}
-        clipPath={`url(#${clipId})`}
-        style={{ pointerEvents: 'none' }}/>
-    </g>
-  );
+  return <ImageObjectiveToken obj={obj} color={EXTRACT_COLOR}
+    src={`${import.meta.env.BASE_URL}assets/objectives/extract-source.png`} tokenKey="es"/>;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
