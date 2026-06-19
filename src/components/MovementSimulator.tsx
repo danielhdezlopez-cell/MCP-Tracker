@@ -405,16 +405,14 @@ export function MovementSimulator() {
               {/* ── Move rules (image assets) ─────────────────────── */}
               {characters.map(ch => {
                 if (!ch.move) return null;
-                const moveIn  = MCP_MOVES[ch.move];
-                const baseR   = getBaseRadiusIn(ch.baseMm);
+                const baseR    = getBaseRadiusIn(ch.baseMm);
                 const angleRad = ch.moveAngleDeg * Math.PI / 180;
-                const startX  = ch.x + Math.cos(angleRad) * baseR;
-                const startY  = ch.y + Math.sin(angleRad) * baseR;
-                // Image dimensions in SVG inches: width = moveIn, height proportional
-                const imgW    = moveIn;
-                const imgH    = moveIn * (MOVE_ASSET_RATIO[ch.move] ?? 0.15);
+                const startX   = ch.x + Math.cos(angleRad) * baseR;
+                const startY   = ch.y + Math.sin(angleRad) * baseR;
+                // All three images rendered at the same visual width (L distance)
+                const imgW = MCP_MOVES['L'];
+                const imgH = imgW * (MOVE_ASSET_RATIO[ch.move] ?? 0.15);
                 return (
-                  // Dragging anywhere on the image rotates the rule toward the pointer
                   <g key={`${ch.id}-mv`}
                     onPointerDown={e => onMoveHandleDown(e, ch.id)}
                     style={{ cursor: 'crosshair' }}
