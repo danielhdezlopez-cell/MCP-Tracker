@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import './MovementSimulator.css';
 import {
-  BOARD_IN, P1_LINE_IN, P2_LINE_IN,
+  BOARD_IN, DEPLOY_IN, P1_LINE_IN, P2_LINE_IN,
   BASE_SIZES_MM, MCP_RANGES, RANGE_KEYS, MCP_MOVES, SIM_KEY, P1_COLOR, P2_COLOR,
 } from '../lib/simulatorConstants';
 import type { SizeMm, MoveKey, RangeKey } from '../lib/simulatorConstants';
@@ -427,12 +427,11 @@ export function MovementSimulator() {
                   <stop offset="70%"  stopColor="#060a16"/>
                   <stop offset="100%" stopColor="#04060e"/>
                 </radialGradient>
-                {/* Visual deploy zone overlay — 1" deep, purely cosmetic */}
-                <linearGradient id="msimDzTop" x1="0" y1="0" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+                <linearGradient id="msimDzTop" x1="0" y1="0" x2="0" y2={DEPLOY_IN} gradientUnits="userSpaceOnUse">
                   <stop offset="0%"   stopColor={P2_COLOR} stopOpacity="0.48"/>
                   <stop offset="100%" stopColor={P2_COLOR} stopOpacity="0.06"/>
                 </linearGradient>
-                <linearGradient id="msimDzBot" x1="0" y1={BOARD_IN} x2="0" y2={BOARD_IN - 1} gradientUnits="userSpaceOnUse">
+                <linearGradient id="msimDzBot" x1="0" y1={BOARD_IN} x2="0" y2={P1_LINE_IN} gradientUnits="userSpaceOnUse">
                   <stop offset="0%"   stopColor={P1_COLOR} stopOpacity="0.48"/>
                   <stop offset="100%" stopColor={P1_COLOR} stopOpacity="0.06"/>
                 </linearGradient>
@@ -462,10 +461,10 @@ export function MovementSimulator() {
               <line x1={18} y1={0} x2={18} y2={BOARD_IN} stroke="rgba(0,195,255,0.18)" strokeWidth="0.06" strokeDasharray="0.5 0.3"/>
               <line x1={0} y1={18} x2={BOARD_IN} y2={18} stroke="rgba(0,195,255,0.18)" strokeWidth="0.06" strokeDasharray="0.5 0.3"/>
 
-              {/* Deploy zones — visual overlay only, 1" deep from each edge */}
-              <rect x={0} y={0}              width={BOARD_IN} height={1} fill="url(#msimDzTop)"/>
+              {/* Deploy zones */}
+              <rect x={0} y={0}          width={BOARD_IN} height={DEPLOY_IN} fill="url(#msimDzTop)"/>
               <line x1={0} y1={P2_LINE_IN} x2={BOARD_IN} y2={P2_LINE_IN} stroke={`${P2_COLOR}ee`} strokeWidth="0.13"/>
-              <rect x={0} y={BOARD_IN - 1}  width={BOARD_IN} height={1} fill="url(#msimDzBot)"/>
+              <rect x={0} y={P1_LINE_IN} width={BOARD_IN} height={DEPLOY_IN} fill="url(#msimDzBot)"/>
               <line x1={0} y1={P1_LINE_IN} x2={BOARD_IN} y2={P1_LINE_IN} stroke={`${P1_COLOR}ee`} strokeWidth="0.13"/>
 
               {/* Ruler labels */}
