@@ -167,6 +167,11 @@ function ImageObjectiveToken({ obj, color, src, tokenKey }: {
   );
 }
 
+// Secure missions that use the Zone token
+const SECURE_ZONE_MISSION_IDS = new Set([
+  'xmen-infiltrate',
+]);
+
 // Secure missions that use the Target of Opportunity token
 const SECURE_TOO_MISSION_IDS = new Set([
   'wedding-party',
@@ -208,6 +213,11 @@ const EXTRACT_SOURCE_MISSION_IDS = new Set([
   'experimental-soldiers',
   'jailbreak',
 ]);
+
+function SecureZoneToken({ obj }: { obj: ObjectivePoint }) {
+  return <ImageObjectiveToken obj={obj} color={SECURE_COLOR}
+    src={`${import.meta.env.BASE_URL}assets/objectives/secure-zone.png`} tokenKey="sz"/>;
+}
 
 function SecureTooToken({ obj }: { obj: ObjectivePoint }) {
   return <ImageObjectiveToken obj={obj} color={SECURE_COLOR}
@@ -469,11 +479,13 @@ export function MovementSimulator() {
 
               {/* ── Objective tokens — always rendered when a setup is active ── */}
               {activeSecureSetup?.objectives.map(obj =>
-                SECURE_TOO_MISSION_IDS.has(effectiveSecureId)
-                  ? <SecureTooToken key={`sec-${obj.id}`} obj={obj}/>
-                  : SECURE_POI_MISSION_IDS.has(effectiveSecureId)
-                    ? <SecurePoiToken key={`sec-${obj.id}`} obj={obj}/>
-                    : <ObjectiveToken key={`sec-${obj.id}`} obj={obj} color={SECURE_COLOR}/>
+                SECURE_ZONE_MISSION_IDS.has(effectiveSecureId)
+                  ? <SecureZoneToken key={`sec-${obj.id}`} obj={obj}/>
+                  : SECURE_TOO_MISSION_IDS.has(effectiveSecureId)
+                    ? <SecureTooToken key={`sec-${obj.id}`} obj={obj}/>
+                    : SECURE_POI_MISSION_IDS.has(effectiveSecureId)
+                      ? <SecurePoiToken key={`sec-${obj.id}`} obj={obj}/>
+                      : <ObjectiveToken key={`sec-${obj.id}`} obj={obj} color={SECURE_COLOR}/>
               )}
               {activeExtractSetup?.objectives.map(obj =>
                 EXTRACT_ASSET_MISSION_IDS.has(effectiveExtractId)
