@@ -495,11 +495,10 @@ export function MovementSimulator() {
 
               {/* ── Leader tokens ────────────────────────────────── */}
               {leaderTokens.map(tok => {
-                const r        = getBaseRadiusIn(tok.baseMm);
-                const color    = tok.side === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
-                const fontSize = tok.baseMm === 65 ? r * 0.9 : tok.baseMm === 50 ? r * 1.0 : r * 1.1;
-                const clipId   = `lc-${tok.side}`;
-                const imgSize  = r * 2;
+                const r      = getBaseRadiusIn(tok.baseMm);
+                const color  = tok.side === 'p1' ? P1_TOKEN_COLOR : P2_TOKEN_COLOR;
+                const clipId = `lc-${tok.side}`;
+                const logoR  = r * 0.78; // logo area radius — inset from stroke
                 return (
                   <g key={tok.side}
                     onPointerDown={e => onLeaderPointerDown(e, tok.side)}
@@ -507,7 +506,7 @@ export function MovementSimulator() {
                     style={{ cursor: 'grab' }}>
                     <defs>
                       <clipPath id={clipId}>
-                        <circle cx={tok.x} cy={tok.y} r={r * 0.82}/>
+                        <circle cx={tok.x} cy={tok.y} r={logoR}/>
                       </clipPath>
                     </defs>
                     {/* R1 glow */}
@@ -518,15 +517,19 @@ export function MovementSimulator() {
                     {/* Base circle */}
                     <circle cx={tok.x} cy={tok.y} r={r}
                       fill={`${color}28`} stroke={color} strokeWidth="0.13"/>
-                    {/* Affiliation logo — subtle watermark inside token */}
+                    {/* Dark backing so logo reads on the tinted base */}
+                    <circle cx={tok.x} cy={tok.y} r={logoR}
+                      fill="#060d1a" opacity="0.55"
+                      style={{ pointerEvents: 'none' }}/>
+                    {/* Affiliation logo — full opacity, clipped to inner circle */}
                     <image
                       href={tok.iconSrc}
-                      x={tok.x - imgSize * 0.41} y={tok.y - imgSize * 0.41}
-                      width={imgSize * 0.82} height={imgSize * 0.82}
-                      opacity="0.22"
+                      x={tok.x - logoR} y={tok.y - logoR}
+                      width={logoR * 2} height={logoR * 2}
+                      opacity="1"
                       clipPath={`url(#${clipId})`}
                       style={{ pointerEvents: 'none' }}/>
-                    {/* Cross ticks */}
+                    {/* Cross ticks on outer ring */}
                     {[0, 90, 180, 270].map(deg => {
                       const rad = deg * Math.PI / 180;
                       return (
@@ -538,19 +541,11 @@ export function MovementSimulator() {
                           stroke={color} strokeWidth="0.07" opacity="0.7"/>
                       );
                     })}
-                    {/* Initials — on top of logo */}
-                    <text x={tok.x} y={tok.y}
-                      textAnchor="middle" dominantBaseline="middle"
-                      fill={color}
-                      fontSize={fontSize} fontFamily="monospace" fontWeight="bold"
-                      style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                      {tok.initials}
-                    </text>
-                    {/* Name abbreviation below token (replaces P1/P2) */}
+                    {/* Name abbreviation below token */}
                     <text x={tok.x} y={tok.y + r + 0.55}
                       textAnchor="middle" dominantBaseline="middle"
                       fill={color} fontSize="0.42" fontFamily="monospace" fontWeight="bold"
-                      opacity="0.85"
+                      opacity="0.9"
                       style={{ pointerEvents: 'none', userSelect: 'none' }}>
                       {tok.initials}
                     </text>
