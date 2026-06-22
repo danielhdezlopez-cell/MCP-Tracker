@@ -6,6 +6,7 @@ import { MainPage } from '../pages/MainPage';
 import { LeadersPage } from '../pages/LeadersPage';
 import { MissionsPage } from '../pages/MissionsPage';
 import { SettingsPage } from '../pages/SettingsPage';
+import { LeaderImagesReviewPage } from '../pages/LeaderImagesReviewPage';
 import './Layout.css';
 
 export function Layout() {
@@ -42,6 +43,7 @@ export function Layout() {
           {currentPage === 'leaders' && <LeadersPage />}
           {currentPage === 'missions' && <MissionsPage />}
           {currentPage === 'settings' && <SettingsPage />}
+          {currentPage === 'image-review' && <LeaderImagesReviewPage />}
         </div>
       </main>
     </div>

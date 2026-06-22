@@ -10,7 +10,7 @@ export interface RoundScoreEntry {
 }
 
 export type Theme ='neon-blue' | 'comic-ink' | 'adam-warlock' | 'apocalypse' | 'asgard' | 'baron-strucker' | 'baron-zemo' | 'bastion' | 'black-bolt' | 'black-panther' | 'blade' | 'cable' | 'captain-america' | 'cap-first-avenger' | 'convocation' | 'corbus' | 'cyclops' | 'dark-dimension' | 'daredevil' | 'doc-ock' | 'dr-strange' | 'dracula' | 'elsa-bloodstone' | 'emma-frost' | 'green-goblin' | 'hellfire-club' | 'hulkbuster' | 'hydra' | 'invincible-ironman' | 'jane-foster' | 'kang' | 'kill-monger' | 'king-tchalla' | 'kingpin' | 'klaw' | 'loki' | 'magik' | 'magneto' | 'malekith' | 'maximus-the-mad' | 'mbaku' | 'medusa' | 'mephisto' | 'midnight-sons' | 'modok' | 'mystique' | 'namor' | 'new-mutants' | 'nick-fury' | 'onslaught' | 'professor-x' | 'red-skull' | 'red-skull-master-of-hydra' | 'red-skull-master-of-the-world' | 'sam-wilson' | 'sentinels' | 'shadowland-daredevil' | 'she-hulk' | 'shield' | 'sin' | 'spectrum' | 'miles-morales' | 'spider-man' | 'starlord' | 'storm' | 'thanos' | 'thor' | 'the-leader' | 'thunderbolts' | 'ultron' | 'weapon-x' | 'winter-guard';
-export type AppPage = 'main' | 'leaders' | 'missions' | 'settings';
+export type AppPage = 'main' | 'leaders' | 'missions' | 'settings' | 'image-review';
 export type AssignSide = 'left' | 'right';
 export type InteractiveBg = 'off' | 'tech-hex';
 export type VideoBg = 'none' | 'hydra';

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useMcpStore, type Theme } from '../store/useMcpStore';
+import { useMcpStore, type Theme, type AppPage } from '../store/useMcpStore';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { MovementSimulator } from '../components/MovementSimulator';
 import { VIDEO_THEMES } from '../data/themeVideoMap';
@@ -87,6 +87,7 @@ export function SettingsPage() {
     interactiveBg,
     showAffiliationBanner, setShowAffiliationBanner,
     showMainLeaderPortraits, setShowMainLeaderPortraits,
+    setCurrentPage,
   } = useMcpStore();
 
   const [customMins, setCustomMins] = useState(Math.floor(timerDuration / 60));
@@ -274,6 +275,18 @@ export function SettingsPage() {
         <div className="settings-section">
           <div className="settings-section__title">📐 SIMULATOR</div>
           <MovementSimulator />
+        </div>
+
+        <div className="settings-section">
+          <div className="settings-section__title">🖼 DEBUG</div>
+          <div className="settings-timer-body" style={{ padding: '10px 12px' }}>
+            <button
+              className="btn-hud settings-preset-btn"
+              onClick={() => setCurrentPage('image-review' as AppPage)}
+            >
+              REVIEW LEADER IMAGES
+            </button>
+          </div>
         </div>
 
         <div className="settings-section" style={{ display: 'none' }}>
