@@ -438,10 +438,74 @@ export function MovementSimulator() {
   const rosterThreat   = selectedThreat ?? (bothSame ? secureThreat : null);
   const recommendedRoster = rosterThreat !== null ? (RECOMMENDED_ROSTERS[rosterThreat] ?? null) : null;
 
+  // ── Roster panel (extracted for reuse in left column) ────────────────────
+  const rosterPanel = (
+    <div className="msim__cgroup">
+      <div className="msim__cgroup-title">Recommended Roster</div>
+      <div className="msim__cgroup-body">
+        {!hasCrisis ? (
+          <div className="msim__roster-empty">Select Crisis Cards in MAIN to show recommended roster.</div>
+        ) : bothSame ? (
+          <>
+            <div className="msim__threat-single">
+              <span className="msim__threat-label">THREAT TO PLAY:</span>
+              <span className="msim__threat-value">{secureThreat}</span>
+            </div>
+            {recommendedRoster && (
+              <ul className="msim__roster-list">
+                {recommendedRoster.map(name => (
+                  <li key={name} className="msim__roster-item">{name}</li>
+                ))}
+              </ul>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="msim__threat-label">THREAT TO PLAY</div>
+            <div className="msim__threat-row">
+              {secureThreat !== null && (
+                <button
+                  className={`msim__threat-btn msim__threat-btn--secure${selectedThreat === secureThreat ? ' msim__threat-btn--on' : ''}`}
+                  onClick={() => setSelectedThreat(selectedThreat === secureThreat ? null : secureThreat)}
+                >
+                  <span className="msim__threat-dot msim__threat-dot--secure"/>
+                  Secure: {secureThreat}
+                </button>
+              )}
+              {extractThreat !== null && (
+                <button
+                  className={`msim__threat-btn msim__threat-btn--extract${selectedThreat === extractThreat ? ' msim__threat-btn--on' : ''}`}
+                  onClick={() => setSelectedThreat(selectedThreat === extractThreat ? null : extractThreat)}
+                >
+                  <span className="msim__threat-dot msim__threat-dot--extract"/>
+                  Extract: {extractThreat}
+                </button>
+              )}
+            </div>
+            {recommendedRoster ? (
+              <ul className="msim__roster-list">
+                {recommendedRoster.map(name => (
+                  <li key={name} className="msim__roster-item">{name}</li>
+                ))}
+              </ul>
+            ) : (
+              <div className="msim__roster-empty">Select a threat above.</div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+
   // ── Render ────────────────────────────────────────────────────────────────
   return (
     <div className="msim">
       <div className="msim__body">
+        {/* ── Left column: Recommended Roster ──────────────────── */}
+        <div className="msim__left">
+          {rosterPanel}
+        </div>
+
         {/* ── SVG Board ────────────────────────────────────────── */}
         <div className="msim__stage">
           <div className="msim__boardwrap">
@@ -839,63 +903,6 @@ export function MovementSimulator() {
               {localSecureId === undefined && localExtractId === undefined &&
                (selectedSecure || selectedExtract) && (
                 <div className="msim__main-badge">Synced from MAIN</div>
-              )}
-            </div>
-          </div>
-
-          {/* RECOMMENDED ROSTER */}
-          <div className="msim__cgroup">
-            <div className="msim__cgroup-title">Recommended Roster</div>
-            <div className="msim__cgroup-body">
-              {!hasCrisis ? (
-                <div className="msim__roster-empty">Select Crisis Cards in MAIN to show recommended roster.</div>
-              ) : bothSame ? (
-                <>
-                  <div className="msim__threat-single">
-                    <span className="msim__threat-label">THREAT TO PLAY:</span>
-                    <span className="msim__threat-value">{secureThreat}</span>
-                  </div>
-                  {recommendedRoster && (
-                    <ul className="msim__roster-list">
-                      {recommendedRoster.map(name => (
-                        <li key={name} className="msim__roster-item">{name}</li>
-                      ))}
-                    </ul>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div className="msim__threat-label">THREAT TO PLAY</div>
-                  <div className="msim__threat-row">
-                    {secureThreat !== null && (
-                      <button
-                        className={`msim__threat-btn msim__threat-btn--secure${selectedThreat === secureThreat ? ' msim__threat-btn--on' : ''}`}
-                        onClick={() => setSelectedThreat(selectedThreat === secureThreat ? null : secureThreat)}
-                      >
-                        <span className="msim__threat-dot msim__threat-dot--secure"/>
-                        Secure: {secureThreat}
-                      </button>
-                    )}
-                    {extractThreat !== null && (
-                      <button
-                        className={`msim__threat-btn msim__threat-btn--extract${selectedThreat === extractThreat ? ' msim__threat-btn--on' : ''}`}
-                        onClick={() => setSelectedThreat(selectedThreat === extractThreat ? null : extractThreat)}
-                      >
-                        <span className="msim__threat-dot msim__threat-dot--extract"/>
-                        Extract: {extractThreat}
-                      </button>
-                    )}
-                  </div>
-                  {recommendedRoster ? (
-                    <ul className="msim__roster-list">
-                      {recommendedRoster.map(name => (
-                        <li key={name} className="msim__roster-item">{name}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div className="msim__roster-empty">Select a threat above.</div>
-                  )}
-                </>
               )}
             </div>
           </div>
