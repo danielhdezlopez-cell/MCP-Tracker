@@ -1,0 +1,232 @@
+.lir-page {
+  height: 100%;
+  position: relative;
+}
+
+.lir-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.lir-page__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px;
+}
+
+/* ── Header ── */
+.lir-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 10px 14px;
+}
+
+.lir-back-btn {
+  font-size: 11px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+.lir-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-accent-left);
+  text-shadow: 0 0 12px var(--color-accent-left);
+  margin: 0;
+}
+
+.lir-subtitle {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: var(--color-muted, #666);
+  letter-spacing: 0.05em;
+  margin-left: auto;
+}
+
+/* ── Card grid ── */
+.lir-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lir-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.lir-card--expanded {
+  border-color: var(--color-accent-left);
+  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-accent-left) 30%, transparent);
+}
+
+.lir-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  user-select: none;
+  background: color-mix(in srgb, var(--color-accent-left) 8%, transparent);
+  transition: background 0.15s;
+}
+
+.lir-card__header:hover {
+  background: color-mix(in srgb, var(--color-accent-left) 15%, transparent);
+}
+
+.lir-card__name {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-left);
+}
+
+.lir-card__affil {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: var(--color-muted, #888);
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+.lir-card__toggle {
+  margin-left: auto;
+  color: var(--color-muted, #888);
+  font-size: 10px;
+}
+
+.lir-card__images {
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+/* ── Section label ── */
+.lir-section-label {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-muted, #888);
+  margin-top: 4px;
+}
+
+/* ── Image tile ── */
+.lir-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.lir-tile--null .lir-tile__img-wrap {
+  height: 140px;
+}
+
+.lir-tile__img-wrap {
+  width: 140px;
+  height: 140px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lir-tile__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lir-tile__broken {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  width: 100%;
+  height: 100%;
+  background: #1a0000;
+  border: 1px dashed #ff3333;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.lir-tile__broken-text {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  color: #ff4444;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.lir-tile__broken-path {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  color: #aa4444;
+  word-break: break-all;
+  text-align: center;
+}
+
+.lir-tile__label {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text, #ccc);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lir-tile__path {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  color: var(--color-muted, #666);
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+/* ── Background row ── */
+.lir-bg-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.lir-bg-hint {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: var(--color-muted, #666);
+  align-self: center;
+  padding: 4px 8px;
+  border: 1px dashed var(--color-border);
+  border-radius: 3px;
+  cursor: pointer;
+}
