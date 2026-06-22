@@ -6,12 +6,21 @@
   flex-direction: column;
 }
 
-/* ── Body: board left, controls right ───────────────────────────────────── */
+/* ── Body: left panel | board | right controls ───────────────────────────── */
 .msim__body {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   padding: 16px;
   align-items: flex-start;
+}
+
+/* ── Left column: Recommended Roster ────────────────────────────────────── */
+.msim__left {
+  width: 180px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* ── Board stage ─────────────────────────────────────────────────────────── */
@@ -395,14 +404,25 @@
 
 /* ── iPad mini 6 (landscape / portrait 768–1080) ─────────────────────────── */
 @media (min-width: 768px) and (max-width: 1080px) {
-  .msim__ctrl        { width: 190px; }
+  .msim__body        { gap: 10px; padding: 12px; }
+  .msim__left        { width: 150px; }
+  .msim__ctrl        { width: 180px; }
   .msim__seg-btn     { font-size: 17px; min-height: 46px; }
   .msim__deploy-btn  { font-size: 10px; }
 }
 
+/* ── Narrow tablet (600–767px): hide left panel, stack below ─────────────── */
+@media (min-width: 600px) and (max-width: 767px) {
+  .msim__body        { flex-wrap: wrap; gap: 12px; padding: 12px; }
+  .msim__left        { width: 100%; order: 3; }
+  .msim__stage       { order: 1; }
+  .msim__ctrl        { order: 2; width: 200px; }
+}
+
 /* ── Mobile: stack vertically ────────────────────────────────────────────── */
-@media (max-width: 680px) {
+@media (max-width: 599px) {
   .msim__body        { flex-direction: column; padding: 12px; }
+  .msim__left        { width: 100%; }
   .msim__ctrl        { width: 100%; }
   .msim__boardwrap   { max-width: 100%; }
   .msim__seg-btn     { font-size: 18px; }
