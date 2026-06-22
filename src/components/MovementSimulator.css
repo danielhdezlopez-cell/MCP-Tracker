@@ -248,6 +248,126 @@
   text-overflow: ellipsis;
 }
 
+/* ── Recommended Roster ──────────────────────────────────────────────────── */
+.msim__roster-empty {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 9px;
+  color: rgba(160, 210, 245, 0.5);
+  line-height: 1.5;
+}
+
+.msim__threat-single {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.msim__threat-label {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: rgba(0, 195, 255, 0.65);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.msim__threat-value {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 14px;
+  font-weight: 700;
+  color: #00c3ff;
+}
+
+.msim__threat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+.msim__threat-btn {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s;
+  background: #0d1526;
+  width: 100%;
+}
+
+.msim__threat-btn--secure {
+  border: 1px solid rgba(0, 195, 255, 0.25);
+  color: rgba(0, 195, 255, 0.7);
+}
+
+.msim__threat-btn--secure:hover {
+  border-color: rgba(0, 195, 255, 0.55);
+  color: #00c3ff;
+}
+
+.msim__threat-btn--secure.msim__threat-btn--on {
+  border-color: #00c3ff;
+  color: #00c3ff;
+  background: rgba(0, 195, 255, 0.10);
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.30), inset 0 0 8px rgba(0, 195, 255, 0.06);
+}
+
+.msim__threat-btn--extract {
+  border: 1px solid rgba(255, 59, 48, 0.25);
+  color: rgba(255, 59, 48, 0.7);
+}
+
+.msim__threat-btn--extract:hover {
+  border-color: rgba(255, 59, 48, 0.55);
+  color: #ff3b30;
+}
+
+.msim__threat-btn--extract.msim__threat-btn--on {
+  border-color: #ff3b30;
+  color: #ff3b30;
+  background: rgba(255, 59, 48, 0.10);
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.30), inset 0 0 8px rgba(255, 59, 48, 0.06);
+}
+
+.msim__threat-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+.msim__threat-dot--secure  { background: rgba(0, 195, 255, 0.30); }
+.msim__threat-dot--extract { background: rgba(255, 59, 48, 0.30); }
+
+.msim__roster-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.msim__roster-item {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 10px;
+  color: #c0d8f0;
+  padding: 4px 8px;
+  background: rgba(0, 195, 255, 0.04);
+  border-left: 2px solid rgba(0, 195, 255, 0.35);
+  border-radius: 0 3px 3px 0;
+  letter-spacing: 0.04em;
+}
+
 /* ── Reset button (icon only) ────────────────────────────────────────────── */
 .msim__reset-btn {
   font-size: 22px;
