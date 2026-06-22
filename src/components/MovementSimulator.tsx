@@ -451,6 +451,21 @@ export function MovementSimulator() {
     ?? (rosterThreat !== null ? (RECOMMENDED_ROSTERS[rosterThreat] ?? null) : null);
   const isSpecialRoster = specialRoster !== null;
 
+  const leaderIconSrc = `${import.meta.env.BASE_URL}assets/icons/leadership.png`;
+
+  const renderRosterList = (roster: string[]) => (
+    <ul className="msim__roster-list">
+      {roster.map((name, idx) => (
+        <li key={name} className={`msim__roster-item${idx === 0 ? ' msim__roster-item--leader' : ''}`}>
+          {idx === 0 && (
+            <img src={leaderIconSrc} className="msim__leader-icon" alt="Leader" aria-hidden="true"/>
+          )}
+          <span>{name}</span>
+        </li>
+      ))}
+    </ul>
+  );
+
   // ── Roster panel (extracted for reuse in left column) ────────────────────
   const rosterPanel = (
     <div className="msim__cgroup msim__cgroup--roster">
@@ -461,11 +476,7 @@ export function MovementSimulator() {
         ) : isSpecialRoster ? (
           <>
             <div className="msim__special-badge">Mission Override</div>
-            <ul className="msim__roster-list">
-              {recommendedRoster!.map(name => (
-                <li key={name} className="msim__roster-item">{name}</li>
-              ))}
-            </ul>
+            {renderRosterList(recommendedRoster!)}
           </>
         ) : bothSame ? (
           <>
@@ -473,13 +484,7 @@ export function MovementSimulator() {
               <span className="msim__threat-label">THREAT TO PLAY:</span>
               <span className="msim__threat-value">{secureThreat}</span>
             </div>
-            {recommendedRoster && (
-              <ul className="msim__roster-list">
-                {recommendedRoster.map(name => (
-                  <li key={name} className="msim__roster-item">{name}</li>
-                ))}
-              </ul>
-            )}
+            {recommendedRoster && renderRosterList(recommendedRoster)}
           </>
         ) : (
           <>
@@ -505,11 +510,7 @@ export function MovementSimulator() {
               )}
             </div>
             {recommendedRoster ? (
-              <ul className="msim__roster-list">
-                {recommendedRoster.map(name => (
-                  <li key={name} className="msim__roster-item">{name}</li>
-                ))}
-              </ul>
+              renderRosterList(recommendedRoster)
             ) : (
               <div className="msim__roster-empty">Select a threat above.</div>
             )}
@@ -523,10 +524,12 @@ export function MovementSimulator() {
   return (
     <div className="msim">
       <div className="msim__body">
-        {/* ── Left column: Recommended Roster ──────────────────── */}
-        <div className="msim__left">
-          {rosterPanel}
-        </div>
+        {/* ── Map area: Recommended Roster + Board side by side ─ */}
+        <div className="msim__map-area">
+          {/* ── Left column: Recommended Roster ────────────────── */}
+          <div className="msim__left">
+            {rosterPanel}
+          </div>
 
         {/* ── SVG Board ────────────────────────────────────────── */}
         <div className="msim__stage">
@@ -823,6 +826,7 @@ export function MovementSimulator() {
             </svg>
           </div>
         </div>
+        </div>{/* end msim__map-area */}
 
         {/* ── Controls column ───────────────────────────────────── */}
         <div className="msim__ctrl">

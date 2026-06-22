@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-/* ── Body: left panel | board | right controls ───────────────────────────── */
+/* ── Body: map-area | right controls ─────────────────────────────────────── */
 .msim__body {
   display: flex;
   gap: 14px;
@@ -14,9 +14,18 @@
   align-items: stretch;
 }
 
+/* ── Map area: roster panel flush left of board ──────────────────────────── */
+.msim__map-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 /* ── Left column: Recommended Roster ────────────────────────────────────── */
 .msim__left {
-  width: 210px;
+  width: 260px;
   flex: none;
   display: flex;
   flex-direction: column;
@@ -264,14 +273,14 @@
 }
 
 .msim__cgroup-title--roster {
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 0.20em;
-  padding: 10px 14px;
+  padding: 12px 16px;
 }
 
 .msim__cgroup-body--roster {
-  padding: 14px;
-  gap: 10px;
+  padding: 16px;
+  gap: 12px;
 }
 
 /* ── Special mission badge ───────────────────────────────────────────────── */
@@ -305,7 +314,7 @@
 
 .msim__threat-label {
   font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: rgba(0, 195, 255, 0.65);
   text-transform: uppercase;
@@ -314,7 +323,7 @@
 
 .msim__threat-value {
   font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #00c3ff;
   text-shadow: 0 0 10px rgba(0,195,255,0.50);
@@ -395,18 +404,38 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .msim__roster-item {
   font-family: 'Share Tech Mono', 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: #d0e8ff;
-  padding: 6px 10px;
+  padding: 7px 12px;
   background: rgba(0, 195, 255, 0.05);
   border-left: 2px solid rgba(0, 195, 255, 0.40);
   border-radius: 0 4px 4px 0;
   letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.msim__roster-item--leader {
+  border-left-color: #ffd700;
+  background: rgba(255, 215, 0, 0.06);
+}
+
+.msim__leader-icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.55));
 }
 
 /* ── Reset button (icon only) ────────────────────────────────────────────── */
@@ -437,24 +466,27 @@
 /* ── iPad mini 6 (landscape / portrait 768–1080) ─────────────────────────── */
 @media (min-width: 768px) and (max-width: 1080px) {
   .msim__body        { gap: 10px; padding: 12px; }
-  .msim__left        { width: 175px; }
+  .msim__map-area    { gap: 5px; }
+  .msim__left        { width: 200px; }
   .msim__ctrl        { width: 180px; }
   .msim__seg-btn     { font-size: 17px; min-height: 46px; }
   .msim__deploy-btn  { font-size: 10px; }
-  .msim__roster-item { font-size: 11px; }
+  .msim__roster-item { font-size: 12px; }
+  .msim__cgroup-title--roster { font-size: 13px; }
 }
 
-/* ── Narrow tablet (600–767px): hide left panel, stack below ─────────────── */
+/* ── Narrow tablet (600–767px): stack map area + panel below board ───────── */
 @media (min-width: 600px) and (max-width: 767px) {
   .msim__body        { flex-wrap: wrap; gap: 12px; padding: 12px; }
-  .msim__left        { width: 100%; order: 3; }
-  .msim__stage       { order: 1; }
+  .msim__map-area    { order: 1; width: 100%; }
+  .msim__left        { width: 180px; }
   .msim__ctrl        { order: 2; width: 200px; }
 }
 
 /* ── Mobile: stack vertically ────────────────────────────────────────────── */
 @media (max-width: 599px) {
   .msim__body        { flex-direction: column; padding: 12px; }
+  .msim__map-area    { flex-direction: column; }
   .msim__left        { width: 100%; }
   .msim__ctrl        { width: 100%; }
   .msim__boardwrap   { max-width: 100%; }
