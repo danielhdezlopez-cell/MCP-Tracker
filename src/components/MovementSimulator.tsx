@@ -60,6 +60,11 @@ const RECOMMENDED_ROSTERS: Record<number, string[]> = {
   20: ['Storm', 'Jean Grey', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo'],
 };
 
+// Missions with a roster that overrides the standard threat-based list
+const SPECIAL_MISSION_ROSTERS: Record<string, string[]> = {
+  'sinister-syndicate': ['Storm', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo', 'Iceman', 'Honey Badger'],
+};
+
 const THREAT_SIM_KEY = 'mcp-sim-threat';
 
 // ── LocalStorage ──────────────────────────────────────────────────────────────
@@ -436,15 +441,32 @@ export function MovementSimulator() {
   const hasCrisis      = secureThreat !== null || extractThreat !== null;
   const bothSame       = hasCrisis && secureThreat !== null && extractThreat !== null && secureThreat === extractThreat;
   const rosterThreat   = selectedThreat ?? (bothSame ? secureThreat : null);
-  const recommendedRoster = rosterThreat !== null ? (RECOMMENDED_ROSTERS[rosterThreat] ?? null) : null;
+
+  // Special-mission override takes priority over the standard threat-based roster
+  const specialRoster = [effectiveSecureId, effectiveExtractId]
+    .filter(Boolean)
+    .map(id => SPECIAL_MISSION_ROSTERS[id])
+    .find(r => r !== undefined) ?? null;
+  const recommendedRoster = specialRoster
+    ?? (rosterThreat !== null ? (RECOMMENDED_ROSTERS[rosterThreat] ?? null) : null);
+  const isSpecialRoster = specialRoster !== null;
 
   // ── Roster panel (extracted for reuse in left column) ────────────────────
   const rosterPanel = (
-    <div className="msim__cgroup">
-      <div className="msim__cgroup-title">Recommended Roster</div>
-      <div className="msim__cgroup-body">
+    <div className="msim__cgroup msim__cgroup--roster">
+      <div className="msim__cgroup-title msim__cgroup-title--roster">Recommended Roster</div>
+      <div className="msim__cgroup-body msim__cgroup-body--roster">
         {!hasCrisis ? (
           <div className="msim__roster-empty">Select Crisis Cards in MAIN to show recommended roster.</div>
+        ) : isSpecialRoster ? (
+          <>
+            <div className="msim__special-badge">Mission Override</div>
+            <ul className="msim__roster-list">
+              {recommendedRoster!.map(name => (
+                <li key={name} className="msim__roster-item">{name}</li>
+              ))}
+            </ul>
+          </>
         ) : bothSame ? (
           <>
             <div className="msim__threat-single">

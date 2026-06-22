@@ -11,15 +11,16 @@
   display: flex;
   gap: 14px;
   padding: 16px;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 /* ── Left column: Recommended Roster ────────────────────────────────────── */
 .msim__left {
-  width: 180px;
+  width: 210px;
   flex: none;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -257,54 +258,85 @@
   text-overflow: ellipsis;
 }
 
+/* ── Recommended Roster — panel size overrides ───────────────────────────── */
+.msim__cgroup--roster {
+  box-shadow: inset 0 0 32px rgba(0,0,0,0.45), 0 0 18px rgba(0,195,255,0.07);
+}
+
+.msim__cgroup-title--roster {
+  font-size: 12px;
+  letter-spacing: 0.20em;
+  padding: 10px 14px;
+}
+
+.msim__cgroup-body--roster {
+  padding: 14px;
+  gap: 10px;
+}
+
+/* ── Special mission badge ───────────────────────────────────────────────── */
+.msim__special-badge {
+  font-family: var(--font-display, 'Orbitron', monospace);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: #ffd700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 3px;
+  background: rgba(255, 215, 0, 0.07);
+  align-self: flex-start;
+}
+
 /* ── Recommended Roster ──────────────────────────────────────────────────── */
 .msim__roster-empty {
   font-family: 'Share Tech Mono', 'Courier New', monospace;
-  font-size: 9px;
+  font-size: 10px;
   color: rgba(160, 210, 245, 0.5);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .msim__threat-single {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
 .msim__threat-label {
   font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.12em;
   color: rgba(0, 195, 255, 0.65);
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .msim__threat-value {
   font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   color: #00c3ff;
+  text-shadow: 0 0 10px rgba(0,195,255,0.50);
 }
 
 .msim__threat-row {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 6px;
+  gap: 6px;
+  margin-bottom: 4px;
 }
 
 .msim__threat-btn {
   font-family: var(--font-display, 'Orbitron', monospace);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
+  gap: 7px;
+  padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s;
@@ -368,12 +400,12 @@
 
 .msim__roster-item {
   font-family: 'Share Tech Mono', 'Courier New', monospace;
-  font-size: 10px;
-  color: #c0d8f0;
-  padding: 4px 8px;
-  background: rgba(0, 195, 255, 0.04);
-  border-left: 2px solid rgba(0, 195, 255, 0.35);
-  border-radius: 0 3px 3px 0;
+  font-size: 12px;
+  color: #d0e8ff;
+  padding: 6px 10px;
+  background: rgba(0, 195, 255, 0.05);
+  border-left: 2px solid rgba(0, 195, 255, 0.40);
+  border-radius: 0 4px 4px 0;
   letter-spacing: 0.04em;
 }
 
@@ -405,10 +437,11 @@
 /* ── iPad mini 6 (landscape / portrait 768–1080) ─────────────────────────── */
 @media (min-width: 768px) and (max-width: 1080px) {
   .msim__body        { gap: 10px; padding: 12px; }
-  .msim__left        { width: 150px; }
+  .msim__left        { width: 175px; }
   .msim__ctrl        { width: 180px; }
   .msim__seg-btn     { font-size: 17px; min-height: 46px; }
   .msim__deploy-btn  { font-size: 10px; }
+  .msim__roster-item { font-size: 11px; }
 }
 
 /* ── Narrow tablet (600–767px): hide left panel, stack below ─────────────── */
