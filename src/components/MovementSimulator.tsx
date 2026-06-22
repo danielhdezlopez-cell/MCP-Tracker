@@ -51,6 +51,17 @@ interface Character {
   leaderIconSrc?: string;
 }
 
+// ── Recommended rosters ───────────────────────────────────────────────────────
+const RECOMMENDED_ROSTERS: Record<number, string[]> = {
+  16: ['Storm', 'Emma Frost', 'B. Zemo', 'B. Mordo', 'Iceman'],
+  17: ['Professor X', 'Emma Frost', 'B. Zemo', 'B. Mordo', 'Iceman'],
+  18: ['Storm', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo', 'Iceman'],
+  19: ['Storm', 'Jean Grey', 'Sentinel Prime MK4', 'B. Zemo', 'Shadowcat'],
+  20: ['Storm', 'Jean Grey', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo'],
+};
+
+const THREAT_SIM_KEY = 'mcp-sim-threat';
+
 // ── LocalStorage ──────────────────────────────────────────────────────────────
 interface SimState { characters: Character[]; }
 
@@ -251,6 +262,17 @@ export function MovementSimulator() {
   // undefined = follow MAIN; '' = explicitly none; 'id' = user-selected mission id
   const [localSecureId,  setLocalSecureId]  = useState<string | undefined>(undefined);
   const [localExtractId, setLocalExtractId] = useState<string | undefined>(undefined);
+  const [selectedThreat, setSelectedThreatState] = useState<number | null>(() => {
+    try { const v = localStorage.getItem(THREAT_SIM_KEY); return v ? Number(v) : null; } catch { return null; }
+  });
+
+  const setSelectedThreat = (t: number | null) => {
+    setSelectedThreatState(t);
+    try {
+      if (t === null) localStorage.removeItem(THREAT_SIM_KEY);
+      else localStorage.setItem(THREAT_SIM_KEY, String(t));
+    } catch { /* noop */ }
+  };
 
   const svgRef        = useRef<SVGSVGElement>(null);
   const dragRef       = useRef<{ id: string; ox: number; oy: number } | null>(null);
@@ -337,6 +359,7 @@ export function MovementSimulator() {
     counterRef.current = 0;
     setLocalSecureId('');  // explicitly none — does not affect MAIN
     setLocalExtractId('');
+    setSelectedThreat(null);
     const respawned: Character[] = [];
     if (leaderLeft) respawned.push(makeLeaderChar('p1', leaderLeft.id, leaderLeft.name, leaderLeft.affiliations));
     if (leaderRight) respawned.push(makeLeaderChar('p2', leaderRight.id, leaderRight.name, leaderRight.affiliations));
@@ -404,6 +427,16 @@ export function MovementSimulator() {
   }, []);
 
   const selectedChar = characters.find(c => c.id === selectedId) ?? null;
+
+  // Derive threat values from effective missions
+  const secureMission  = effectiveSecureId  ? SECURE_MISSIONS.find(m => m.id === effectiveSecureId)   : null;
+  const extractMission = effectiveExtractId ? EXTRACT_MISSIONS.find(m => m.id === effectiveExtractId) : null;
+  const secureThreat   = secureMission?.threat  ?? null;
+  const extractThreat  = extractMission?.threat ?? null;
+  const hasCrisis      = secureThreat !== null || extractThreat !== null;
+  const bothSame       = hasCrisis && secureThreat !== null && extractThreat !== null && secureThreat === extractThreat;
+  const rosterThreat   = selectedThreat ?? (bothSame ? secureThreat : null);
+  const recommendedRoster = rosterThreat !== null ? (RECOMMENDED_ROSTERS[rosterThreat] ?? null) : null;
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
@@ -806,6 +839,63 @@ export function MovementSimulator() {
               {localSecureId === undefined && localExtractId === undefined &&
                (selectedSecure || selectedExtract) && (
                 <div className="msim__main-badge">Synced from MAIN</div>
+              )}
+            </div>
+          </div>
+
+          {/* RECOMMENDED ROSTER */}
+          <div className="msim__cgroup">
+            <div className="msim__cgroup-title">Recommended Roster</div>
+            <div className="msim__cgroup-body">
+              {!hasCrisis ? (
+                <div className="msim__roster-empty">Select Crisis Cards in MAIN to show recommended roster.</div>
+              ) : bothSame ? (
+                <>
+                  <div className="msim__threat-single">
+                    <span className="msim__threat-label">THREAT TO PLAY:</span>
+                    <span className="msim__threat-value">{secureThreat}</span>
+                  </div>
+                  {recommendedRoster && (
+                    <ul className="msim__roster-list">
+                      {recommendedRoster.map(name => (
+                        <li key={name} className="msim__roster-item">{name}</li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="msim__threat-label">THREAT TO PLAY</div>
+                  <div className="msim__threat-row">
+                    {secureThreat !== null && (
+                      <button
+                        className={`msim__threat-btn msim__threat-btn--secure${selectedThreat === secureThreat ? ' msim__threat-btn--on' : ''}`}
+                        onClick={() => setSelectedThreat(selectedThreat === secureThreat ? null : secureThreat)}
+                      >
+                        <span className="msim__threat-dot msim__threat-dot--secure"/>
+                        Secure: {secureThreat}
+                      </button>
+                    )}
+                    {extractThreat !== null && (
+                      <button
+                        className={`msim__threat-btn msim__threat-btn--extract${selectedThreat === extractThreat ? ' msim__threat-btn--on' : ''}`}
+                        onClick={() => setSelectedThreat(selectedThreat === extractThreat ? null : extractThreat)}
+                      >
+                        <span className="msim__threat-dot msim__threat-dot--extract"/>
+                        Extract: {extractThreat}
+                      </button>
+                    )}
+                  </div>
+                  {recommendedRoster ? (
+                    <ul className="msim__roster-list">
+                      {recommendedRoster.map(name => (
+                        <li key={name} className="msim__roster-item">{name}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <div className="msim__roster-empty">Select a threat above.</div>
+                  )}
+                </>
               )}
             </div>
           </div>
