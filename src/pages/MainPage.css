@@ -938,9 +938,10 @@
   .vs-hud__side {
     max-width: clamp(340px, 28vw, 520px);
   }
-  .vs-hud { padding-right: 54px; } /* reserve space for ctrl-strip (44px + 10px right offset) so flex content centres correctly */
-  .vs-hud__side--left  { justify-content: flex-end;  padding: 0 28px 0 16px; }
-  .vs-hud__side--right { justify-content: flex-start; padding: 0 28px 0 28px; } /* symmetric with left; ctrl-strip space handled by .vs-hud padding-right */
+  /* Mirror the ctrl-strip footprint (70px) on both outer edges so flex: 1 panels
+     stay equal width and both scores sit equidistant from screen centre. */
+  .vs-hud__side--left  { justify-content: flex-end;  padding: 0 28px 0 70px; }
+  .vs-hud__side--right { justify-content: flex-start; padding: 0 70px 0 28px; }
 
   /* Ajuste fino del score para pantallas muy anchas */
   .hud-score__val { font-size: clamp(5.2rem, 6.2vw, 7.4rem); }
