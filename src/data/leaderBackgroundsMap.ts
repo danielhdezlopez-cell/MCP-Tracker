@@ -10,7 +10,7 @@ export const LEADER_BACKGROUNDS: Record<string, string[]> = {
   'black-bolt':                    ['Black_Bolt.jpg', 'Black_Bolt_02.jpg', 'Black_Bolt_03.jpg', 'Black_Bolt_04.jpg', 'Black_Bolt_05.jpg', 'Black_Bolt_06.jpg'],
   'black-panther':                 ['BlackPanther2.jpg', 'BlackPanther3.jpg', 'Black_Panther_01.jpg', 'Black_Panther_02.jpg', 'Black_Panther_04.jpg', 'Black_Panther_05.jpg', 'Black_Panther_06.jpg', 'Black_Panther_07.jpg'],
   'blade':                         ['Blade.jpg', 'Blade2.jpg', 'Blade_02.jpg', 'Blade_04.jpg', 'Blade_05.jpg', 'Blade_06.jpg'],
-  'cable':                         ['Cable_01.jpg', 'Cable_02.jpg', 'Cable_03.jpg'],
+  'cable':                         ['Cable_01.jpg', 'Cable_02.jpg', 'Cable_03.jpg', 'Cable_04.jpg', 'Cable_05.png'],
   'captain-america':               ['Captain_America_01.jpg', 'Captain_America_02.jpg', 'Captain_America_03.jpg', 'Captain_America_04.jpg', 'Captain_America_05.jpg', 'Captain_America_06.jpg'],
   'captain-america-first-avenger': ['Captain_America_01.jpg', 'Captain_America_02.jpg', 'Captain_America_03.jpg', 'Captain_America_04.jpg', 'Captain_America_05.jpg', 'Captain_America_06.jpg'],
   'corvus-glaive':                 ['Corvus_Glaive.jpg', 'Corvus_Glaive_02.jpg', 'Corvus_Glaive_03.jpg', 'Corvus_Glaive_04.jpg'],
