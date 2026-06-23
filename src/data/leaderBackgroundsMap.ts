@@ -6,7 +6,7 @@ export const LEADER_BACKGROUNDS: Record<string, string[]> = {
   'apocalypse':                    ['Apocalypse_01.jpg', 'Apocalypse_02.jpg', 'Apocalypse_04.jpg', 'Apocalypse_05.jpg', 'Apocalypse_Z.png'],
   'baron-strucker':                ['Baron_Von_Strucker_01.jpg', 'Baron_Von_Strucker_02.jpg', 'Baron_Von_Strucker_03.jpg', 'Baron_Von_Strucker_04.jpg', 'Baron_Von_Strucker_05.jpg'],
   'baron-zemo':                    ['Baron_Zemo.jpg', 'Baron_Zemo_01.jpg', 'Baron_Zemo_02.jpg', 'Baron_Zemo_03.jpg', 'Baron_Zemo_04.jpg', 'Baron_Zemo_05.jpg', 'Baron_Zemo_06.jpg'],
-  'bastion':                       ['Bastion_01.jpg', 'Bastion_02.jpg', 'Bastion_03.jpg', 'Bastion_04.jpg', 'Bastion_05.jpg', 'Bastion_06.jpg'],
+  'bastion':                       ['Bastion_01.jpg', 'Bastion_02.jpg', 'Bastion_03.jpg', 'Bastion_05.jpg', 'Bastion_06.jpg'],
   'black-bolt':                    ['Black_Bolt.jpg', 'Black_Bolt_02.jpg', 'Black_Bolt_03.jpg', 'Black_Bolt_04.jpg', 'Black_Bolt_05.jpg', 'Black_Bolt_06.jpg'],
   'black-panther':                 ['BlackPanther2.jpg', 'BlackPanther3.jpg', 'Black_Panther_01.jpg', 'Black_Panther_02.jpg', 'Black_Panther_04.jpg', 'Black_Panther_05.jpg', 'Black_Panther_06.jpg', 'Black_Panther_07.jpg'],
   'blade':                         ['Blade.jpg', 'Blade2.jpg', 'Blade_02.jpg', 'Blade_04.jpg', 'Blade_05.jpg', 'Blade_06.jpg'],
