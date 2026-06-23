@@ -54,6 +54,8 @@ export const BACKGROUNDS = [
   'Cable_01.jpg',
   'Cable_02.jpg',
   'Cable_03.jpg',
+  'Cable_04.jpg',
+  'Cable_05.png',
   'Captain_America_01.jpg',
   'Captain_America_02.jpg',
   'Captain_America_03.jpg',
