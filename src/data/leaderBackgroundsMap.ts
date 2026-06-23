@@ -14,7 +14,7 @@ export const LEADER_BACKGROUNDS: Record<string, string[]> = {
   'captain-america':               ['Captain_America_01.jpg', 'Captain_America_02.jpg', 'Captain_America_03.jpg', 'Captain_America_04.jpg', 'Captain_America_05.jpg', 'Captain_America_06.jpg'],
   'captain-america-first-avenger': ['Captain_America_01.jpg', 'Captain_America_02.jpg', 'Captain_America_03.jpg', 'Captain_America_04.jpg', 'Captain_America_05.jpg', 'Captain_America_06.jpg'],
   'corvus-glaive':                 ['Corvus_Glaive.jpg', 'Corvus_Glaive_02.jpg', 'Corvus_Glaive_03.jpg', 'Corvus_Glaive_04.jpg'],
-  'crimson-dynamo':                ['Crimson_Dynamo_01.jpg', 'Crimson_Dynamo_03.jpg'],
+  'crimson-dynamo':                ['Crimson_Dynamo_01.jpg', 'Crimson_Dynamo_02.jpg', 'Crimson_Dynamo_03.jpg'],
   'cyclops':                       ['Cyclops_01.jpg', 'Cyclops_02.jpg', 'Cyclops_03.jpg', 'Cyclops_04.jpg', 'Cyclops_05.jpg'],
   'daredevil':                     ['Daredevil_01.jpg', 'Daredevil_05.jpg', 'Daredevil_06.jpg', 'Daredevil_07.jpg', 'Daredevil_08.jpg'],
   'shadowlands-daredevil':         ['Daredevil_02.jpg', 'Daredevil_03.jpg', 'Daredevil_04.jpg'],
