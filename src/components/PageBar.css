@@ -79,3 +79,21 @@
   height: 18px;
   display: block;
 }
+
+/* ── Mobile: bigger tap targets, taller bar ──────────────────────── */
+@media (max-width: 640px) {
+  .page-bar { height: 50px; padding: 4px 12px; }
+  .page-bar__btn { width: 44px; height: 44px; }
+  .page-bar__icon { width: 22px; height: 22px; }
+  .page-bar__nav { gap: 6px; }
+}
+
+/* Safe area: push page-bar content above the iOS home indicator */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  @media (max-width: 640px) {
+    .page-bar {
+      padding-bottom: max(4px, env(safe-area-inset-bottom, 0px));
+      height: calc(50px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+}

@@ -898,6 +898,52 @@
   :root { --vs-mission-h: 80px; }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   MOBILE PORTRAIT — iPhone 15 Pro Max & similar (≤ 480px wide)
+   Improvements on top of the ≤600px base above.
+   ScoreProgressIndicator is hidden at this width (see its CSS);
+   collapse the center gap and redistribute space to the scores.
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  /* Center column: collapse padding now that score-progress is hidden */
+  .vs-hud__center { padding: 0 2px; gap: 0; }
+
+  /* Score val-wrap: clamp(88px…) resolves to 88px at 430px — too wide.
+     Allow it to shrink so the +/− buttons have room. */
+  .hud-score__val-wrap { min-width: clamp(44px, 10vw, 64px); }
+
+  /* Tighter gap between − score + buttons on narrow screens */
+  .hud-score__controls { gap: 4px; }
+
+  /* Reduce lateral padding: right side needs room for 30px ctrl-strip */
+  .vs-hud__side--left  { padding: 0 6px 0 4px; }
+  .vs-hud__side--right { padding: 0 40px 0 6px; }
+
+  /* Ctrl-strip closer to edge */
+  .vs-hud__ctrl-strip { right: 4px; }
+}
+
+/* ── Round medallion — scale down on mobile (default 190px is too large) ── */
+@media (max-width: 480px) {
+  .round-medallion { top: calc(50% + 16px); }
+  .round-medallion__frame { width: 136px; height: 136px; }
+  .round-medallion__core  { width: 84px; height: 84px; }
+  .round-medallion__num   { font-size: 38px; }
+  .round-medallion__eyebrow { font-size: 7px; letter-spacing: 0.22em; }
+  .round-medallion__of    { font-size: 8px; }
+  .round-medallion__kang-badges { bottom: 4px; gap: 3px; }
+  .round-medallion__kang-badge  { font-size: 7px; padding: 1px 4px; }
+}
+
+/* ── iPhone 15 Pro Max landscape ────────────────────────────────── */
+@media (max-width: 480px) and (orientation: landscape) {
+  /* In landscape, the battle area is short; move medallion higher */
+  .round-medallion { top: calc(50% + 8px); }
+  .round-medallion__frame { width: 100px; height: 100px; }
+  .round-medallion__core  { width: 62px; height: 62px; }
+  .round-medallion__num   { font-size: 28px; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — tablet portrait / móvil grande (601–999px)
 ═══════════════════════════════════════════════════════════════ */

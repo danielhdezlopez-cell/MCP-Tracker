@@ -1063,8 +1063,38 @@
   letter-spacing: 0.08em;
 }
 
+/* ── Mobile: settings page needs to scroll ──────────────────────── */
+@media (max-width: 767px) {
+  .settings-page {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .settings-page__inner { gap: 6px; }
+
+  /* Top row: stack sections vertically on mobile */
+  .settings-top-row { flex-direction: column; }
+
+}
+
+/* ── Tablet-mobile: themes in 2 columns (between 400px and 767px) ── */
+@media (min-width: 400px) and (max-width: 767px) {
+  .settings-themes { grid-template-columns: repeat(2, 1fr); gap: 5px; padding: 8px 10px; }
+  .settings-theme-btn { padding: 8px 8px; gap: 6px; }
+  .settings-theme-btn__swatch { width: 32px; height: 22px; }
+  .settings-theme-btn__label { font-size: 10px; }
+  .settings-theme-btn__desc  { font-size: 9px; }
+}
+
 /* ── iPhone 15 Max / Pro Max (≤ 480px) ─────────────────────────── */
 @media (max-width: 480px) {
   .settings-page__inner { padding: 8px; gap: 8px; }
   .settings-section__title { font-size: 10px; padding: 10px 10px; }
+
+  /* Custom timer: stack presets + custom vertically */
+  .settings-timer-body { flex-direction: column; }
+  .settings-custom-timer { border-left: none; border-top: 1px solid var(--color-border); flex: 0 0 auto; }
+
+  /* Slider: full width */
+  .settings-slider { max-width: none; }
+  .settings-item { gap: 8px; }
 }

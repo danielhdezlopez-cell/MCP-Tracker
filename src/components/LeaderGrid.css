@@ -94,3 +94,20 @@
   font-family: var(--font-display);
   letter-spacing: 0.02em;
 }
+
+/* ── Mobile: 3-column grid, smaller hex portraits ──────────────── */
+@media (max-width: 640px) {
+  .leader-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    padding: 7px;
+  }
+  .leader-grid .hex-portrait { --hex-size: 58px; }
+  .leader-card__name { font-size: var(--fs-11); }
+  .leader-card__affil { font-size: 9px; padding: 1px 3px; }
+}
+
+/* ── Very small phones (≤ 360px): 2 columns ────────────────────── */
+@media (max-width: 360px) {
+  .leader-grid { grid-template-columns: repeat(2, 1fr); }
+}
