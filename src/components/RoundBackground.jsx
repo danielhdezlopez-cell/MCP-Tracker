@@ -38,6 +38,7 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
   const busyRef       = useRef(false);
 
   const [layers,   setLayers]   = useState([null, null]);
+  const [keys,     setKeys]     = useState([0, 0]);
   const [active,   setActive]   = useState(0);
   const [entering, setEntering] = useState(-1);
 
@@ -55,6 +56,7 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
       activeRef.current  = 0;
       busyRef.current    = false;
       setLayers([null, null]);
+      setKeys([0, 0]);
       setActive(0);
       setEntering(-1);
     }
@@ -88,6 +90,11 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
         copy[hiddenIdx] = next;
         return copy;
       });
+      setKeys((k) => {
+        const copy = [...k];
+        copy[hiddenIdx] = k[hiddenIdx] + 1;
+        return copy;
+      });
 
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
@@ -102,6 +109,7 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
         })
       );
     };
+    img.onerror = () => { busyRef.current = false; };
     img.src = next;
   }, [round, leaderId]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -115,7 +123,7 @@ export default function RoundBackground({ round, leaderId, side = 'left' }) {
       {layers.map((src, i) =>
         src ? (
           <div
-            key={src}
+            key={`${keys[i]}-${src}`}
             className={[
               'round-bg__layer',
               i === active   ? 'is-active'  : '',
