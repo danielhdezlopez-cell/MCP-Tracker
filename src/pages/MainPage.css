@@ -339,6 +339,19 @@
   overflow: hidden;
 }
 
+/* VS arena background image — lowest base layer.
+   Flipped horizontally so the image's blue side lands on P2 (right)
+   and its red/pink side lands on P1 (left), matching game identity. */
+.vs-battle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/assets/vs-background.jpg') center / cover no-repeat;
+  transform: scaleX(-1);
+  pointer-events: none;
+  z-index: -1;
+}
+
 .vs-battle__side {
   flex: 1;
   position: relative;
