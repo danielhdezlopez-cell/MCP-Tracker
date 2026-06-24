@@ -337,20 +337,10 @@
   position: relative;
   display: flex;
   overflow: hidden;
-}
-
-/* VS arena background image — base layer beneath VSBackground overlays.
-   z-index: 0 puts it below vs-bg (z-index: 1) but above vs-main's bg.
-   Flipped horizontally so the image's blue side lands on P2 (right)
-   and its red/pink side lands on P1 (left), matching game identity. */
-.vs-battle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+  /* Arena image as the element's own background — always paints behind
+     ALL child elements regardless of their z-index. The VSBackground
+     gradient/overlay children sit on top and tint it red-left/blue-right. */
   background: url('/assets/vs-background.jpg') center / cover no-repeat;
-  transform: scaleX(-1);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .vs-battle__side {
