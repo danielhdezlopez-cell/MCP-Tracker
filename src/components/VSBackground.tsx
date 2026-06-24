@@ -150,6 +150,8 @@ export function VSBackground({ themeLeft, themeRight }: VSBackgroundProps) {
         )}
         <div className="vs-bg__overlay vs-bg__overlay--right" />
       </div>
+
+      <div className="vs-bg__global-overlay" />
     </div>
   );
 }
