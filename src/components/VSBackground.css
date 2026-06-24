@@ -39,44 +39,41 @@
   -webkit-user-select: none;
 }
 
-/* ── VS base layer: full-width diagonal red/blue arena split ──── */
+/* ── Diagonal color wash — semi-transparent so the arena image shows through ── */
 .vs-bg::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Left half: deep red arena glow; right half: deep blue arena glow;
-     the skewed transition through center creates the diagonal VS slash. */
-  background:
-    linear-gradient(
-      108deg,
-      #5a0008 0%,
-      #3b0005 28%,
-      #1c0003 44%,
-      #10010a 50%,
-      #01061c 56%,
-      #001038 72%,
-      #001850 100%
-    );
+  /* Tints the image: warm-red left → neutral dark center → cool-blue right.
+     Kept semi-transparent so the arena image beneath remains visible. */
+  background: linear-gradient(
+    108deg,
+    rgba(90, 0, 8,  0.42) 0%,
+    rgba(30, 0, 4,  0.22) 38%,
+    rgba(8,  1, 8,  0.10) 50%,
+    rgba(0,  4, 22, 0.22) 62%,
+    rgba(0, 18, 60, 0.42) 100%
+  );
 }
 
-/* Left: radial red core burst on top of the base split */
+/* Left: subtle red radial boost — let the arena image supply the main glow */
 .vs-bg__fallback--left {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 55%, rgba(200, 10, 10, 0.75) 0%, rgba(120, 0, 5, 0.55) 30%, transparent 70%),
-    radial-gradient(ellipse at 35% 40%, rgba(255, 40, 0, 0.35) 0%, transparent 55%);
+    radial-gradient(ellipse at 22% 58%, rgba(200, 10, 10, 0.38) 0%, rgba(120, 0, 5, 0.18) 35%, transparent 65%),
+    radial-gradient(ellipse at 36% 38%, rgba(255, 40, 0,  0.14) 0%, transparent 50%);
 }
 
-/* Right: radial blue core burst on top of the base split */
+/* Right: subtle blue radial boost */
 .vs-bg__fallback--right {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 80% 55%, rgba(10, 60, 220, 0.75) 0%, rgba(0, 30, 140, 0.55) 30%, transparent 70%),
-    radial-gradient(ellipse at 65% 40%, rgba(0, 100, 255, 0.35) 0%, transparent 55%);
+    radial-gradient(ellipse at 78% 58%, rgba(10, 60, 220, 0.38) 0%, rgba(0, 30, 140, 0.18) 35%, transparent 65%),
+    radial-gradient(ellipse at 64% 38%, rgba(0, 100, 255,  0.14) 0%, transparent 50%);
 }
 
 /* ── Diagonal light streak through the VS center ─────────────── */
@@ -90,13 +87,13 @@
     108deg,
     transparent 44%,
     rgba(255, 255, 255, 0.04) 48%,
-    rgba(255, 255, 255, 0.10) 50%,
+    rgba(255, 255, 255, 0.12) 50%,
     rgba(255, 255, 255, 0.04) 52%,
     transparent 56%
   );
 }
 
-/* Overlay per half: color tint + edge fade for the VS separator blend */
+/* Overlay per half: color identity reinforcement + edge fade toward center */
 .vs-bg__overlay {
   position: absolute;
   inset: 0;
@@ -108,31 +105,31 @@
   background:
     linear-gradient(
       to right,
-      rgba(180, 10, 20, 0.22) 0%,
-      rgba(100, 5, 10, 0.10) 45%,
-      rgba(0, 0, 0, 0.30) 80%,
-      rgba(0, 0, 0, 0.55) 100%
+      rgba(200, 20, 20, 0.20) 0%,
+      rgba(120, 8, 12, 0.08)  40%,
+      rgba(0,   0,  0, 0.18)  78%,
+      rgba(0,   0,  0, 0.48) 100%
     ),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28));
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.22));
 }
 
 .vs-bg__overlay--right {
   background:
     linear-gradient(
       to left,
-      rgba(10, 50, 200, 0.22) 0%,
-      rgba(5, 20, 110, 0.10) 45%,
-      rgba(0, 0, 0, 0.30) 80%,
-      rgba(0, 0, 0, 0.55) 100%
+      rgba(10,  55, 210, 0.20) 0%,
+      rgba(5,   22, 120, 0.08) 40%,
+      rgba(0,   0,   0,  0.18) 78%,
+      rgba(0,   0,   0,  0.48) 100%
     ),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28));
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.22));
 }
 
-/* Semi-transparent global overlay as requested (rgba 0,0,0,0.25) */
+/* Global integration overlay: darkens slightly for text legibility */
 .vs-bg__global-overlay {
   position: absolute;
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.28);
 }
