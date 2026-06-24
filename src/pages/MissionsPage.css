@@ -141,9 +141,26 @@
   min-height: 0;
 }
 
+/* ── Mobile: mission columns need overflow to scroll ──────────── */
+.missions-page__list {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* ── Mobile portrait (≤ 640px): stacked columns need min-height ── */
+@media (max-width: 640px) {
+  .missions-page__column { min-height: 240px; }
+  .missions-page__body { overflow-y: auto; }
+}
+
 /* ── iPhone 15 Max / Pro Max (≤ 480px) ─────────────────────────── */
 @media (max-width: 480px) {
   .missions-page__header   { padding: 4px 8px; min-height: 38px; gap: 6px; }
   .missions-page__back-btn { font-size: 10px; padding: 4px 8px; min-height: 30px; }
   .missions-page__selected { font-size: 10px; padding: 3px 6px; }
+
+  /* Mission item text scale */
+  .mission-item__name { font-size: 16px; }
+  .mission-item { padding: 8px 48px 8px 46px; min-height: 62px; }
 }

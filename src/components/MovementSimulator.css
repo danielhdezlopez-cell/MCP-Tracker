@@ -492,3 +492,33 @@
   .msim__boardwrap   { max-width: 100%; }
   .msim__seg-btn     { font-size: 18px; }
 }
+
+/* ── iPhone 15 Pro Max (≤ 480px): tighten controls ──────────────────────── */
+@media (max-width: 480px) {
+  .msim__body { padding: 8px; gap: 10px; }
+  .msim__boardwrap { max-width: calc(100vw - 16px); }
+
+  /* Board SVG: ensure it doesn't overflow on narrow screens */
+  .msim__svg { border-radius: 4px; }
+
+  /* Left roster panel: more compact */
+  .msim__cgroup-title--roster { font-size: 12px; letter-spacing: 0.15em; padding: 8px 12px; }
+  .msim__cgroup-body--roster  { padding: 10px 12px; gap: 8px; }
+  .msim__roster-item { font-size: 12px; padding: 6px 10px; }
+
+  /* Control group: tighter */
+  .msim__cgroup-body { padding: 8px 10px; gap: 6px; }
+  .msim__seg-btn { font-size: 16px; min-height: 44px; }
+  .msim__range-btn { min-height: 44px; }
+  .msim__deploy-btn { min-height: 44px; }
+  .msim__reset-btn  { min-height: 44px; }
+
+  /* Threat value number: slightly smaller */
+  .msim__threat-value { font-size: 20px; }
+  .msim__threat-label { font-size: 10px; }
+  .msim__threat-btn { padding: 7px 10px; }
+
+  /* Segment buttons: control rows in 2 cols */
+  .msim__rangerow { flex-wrap: wrap; }
+  .msim__range-btn { flex: 1 1 calc(50% - 3px); }
+}

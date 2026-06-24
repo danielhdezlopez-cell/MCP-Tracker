@@ -183,6 +183,12 @@
   }
 }
 
+/* ── Mobile portrait ≤ 480px: hide the grid — it's ~200px wide and squeezes
+   the score panels on narrow phones like iPhone 15 Pro Max (430px CSS). ── */
+@media (max-width: 480px) {
+  .score-progress { display: none; }
+}
+
 @media (max-width: 380px) {
   .score-progress { --sp-cell: 17px; }
   .score-progress__num { font-size: 9px; }
