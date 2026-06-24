@@ -2,7 +2,7 @@
 .vs-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1; /* above vs-battle::before (z-index:0) which holds the arena image */
   display: flex;
   overflow: hidden;
 }
