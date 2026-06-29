@@ -1,4 +1,5 @@
 import { useMcpStore } from '../store/useMcpStore';
+import { playSound, unlockAudio } from '../utils/audioManager';
 import './RoundTracker.css';
 
 export function RoundTracker() {
@@ -27,7 +28,13 @@ export function RoundTracker() {
             <button
               key={i}
               className={`round-tracker__pip ${pipNum <= round ? 'active' : ''} ${pipNum === round ? 'current' : ''} ${hasBadges ? 'round-tracker__pip--has-badges' : ''}`}
-              onClick={() => setRound(pipNum)}
+              onClick={() => {
+                unlockAudio();
+                if (pipNum !== round) {
+                  playSound('round');
+                }
+                setRound(pipNum);
+              }}
               aria-label={`Round ${pipNum}`}
             >
               <span className="round-tracker__pip-num">{pipNum}</span>

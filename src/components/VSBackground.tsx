@@ -32,7 +32,8 @@ function buildVideoStyle(objectPositionY?: string, scale?: number): CSSPropertie
   return style;
 }
 
-/** Resolve a real static image URL for a leader using leaderBackgroundsMap. */
+/** Resolve a real static image URL for a leader, using leaderBackgroundsMap.
+ *  Falls back to null if no images are available for that leader. */
 function getLeaderStaticImageUrl(leaderId?: string | null): string | null {
   if (!leaderId) return null;
   const images = LEADER_BACKGROUNDS[leaderId];
