@@ -20,16 +20,32 @@ function getAudio(id: SoundId): HTMLAudioElement {
   return audioMap.get(id)!;
 }
 
-/** Call once after any user gesture to prime the Web Audio context on Safari. */
+/**
+ * Call once after any user gesture to prime the Web Audio context on Safari.
+ * Uses a silent 1-sample AudioContext buffer so we never interfere with the
+ * actual sound elements (playing+pausing them would race with playSound calls
+ * made in the same gesture handler).
+ */
 export function unlockAudio(): void {
   if (unlocked) return;
   unlocked = true;
+  // Preload all audio files so they're ready when needed
   for (const id of Object.keys(SOUNDS) as SoundId[]) {
-    const a = getAudio(id);
-    a.load();
-    // Play then immediately pause — enough to unblock autoplay policy
-    const p = a.play();
-    if (p) p.then(() => a.pause()).catch(() => {});
+    getAudio(id).load();
+  }
+  // Unlock the audio context with a silent buffer — Safari requires a play()
+  // call inside a synchronous user-gesture handler
+  try {
+    const ctx = new (window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    const buf = ctx.createBuffer(1, 1, 22050);
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(ctx.destination);
+    src.start(0);
+    void ctx.resume();
+  } catch {
+    // Older browsers without AudioContext — fall back to silent; direct play()
+    // calls in user-gesture handlers will still work on most platforms.
   }
 }
 
