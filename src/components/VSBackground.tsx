@@ -112,13 +112,29 @@ function HalfVideo({ themeId, leaderId, side, suspended, round }: HalfVideoProps
   // Reset state whenever theme changes (leader change)
   useEffect(() => {
     setVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
-    setStaticFallback(false);
+    setStaticFallback(false); // eslint-disable-line react-hooks/set-state-in-effect
     fallbackActiveRef.current = false;
     if (round1TimerRef.current) {
       clearTimeout(round1TimerRef.current);
       round1TimerRef.current = null;
     }
   }, [themeId]);
+
+  // Reset video state when entering Round 1 so the video plays again after
+  // manual round navigation back to Round 1 or game reset.
+  useEffect(() => {
+    if (round === 1) {
+      setVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
+      setStaticFallback(false); // eslint-disable-line react-hooks/set-state-in-effect
+      fallbackActiveRef.current = false;
+    } else {
+      // Leaving Round 1: clear the timer; video is removed from DOM by the render gate below.
+      if (round1TimerRef.current) {
+        clearTimeout(round1TimerRef.current);
+        round1TimerRef.current = null;
+      }
+    }
+  }, [round]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 10-minute Round 1 timer: switch to static image after the limit
   useEffect(() => {
@@ -139,7 +155,7 @@ function HalfVideo({ themeId, leaderId, side, suspended, round }: HalfVideoProps
 
   // Pause after the fade-out completes; resume playback when active again.
   useEffect(() => {
-    if (staticFallback) return;
+    if (staticFallback || round !== 1) return;
     const v = videoRef.current;
     if (!v) return;
     if (suspended) {
@@ -147,39 +163,20 @@ function HalfVideo({ themeId, leaderId, side, suspended, round }: HalfVideoProps
       return () => clearTimeout(t);
     }
     void v.play().catch(() => {});
-  }, [suspended, staticFallback]);
+  }, [suspended, staticFallback, round]);
 
-  // Video failure listeners — switch to static immediately on any problem
+  // Only listen for hard failures (error) — not stalled/emptied/pause which fire
+  // during normal buffering and cause premature fallback activation.
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || staticFallback) return;
+    if (!v || staticFallback || round !== 1) return;
 
     const onFail = () => activateStaticFallback();
-
-    const onPause = () => {
-      if (!suspended && !fallbackActiveRef.current) {
-        const t = setTimeout(() => {
-          const vid = videoRef.current;
-          if (vid && vid.paused && !fallbackActiveRef.current) {
-            activateStaticFallback();
-          }
-        }, 3000);
-        return () => clearTimeout(t);
-      }
-    };
-
     v.addEventListener('error', onFail);
-    v.addEventListener('stalled', onFail);
-    v.addEventListener('emptied', onFail);
-    v.addEventListener('pause', onPause as EventListener);
-
     return () => {
       v.removeEventListener('error', onFail);
-      v.removeEventListener('stalled', onFail);
-      v.removeEventListener('emptied', onFail);
-      v.removeEventListener('pause', onPause as EventListener);
     };
-  }, [suspended, staticFallback, activateStaticFallback]);
+  }, [staticFallback, round, activateStaticFallback]);
 
   if (!config) {
     return (
@@ -214,8 +211,8 @@ function HalfVideo({ themeId, leaderId, side, suspended, round }: HalfVideoProps
         />
       )}
 
-      {/* Video on top — fades in once it can play; hidden/removed when static fallback is active */}
-      {!staticFallback && (
+      {/* Video — only in Round 1, fades in once it can play, removed after 10-minute timer */}
+      {round === 1 && !staticFallback && (
         <video
           ref={videoRef}
           key={config.src}
