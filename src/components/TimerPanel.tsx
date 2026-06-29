@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useMcpStore, getTimerRemaining } from '../store/useMcpStore';
+import { playSound, unlockAudio } from '../utils/audioManager';
 import './TimerPanel.css';
 
 const LONG_PRESS_MS = 500;
@@ -47,6 +48,10 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
   const pressStartRef = useRef<number>(0);
   const [resetProgress, setResetProgress] = useState(0); // 0..1
 
+  // 15-minute alert state
+  const prevRemainingRef = useRef<number>(remaining);
+  const alert15PlayedRef = useRef(false);
+
   // Deadline reached → settle the store into "expired, paused at 0"
   useEffect(() => {
     if (timerRunning && remaining <= 0) pauseTimer(0);
@@ -67,6 +72,29 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
     }
     return () => { delete document.body.dataset.timerState; };
   }, [isCritical, timerRunning, setTimerCritical]);
+
+  // 15-minute alert: fires once when remaining crosses from >15:00 to ≤15:00
+  useEffect(() => {
+    const prev = prevRemainingRef.current;
+
+    // Reset alert flag whenever the timer is restored to its full duration
+    if (remaining >= timerDuration) {
+      alert15PlayedRef.current = false;
+    }
+
+    if (
+      timerRunning &&
+      !alert15PlayedRef.current &&
+      prev > CRITICAL_S &&
+      remaining <= CRITICAL_S &&
+      remaining > 0
+    ) {
+      alert15PlayedRef.current = true;
+      playSound('alert15');
+    }
+
+    prevRemainingRef.current = remaining;
+  }, [remaining, timerRunning, timerDuration]);
 
   const cancelLongPress = () => {
     if (longPressRef.current) clearTimeout(longPressRef.current);
@@ -104,6 +132,7 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
     cancelLongPress();
     if (!wasFired) {
       // Short tap — toggle timer
+      unlockAudio();
       if (remaining > 0) toggleTimer();
     }
     e.preventDefault();
