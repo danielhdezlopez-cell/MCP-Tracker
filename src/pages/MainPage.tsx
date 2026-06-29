@@ -139,7 +139,7 @@ export function MainPage() {
 
       {/* ── BATTLE AREA ── */}
       <div className="vs-battle">
-        <VSBackground themeLeft={themeLeft} themeRight={themeRight} />
+        <VSBackground themeLeft={themeLeft} themeRight={themeRight} round={round} />
         <EnergyScan />
         <div className="vs-battle__timer">
           <TimerPanel onResetRequest={() => setShowReset(true)} />
