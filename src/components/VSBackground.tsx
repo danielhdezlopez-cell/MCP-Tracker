@@ -1,18 +1,23 @@
 import { useState, useEffect, useRef, useCallback, type CSSProperties } from 'react';
 import { type Theme } from '../store/useMcpStore';
 import { getThemeVideoConfig } from '../data/themeVideoMap';
-import { getPosterUrl, preloadTheme } from '../utils/themeAssetCache';
+import { preloadTheme } from '../utils/themeAssetCache';
+import { LEADER_BACKGROUNDS } from '../data/leaderBackgroundsMap';
 import { IDLE_EVENT, type IdleLevel } from '../hooks/useIdleDetection';
 import './VSBackground.css';
 
 const FADE_MS = 400; // keep in sync with the opacity transition below
 
-/** After this many ms in Round 1, switch the video to a static poster. */
+/** After this many ms in Round 1, switch the video to a static image. */
 const ROUND1_VIDEO_MAX_MS = 10 * 60 * 1000; // 10 minutes
+
+const BACKGROUNDS_BASE = `${import.meta.env.BASE_URL}backgrounds/`;
 
 interface VSBackgroundProps {
   themeLeft: Theme | null;
   themeRight: Theme | null;
+  leaderIdLeft?: string | null;
+  leaderIdRight?: string | null;
   round?: number;
 }
 
@@ -27,12 +32,20 @@ function buildVideoStyle(objectPositionY?: string, scale?: number): CSSPropertie
   return style;
 }
 
+/** Resolve a real static image URL for a leader using leaderBackgroundsMap. */
+function getLeaderStaticImageUrl(leaderId?: string | null): string | null {
+  if (!leaderId) return null;
+  const images = LEADER_BACKGROUNDS[leaderId];
+  if (images && images.length > 0) {
+    return `${BACKGROUNDS_BASE}${images[0]}`;
+  }
+  return null;
+}
+
 /**
  * True while background videos should be suspended:
  *  - deep idle (no interaction for DEEP_IDLE_MS), or
  *  - page hidden (app switched away / screen locked).
- * Continuous video decode is the single biggest battery cost of the app, so
- * during dead time we fade to the static poster and pause the <video>.
  */
 function useVideoSuspended(): boolean {
   const [suspended, setSuspended] = useState(false);
@@ -42,8 +55,6 @@ function useVideoSuspended(): boolean {
       setSuspended((e as CustomEvent<IdleLevel>).detail === 'deep');
     };
     const onVisibility = () => {
-      // Hidden → suspend immediately. Visible → resume; the idle detector
-      // will re-suspend after DEEP_IDLE_MS if the table stays untouched.
       setSuspended(document.hidden);
     };
     window.addEventListener(IDLE_EVENT, onIdleChange);
@@ -59,18 +70,21 @@ function useVideoSuspended(): boolean {
 
 interface HalfVideoProps {
   themeId: Theme;
+  leaderId?: string | null;
   side: 'left' | 'right';
   suspended: boolean;
   round: number;
 }
 
-function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
+function HalfVideo({ themeId, leaderId, side, suspended, round }: HalfVideoProps) {
   const config = getThemeVideoConfig(themeId);
   const [visible, setVisible] = useState(false);
   const [staticFallback, setStaticFallback] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const round1TimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fallbackActiveRef = useRef(false);
+
+  const staticImageUrl = getLeaderStaticImageUrl(leaderId);
 
   const activateStaticFallback = useCallback(() => {
     if (fallbackActiveRef.current) return;
@@ -79,7 +93,7 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
     const v = videoRef.current;
     if (v) {
       v.pause();
-      // Remove src to release memory/decoder on iPadOS
+      // Remove src to release decoder memory on iPadOS
       v.removeAttribute('src');
       v.load();
     }
@@ -89,7 +103,7 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
     }
   }, []);
 
-  // Preload this theme's assets as soon as we know we need them
+  // Preload this theme's video assets as soon as we know we need them
   useEffect(() => {
     preloadTheme(themeId, true);
   }, [themeId]);
@@ -97,7 +111,7 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
   // Reset state whenever theme changes (leader change)
   useEffect(() => {
     setVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
-    setStaticFallback(false);
+    setStaticFallback(false); // eslint-disable-line react-hooks/set-state-in-effect
     fallbackActiveRef.current = false;
     if (round1TimerRef.current) {
       clearTimeout(round1TimerRef.current);
@@ -105,7 +119,23 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
     }
   }, [themeId]);
 
-  // Manage the 10-minute Round 1 timer
+  // Reset video state when entering Round 1 so the video plays again after
+  // manual round navigation back to Round 1 or game reset.
+  useEffect(() => {
+    if (round === 1) {
+      setVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
+      setStaticFallback(false); // eslint-disable-line react-hooks/set-state-in-effect
+      fallbackActiveRef.current = false;
+    } else {
+      // Leaving Round 1: clear the timer; video is removed from DOM by the render gate below.
+      if (round1TimerRef.current) {
+        clearTimeout(round1TimerRef.current);
+        round1TimerRef.current = null;
+      }
+    }
+  }, [round]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 10-minute Round 1 timer: switch to static image after the limit
   useEffect(() => {
     if (round1TimerRef.current) {
       clearTimeout(round1TimerRef.current);
@@ -124,7 +154,7 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
 
   // Pause after the fade-out completes; resume playback when active again.
   useEffect(() => {
-    if (staticFallback) return; // already switched to static, do not touch video
+    if (staticFallback || round !== 1) return;
     const v = videoRef.current;
     if (!v) return;
     if (suspended) {
@@ -132,73 +162,60 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
       return () => clearTimeout(t);
     }
     void v.play().catch(() => {});
-  }, [suspended, staticFallback]);
+  }, [suspended, staticFallback, round]);
 
-  // Video failure listeners — switch to static immediately on any problem
+  // Only listen for hard failures (error) — not stalled/emptied/pause which fire
+  // during normal buffering and cause premature fallback activation.
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || staticFallback) return;
+    if (!v || staticFallback || round !== 1) return;
 
     const onFail = () => activateStaticFallback();
-
-    // 'pause' can fire legitimately (idle suspend), only treat it as failure
-    // when it is unexpected (not already suspended and not already switching).
-    const onPause = () => {
-      if (!suspended && !fallbackActiveRef.current) {
-        // Give the browser 3 seconds to recover / re-play before bailing out
-        const t = setTimeout(() => {
-          const vid = videoRef.current;
-          if (vid && vid.paused && !fallbackActiveRef.current) {
-            activateStaticFallback();
-          }
-        }, 3000);
-        return () => clearTimeout(t);
-      }
-    };
-
     v.addEventListener('error', onFail);
-    v.addEventListener('stalled', onFail);
-    v.addEventListener('emptied', onFail);
-    v.addEventListener('pause', onPause as EventListener);
-
     return () => {
       v.removeEventListener('error', onFail);
-      v.removeEventListener('stalled', onFail);
-      v.removeEventListener('emptied', onFail);
-      v.removeEventListener('pause', onPause as EventListener);
     };
-  }, [suspended, staticFallback, activateStaticFallback]);
+  }, [staticFallback, round, activateStaticFallback]);
 
   if (!config) {
-    return <div className={`vs-bg__fallback vs-bg__fallback--${side}`} />;
+    return (
+      <>
+        <div className={`vs-bg__fallback vs-bg__fallback--${side}`} />
+        {staticImageUrl && (
+          <img className="vs-bg__poster" src={staticImageUrl} alt="" aria-hidden="true" draggable={false} />
+        )}
+      </>
+    );
   }
 
-  const poster = getPosterUrl(config.src);
   const mediaStyle = buildVideoStyle(config.objectPositionY, config.scale);
-
-  // When static fallback is active, show only the poster — no video element
   const videoOpaque = visible && !suspended && !staticFallback;
 
   return (
     <>
-      {/* Gradient fallback always present — visible through transparent video */}
+      {/* Gradient colour wash — always visible */}
       <div className={`vs-bg__fallback vs-bg__fallback--${side}`} />
-      {/* Static poster underneath — what you see while the video is suspended
-          or after the 10-minute Round 1 limit is reached on iPadOS */}
-      <img
-        className="vs-bg__poster"
-        src={poster}
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        style={mediaStyle}
-      />
-      {!staticFallback && (
+
+      {/* Static leader background image — always in DOM so it's immediately
+          visible if the video can't play (autoplay blocked, iPad, etc.) and
+          permanently visible after the 10-minute Round 1 limit. */}
+      {staticImageUrl && (
+        <img
+          className="vs-bg__poster"
+          src={staticImageUrl}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={mediaStyle}
+        />
+      )}
+
+      {/* Video — only in Round 1, fades in once it can play, removed after 10-minute timer */}
+      {round === 1 && !staticFallback && (
         <video
           ref={videoRef}
           key={config.src}
           src={config.src}
-          poster={poster}
           autoPlay
           loop
           muted
@@ -218,14 +235,20 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
   );
 }
 
-export function VSBackground({ themeLeft, themeRight, round = 1 }: VSBackgroundProps) {
+export function VSBackground({
+  themeLeft,
+  themeRight,
+  leaderIdLeft,
+  leaderIdRight,
+  round = 1,
+}: VSBackgroundProps) {
   const suspended = useVideoSuspended();
 
   return (
     <div className="vs-bg" aria-hidden="true">
       <div className="vs-bg__half vs-bg__half--left">
         {themeLeft ? (
-          <HalfVideo themeId={themeLeft} side="left" suspended={suspended} round={round} />
+          <HalfVideo themeId={themeLeft} leaderId={leaderIdLeft} side="left" suspended={suspended} round={round} />
         ) : (
           <div className="vs-bg__fallback vs-bg__fallback--left" />
         )}
@@ -234,7 +257,7 @@ export function VSBackground({ themeLeft, themeRight, round = 1 }: VSBackgroundP
 
       <div className="vs-bg__half vs-bg__half--right">
         {themeRight ? (
-          <HalfVideo themeId={themeRight} side="right" suspended={suspended} round={round} />
+          <HalfVideo themeId={themeRight} leaderId={leaderIdRight} side="right" suspended={suspended} round={round} />
         ) : (
           <div className="vs-bg__fallback vs-bg__fallback--right" />
         )}
