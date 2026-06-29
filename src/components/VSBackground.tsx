@@ -96,7 +96,7 @@ function HalfVideo({ themeId, side, suspended, round }: HalfVideoProps) {
 
   // Reset state whenever theme changes (leader change)
   useEffect(() => {
-    setVisible(false);
+    setVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
     setStaticFallback(false);
     fallbackActiveRef.current = false;
     if (round1TimerRef.current) {
