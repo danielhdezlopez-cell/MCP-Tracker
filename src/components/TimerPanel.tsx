@@ -141,6 +141,7 @@ export function TimerPanel({ onResetRequest }: { onResetRequest?: () => void }) 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
+      unlockAudio();
       if (remaining > 0) toggleTimer();
     }
   };

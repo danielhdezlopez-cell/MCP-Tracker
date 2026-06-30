@@ -46,29 +46,34 @@ function getCtx(): AudioContext | null {
 // ── Decoded buffers cache ─────────────────────────────────────────────────────
 
 const bufferCache = new Map<SoundId, AudioBuffer>();
-const fetchInFlight = new Set<SoundId>();
+// Stores the in-flight promise so multiple callers awaiting the same buffer
+// all receive the result when it resolves (instead of getting null and skipping).
+const fetchPromises = new Map<SoundId, Promise<AudioBuffer | null>>();
 
-async function loadBuffer(id: SoundId): Promise<AudioBuffer | null> {
-  if (bufferCache.has(id)) return bufferCache.get(id)!;
-  if (fetchInFlight.has(id)) return null;
-  fetchInFlight.add(id);
+function loadBuffer(id: SoundId): Promise<AudioBuffer | null> {
+  if (bufferCache.has(id)) return Promise.resolve(bufferCache.get(id)!);
+  if (fetchPromises.has(id)) return fetchPromises.get(id)!;
 
-  const c = getCtx();
-  if (!c) return null;
+  const promise = (async () => {
+    const c = getCtx();
+    if (!c) return null;
+    try {
+      const url = SOUNDS_BASE + SOUND_DEFS[id].file;
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const raw = await res.arrayBuffer();
+      const buf = await c.decodeAudioData(raw);
+      bufferCache.set(id, buf);
+      return buf;
+    } catch {
+      return null;
+    } finally {
+      fetchPromises.delete(id);
+    }
+  })();
 
-  try {
-    const url = SOUNDS_BASE + SOUND_DEFS[id].file;
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const raw = await res.arrayBuffer();
-    const buf = await c.decodeAudioData(raw);
-    bufferCache.set(id, buf);
-    return buf;
-  } catch {
-    return null;
-  } finally {
-    fetchInFlight.delete(id);
-  }
+  fetchPromises.set(id, promise);
+  return promise;
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
