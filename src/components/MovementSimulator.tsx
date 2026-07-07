@@ -54,10 +54,10 @@ interface Character {
 // ── Recommended rosters ───────────────────────────────────────────────────────
 const RECOMMENDED_ROSTERS: Record<number, string[]> = {
   16: ['Storm', 'Emma Frost', 'B. Zemo', 'B. Mordo', 'Iceman'],
-  17: ['Professor X', 'Emma Frost', 'B. Zemo', 'B. Mordo', 'Iceman'],
-  18: ['Storm', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo', 'Iceman'],
-  19: ['Storm', 'Jean Grey', 'Sentinel Prime MK4', 'B. Zemo', 'Shadowcat'],
-  20: ['Storm', 'Jean Grey', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo'],
+  17: ['Storm', 'Jean Grey', 'B. Zemo', 'B. Mordo', 'Shadowcat / Beast'],
+  18: ['Storm', 'Emma Frost', 'Sentinel Prime MK4', 'B. Zemo', 'Iceman'],
+  19: ['Storm', 'Jean Grey', 'Sentinel Prime MK4', 'B. Zemo', 'Shadowcat / Beast'],
+  20: ['Storm', 'Sentinel Prime MK4', 'Emma Frost', 'B. Zemo', 'Phoenix'],
 };
 
 // Missions with a roster that overrides the standard threat-based list
